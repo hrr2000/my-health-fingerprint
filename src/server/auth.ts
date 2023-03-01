@@ -4,6 +4,7 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/server/db";
 
@@ -28,16 +29,31 @@ declare module "next-auth" {
   // }
 }
 
+const authorize = async (
+  credentials: Record<string, string | undefined> | undefined
+) => {
+  const user = await prisma.user.findUnique({
+    where: { name: credentials?.name },
+  });
+  console.log(user);
+  return user;
+};
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  session: { strategy: "jwt" },
   callbacks: {
-    session({ session, user }) {
+    jwt({ token }) {
+      return token;
+    },
+    session({ session, token }) {
       if (session.user) {
-        session.user.id = user.id;
+        session.user.id = token.id as string;
+
         // session.user.role = user.role; <-- put other properties on the session here
       }
       return session;
@@ -46,15 +62,10 @@ export const authOptions: NextAuthOptions = {
 
   adapter: PrismaAdapter(prisma),
   providers: [
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
+    CredentialsProvider({
+      authorize,
+      credentials: {},
+    }),
   ],
   pages: {
     signIn: "/auth/signin",

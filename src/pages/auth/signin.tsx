@@ -1,45 +1,66 @@
 import React from "react";
 import { signIn, getCsrfToken } from "next-auth/react";
-import Image from "next/image";
-import styles from "./signin.module.css";
+import { signinFormSchema } from "@/validation/signin";
+import { Form, Formik } from "formik";
 import {
   type InferGetServerSidePropsType,
   type GetServerSidePropsContext,
 } from "next";
+import TextInput from "@/components/form/TextInput";
+import Image from "next/image";
+import SubmitButton from "@/components/form/SubmitButton";
 export default function SignIn({
   csrfToken,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <div style={{ overflow: "hidden", position: "relative" }}>
-      <div className={styles.wrapper} />
-      <div className={styles.content}>
-        <div className={styles.cardWrapper}>
-          <Image
-            src="/katalog_full.svg"
-            width={190}
-            height={64}
-            alt="App Logo"
-            style={{ height: "85px", marginBottom: "20px" }}
-          />
-          <form
-            action="/api/auth/callback/credentials"
-            className={styles.cardContent}
-          >
-            <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-            <input placeholder="Email" type="email" size={23} />
-            <input placeholder="Password" type="password" size={23} />
-            <button className={styles.primaryBtn}>Submit</button>
-          </form>
-        </div>
+    <div className="grid min-h-screen grid-cols-2">
+      <div className="bg- col-span-1 col-start-1 flex flex-col items-center justify-center p-6">
+        <Formik
+          initialValues={{ name: "", password: "" }}
+          onSubmit={(values) => {
+            void signIn("credentials", {
+              ...values,
+              callbackUrl: "/",
+            });
+          }}
+          validationSchema={signinFormSchema}
+        >
+          {() => (
+            <Form className="flex w-2/3 flex-col gap-5">
+              <div className="flex items-center justify-center gap-2">
+                <figure>
+                  <Image
+                    width={50}
+                    height={50}
+                    src="/virus-report.svg"
+                    alt=""
+                  />
+                </figure>
+                <h2 className="text-5xl font-semibold text-blue-500">MHFP</h2>
+              </div>
+              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+              <TextInput name="name" label="Name" placeholder="Name ..." />
+              <TextInput
+                name="password"
+                label="Password"
+                placeholder="Password ..."
+                type="password"
+              />
+              <SubmitButton />
+            </Form>
+          )}
+        </Formik>
       </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <Image
-        src="/login_pattern.svg"
-        alt="Pattern Background"
-        width={100}
-        height={100}
-        className={styles.styledPattern}
-      />
+
+      <div
+        style={{
+          backgroundImage: "url(/reasearch-woman.jpg)",
+          backgroundPosition: "top center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+        className="col-span-2 col-start-2 flex items-center justify-center"
+      ></div>
     </div>
   );
 }
