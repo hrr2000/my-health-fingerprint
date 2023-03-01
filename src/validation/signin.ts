@@ -6,5 +6,4 @@ export const signinSchema = z.object({
   password: z.string(),
 });
 export const signinFormSchema = toFormikValidationSchema(signinSchema);
-
 export type SigninType = z.infer<typeof signinSchema>;

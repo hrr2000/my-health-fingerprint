@@ -1,5 +1,6 @@
 import { useField } from "formik";
 import { type GenericProps } from "../toolbox/types";
+import FieldErrorMessage from "@/components/form/FieldErrorMessage";
 import React from "react";
 
 interface LocalProps extends GenericProps {
@@ -14,7 +15,7 @@ const TextInput = ({ label, name, type = "text", ...props }: LocalProps) => {
   return (
     <div className="flex flex-col gap-2">
       <div className="column flex flex-col gap-2 ">
-        <label className="font-normal capitalize " htmlFor={name}>
+        <label className="font-normal capitalize text-gray-500 " htmlFor={name}>
           {label}
         </label>
         <input
@@ -27,11 +28,7 @@ const TextInput = ({ label, name, type = "text", ...props }: LocalProps) => {
           {...props}
         />
       </div>
-      {meta.touched && meta.error ? (
-        <div className="font-semibold capitalize text-red-500">
-          this is field is {meta.error}
-        </div>
-      ) : null}
+      <FieldErrorMessage name={name} />
     </div>
   );
 };

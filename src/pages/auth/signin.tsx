@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { signIn, getCsrfToken } from "next-auth/react";
 import { signinFormSchema } from "@/validation/signin";
 import { Form, Formik } from "formik";
@@ -7,27 +7,37 @@ import {
   type GetServerSidePropsContext,
 } from "next";
 import TextInput from "@/components/form/TextInput";
-import Image from "next/image";
 import SubmitButton from "@/components/form/SubmitButton";
+import Image from "next/image";
+import { useRouter } from "next/router";
+
 export default function SignIn({
   csrfToken,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
+  const router = useRouter();
   return (
-    <div className="grid min-h-screen grid-cols-2">
-      <div className="bg- col-span-1 col-start-1 flex flex-col items-center justify-center p-6">
+    <main className="grid min-h-screen lg:grid-cols-2">
+      <div className=" col-span-1 col-start-1 flex flex-col items-center justify-center gap-5 p-6">
         <Formik
           initialValues={{ name: "", password: "" }}
-          onSubmit={(values) => {
-            void signIn("credentials", {
+          onSubmit={async (values) => {
+            const response = await signIn("credentials", {
               ...values,
-              callbackUrl: "/",
+              redirect: false,
             });
+            if (response?.ok) {
+              void router.push("/");
+            }
+            if (!isInvalidCredentials) {
+              setIsInvalidCredentials(true);
+            }
           }}
           validationSchema={signinFormSchema}
         >
-          {() => (
-            <Form className="flex w-2/3 flex-col gap-5">
-              <div className="flex items-center justify-center gap-2">
+          {({ isSubmitting, isValidating }) => (
+            <Form className="flex w-full max-w-sm flex-col gap-5 lg:w-2/3">
+              <div className="flex items-center  gap-2">
                 <figure>
                   <Image
                     width={50}
@@ -46,7 +56,14 @@ export default function SignIn({
                 placeholder="Password ..."
                 type="password"
               />
-              <SubmitButton />
+
+              <SubmitButton isLoading={isSubmitting || isValidating} />
+
+              {isInvalidCredentials && (
+                <div className="rounded-md bg-slate-100 p-10 text-center text-red-500 shadow-sm">
+                  The password that you&#39;ve entered is incorrect.
+                </div>
+              )}
             </Form>
           )}
         </Formik>
@@ -59,9 +76,9 @@ export default function SignIn({
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
-        className="col-span-2 col-start-2 flex items-center justify-center"
+        className="col-span-2 col-start-2  hidden items-center justify-center lg:flex "
       ></div>
-    </div>
+    </main>
   );
 }
 
