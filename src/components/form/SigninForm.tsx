@@ -23,7 +23,7 @@ export default function SigninForm({ csrfToken }: LocalProps) {
     >
       {() => (
         <Form className="flex w-full max-w-sm flex-col gap-4 lg:w-2/3">
-          <CompanyLogo textColor="white" />
+          <CompanyLogo />
           <CSRF csrfToken={csrfToken} />
           <TextInput name="name" label="Name" placeholder="Name ..." />
           <TextInput
