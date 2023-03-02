@@ -4,17 +4,12 @@ import SubmitButton from "@/components/form/sub/SubmitButton";
 import { signinFormSchema } from "@/validation/signin";
 import { useSigninWithCreds } from "@/hooks/useSigninWithCreds";
 import { Form, Formik } from "formik";
-import { type GenericProps } from "../toolbox/types";
 import CompanyLogo from "../brand/CompanyLogo";
 import InvalidCredentialsPrompt from "./sub/InvalidCredentialsPrompt";
-import CSRF from "./sub/CSRF";
 
-interface LocalProps extends GenericProps {
-  csrfToken: string;
-}
-
-export default function SigninForm({ csrfToken }: LocalProps) {
+export default function SigninForm() {
   const { isInvalidCredentials, signin } = useSigninWithCreds();
+
   return (
     <Formik
       initialValues={{ name: "", password: "" }}
@@ -24,7 +19,6 @@ export default function SigninForm({ csrfToken }: LocalProps) {
       {() => (
         <Form className="flex w-full max-w-sm flex-col gap-4 lg:w-2/3">
           <CompanyLogo />
-          <CSRF csrfToken={csrfToken} />
           <TextInput name="name" label="Name" placeholder="Name ..." />
           <TextInput
             name="password"
