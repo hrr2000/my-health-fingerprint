@@ -13,10 +13,9 @@ export function useSigninWithCreds() {
     });
     if (response?.ok) {
       void router.push("/");
+      return;
     }
-    if (!isInvalidCredentials) {
-      setIsInvalidCredentials(true);
-    }
+    setIsInvalidCredentials(true);
   };
 
   return { isInvalidCredentials, signin };
