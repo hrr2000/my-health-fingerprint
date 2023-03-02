@@ -9,6 +9,11 @@
   dependencies:
     "regenerator-runtime" "^0.13.11"
 
+"@badrap/bar-of-progress@^0.2.2":
+  "integrity" "sha512-Ig7MdFQM3OA7Ror5UB1ZutXNZFwxh6YExZvcd6EZloOgcXUR8PKNLH2wUVoeh92NMPnPWr6J/l9Mp+f3z7O7MQ=="
+  "resolved" "https://registry.npmjs.org/@badrap/bar-of-progress/-/bar-of-progress-0.2.2.tgz"
+  "version" "0.2.2"
+
 "@casl/ability@^6.3.3":
   "integrity" "sha512-UzbqsE9etu6QzZrRmqIyVun2kztAzJ46Tz7lC/2P2buCE6B6Ll7Vptz7JTQtGwapLbeKo2jS7dL966TVOQ7x4g=="
   "resolved" "https://registry.npmjs.org/@casl/ability/-/ability-6.3.3.tgz"
@@ -66,6 +71,11 @@
   "version" "13.1.6"
   dependencies:
     "glob" "7.1.7"
+
+"@next/font@^13.2.3":
+  "integrity" "sha512-7EHzk0f7FVYICLUZTpyPk93IfcTUao++Xt1Sgb+Zk5dVOCYHabqLtlF5ywSoXIqyFlo0qlshEBxsrzHAGTWkDw=="
+  "resolved" "https://registry.npmjs.org/@next/font/-/font-13.2.3.tgz"
+  "version" "13.2.3"
 
 "@next/swc-win32-x64-msvc@13.1.6":
   "integrity" "sha512-Ls2OL9hi3YlJKGNdKv8k3X/lLgc3VmLG3a/DeTkAd+lAituJp8ZHmRmm9f9SL84fT3CotlzcgbdaCDfFwFA6bA=="

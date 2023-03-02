@@ -2,8 +2,11 @@ import React from "react";
 import Image from "next/image";
 import { useFormikContext } from "formik";
 import { areAnyValuesEmpty } from "@/utils/helpers";
-
-const SubmitButton = () => {
+import { type GenericProps } from "@/components/toolbox/types";
+interface LocalProps extends GenericProps {
+  message: string;
+}
+const SubmitButton = ({ message }: LocalProps) => {
   const { values, isSubmitting, isValidating } =
     useFormikContext<Record<string, string>>();
   const isLoading = isSubmitting || isValidating;
@@ -15,7 +18,7 @@ const SubmitButton = () => {
       type="submit"
       disabled={isLoading || isValueEmpty}
     >
-      <span>Sign in</span>
+      <span className="capitalize">{message}</span>
       {isLoading && (
         <Image
           width={22}

@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        mont: ["var(--font-mont)"],
+      },
+    },
   },
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
 };
