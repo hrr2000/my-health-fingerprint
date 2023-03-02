@@ -18,8 +18,8 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "cmps/*": ["./src/components/*"]
+      "@/*": ["./src/*"]
+      //"cmps/*": ["./src/components/*"]
     }
   },
   "include": [
