@@ -6,7 +6,7 @@ const SigninButton = () => {
 
   return (
     <button
-      className="rounded-full bg-white px-8 py-2 font-semibold text-[#0f1e57] no-underline transition transition-all hover:bg-slate-300 md:px-10 md:py-3 "
+      className="rounded-full bg-white px-8 py-2 font-semibold text-[#0f1e57] no-underline  transition-all hover:bg-slate-300 md:px-10 md:py-3 "
       onClick={sessionData ? () => void signOut() : () => void signIn()}
     >
       {sessionData ? "Sign out" : "Sign in"}
