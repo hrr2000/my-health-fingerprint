@@ -39,7 +39,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="wait" initial={true}>
       <SessionProvider session={session}>
         <Component className={`${montserrat.variable}`} {...pageProps} />
       </SessionProvider>
