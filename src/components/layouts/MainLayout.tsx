@@ -17,7 +17,10 @@ const MainLayout = ({ cols, children }: possibleColumnLayouts) => {
       initial={{ x: 300, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: 300, opacity: 0 }}
-      className="grid gap-3 overflow-hidden md:grid-cols-2"
+      transition={{ 
+        duration: 1
+      }}
+      className="grid gap-3 md:grid-cols-2 w-screen"
     >
       {children}
     </motion.main>
