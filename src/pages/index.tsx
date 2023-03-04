@@ -3,8 +3,10 @@ import Head from "next/head";
 import CompanyLogo from "@/components/brand/CompanyLogo";
 import SigninButton from "@/components/brand/SigninButton";
 import Image from "next/image";
-import Link from "next/link";
 import MainLayout from "@/components/layouts/MainLayout";
+import NavBar from "@/components/layouts/NavBar";
+import { motion } from "framer-motion";
+
 const Home: NextPage = () => {
   return (
     <>
@@ -21,26 +23,22 @@ const Home: NextPage = () => {
       >
         <header className="flex items-center justify-between rounded-lg">
           <CompanyLogo />
-          <nav className="hidden h-full lg:block">
-            <ul className="flex h-full gap-9 text-lg text-white">
-              {["vission", "how-to-apply", "features"].map((linkText) => (
-                <li
-                  key={linkText}
-                  className="flex rounded-md px-2 transition-all  hover:bg-slate-500/30 hover:shadow-md"
-                >
-                  <Link className="flex items-center" href={`/${linkText}`}>
-                    {linkText}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <NavBar
+            links={[
+              { href: "features", label: "Features" },
+              { href: "how-to-apply", label: "How To Apply?" },
+              { href: "vission", label: "Vission" },
+            ]}
+            activeClassName="bg-slate-500/30 shadow-md"
+          />
           <SigninButton />
         </header>
         <MainLayout cols="2">
           <MainLayout.columnOne className="flex flex-col items-start justify-center gap-10 text-white">
             <div className="flex flex-col gap-3 font-mont font-semibold capitalize">
-              <h2 className="text-5xl lg:text-6xl ">Intelligent</h2>
+              <motion.h2 className="text-5xl lg:text-6xl">
+                Intelligent
+              </motion.h2>
               <h2 className="text-5xl lg:text-6xl">automation</h2>
               <h2 className="text-5xl lg:text-6xl">
                 For{" "}

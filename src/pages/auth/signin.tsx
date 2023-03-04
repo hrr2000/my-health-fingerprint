@@ -12,7 +12,7 @@ const SigninPage: SignInPageType = () => {
         <meta name="description" content="sign in page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="grid min-h-screen bg-[#0f1e57] lg:grid-cols-2">
+      <main className="grid min-h-screen  lg:grid-cols-2">
         <div className=" col-span-1 col-start-1 flex flex-col items-center justify-center gap-5 p-6">
           <SigninForm />
         </div>

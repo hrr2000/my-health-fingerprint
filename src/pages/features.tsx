@@ -1,9 +1,9 @@
 import React from "react";
 import { type NextPage } from "next";
-import Link from "next/link";
 import CompanyLogo from "@/components/brand/CompanyLogo";
 import SigninButton from "@/components/brand/SigninButton";
 import MainLayout from "@/components/layouts/MainLayout";
+import NavBar from "@/components/layouts/NavBar";
 const Vission: NextPage = () => {
   return (
     <div
@@ -14,24 +14,18 @@ const Vission: NextPage = () => {
     >
       <header className="flex items-center justify-between rounded-lg">
         <CompanyLogo />
-        <nav className="hidden h-full lg:block">
-          <ul className="flex h-full gap-9 text-lg text-white">
-            {["vission", "how-to-apply", "features"].map((linkText) => (
-              <li
-                key={linkText}
-                className="flex rounded-md px-2 transition-all  hover:bg-slate-500/30 hover:shadow-md"
-              >
-                <Link className="flex items-center" href={`/${linkText}`}>
-                  {linkText}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <NavBar
+          links={[
+            { href: "features", label: "Features" },
+            { href: "how-to-apply", label: "How To Apply?" },
+            { href: "vission", label: "Vission" },
+          ]}
+          activeClassName="bg-slate-500/30 shadow-md"
+        />
         <SigninButton />
       </header>
       <MainLayout cols="1">
-        <MainLayout.columnOne className="text-white">
+        <MainLayout.columnOne className="p-y text-5xl font-extrabold text-white">
           Hi Vission Page
         </MainLayout.columnOne>
       </MainLayout>
