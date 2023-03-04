@@ -4,14 +4,17 @@ import { useRouter } from "next/router";
 const NavBar = ({
   links,
   activeClassName,
+  mode,
 }: {
   links: { href: string; label: string }[];
   activeClassName: string;
+  mode: "mobile" | "pc";
 }) => {
   const router = useRouter();
-
+  const [smallScreenState, largeScreenState] =
+    mode === "mobile" ? ["block", "lg:hidden"] : ["hidden", "lg:block"];
   return (
-    <nav className="hidden h-full lg:block">
+    <nav className={`h-full ${smallScreenState} ${largeScreenState}`}>
       <ul className="flex h-full gap-9 text-lg text-white">
         {links.map(({ href, label }) => (
           <li
