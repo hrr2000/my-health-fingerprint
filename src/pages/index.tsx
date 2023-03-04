@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div
-        className="grid min-h-screen grid-rows-[60px_1fr] p-8 xl:py-8 xl:px-48"
+        className="grid min-h-screen grid-rows-[60px_1fr] overflow-hidden p-8 xl:py-8 xl:px-48"
         style={{
           background: "radial-gradient(#27384e, #010304)",
         }}
@@ -57,9 +57,26 @@ const Home: NextPage = () => {
             </button>
           </MainLayout.columnOne>
           <MainLayout.columnTwo className="hidden md:flex">
-            <Image width={1000} height={1000} src="/test.svg" alt="" />
+            <Image
+              width={1000}
+              height={1000}
+              src="/test.svg"
+              alt=""
+              priority={true}
+            />
           </MainLayout.columnTwo>
         </MainLayout>
+        <footer>
+          <NavBar
+            links={[
+              { href: "features", label: "Features" },
+              { href: "how-to-apply", label: "How To Apply?" },
+              { href: "vission", label: "Vission" },
+            ]}
+            mode="mobile"
+            activeClassName="bg-slate-500/30 shadow-md"
+          />
+        </footer>
       </div>
     </>
   );
