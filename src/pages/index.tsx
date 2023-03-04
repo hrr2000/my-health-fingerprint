@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div
-        className="grid min-h-screen grid-rows-[60px_1fr] p-8 xl:py-8 xl:px-48 overflow-hidden"
+        className="grid min-h-screen grid-rows-[60px_1fr] p-8 xl:py-8 xl:px-48"
         style={{
           background: "radial-gradient(#27384e, #010304)",
         }}

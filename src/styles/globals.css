@@ -1,6 +1,6 @@
 @tailwind base;
-body {
-  overflow: hidden !important;
+#__next {
+  overflow: hidden;
 }
 @tailwind components;
 @tailwind utilities;
