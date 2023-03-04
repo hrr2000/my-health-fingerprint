@@ -30,6 +30,7 @@ const Home: NextPage = () => {
               { href: "vission", label: "Vission" },
             ]}
             activeClassName="bg-slate-500/30 shadow-md"
+            mode="pc"
           />
           <SigninButton />
         </header>
@@ -59,6 +60,17 @@ const Home: NextPage = () => {
             <Image width={1000} height={1000} src="/test.svg" alt="" />
           </MainLayout.columnTwo>
         </MainLayout>
+        <footer>
+          <NavBar
+            links={[
+              { href: "features", label: "Features" },
+              { href: "how-to-apply", label: "How To Apply?" },
+              { href: "vission", label: "Vission" },
+            ]}
+            mode="mobile"
+            activeClassName="bg-slate-500/30 shadow-md"
+          />
+        </footer>
       </div>
     </>
   );
