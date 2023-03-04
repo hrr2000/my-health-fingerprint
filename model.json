@@ -1,0 +1,58 @@
+{
+  "user": [
+    {
+      "name": "hey",
+      "organizations": [
+        {
+          "id": "FJGIE",
+          "roles": [
+            "owner_role_id",
+            "manager_role_id",
+            "doctor_role_id"
+          ]
+        }
+      ]
+    }
+  ],
+  "organizations": [
+    {
+      "name": "lol",
+      "roles": [
+        {
+          "slug": "owner",
+          "id": "FEE",
+          "permissions": [
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    }
+  ],
+  "permissions": [
+    {
+      "name": "patient:read",
+      "id": 1
+    },
+    {
+      "name": "organization.roles.permissions:read"
+    },
+    {
+      "name": "user.name:read"
+    },
+    {
+      "name": "user.name:read"
+    }
+  ],
+  "allowed_permissions": [
+    {
+      "entity_name": "organization",
+      "permissions": [
+        1,
+        2,
+        3
+      ]
+    }
+  ]
+}
