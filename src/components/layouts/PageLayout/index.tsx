@@ -25,7 +25,7 @@ export default function PageLayout ({title, description, iconHref, meta, childre
         {meta?.map((item, idx) => <meta key={`${item.name}_${idx}`} {...item} />)}
       </Head>
       <div
-        className="grid min-h-screen grid-rows-[60px_1fr] p-8 xl:py-8 xl:px-48 text-white whitespace-pre-wrap"
+        className="grid min-h-screen grid-rows-[60px_1fr] p-8 xl:py-8 xl:px-48 text-white"
         style={{
           background: "radial-gradient(#27384e, #010304)",
         }}
@@ -39,9 +39,9 @@ export default function PageLayout ({title, description, iconHref, meta, childre
           />
           <SigninButton />
         </header>
-        <>
+        <div className="py-10 lg:py-20">
         {children}
-        </>
+        </div>
         <footer>
           <NavBar
             links={routes.landingPages}

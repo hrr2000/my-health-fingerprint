@@ -5,7 +5,7 @@ export const routes : {
 } = {
   landingPages: [
     {
-      href: "featuers", 
+      href: "features", 
       display_text: "Features"
     },
     {
