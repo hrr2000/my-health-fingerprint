@@ -7,7 +7,11 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "g:commit": "yarn commit -m",
+    "g:add": "git add *",
+    "g:push": "git push origin",
+    "g:pull": "git pull "
   },
   "dependencies": {
     "@badrap/bar-of-progress": "^0.2.2",
