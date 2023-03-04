@@ -6,6 +6,7 @@ import { api } from "@/utils/api";
 import "@/styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
+import { AnimatePresence } from "framer-motion";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -15,9 +16,8 @@ const montserrat = Montserrat({
 
 const progress = new ProgressBar({
   size: 3,
-  color: "white",
+  color: "blue",
   className: "progress-bar",
-  delay: 100,
 });
 
 try {
@@ -39,9 +39,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <SessionProvider session={session}>
-      <Component className={`${montserrat.variable}`} {...pageProps} />
-    </SessionProvider>
+    <AnimatePresence mode="wait" initial={false}>
+      <SessionProvider session={session}>
+        <Component className={`${montserrat.variable}`} {...pageProps} />
+      </SessionProvider>
+    </AnimatePresence>
   );
 };
 
