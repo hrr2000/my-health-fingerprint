@@ -1,9 +1,9 @@
 import React from "react";
 import { type NextPage } from "next";
-import PageTransitionWrapper from "@/components/global-animations/PageTransitionWrapper";
 import Link from "next/link";
 import CompanyLogo from "@/components/brand/CompanyLogo";
 import SigninButton from "@/components/brand/SigninButton";
+import MainLayout from "@/components/layouts/landing-pages/MainLayout";
 const HowtoApply: NextPage = () => {
   return (
     <div
@@ -30,11 +30,11 @@ const HowtoApply: NextPage = () => {
         </nav>
         <SigninButton />
       </header>
-      <PageTransitionWrapper>
-        <main className="grid gap-3 text-white md:grid-cols-2">
-          hi how to apply
-        </main>
-      </PageTransitionWrapper>
+      <MainLayout cols="1">
+        <MainLayout.columnOne>
+          <div>Hi how to apply</div>
+        </MainLayout.columnOne>
+      </MainLayout>
     </div>
   );
 };

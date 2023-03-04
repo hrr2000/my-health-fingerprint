@@ -16,9 +16,8 @@ const montserrat = Montserrat({
 
 const progress = new ProgressBar({
   size: 3,
-  color: "white",
+  color: "blue",
   className: "progress-bar",
-  delay: 100,
 });
 try {
   Router.events.on("routeChangeStart", () => {
@@ -39,11 +38,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <AnimatePresence
-      mode="wait"
-      initial={false}
-      onExitComplete={() => window.scrollTo(0, 0)}
-    >
+    <AnimatePresence mode="wait" initial={false}>
       <SessionProvider session={session}>
         <Component className={`${montserrat.variable}`} {...pageProps} />
       </SessionProvider>

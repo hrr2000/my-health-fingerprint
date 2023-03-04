@@ -4,7 +4,7 @@ import CompanyLogo from "@/components/brand/CompanyLogo";
 import SigninButton from "@/components/brand/SigninButton";
 import Image from "next/image";
 import Link from "next/link";
-import PageTransitionWrapper from "@/components/global-animations/PageTransitionWrapper";
+import MainLayout from "@/components/layouts/landing-pages/MainLayout";
 const Home: NextPage = () => {
   return (
     <>
@@ -37,32 +37,30 @@ const Home: NextPage = () => {
           </nav>
           <SigninButton />
         </header>
-        <PageTransitionWrapper>
-          <main className="grid gap-3 overflow-hidden md:grid-cols-2">
-            <div className="col-span-1 col-start-1 flex flex-col items-start justify-center gap-10 text-white">
-              <div className="flex flex-col gap-3 font-mont font-semibold capitalize">
-                <h2 className="text-5xl lg:text-6xl ">Intelligent</h2>
-                <h2 className="text-5xl lg:text-6xl">automation</h2>
-                <h2 className="text-5xl lg:text-6xl">
-                  For{" "}
-                  <span className="bg-gradient-to-r from-[#f75e8e] to-[#fc737c] bg-clip-text text-transparent">
-                    healthcare
-                  </span>
-                </h2>
-              </div>
-              <p className="max-w-[30ch] text-2xl font-normal leading-normal">
-                Automate every patient encounter and workflow, from front desk
-                to back office.
-              </p>
-              <button className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md">
-                Request demo
-              </button>
+        <MainLayout cols="2">
+          <MainLayout.columnOne className="flex flex-col items-start justify-center gap-10 text-white">
+            <div className="flex flex-col gap-3 font-mont font-semibold capitalize">
+              <h2 className="text-5xl lg:text-6xl ">Intelligent</h2>
+              <h2 className="text-5xl lg:text-6xl">automation</h2>
+              <h2 className="text-5xl lg:text-6xl">
+                For{" "}
+                <span className="bg-gradient-to-r from-[#f75e8e] to-[#fc737c] bg-clip-text text-transparent">
+                  healthcare
+                </span>
+              </h2>
             </div>
-            <div className="col-span-8 col-start-2 hidden md:flex ">
-              <Image width={1000} height={1000} src="/test.svg" alt="" />
-            </div>
-          </main>
-        </PageTransitionWrapper>
+            <p className="max-w-[30ch] text-2xl font-normal leading-normal">
+              Automate every patient encounter and workflow, from front desk to
+              back office.
+            </p>
+            <button className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md">
+              Request demo
+            </button>
+          </MainLayout.columnOne>
+          <MainLayout.columnTwo className="hidden md:flex">
+            <Image width={1000} height={1000} src="/test.svg" alt="" />
+          </MainLayout.columnTwo>
+        </MainLayout>
       </div>
     </>
   );
