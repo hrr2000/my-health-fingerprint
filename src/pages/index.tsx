@@ -1,10 +1,10 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
 import CompanyLogo from "@/components/brand/CompanyLogo";
+import SigninButton from "@/components/brand/SigninButton";
 import Image from "next/image";
 import Link from "next/link";
-
+import PageTransitionWrapper from "@/components/global-animations/PageTransitionWrapper";
 const Home: NextPage = () => {
   return (
     <>
@@ -23,62 +23,49 @@ const Home: NextPage = () => {
           <CompanyLogo />
           <nav className="hidden h-full lg:block">
             <ul className="flex h-full gap-9 text-lg text-white">
-              {["Vission", "How It Works?", "Features", "Docs", "Donate"].map(
-                (linkText) => (
-                  <li
-                    key={linkText}
-                    className="flex rounded-md px-2 transition-all  hover:bg-slate-500/30 hover:shadow-md"
-                  >
-                    <Link className="flex items-center" href="/auth/signin">
-                      {linkText}
-                    </Link>
-                  </li>
-                )
-              )}
+              {["vission", "how-to-apply", "features"].map((linkText) => (
+                <li
+                  key={linkText}
+                  className="flex rounded-md px-2 transition-all  hover:bg-slate-500/30 hover:shadow-md"
+                >
+                  <Link className="flex items-center" href={`/${linkText}`}>
+                    {linkText}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
-          <AuthShowcase />
+          <SigninButton />
         </header>
-        <main className="grid gap-3 md:grid-cols-2">
-          <div className="col-span-1 col-start-1 flex flex-col items-start justify-center gap-10 text-white">
-            <div className="flex flex-col gap-3 font-mont font-semibold capitalize">
-              <h2 className="text-5xl lg:text-6xl ">Intelligent</h2>
-              <h2 className="text-5xl lg:text-6xl">automation</h2>
-              <h2 className="text-5xl lg:text-6xl">
-                For{" "}
-                <span className="bg-gradient-to-r from-[#f75e8e] to-[#fc737c] bg-clip-text text-transparent">
-                  healthcare
-                </span>
-              </h2>
+        <PageTransitionWrapper>
+          <main className="grid gap-3 overflow-hidden md:grid-cols-2">
+            <div className="col-span-1 col-start-1 flex flex-col items-start justify-center gap-10 text-white">
+              <div className="flex flex-col gap-3 font-mont font-semibold capitalize">
+                <h2 className="text-5xl lg:text-6xl ">Intelligent</h2>
+                <h2 className="text-5xl lg:text-6xl">automation</h2>
+                <h2 className="text-5xl lg:text-6xl">
+                  For{" "}
+                  <span className="bg-gradient-to-r from-[#f75e8e] to-[#fc737c] bg-clip-text text-transparent">
+                    healthcare
+                  </span>
+                </h2>
+              </div>
+              <p className="max-w-[30ch] text-2xl font-normal leading-normal">
+                Automate every patient encounter and workflow, from front desk
+                to back office.
+              </p>
+              <button className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md">
+                Request demo
+              </button>
             </div>
-            <p className="max-w-[30ch] text-2xl font-normal leading-normal">
-              Automate every patient encounter and workflow, from front desk to
-              back office.
-            </p>
-            <button className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md">
-              Request demo
-            </button>
-          </div>
-          <div className="col-span-8 col-start-2 hidden md:flex ">
-            <Image width={1000} height={1000} src="/test.svg" alt="" />
-          </div>
-        </main>
+            <div className="col-span-8 col-start-2 hidden md:flex ">
+              <Image width={1000} height={1000} src="/test.svg" alt="" />
+            </div>
+          </main>
+        </PageTransitionWrapper>
       </div>
     </>
   );
 };
 
 export default Home;
-
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  return (
-    <button
-      className="rounded-full bg-white px-8 py-2 font-semibold text-[#0f1e57] no-underline transition md:px-10 md:py-3"
-      onClick={sessionData ? () => void signOut() : () => void signIn()}
-    >
-      {sessionData ? "Sign out" : "Sign in"}
-    </button>
-  );
-};

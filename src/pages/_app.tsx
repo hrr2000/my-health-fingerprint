@@ -6,6 +6,7 @@ import { api } from "@/utils/api";
 import "@/styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
+import { AnimatePresence } from "framer-motion";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -38,9 +39,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <SessionProvider session={session}>
-      <Component className={`${montserrat.variable}`} {...pageProps} />
-    </SessionProvider>
+    <AnimatePresence
+      mode="wait"
+      initial={false}
+      onExitComplete={() => window.scrollTo(0, 0)}
+    >
+      <SessionProvider session={session}>
+        <Component className={`${montserrat.variable}`} {...pageProps} />
+      </SessionProvider>
+    </AnimatePresence>
   );
 };
 
