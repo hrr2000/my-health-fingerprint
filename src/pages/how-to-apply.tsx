@@ -31,17 +31,6 @@ const HowtoApply: NextPage = () => {
           Hi how to apply
         </MainLayout.columnOne>
       </MainLayout>
-      <footer>
-        <NavBar
-          links={[
-            { href: "features", label: "Features" },
-            { href: "how-to-apply", label: "How To Apply?" },
-            { href: "vission", label: "Vission" },
-          ]}
-          mode="mobile"
-          activeClassName="bg-slate-500/30 shadow-md"
-        />
-      </footer>
     </div>
   );
 };
