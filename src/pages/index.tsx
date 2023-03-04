@@ -13,35 +13,35 @@ const Home: NextPage = () => {
         <meta name="description" content="My Health Fingerprint system." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="grid min-h-screen grid-rows-[100px_1fr] p-8 xl:py-8 xl:px-48" style={{ 
-        background: 'radial-gradient(#27384e, #010304)'
-      }}>
+      <div
+        className="grid min-h-screen grid-rows-[60px_1fr] p-8 xl:py-8 xl:px-48"
+        style={{
+          background: "radial-gradient(#27384e, #010304)",
+        }}
+      >
         <header className="flex items-center justify-between rounded-lg">
           <CompanyLogo />
-          <nav className="hidden lg:block">
-            <ul className="flex gap-9 text-lg text-white">
-              <li>
-                <Link href="">Vission</Link>
-              </li>
-              <li>
-                <Link href="">How It Works?</Link>
-              </li>
-              <li>
-                <Link href="">Features</Link>
-              </li>
-              <li>
-                <Link href="">Docs</Link>
-              </li>
-              <li>
-                <Link href="">Donate</Link>
-              </li>
+          <nav className="hidden h-full lg:block">
+            <ul className="flex h-full gap-9 text-lg text-white">
+              {["Vission", "How It Works?", "Features", "Docs", "Donate"].map(
+                (linkText) => (
+                  <li
+                    key={linkText}
+                    className="flex rounded-md px-2 transition-all  hover:bg-slate-500/30 hover:shadow-md"
+                  >
+                    <Link className="flex items-center" href="/auth/signin">
+                      {linkText}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </nav>
           <AuthShowcase />
         </header>
         <main className="grid gap-3 md:grid-cols-2">
           <div className="col-span-1 col-start-1 flex flex-col items-start justify-center gap-10 text-white">
-            <div className="flex flex-col gap-3 font-mont font-semibold capitalize ">
+            <div className="flex flex-col gap-3 font-mont font-semibold capitalize">
               <h2 className="text-5xl lg:text-6xl ">Intelligent</h2>
               <h2 className="text-5xl lg:text-6xl">automation</h2>
               <h2 className="text-5xl lg:text-6xl">
@@ -60,12 +60,7 @@ const Home: NextPage = () => {
             </button>
           </div>
           <div className="col-span-8 col-start-2 hidden md:flex ">
-            <Image
-              width={1000}
-              height={1000}
-              src="/test.svg"
-              alt=""
-            />
+            <Image width={1000} height={1000} src="/test.svg" alt="" />
           </div>
         </main>
       </div>

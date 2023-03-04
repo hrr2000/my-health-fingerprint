@@ -5,7 +5,7 @@ import { Montserrat } from "@next/font/google";
 import { api } from "@/utils/api";
 import "@/styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
-import {Router} from "next/router";
+import { Router } from "next/router";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
