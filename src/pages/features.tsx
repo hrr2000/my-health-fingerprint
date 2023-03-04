@@ -1,10 +1,9 @@
 import React from "react";
 import { type NextPage } from "next";
-import PageTransitionWrapper from "@/components/global-animations/PageTransitionWrapper";
 import Link from "next/link";
 import CompanyLogo from "@/components/brand/CompanyLogo";
 import SigninButton from "@/components/brand/SigninButton";
-
+import MainLayout from "@/components/layouts/MainLayout";
 const Vission: NextPage = () => {
   return (
     <div
@@ -31,11 +30,11 @@ const Vission: NextPage = () => {
         </nav>
         <SigninButton />
       </header>
-      <PageTransitionWrapper>
-        <main className="grid gap-3 overflow-hidden text-white md:grid-cols-2 ">
-          hi features
-        </main>
-      </PageTransitionWrapper>
+      <MainLayout cols="1">
+        <MainLayout.columnOne className="text-white">
+          Hi Vission Page
+        </MainLayout.columnOne>
+      </MainLayout>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import CompanyLogo from "@/components/brand/CompanyLogo";
 import SigninButton from "@/components/brand/SigninButton";
 import Image from "next/image";
 import Link from "next/link";
-import MainLayout from "@/components/layouts/landing-pages/MainLayout";
+import MainLayout from "@/components/layouts/MainLayout";
 const Home: NextPage = () => {
   return (
     <>

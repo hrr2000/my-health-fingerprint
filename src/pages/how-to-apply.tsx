@@ -3,7 +3,8 @@ import { type NextPage } from "next";
 import Link from "next/link";
 import CompanyLogo from "@/components/brand/CompanyLogo";
 import SigninButton from "@/components/brand/SigninButton";
-import MainLayout from "@/components/layouts/landing-pages/MainLayout";
+import MainLayout from "@/components/layouts/MainLayout";
+
 const HowtoApply: NextPage = () => {
   return (
     <div
@@ -31,8 +32,8 @@ const HowtoApply: NextPage = () => {
         <SigninButton />
       </header>
       <MainLayout cols="1">
-        <MainLayout.columnOne>
-          <div>Hi how to apply</div>
+        <MainLayout.columnOne className="text-white">
+          Hi how to apply
         </MainLayout.columnOne>
       </MainLayout>
     </div>
