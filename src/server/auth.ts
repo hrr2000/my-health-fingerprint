@@ -35,7 +35,6 @@ const authorize = async (
   const user = await prisma.user.findUnique({
     where: { name: credentials?.name },
   });
-  console.log(user);
   return user;
 };
 
@@ -52,8 +51,7 @@ export const authOptions: NextAuthOptions = {
     },
     session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string;
-
+        session.user.id = token.sub as string;
         // session.user.role = user.role; <-- put other properties on the session here
       }
       return session;

@@ -15,8 +15,8 @@
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { enforceUserIsAuthed } from "./middlewares";
 import { type Session } from "next-auth";
-
 import { getServerAuthSession } from "@/server/auth";
 import { prisma } from "@/server/db";
 
@@ -63,7 +63,7 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
  *
  * This is where the tRPC API is initialized, connecting the context and transformer.
  */
-import { initTRPC, TRPCError } from "@trpc/server";
+import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
@@ -96,18 +96,13 @@ export const createTRPCRouter = t.router;
  */
 export const publicProcedure = t.procedure;
 
-/** Reusable middleware that enforces users are logged in before running the procedure. */
-const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
-  return next({
-    ctx: {
-      // infers the `session` as non-nullable
-      session: { ...ctx.session, user: ctx.session.user },
-    },
-  });
-});
+/**
+ * Middlware
+ *
+ * runs before procedures and are applied per procedure
+ */
+
+export const middleware = t.middleware;
 
 /**
  * Protected (authenticated) procedure
