@@ -18,7 +18,7 @@ const SigninPage: SignInPageType = () => {
         </div>
         <div
           style={{
-            backgroundImage: "url(/reasearch-woman.jpg)",
+            backgroundImage: "url(/research-woman.webp)",
             backgroundPosition: "top center",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",

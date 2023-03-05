@@ -8,7 +8,7 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "g:commit": "yarn commit -m",
+    "g:commit": "git commit -m",
     "g:add": "git add *",
     "g:push": "git push origin",
     "g:pull": "git pull "
