@@ -5,8 +5,7 @@ import {
   type DefaultSession,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
-import UserModel from "./models/user";
+import { UserModel } from "./models";
 import { dbConnect } from "@/server/db";
 
 /**
@@ -28,10 +27,6 @@ declare module "next-auth" {
   //   // ...other properties
   //   role: "1" | "2";
   // }
-}
-interface Creds {
-  name: string;
-  password: string;
 }
 
 /**
