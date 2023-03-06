@@ -6,7 +6,7 @@ import {
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import User from "./models/user";
+import UserModel from "./models/user";
 import { dbConnect } from "@/server/db";
 
 /**
@@ -29,14 +29,10 @@ declare module "next-auth" {
   //   role: "1" | "2";
   // }
 }
-
-const authorize = async (credentials: { name: string; password: string }) => {
-  await dbConnect();
-  const user = await User.findOne({ name: "destro45" });
-  console.log(user);
-
-  return user;
-};
+interface Creds {
+  name: string;
+  password: string;
+}
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
@@ -64,8 +60,19 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     CredentialsProvider({
-      authorize,
-      credentials: {},
+      authorize: async (creds) => {
+        await dbConnect();
+        const user = await UserModel.findOne({
+          name: creds?.name,
+        });
+        console.log(user);
+
+        return user;
+      },
+      credentials: {
+        name: { type: "text" },
+        password: { type: "password" },
+      },
     }),
   ],
   pages: {
