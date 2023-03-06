@@ -27,6 +27,7 @@ model Session {
   userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("Sessions")
 }
 
 model User {
@@ -36,6 +37,7 @@ model User {
   emailVerified DateTime?
   image         String?
   sessions      Session[]
+  @@map("Users")
 }
 
 model VerificationToken {
@@ -60,4 +62,5 @@ model Patient {
   
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  @@map("Patients")
 }

@@ -5,8 +5,9 @@ import {
   type DefaultSession,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "@/server/db";
+
+import User from "./models/user";
+import { dbConnect } from "@/server/db";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -25,16 +26,15 @@ declare module "next-auth" {
 
   // interface User {
   //   // ...other properties
-  //   // role: UserRole;
+  //   role: "1" | "2";
   // }
 }
 
-const authorize = async (
-  credentials: Record<string, string | undefined> | undefined
-) => {
-  const user = await prisma.user.findUnique({
-    where: { name: credentials?.name },
-  });
+const authorize = async (credentials: { name: string; password: string }) => {
+  await dbConnect();
+  const user = await User.findOne({ name: "destro45" });
+  console.log(user);
+
   return user;
 };
 
@@ -44,12 +44,17 @@ const authorize = async (
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  session: { strategy: "jwt" },
   callbacks: {
-    jwt({ token }) {
+    jwt({ token, user }) {
+      if (user) {
+        token.email = user.email;
+        token.picture = user.image;
+      }
+
       return token;
     },
     session({ session, token }) {
+      console.log("SESSION", { session, token });
       if (session.user) {
         session.user.id = token.sub as string;
         // session.user.role = user.role; <-- put other properties on the session here
@@ -57,8 +62,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-
-  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       authorize,
