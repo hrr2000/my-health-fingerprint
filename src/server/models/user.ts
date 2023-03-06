@@ -1,8 +1,16 @@
+import { User } from "next-auth";
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const schema = new Schema(
+interface IUser extends User {
+  name: string;
+  password: string;
+  email: string;
+  emailConfirmed: Date;
+  image: string;
+}
+const schema = new Schema<IUser>(
   {
     name: String,
     password: String,
@@ -13,4 +21,5 @@ const schema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Users || mongoose.model("Users", schema);
+export default (mongoose.models.Users as mongoose.Model<IUser>) ||
+  mongoose.model<IUser>("Users", schema);
