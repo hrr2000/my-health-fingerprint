@@ -4,11 +4,20 @@ import {
   type NextPage,
 } from "next";
 import { getServerAuthSession } from "@/server/auth";
-
+import { api } from "@/utils/api";
 const DashboardPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ user }) => {
-  return <div>Hi {JSON.stringify(user)}</div>;
+  const { data, isLoading } = api.patient.getDestro.useQuery();
+  return (
+    <>
+      {!isLoading && (
+        <>
+          <div>Hi {JSON.stringify(user)}</div> <div>{JSON.stringify(data)}</div>
+        </>
+      )}
+    </>
+  );
 };
 
 export default DashboardPage;

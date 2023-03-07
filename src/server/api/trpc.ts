@@ -15,10 +15,10 @@
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { enforceUserIsAuthed } from "./middlewares";
 import { type Session } from "next-auth";
 import { getServerAuthSession } from "@/server/auth";
-import { prisma } from "@/server/db";
+import { dbConnect } from "@/server/db";
+import { enforceUserIsAuthed } from "./middlewares";
 
 type CreateContextOptions = {
   session: Session | null;
@@ -37,7 +37,6 @@ type CreateContextOptions = {
 const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
-    prisma,
   };
 };
 
@@ -49,7 +48,7 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
  */
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts;
-
+  await dbConnect();
   // Get the session from the server using the getServerSession wrapper function
   const session = await getServerAuthSession({ req, res });
 
@@ -66,7 +65,7 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 
-const t = initTRPC.context<typeof createTRPCContext>().create({
+export const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
   errorFormatter({ shape }) {
     return shape;
@@ -103,6 +102,7 @@ export const publicProcedure = t.procedure;
  */
 
 export const middleware = t.middleware;
+export type MiddlewareCallback = Parameters<typeof middleware>[0];
 
 /**
  * Protected (authenticated) procedure
@@ -112,4 +112,6 @@ export const middleware = t.middleware;
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+export const protectedProcedure = t.procedure.use(
+  middleware(enforceUserIsAuthed)
+);

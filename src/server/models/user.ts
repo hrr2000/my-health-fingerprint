@@ -1,25 +1,36 @@
 import { type User } from "next-auth";
-import mongoose from "mongoose";
+import mongoose, { type ObjectId } from "mongoose";
 
-const { Schema } = mongoose;
+const { Schema, Types } = mongoose;
 
-interface IUser extends User {
+export interface UserDocument extends User {
+  nationalId: string;
   name: string;
   password: string;
   email: string;
   emailConfirmed: Date;
   image: string;
+  organizations: {
+    _id: ObjectId;
+    roles: ObjectId[];
+  }[];
 }
-const schema = new Schema<IUser>(
+const schema = new Schema<UserDocument>(
   {
     name: String,
     password: String,
     email: String,
-    emailConfirmed: Date,
+    emailConfirmed: { type: Date, default: null },
     image: String,
+    organizations: [
+      {
+        _id: Types.ObjectId,
+        roles: [Types.ObjectId],
+      },
+    ],
   },
   { timestamps: true }
 );
 
-export default (mongoose.models.Users as mongoose.Model<IUser>) ||
-  mongoose.model<IUser>("Users", schema);
+export default (mongoose.models.users as mongoose.Model<UserDocument>) ||
+  mongoose.model<UserDocument>("users", schema);

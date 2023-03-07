@@ -1,7 +1,8 @@
-import { middleware } from "@/server/api/trpc";
+import { type MiddlewareCallback } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
+
 /** Reusable middleware that enforces users are logged in before running the procedure. */
-export const enforceUserIsAuthed = middleware(({ ctx, next }) => {
+export const enforceUserIsAuthed: MiddlewareCallback = ({ ctx, next }) => {
   if (!ctx.session || !ctx.session.user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
@@ -11,4 +12,4 @@ export const enforceUserIsAuthed = middleware(({ ctx, next }) => {
       session: { ...ctx.session, user: ctx.session.user },
     },
   });
-});
+};
