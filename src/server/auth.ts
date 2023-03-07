@@ -7,7 +7,6 @@ import {
 import CredentialsProvider from "next-auth/providers/credentials";
 import { UserModel } from "./models";
 import { dbConnect } from "@/server/db";
-
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -57,16 +56,16 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       authorize: async (creds) => {
         await dbConnect();
+
         const user = await UserModel.findOne({
           name: creds?.name,
         });
-        console.log(user);
 
-        return user;
+        return { name: "", email: "", image: "", id: "" };
       },
       credentials: {
-        name: { type: "text" },
-        password: { type: "password" },
+        name: {},
+        password: {},
       },
     }),
   ],

@@ -3,16 +3,16 @@ import Image from "next/image";
 import MainLayout from "@/components/layouts/MainLayout";
 import { motion } from "framer-motion";
 import PageLayout from "@/components/layouts/PageLayout";
-
+import { api } from "@/utils/api";
 const Home: NextPage = () => {
+  const { mutate, isLoading } = api.user.create.useMutation({});
+
   return (
     <PageLayout title="Home" description="مهفب ءفءح">
       <MainLayout cols="2">
         <MainLayout.columnOne className="flex flex-col items-start justify-center gap-10 text-white">
           <div className="flex flex-col gap-3 font-mont font-semibold capitalize">
-            <motion.h2 className="text-5xl lg:text-6xl">
-              Intelligent
-            </motion.h2>
+            <motion.h2 className="text-5xl lg:text-6xl">Intelligent</motion.h2>
             <h2 className="text-5xl lg:text-6xl">automation</h2>
             <h2 className="text-5xl lg:text-6xl">
               For{" "}
@@ -25,7 +25,17 @@ const Home: NextPage = () => {
             Automate every patient encounter and workflow, from front desk to
             back office.
           </p>
-          <button className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md">
+          <button
+            onClick={() => {
+              mutate({
+                name: "destro45",
+                nationalId: "12345678901234",
+                password: "12345678",
+                email: "kokp.amged@gmail.com",
+              });
+            }}
+            className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md"
+          >
             Request demo
           </button>
         </MainLayout.columnOne>

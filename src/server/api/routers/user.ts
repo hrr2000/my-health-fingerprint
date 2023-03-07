@@ -1,14 +1,16 @@
-import { z } from "zod";
 import { UserModel } from "@/server/models";
 import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
 } from "@/server/api/trpc";
-export const patientRouter = createTRPCRouter({
-  findOne: protectedProcedure.query(({ ctx }) => {
-    return ctx.session;
-  }),
+import { createUserSchema } from "@/validation/user";
+export const userRouter = createTRPCRouter({
+  create: publicProcedure
+    .input(createUserSchema)
+    .mutation(async ({ input }) => {
+      await UserModel.create(input);
+    }),
   getDestro: publicProcedure.query(async ({}) => {
     return await UserModel.findOne({ name: "destro45" });
   }),

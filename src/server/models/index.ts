@@ -1,2 +1,10 @@
 import UserModel from "./user";
-export { UserModel };
+import PermissionModel from "./permission";
+import OrganizationModel from "./organization";
+import AllowedPermissionModel from "./allowed-permission";
+export {
+  UserModel,
+  PermissionModel,
+  OrganizationModel,
+  AllowedPermissionModel,
+};
