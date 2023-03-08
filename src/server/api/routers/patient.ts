@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { UserModel } from "@/server/models";
 import {
   createTRPCRouter,

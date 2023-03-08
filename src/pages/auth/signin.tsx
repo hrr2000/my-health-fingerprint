@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import SigninForm from "@/components/form/SigninForm";
-
+import Image from "next/image";
 type SignInPageType = NextPage;
 
 const SigninPage: SignInPageType = () => {
@@ -16,15 +16,14 @@ const SigninPage: SignInPageType = () => {
         <div className=" col-span-1 col-start-1 flex flex-col items-center justify-center gap-5 p-6">
           <SigninForm />
         </div>
-        <div
-          style={{
-            backgroundImage: "url(/research-woman.webp)",
-            backgroundPosition: "top center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-          }}
-          className="col-span-2 col-start-2  hidden items-center justify-center lg:flex "
-        ></div>
+        <figure className="relative col-start-2 hidden before:col-span-2  lg:block ">
+          <Image
+            className="object-cover "
+            src="/research-woman.webp"
+            alt=""
+            fill={true}
+          />
+        </figure>
       </main>
     </>
   );
