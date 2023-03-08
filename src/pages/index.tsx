@@ -40,7 +40,13 @@ const Home: NextPage = () => {
           </button>
         </MainLayout.columnOne>
         <MainLayout.columnTwo className="hidden md:flex">
-          <Image width={1000} height={1000} src="/test.svg" alt="" />
+          <Image
+            width={1000}
+            height={1000}
+            src="/test.svg"
+            alt=""
+            priority={true}
+          />
         </MainLayout.columnTwo>
       </MainLayout>
     </PageLayout>
