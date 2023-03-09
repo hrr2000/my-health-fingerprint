@@ -1,19 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { type ReactNode } from "react";
 import { type Meta, type GenericProps } from "../../toolbox/types";
 import Head from "next/head";
-import Link from "next/link";
-import { HiAcademicCap } from "react-icons/hi";
-import { FiActivity, FiFolder, FiTool } from "react-icons/fi";
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { HiOutlineLogout } from "react-icons/hi";
-import { signOut } from "next-auth/react";
+
+import { type User } from "next-auth";
+import SiderBar from "@/components/dashboard/SiderBar";
 interface LocalProps extends GenericProps {
   title: string;
   description: string;
   iconHref?: string;
   meta?: Meta[];
   children: ReactNode;
+  user: User;
 }
 export default function DashBoardLayout({
   title,
@@ -21,8 +19,8 @@ export default function DashBoardLayout({
   iconHref,
   meta,
   children,
+  user: { image, name },
 }: LocalProps) {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Head>
@@ -34,70 +32,21 @@ export default function DashBoardLayout({
         ))}
       </Head>
       <div
-        className=" flex min-h-screen text-white"
+        className=" relative flex min-h-screen text-white"
         style={{
           background: "#162848",
         }}
       >
-        <aside
-          className={`relative flex ${
-            isOpen ? "w-[200px]" : "w-[60px]"
-          }  flex-col gap-7  bg-black p-2 text-white transition-all  duration-300`}
-        >
-          <header className="mt-8 flex items-center overflow-hidden rounded-md bg-violet-400/30 p-2">
-            <FiActivity className="h-[30px] w-[30px] shrink-0" />
-            <h2 className="ml-4 text-xl">MHFP</h2>
+        <SiderBar
+          username={name ? name : ""}
+          userImageSrc={image ? image : ""}
+        />
+        <main className="flex-1 bg-slate-300">
+          <header className="h-[50px] rounded-br-sm rounded-bl-sm bg-white p-2 shadow-sm">
+            <div className="h-full">sss</div>
           </header>
-          <nav className="overflow-hidden">
-            <ul className="flex flex-col gap-4">
-              <li>
-                <Link
-                  className="flex flex-1 items-center rounded-md p-2 text-lg hover:bg-gray-400/25"
-                  href="/dashboard"
-                >
-                  <HiAcademicCap className="h-[30px] w-[30px] shrink-0" />
-                  <span className="ml-4">Link</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="flex flex-1 items-center rounded-md p-2 text-lg hover:bg-gray-400/25"
-                  href="/dashboard"
-                >
-                  <FiFolder className="h-[30px] w-[30px] shrink-0" />
-                  <span className="ml-4">Link</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="flex flex-1 items-center rounded-md p-2 text-lg hover:bg-gray-400/25"
-                  href="/dashboard"
-                >
-                  <FiTool className="h-[30px] w-[30px] shrink-0" />
-                  <span className="ml-4">Link</span>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          <footer className="mt-auto overflow-hidden">
-            <button
-              onClick={() => void signOut()}
-              className="flex w-full flex-1 items-center rounded-md p-2 text-lg hover:bg-gray-400/25"
-            >
-              <HiOutlineLogout className="h-[30px] w-[30px] shrink-0" />
-              <span className="ml-4">Signout</span>
-            </button>
-          </footer>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="absolute top-1 right-0 flex h-8 w-8 translate-x-3 items-center  justify-center rounded-[50%] bg-white text-black "
-          >
-            <AiOutlineArrowRight
-              className={`  transition-all ${isOpen ? "rotate-180" : ""}`}
-            />
-          </button>
-        </aside>
-        <div className="flex-1 bg-teal-700 py-10 lg:py-20">{children}</div>
+          <section className="">{children}</section>
+        </main>
       </div>
     </>
   );
