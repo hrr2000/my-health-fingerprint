@@ -7,9 +7,9 @@ import { getServerAuthSession } from "@/server/auth";
 import DashBoardLayout from "@/components/layouts/DashboardLayout";
 const DashboardPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = () => {
+> = ({ user }) => {
   return (
-    <DashBoardLayout title="" description="">
+    <DashBoardLayout user={user} title="" description="">
       <div>hi</div>
     </DashBoardLayout>
   );
