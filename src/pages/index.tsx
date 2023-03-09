@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import PageLayout from "@/components/layouts/PageLayout";
 import { api } from "@/utils/api";
 const Home: NextPage = () => {
-  const { mutate, isLoading } = api.user.create.useMutation({});
+  const { mutate } = api.user.create.useMutation({});
 
   return (
     <PageLayout title="Home" description="مهفب ءفءح">
@@ -25,17 +25,7 @@ const Home: NextPage = () => {
             Automate every patient encounter and workflow, from front desk to
             back office.
           </p>
-          <button
-            onClick={() => {
-              mutate({
-                name: "destro45",
-                nationalId: "12345678901234",
-                password: "12345678",
-                email: "kokp.amged@gmail.com",
-              });
-            }}
-            className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md"
-          >
+          <button className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md">
             Request demo
           </button>
         </MainLayout.columnOne>

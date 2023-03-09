@@ -61,7 +61,7 @@ export const authOptions: NextAuthOptions = {
           name: creds?.name,
         });
 
-        return { name: "", email: "", image: "", id: "" };
+        return user;
       },
       credentials: {
         name: {},

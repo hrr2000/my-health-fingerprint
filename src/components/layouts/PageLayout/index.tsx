@@ -34,7 +34,7 @@ export default function PageLayout({
       <div
         className="grid min-h-screen grid-rows-[60px_1fr]  p-8 text-white xl:py-8 xl:px-48"
         style={{
-          background: "radial-gradient(237, 100%, 17%)",
+          background: "#162848",
         }}
       >
         <header className="flex items-center justify-between rounded-lg">
