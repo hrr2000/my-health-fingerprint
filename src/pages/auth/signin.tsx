@@ -21,6 +21,7 @@ const SigninPage: SignInPageType = () => {
             className="object-cover "
             src="/research-woman.webp"
             alt=""
+            priority={true}
             fill={true}
           />
         </figure>
