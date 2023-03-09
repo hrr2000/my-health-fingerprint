@@ -4,19 +4,14 @@ import {
   type NextPage,
 } from "next";
 import { getServerAuthSession } from "@/server/auth";
-import { api } from "@/utils/api";
+import DashBoardLayout from "@/components/layouts/DashboardLayout";
 const DashboardPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ user }) => {
-  const { data, isLoading } = api.patient.getDestro.useQuery();
+> = () => {
   return (
-    <>
-      {!isLoading && (
-        <>
-          <div>Hi {JSON.stringify(user)}</div> <div>{JSON.stringify(data)}</div>
-        </>
-      )}
-    </>
+    <DashBoardLayout title="" description="">
+      <div>hi</div>
+    </DashBoardLayout>
   );
 };
 

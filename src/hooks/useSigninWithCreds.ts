@@ -12,7 +12,7 @@ export function useSigninWithCreds() {
       redirect: false,
     });
     if (response?.ok) {
-      void router.push("/");
+      void router.push("/dashboard");
       return;
     }
     setIsInvalidCredentials(true);

@@ -1,4 +1,5 @@
 import mongoose, { type Mongoose } from "mongoose";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { env } from "@/env.mjs";
 
 const globalForMongoose = globalThis as unknown as {
@@ -36,3 +37,14 @@ export async function dbConnect() {
 
   return cached.conn;
 }
+
+// Create a single supabase client for interacting with your database
+
+const globalForSupabase = globalThis as unknown as { supabase: SupabaseClient };
+
+export const supabase =
+  globalForSupabase.supabase ||
+  createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+
+if (process.env.NODE_ENV !== "production")
+  globalForSupabase.supabase = supabase;
