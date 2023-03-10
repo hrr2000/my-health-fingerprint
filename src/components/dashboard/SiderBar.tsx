@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { LegacyRef, RefObject, useState } from "react";
 import Link from "next/link";
 import { HiAcademicCap } from "react-icons/hi";
 import { FiActivity, FiFolder, FiTool } from "react-icons/fi";
@@ -101,7 +101,7 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
         </button>
         {isUserTooltipOpen && (
           <ul
-            ref={domNode}
+            ref={domNode as RefObject<HTMLUListElement>}
             className="absolute right-0 bottom-0 z-[999] h-56 w-56 translate-x-[110%] -translate-y-1/4 rounded-md bg-black shadow-md"
           >
             sad

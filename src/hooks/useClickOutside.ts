@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 export default function useOnClickOutside(cb: () => void) {
-  const ref = useRef<HTMLBaseElement>();
+  const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     const listener = (event: Event) => {
       if (
