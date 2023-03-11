@@ -1,4 +1,4 @@
-import { OrganizationModel, UserModel } from "@/server/models";
+import { UserModel } from "@/server/models";
 import { z } from "zod";
 import {
   createTRPCRouter,

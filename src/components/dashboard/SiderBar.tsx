@@ -18,7 +18,6 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isUserTooltipOpen, setIsUserTooltipOpen] = useState(false);
   const domNode = useOnClickOutside(() => setIsUserTooltipOpen(false));
-  console.log(isUserTooltipOpen);
 
   return (
     <aside
@@ -85,7 +84,9 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
             alt=""
             className="shrink-0 rounded-[50%]"
           />
-          <span className="mx-4 whitespace-nowrap capitalize">{username}</span>
+          <span className="mx-4 whitespace-nowrap text-sm capitalize">
+            {username}
+          </span>
           <AiOutlineArrowRight
             className={`transition-all duration-200 ${
               isUserTooltipOpen ? "rotate-180" : ""
