@@ -6,12 +6,13 @@ import {
 import { getServerAuthSession } from "@/server/auth";
 import DashBoardLayout from "@/components/layouts/DashboardLayout";
 
-// type serverSideProps = NextPage<
-// InferGetServerSidePropsType<typeof getServerSideProps>>;
+type serverSidePropsType = NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+>;
 
-const DashboardPage = ({}) => {
+const DashboardPage: serverSidePropsType = ({ user }) => {
   return (
-    <DashBoardLayout user={{ id: "11" }} title="" description="">
+    <DashBoardLayout user={user} title="" description="">
       <div>hi</div>
     </DashBoardLayout>
   );
@@ -19,20 +20,21 @@ const DashboardPage = ({}) => {
 
 export default DashboardPage;
 
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//   const session = await getServerAuthSession(context);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerAuthSession(context);
 
-//   if (!session) {
-//     return {
-//       redirect: {
-//         permanent: false,
-//         destination: "/",
-//       },
-//     };
-//   }
-//   return {
-//     props: {
-//       user: session.user,
-//     },
-//   };
-// }
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  }
+
+  return {
+    props: {
+      user: session.user,
+    },
+  };
+}

@@ -8,44 +8,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { UserModel } from "./models";
 import { dbConnect } from "@/server/db";
 import { type ObjectId } from "mongoose";
-/**
- * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
- * object and keep type safety.
- *
- * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
- */
-declare module "next-auth" {
-  interface Session extends DefaultSession {
-    user: {
-      id: string;
-      roles: ObjectId[];
-      orgId: string;
-      orgName: string;
-      jobTitle: string;
-    } & DefaultSession["user"];
-  }
-
-  interface User {
-    // ...other properties
-    roles: ObjectId[];
-    first_name: string;
-    last_name: string;
-    orgId: string;
-    orgName: string;
-    email: string;
-    picture: string;
-    jobTitle: string;
-    nationalId: string;
-  }
-}
-declare module "next-auth/jwt" {
-  interface JWT {
-    roles: ObjectId[];
-    orgId: string;
-    orgName: string;
-    jobTitle: string;
-  }
-}
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
@@ -53,13 +15,13 @@ declare module "next-auth/jwt" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  jwt: { maxAge: 60 * 60 * 2 },
   callbacks: {
     jwt({ token, user }) {
       if (user) {
-        token.email = user.email;
-        token.picture = user.picture;
-        token.sub = user.nationalId;
-        token.name = user.first_name + " " + user.last_name;
+        token.name = user.firstName + " " + user.lastName;
+        token.picture = user.picture; // because it's not a social login
+        token.nationalId = user.nationalId;
         token.orgName = user.orgName;
         token.orgId = user.orgId;
         token.roles = user.roles;
@@ -69,9 +31,10 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     session({ session, token }) {
-      //console.log("SESSION", { session, token });
+      console.log("SESSION", { session, token });
       if (session.user) {
         session.user.id = token.sub as string;
+        session.user.nationalId = token.nationalId;
         session.user.orgId = token.orgId;
         session.user.roles = token.roles;
         session.user.jobTitle = token.jobTitle;
@@ -91,24 +54,24 @@ export const authOptions: NextAuthOptions = {
             $elemMatch: { org_id: creds?.org_id, password: creds?.password },
           },
         });
-        console.log("USER", user);
+
         if (user) {
-          const { first_name, last_name, organizations } = user;
+          const { _id, first_name, last_name, organizations } = user;
           const selectedOrg = organizations.find(
             (org) => org.org_id.toString() === creds?.org_id
           );
-          console.log("SELECTED ORG", selectedOrg);
           if (selectedOrg) {
             const { org_name, org_id, email, picture, jobTitle, roles } =
               selectedOrg;
             return {
-              first_name,
-              last_name,
-              org_name,
+              id: _id,
+              firstName: first_name,
+              lastName: last_name,
+              orgName: org_name,
               email,
               picture,
               jobTitle,
-              org_id,
+              orgId: org_id,
               roles,
               nationalId: creds?.nationalId,
             };
@@ -128,6 +91,47 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
   },
 };
+
+/**
+ * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
+ * object and keep type safety.
+ *
+ * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
+ */
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+      nationalId: string;
+      roles: ObjectId[];
+      orgId: string;
+      orgName: string;
+      jobTitle: string;
+    } & DefaultSession["user"];
+  }
+
+  interface User {
+    // ...other properties
+    roles: ObjectId[];
+    firstName: string;
+    lastName: string;
+    orgId: string;
+    orgName: string;
+    email: string;
+    picture: string;
+    jobTitle: string;
+    nationalId: string;
+  }
+}
+declare module "next-auth/jwt" {
+  interface JWT {
+    roles: ObjectId[];
+    orgId: string;
+    orgName: string;
+    nationalId: string;
+    jobTitle: string;
+  }
+}
 
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.

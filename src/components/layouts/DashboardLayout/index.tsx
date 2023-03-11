@@ -2,16 +2,15 @@ import React from "react";
 import { type ReactNode } from "react";
 import { type Meta, type GenericProps } from "../../toolbox/types";
 import Head from "next/head";
-
-import { type User } from "next-auth";
 import SiderBar from "@/components/dashboard/SiderBar";
+import { type Session } from "next-auth";
 interface LocalProps extends GenericProps {
   title: string;
   description: string;
   iconHref?: string;
   meta?: Meta[];
   children: ReactNode;
-  user: User;
+  user: Session["user"];
 }
 export default function DashBoardLayout({
   title,
