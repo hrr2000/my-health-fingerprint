@@ -78,7 +78,7 @@ export default function SigninForm() {
               redirect: false,
             });
             if (response?.ok) {
-              void router.push("/");
+              void router.push("/dashboard");
               return;
             }
           }}

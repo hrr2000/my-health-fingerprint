@@ -1,4 +1,4 @@
-import React, { LegacyRef, RefObject, useState } from "react";
+import React, { type RefObject, useState } from "react";
 import Link from "next/link";
 import { HiAcademicCap } from "react-icons/hi";
 import { FiActivity, FiFolder, FiTool } from "react-icons/fi";

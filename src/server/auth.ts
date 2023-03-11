@@ -31,7 +31,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     session({ session, token }) {
-      console.log("SESSION", { session, token });
       if (session.user) {
         session.user.id = token.sub as string;
         session.user.nationalId = token.nationalId;
@@ -45,9 +44,8 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     CredentialsProvider({
-      authorize: async (creds): Promise<any> => {
+      authorize: async (creds) => {
         await dbConnect();
-        console.log("ORG CREDENTIALS", creds);
         const user = await UserModel.findOne({
           nationalId: creds?.nationalId,
           organizations: {
