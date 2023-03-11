@@ -19,6 +19,7 @@ export async function dbConnect() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      autoIndex: true,
     };
 
     cached.promise = mongoose
