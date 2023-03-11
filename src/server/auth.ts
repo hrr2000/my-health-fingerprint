@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     CredentialsProvider({
-      authorize: async (creds) => {
+      authorize: async (creds): Promise<any> => {
         await dbConnect();
         const user = await UserModel.findOne({
           nationalId: creds?.nationalId,
