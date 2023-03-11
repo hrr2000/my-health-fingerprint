@@ -26,7 +26,7 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
         isSidebarOpen ? "w-[200px]" : "w-[60px]"
       }   flex-col gap-7 bg-black p-2 text-white shadow-md transition-all  duration-300`}
     >
-      <header className="flex items-center overflow-hidden rounded-md bg-violet-400/30 p-2">
+      <header className="flex items-center overflow-hidden rounded-sm bg-violet-400/30 p-2">
         <FiActivity className="h-[30px] w-[30px] shrink-0" />
         <h2 className="ml-4 text-xl">MHFP</h2>
       </header>
@@ -62,10 +62,10 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
           </li>
         </ul>
       </nav>
-      <footer className="relative mt-auto">
+      <footer className="relative mt-auto flex flex-col gap-3">
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className=" top-1 right-0 mb-5 flex w-full items-center  justify-center rounded-sm bg-slate-600/50 p-2 "
+          className="flex w-full items-center justify-center rounded-sm bg-slate-600/50 p-2 "
         >
           <AiOutlineArrowRight
             className={`transition-all ${isSidebarOpen ? "rotate-180" : ""}`}
@@ -76,7 +76,7 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
             e.stopPropagation();
             setIsUserTooltipOpen(!isUserTooltipOpen);
           }}
-          className="relative mb-2 flex w-full items-center overflow-hidden rounded-md p-2 text-lg hover:bg-gray-400/25"
+          className="relative flex w-full items-center overflow-hidden rounded-md p-2 text-lg hover:bg-gray-400/25"
         >
           <Image
             src={userImageSrc}
