@@ -49,37 +49,42 @@ export const authOptions: NextAuthOptions = {
         const user = await UserModel.findOne({
           nationalId: creds?.nationalId,
           organizations: {
-            $elemMatch: { org_id: creds?.org_id, password: creds?.password },
+            $elemMatch: {
+              org_id: creds?.selectedOrgId,
+              password: creds?.password,
+            },
           },
         });
 
-        if (user) {
-          const { _id, first_name, last_name, organizations } = user;
-          const selectedOrg = organizations.find(
-            (org) => org.org_id.toString() === creds?.org_id
-          );
-          if (selectedOrg) {
-            const { org_name, org_id, email, picture, jobTitle, roles } =
-              selectedOrg;
-            return {
-              id: _id,
-              firstName: first_name,
-              lastName: last_name,
-              orgName: org_name,
-              email,
-              picture,
-              jobTitle,
-              orgId: org_id,
-              roles,
-              nationalId: creds?.nationalId,
-            };
-          }
+        if (!user) {
           return null;
         }
-        return null;
+        const { _id, first_name, last_name, organizations } = user;
+        const selectedOrg = organizations.find(
+          (org) => org.org_id.toString() === creds?.selectedOrgId
+        );
+        console.log(selectedOrg);
+        if (!selectedOrg) {
+          return null;
+        }
+        const { org_name, org_id, email, picture, jobTitle, roles } =
+          selectedOrg;
+
+        return {
+          id: _id,
+          firstName: first_name,
+          lastName: last_name,
+          orgName: org_name,
+          email,
+          picture,
+          jobTitle,
+          orgId: org_id,
+          roles,
+          nationalId: creds?.nationalId,
+        };
       },
       credentials: {
-        org_id: {},
+        selectedOrgId: {},
         nationalId: {},
         password: {},
       },

@@ -9,7 +9,14 @@ export interface Meta {
   name: string;
   content: string;
 }
-
+type FormValues = (values: Record<string, string>) => boolean;
 export interface GenericProps {
-  [k: string]: ReactNode | ILink[] | Meta[] | Session["user"];
+  [k: string]:
+    | ReactNode
+    | ILink[]
+    | Meta[]
+    | Session["user"]
+    | (() => void)
+    | Record<string, string>
+    | FormValues;
 }

@@ -7,6 +7,7 @@ import "@/styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
 import { AnimatePresence } from "framer-motion";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -39,7 +40,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <AnimatePresence mode="wait" initial={true}>
+    <AnimatePresence initial={true}>
       <SessionProvider session={session}>
         <Component className={`${montserrat.variable}`} {...pageProps} />
       </SessionProvider>

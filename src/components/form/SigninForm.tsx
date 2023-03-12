@@ -1,113 +1,148 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { signinFormSchema } from "@/validation/signin";
+import { api } from "@/utils/api";
+import { Form, Formik } from "formik";
 import TextInput from "@/components/form/sub/TextInput";
 import SubmitButton from "@/components/form/sub/SubmitButton";
-import { signinFormSchema } from "@/validation/signin";
-import { Form, Formik } from "formik";
 import CompanyLogo from "../brand/CompanyLogo";
-import { api } from "@/utils/api";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
+import FormErrorMessage from "./sub/FormErrorMessage";
+import { areAnyValuesEmpty } from "@/utils/helpers";
+import { useSigninWithCreds } from "@/hooks/useSigninWithCreds";
+import { motion } from "framer-motion";
 export default function SigninForm() {
-  const [nationalId, setNationalId] = useState("");
-  const [selectedOrg, setSelectedOrg] = useState({});
-  const { data } = api.user.findOrgs.useQuery({ nationalId });
-  const router = useRouter();
-  return (
-    <>
-      <CompanyLogo />
-      {!data?.firstName && (
-        <Formik
-          initialValues={{ nationalId: "" }}
-          onSubmit={(values) => {
-            setNationalId(values.nationalId);
-          }}
-          validationSchema={signinFormSchema}
-        >
-          {() => (
-            <Form className="flex w-full max-w-sm flex-col gap-4 lg:w-2/3">
-              <TextInput
-                name="nationalId"
-                label="nationalId"
-                placeholder="NationalId ..."
-              />
-              <SubmitButton message="submit" />
-            </Form>
-          )}
-        </Formik>
-      )}
-      {!!data?.firstName && !Object.keys(selectedOrg).length && (
-        <div>
-          <div>
-            Hi, {data?.firstName} {data?.lastName}
-          </div>
-          <div>
-            What would you like to login with?
-            {data?.orgs?.map(({ org_name, picture, jobTitle, org_id }) => (
-              <button
-                className="flex items-center gap-4 rounded-md bg-slate-400 p-3 shadow-md transition-all duration-200 hover:bg-slate-500"
-                key={org_id.toString()}
-                onClick={() => setSelectedOrg({ org_id })}
-              >
-                <Image
-                  className="rounded-[50%]"
-                  src={picture}
-                  width={30}
-                  height={30}
-                  alt=""
-                />
-                <div>
-                  <p>{org_name}</p>
-                  <p>{jobTitle}</p>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-      {!!Object.keys(selectedOrg).length && (
-        <Formik
-          initialValues={{ password: "" }}
-          onSubmit={async (values) => {
-            console.log("Selected Org AT FORM", selectedOrg);
-
-            const response = await signIn("credentials", {
-              nationalId,
-              ...values,
-              ...selectedOrg,
-              redirect: false,
-            });
-            if (response?.ok) {
-              void router.push("/dashboard");
-              return;
-            }
-          }}
-        >
-          {() => (
-            <Form className="flex w-full max-w-sm flex-col gap-4 lg:w-2/3">
-              <TextInput
-                name="password"
-                label="password"
-                placeholder="Password ..."
-              />
-              <SubmitButton message="submit" />
-            </Form>
-          )}
-        </Formik>
-      )}
-    </>
+  const [nationalId, setNationalId] = useState(""); // state
+  const [selectedOrgId, setSelectedOrgId] = useState("");
+  const { isInvalidCredentials, signin } = useSigninWithCreds({
+    nationalId,
+    selectedOrgId,
+  });
+  const {
+    data,
+    error: errorNationaId,
+    isFetching,
+  } = api.user.findOrgs.useQuery(
+    { nationalId },
+    {
+      enabled: !!nationalId,
+      retry: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
   );
-}
 
-{
-  /* <TextInput
-name="password"
-label="Password"
-placeholder="Password ..."
-type="password"
-/>
-<SubmitButton message="sign in" />
-<InvalidCredentialsPrompt
-isInvalidCredentials={isInvalidCredentials}
-/> */
+  return (
+    <div className="flex w-full max-w-sm flex-col gap-4 lg:w-2/3">
+      <CompanyLogo />
+      {!data && (
+        <motion.div
+          initial={{ x: 300, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: 300, opacity: 0 }}
+        >
+          <Formik
+            initialValues={{ nationalId: "" }}
+            onSubmit={(values, { resetForm }) => {
+              if (values.nationalId !== nationalId) {
+                setNationalId(values.nationalId);
+              } else {
+                resetForm();
+              }
+            }}
+            validationSchema={signinFormSchema}
+          >
+            {({ resetForm, isValidating, values }) => (
+              <Form className="flex flex-col gap-5">
+                <TextInput
+                  name="nationalId"
+                  label="nationalId"
+                  placeholder="NationalId ..."
+                />
+                <SubmitButton
+                  message="submit"
+                  isSubmitting={isFetching}
+                  isValidating={isValidating}
+                  values={values}
+                  areAnyValuesEmptyHandler={areAnyValuesEmpty}
+                />
+                {!!errorNationaId && (
+                  <FormErrorMessage
+                    errorCode={errorNationaId.data?.code}
+                    errorMessage={errorNationaId.message}
+                    formReset={() => resetForm()}
+                  />
+                )}
+              </Form>
+            )}
+          </Formik>
+        </motion.div>
+      )}
+      {!!data?.orgs?.length && !selectedOrgId && (
+        <motion.div
+          initial={{ x: 300, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: 300, opacity: 0 }}
+          className="group flex flex-col gap-3"
+        >
+          <div>
+            <div>
+              Hi, {data?.firstName} {data?.lastName}
+            </div>
+            <p>What would you like to login with?</p>
+            <div className="mt-5 flex h-[170px] flex-col gap-4 overflow-auto  py-3 shadow-inner scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent  group-hover:scrollbar-thumb-gray-300">
+              {data?.orgs?.map(({ org_name, picture, jobTitle, org_id }) => (
+                <button
+                  className="flex items-center gap-5 rounded-md bg-white p-3 text-left shadow-lg  hover:bg-slate-200"
+                  key={org_id.toString()}
+                  onClick={() => setSelectedOrgId(org_id.toString())}
+                >
+                  <Image
+                    className="rounded-[50%]"
+                    src={picture}
+                    width={40}
+                    height={40}
+                    alt=""
+                  />
+                  <div>
+                    <p className="capitalize">{org_name}</p>
+                    <p className="capitalize">{jobTitle}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      )}
+      {!!selectedOrgId && (
+        <motion.div
+          initial={{ x: 300, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: 300, opacity: 0 }}
+        >
+          <Formik initialValues={{ password: "" }} onSubmit={signin}>
+            {({ isSubmitting, isValidating, values }) => (
+              <Form className="flex flex-col gap-5 ">
+                <TextInput
+                  name="password"
+                  type="password"
+                  label="password"
+                  placeholder="Password ..."
+                />
+                <SubmitButton
+                  message="submit"
+                  isSubmitting={isSubmitting}
+                  isValidating={isValidating}
+                  values={values}
+                  areAnyValuesEmptyHandler={areAnyValuesEmpty}
+                />
+                {isInvalidCredentials && (
+                  <FormErrorMessage errorMessage="Wrong Password" />
+                )}
+              </Form>
+            )}
+          </Formik>
+        </motion.div>
+      )}
+    </div>
+  );
 }

@@ -1,16 +1,23 @@
-import React from "react";
+import React, { type MouseEventHandler } from "react";
 import Image from "next/image";
-import { useFormikContext } from "formik";
-import { areAnyValuesEmpty } from "@/utils/helpers";
 import { type GenericProps } from "@/components/toolbox/types";
+
 interface LocalProps extends GenericProps {
   message: string;
+  isSubmitting: boolean;
+  isValidating: boolean;
+  values: Record<string, string>;
+  areAnyValuesEmptyHandler: (values: LocalProps["values"]) => boolean;
 }
-const SubmitButton = ({ message }: LocalProps) => {
-  const { values, isSubmitting, isValidating } =
-    useFormikContext<Record<string, string>>();
+const SubmitButton = ({
+  message,
+  isSubmitting,
+  isValidating,
+  values,
+  areAnyValuesEmptyHandler,
+}: LocalProps) => {
   const isLoading = isSubmitting || isValidating;
-  const isValueEmpty = areAnyValuesEmpty(values);
+  const isValueEmpty = areAnyValuesEmptyHandler(values);
 
   return (
     <button
