@@ -96,7 +96,14 @@ export const userRouter = createTRPCRouter({
         },
         { last_name: true, first_name: true, organizations: true }
       );
+      console.log(user);
 
+      if (!user) {
+        throw new TRPCError({
+          message: "no national information",
+          code: "NOT_FOUND",
+        });
+      }
       const userOrgs = user?.organizations.map(
         ({ jobTitle, picture, org_id, org_name }) => ({
           jobTitle,
@@ -109,7 +116,6 @@ export const userRouter = createTRPCRouter({
       return {
         firstName: user?.first_name,
         lastName: user?.last_name,
-
         orgs: userOrgs,
       };
     }),
