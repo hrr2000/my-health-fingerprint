@@ -89,10 +89,10 @@ export default function SigninForm() {
               Hi, {data?.firstName} {data?.lastName}
             </div>
             <p>What would you like to login with?</p>
-            <div className="mt-5 flex h-[170px] flex-col gap-4 overflow-auto  py-3 shadow-inner scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent  group-hover:scrollbar-thumb-gray-300">
+            <div className="mt-5 flex h-[170px] flex-col gap-4 overflow-auto  py-3 scrollbar-thin scrollbar-track-transparent bg-gray-400/10 rounded-md scrollbar-thumb-transparent  group-hover:scrollbar-thumb-gray-300">
               {data?.orgs?.map(({ org_name, picture, jobTitle, org_id }) => (
                 <button
-                  className="flex items-center gap-5 rounded-md bg-white p-3 text-left shadow-lg  hover:bg-slate-200"
+                  className="flex items-center gap-5 relative before:scale-0 before:hover:scale-100  before:bg-slate-100/10 before:absolute before:inset-0  rounded-md bg-gradient-to-r from-[#f75e8e] to-[#fc737c]  text-white p-3 text-left shadow-lg"
                   key={org_id.toString()}
                   onClick={() => setSelectedOrgId(org_id.toString())}
                 >
@@ -104,8 +104,8 @@ export default function SigninForm() {
                     alt=""
                   />
                   <div>
-                    <p className="capitalize">{org_name}</p>
-                    <p className="capitalize">{jobTitle}</p>
+                    <p className="capitalize font-semibold">{org_name}</p>
+                    <p className="capitalize font-light">{jobTitle}</p>
                   </div>
                 </button>
               ))}
