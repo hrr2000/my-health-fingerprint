@@ -4,7 +4,7 @@ import Head from "next/head";
 import CompanyLogo from "../../brand/CompanyLogo";
 import SigninButton from "../../brand/SigninButton";
 import NavBar from "./NavBar";
-import { routes } from "@/components/toolbox/routes";
+import { routes } from "@/routes";
 
 interface LocalProps extends GenericProps {
   title: string;

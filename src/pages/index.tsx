@@ -1,8 +1,8 @@
 import { type NextPage } from "next";
 import Image from "next/image";
-import MainLayout from "@/components/layouts/MainLayout";
+import MainLayout from "@/layouts/MainLayout";
+import PageLayout from "@/layouts/PageLayout";
 import { motion } from "framer-motion";
-import PageLayout from "@/components/layouts/PageLayout";
 import { api } from "@/utils/api";
 const Home: NextPage = () => {
   const { mutate } = api.user.createOne.useMutation({});
