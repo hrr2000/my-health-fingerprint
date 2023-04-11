@@ -4,7 +4,7 @@ import {
   type NextPage,
 } from "next";
 import { getServerAuthSession } from "@/server/auth";
-import DashBoardLayout from "@/components/layouts/DashboardLayout";
+import DashBoardLayout from "@/layouts/DashboardLayout";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>

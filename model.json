@@ -5,11 +5,7 @@
       "organizations": [
         {
           "id": "FJGIE",
-          "roles": [
-            "owner_role_id",
-            "manager_role_id",
-            "doctor_role_id"
-          ]
+          "roles": ["owner_role_id", "manager_role_id", "doctor_role_id"]
         }
       ]
     }
@@ -21,11 +17,7 @@
         {
           "slug": "owner",
           "id": "FEE",
-          "permissions": [
-            1,
-            2,
-            3
-          ]
+          "permissions": [1, 2, 3]
         }
       ]
     }
@@ -48,11 +40,21 @@
   "allowed_permissions": [
     {
       "entity_name": "organization",
-      "permissions": [
-        1,
-        2,
-        3
-      ]
+      "permissions": [1, 2, 3]
     }
-  ]
+  ],
+  "DataRepository": {
+    "allergies": [
+      {
+        "name": "",
+        "cause": "",
+        "type": "",
+        "manifistation": "",
+        "status": "under review | approved | softdelete"
+      }
+    ],
+    "xray-types": [],
+    "viruses": [],
+    "bacteria": []
+  }
 }

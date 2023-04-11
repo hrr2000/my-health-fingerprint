@@ -1,5 +1,4 @@
-import { type ILink } from "./types";
-
+import { type ILink } from "@/types/application";
 export const routes: {
   landingPages: ILink[];
 } = {
