@@ -1,8 +1,8 @@
 import { type ReactNode } from "react";
-import { type Meta, type GenericProps } from "../../toolbox/types";
+import { type Meta, type GenericProps } from "@/types/application";
 import Head from "next/head";
-import CompanyLogo from "../../brand/CompanyLogo";
-import SigninButton from "../../brand/SigninButton";
+import CompanyLogo from "@/components/brand/CompanyLogo";
+import SigninButton from "@/components/brand/SigninButton";
 import NavBar from "./NavBar";
 import { routes } from "@/routes";
 

@@ -5,11 +5,8 @@ import PageLayout from "@/layouts/PageLayout";
 import { motion } from "framer-motion";
 import { api } from "@/utils/api";
 const Home: NextPage = () => {
-  const { mutate } = api.user.createOne.useMutation({});
-  const x = api.user.findOne.useQuery({
-    nationalId: "12345678912345",
-  });
-  x.isLoading ? console.log("loading...") : x.data;
+  const { mutate } = api.patient.createOne.useMutation();
+
   return (
     <PageLayout title="Home" description="مهفب ءفءح">
       <MainLayout cols="2">
@@ -29,19 +26,7 @@ const Home: NextPage = () => {
             back office.
           </p>
           <button
-            onClick={() =>
-              mutate({
-                first_name: "kerolous",
-                last_name: "amged",
-                nationalId: "12345678912345",
-                email: "kokp@a.com",
-                password: "12345678",
-                orgId: "41224d776a326fb40f000001",
-                orgName: "Ain Shams University Hospital",
-                roles: ["41224d776a326fb40f340001"],
-                jobTitle: "doctor",
-              })
-            }
+            onClick={() => mutate()}
             className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md"
           >
             Request demo
