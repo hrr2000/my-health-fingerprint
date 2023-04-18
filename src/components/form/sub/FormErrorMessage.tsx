@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { type GenericProps } from "../../toolbox/types";
+import { type GenericProps } from "@/types/application";
 interface LocalProps extends GenericProps {
   errorMessage?: string;
   errorCode?: string;

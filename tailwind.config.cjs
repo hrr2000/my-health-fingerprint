@@ -6,6 +6,10 @@ module.exports = {
       fontFamily: {
         mont: ["var(--font-mont)"],
       },
+      color: {
+        "black-soft": "#242424",
+        "black-mute": "#2f2f2f",
+      },
     },
   },
   plugins: [
