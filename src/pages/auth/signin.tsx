@@ -19,7 +19,8 @@ const SigninPage: SignInPageType = () => {
         <figure className="relative col-start-2 hidden before:col-span-2  lg:block ">
           <Image
             className="object-cover "
-            src="/research-woman.webp"
+            // src="/research-woman.webp"
+            src={`/logo.png`}
             alt=""
             priority={true}
             fill={true}

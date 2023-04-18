@@ -31,8 +31,8 @@ const Home: NextPage = () => {
           <button
             onClick={() =>
               mutate({
-                first_name: "kerolous",
-                last_name: "amged",
+                firstName: "kerolous",
+                lastName: "amged",
                 nationalId: "12345678912345",
                 email: "kokp@a.com",
                 password: "12345678",
