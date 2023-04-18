@@ -6,7 +6,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { HiOutlineLogout } from "react-icons/hi";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { type GenericProps } from "../toolbox/types";
+import { type GenericProps } from "@/types/application";
 import useOnClickOutside from "@/hooks/useClickOutside";
 
 interface LocalProps extends GenericProps {
