@@ -1,5 +1,5 @@
 import { useField } from "formik";
-import { type GenericProps } from "../../toolbox/types";
+import { type GenericProps } from "@/types/application";
 
 interface LocalProps extends GenericProps {
   label?: string;

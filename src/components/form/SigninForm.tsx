@@ -10,6 +10,7 @@ import FormErrorMessage from "./sub/FormErrorMessage";
 import { areAnyValuesEmpty } from "@/utils/helpers";
 import { useSigninWithCreds } from "@/hooks/useSigninWithCreds";
 import { motion } from "framer-motion";
+
 export default function SigninForm() {
   const [nationalId, setNationalId] = useState(""); // state
   const [selectedOrgId, setSelectedOrgId] = useState("");
@@ -25,9 +26,6 @@ export default function SigninForm() {
     { nationalId },
     {
       enabled: !!nationalId,
-      retry: false,
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
     }
   );
 
@@ -89,10 +87,10 @@ export default function SigninForm() {
               Hi, {data?.firstName} {data?.lastName}
             </div>
             <p>What would you like to login with?</p>
-            <div className="mt-5 flex h-[170px] flex-col gap-4 overflow-auto  py-3 scrollbar-thin scrollbar-track-transparent bg-gray-400/10 rounded-md scrollbar-thumb-transparent  group-hover:scrollbar-thumb-gray-300">
+            <div className="mt-5 flex h-[170px] flex-col gap-4 overflow-auto  rounded-md bg-gray-400/10 py-3 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent  group-hover:scrollbar-thumb-gray-300">
               {data?.orgs?.map(({ org_name, picture, jobTitle, org_id }) => (
                 <button
-                  className="flex items-center gap-5 relative before:scale-0 before:hover:scale-100  before:bg-slate-100/10 before:absolute before:inset-0  rounded-md bg-gradient-to-r from-[#f75e8e] to-[#fc737c]  text-white p-3 text-left shadow-lg"
+                  className="relative flex items-center gap-5 rounded-md bg-gradient-to-r  from-[#f75e8e] to-[#fc737c] p-3  text-left text-white shadow-lg before:absolute  before:inset-0 before:scale-0 before:bg-slate-100/10 before:hover:scale-100"
                   key={org_id.toString()}
                   onClick={() => setSelectedOrgId(org_id.toString())}
                 >
@@ -104,8 +102,8 @@ export default function SigninForm() {
                     alt=""
                   />
                   <div>
-                    <p className="capitalize font-semibold">{org_name}</p>
-                    <p className="capitalize font-light">{jobTitle}</p>
+                    <p className="font-semibold capitalize">{org_name}</p>
+                    <p className="font-light capitalize">{jobTitle}</p>
                   </div>
                 </button>
               ))}

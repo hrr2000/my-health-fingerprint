@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { type GenericProps, type ILink } from "../../toolbox/types";
+import { type GenericProps, type ILink } from "@/types/application";
 
 interface LocalProps extends GenericProps {
   links: ILink[];
@@ -9,11 +9,7 @@ interface LocalProps extends GenericProps {
   mode: "mobile" | "pc";
 }
 
-const NavBar = ({
-  links,
-  activeClassName,
-  mode,
-}: LocalProps) => {
+const NavBar = ({ links, activeClassName, mode }: LocalProps) => {
   const router = useRouter();
   const [smallScreenState, largeScreenState] =
     mode === "mobile" ? ["block", "lg:hidden"] : ["hidden", "lg:block"];

@@ -40,11 +40,11 @@ export default function DashBoardLayout({
           username={name ? name : ""}
           userImageSrc={image ? image : ""}
         />
-        <main className="flex-1 bg-slate-300">
-          <header className="h-[50px] rounded-br-sm rounded-bl-sm bg-white p-2 shadow-sm">
+        <main className="flex-1 bg-white">
+          <header className="h-[55px]  rounded-br-sm rounded-bl-sm border-b-[1px] border-black  p-2 shadow-sm">
             <div className="h-full">sss</div>
           </header>
-          <section className="">{children}</section>
+          <section className="h-full">{children}</section>
         </main>
       </div>
     </>

@@ -1,6 +1,6 @@
 import React, { type RefObject, useState } from "react";
 import Link from "next/link";
-import { HiAcademicCap } from "react-icons/hi";
+import { FaHandHoldingMedical } from "react-icons/fa";
 import { FiActivity, FiFolder, FiTool } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { HiOutlineLogout } from "react-icons/hi";
@@ -35,9 +35,9 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
           <li>
             <Link
               className="flex flex-1 items-center rounded-md p-2 text-lg hover:bg-gray-400/25"
-              href="/dashboard"
+              href="/dashboard/patient"
             >
-              <HiAcademicCap className="h-[30px] w-[30px] shrink-0" />
+              <FaHandHoldingMedical className="h-[30px] w-[30px] shrink-0" />
               <span className="ml-4 whitespace-nowrap">Link 1</span>
             </Link>
           </li>
