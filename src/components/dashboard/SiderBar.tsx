@@ -23,7 +23,7 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
     <aside
       className={` flex ${
         isSidebarOpen ? "w-[200px]" : "w-[60px]"
-      }   flex-col gap-7 bg-black p-2 text-white shadow-md transition-all  duration-300`}
+      }   flex-col gap-7 bg-black p-2 text-slate-200 shadow-md transition-all  duration-300`}
     >
       <header className="flex items-center overflow-hidden rounded-sm bg-violet-400/30 p-2">
         <FiActivity className="h-[30px] w-[30px] shrink-0" />
@@ -38,16 +38,16 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
               href="/dashboard/patient"
             >
               <FaHandHoldingMedical className="h-[30px] w-[30px] shrink-0" />
-              <span className="ml-4 whitespace-nowrap">Link 1</span>
+              <span className="ml-4 whitespace-nowrap">Patient</span>
             </Link>
           </li>
           <li>
             <Link
               className="flex flex-1 items-center rounded-md p-2 text-lg hover:bg-gray-400/25"
-              href="/dashboard"
+              href="/dashboard/templates"
             >
               <FiFolder className="h-[30px] w-[30px] shrink-0" />
-              <span className="ml-4 whitespace-nowrap">Link 2</span>
+              <span className="ml-4 whitespace-nowrap">Templates</span>
             </Link>
           </li>
           <li>
@@ -56,7 +56,7 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
               href="/dashboard"
             >
               <FiTool className="h-[30px] w-[30px] shrink-0" />
-              <span className="ml-4 whitespace-nowrap">Link 3</span>
+              <span className="ml-4 whitespace-nowrap">Settings</span>
             </Link>
           </li>
         </ul>
