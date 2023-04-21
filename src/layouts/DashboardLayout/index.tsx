@@ -18,7 +18,7 @@ export default function DashBoardLayout({
   iconHref,
   meta,
   children,
-  user: { image, name },
+  user: { image, name, orgName },
 }: LocalProps) {
   return (
     <>
@@ -40,9 +40,11 @@ export default function DashBoardLayout({
           username={name ? name : ""}
           userImageSrc={image ? image : ""}
         />
-        <main className="flex-1 bg-white">
-          <header className="h-[55px]  rounded-br-sm rounded-bl-sm border-b-[1px] border-black  p-2 shadow-sm">
-            <div className="h-full">sss</div>
+        <main className="flex-1 bg-slate-50">
+          <header className="h-[55px] rounded-br-sm rounded-bl-sm border-b-[1px] border-slate-200 px-5 shadow-sm">
+            <div className="h-full flex items-center">
+              <h2 className={`text-slate-800 text-xl capitalize`}>{orgName}</h2>
+            </div>
           </header>
           <section className="h-full">{children}</section>
         </main>

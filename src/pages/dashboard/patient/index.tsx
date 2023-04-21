@@ -24,7 +24,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
   return (
     <DashBoardLayout user={user} title="" description="">
       <main className="relative grid h-full grid-cols-[1fr_250px] gap-2">
-        <section className="flex gap-2 border-r-2 border-black  text-black ">
+        <section className="flex gap-2 border-r-[1px] border-slate-200 text-black ">
           {!data && fetchStatus === "idle" ? null : (
             <aside className="w-[70px]">POs</aside>
           )}
