@@ -7,11 +7,13 @@ import { getServerAuthSession } from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
 import {IoIosAdd} from 'react-icons/io';
 import {MdMedicalServices} from 'react-icons/md';
+import {useRouter} from "next/router";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
   >;
 
 const DashboardPage: serverSidePropsType = ({ user }) => {
+  const router = useRouter();
 
   return (
     <DashBoardLayout user={user} title="" description="">
@@ -25,7 +27,8 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
           </button>
         </section>
         <section className="flex h-full gap-2 p-5 border-r-2 border-black text-black">
-          <button className={`p-5 duration-300 hover:shadow-lg border-[1px] border-slate-300 h-40 w-40 flex justify-center items-center flex-col gap-4`}>
+          <button onClick={() => router.push('templates/create')}
+                  className={`p-5 duration-300 hover:shadow-lg border-[1px] border-slate-300 h-40 w-40 flex justify-center items-center flex-col gap-4`}>
             <IoIosAdd size={25} />
             <span className={`text-xs`}>
               Create a Template
