@@ -8,3 +8,4 @@ export const areAnyValuesEmpty = (values: Record<string, string>) => {
   const formValues = Object.values(values);
   return formValues.some((value) => value === "");
 };
+
