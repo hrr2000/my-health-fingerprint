@@ -10,6 +10,14 @@
       ]
     }
   ],
+  "patient": [
+    {
+      "health_record": {
+        "id": "sasdasdasd",
+        "allergies": [{ "id": "sss222", "createdAt": "" }]
+      }
+    }
+  ],
   "organizations": [
     {
       "name": "lol",
@@ -19,7 +27,14 @@
           "id": "FEE",
           "permissions": [1, 2, 3]
         }
-      ]
+      ],
+      "templates": {
+        "patient": [
+          {
+            "id": "111"
+          }
+        ]
+      }
     }
   ],
   "permissions": [
@@ -43,18 +58,86 @@
       "permissions": [1, 2, 3]
     }
   ],
-  "DataRepository": {
-    "allergies": [
-      {
-        "name": "",
-        "cause": "",
-        "type": "",
-        "manifestation": "",
-        "status": "under review | approved | softdelete"
-      }
-    ],
-    "xray-types": [],
-    "viruses": [],
-    "bacteria": []
-  }
+  "entityCrudPages": [
+    {
+      "name": "allergies",
+      "status": "approved",
+      "is_public": "true",
+      "patient_profile": "true"
+    },
+    {
+      "name": "patients",
+      "status": "approved",
+      "is_public": "true",
+      "patient_profile": "true"
+    },
+    {
+      "name": "billings",
+      "status": "approved",
+      "is_public": "true",
+      "patient_profile": "true"
+    },
+    {
+      "name": "manifestations",
+      "status": "approved",
+      "is_public": "true",
+      "patient_profile": "true"
+    },
+    {
+      "name": "family history",
+      "status": "approved",
+      "is_public": "true",
+      "patient_profile": "true"
+    }
+  ],
+  "allergies": [
+    {
+      "id": "sss222",
+      "name": "",
+      "cause": "",
+      "manifestation": ""
+    }
+  ],
+  "components": [
+    {
+      "type": "multi-select",
+      "id": "789"
+    },
+    {
+      "type": "multi-select",
+      "id": "123"
+    },
+    {
+      "type": "single-select",
+      "id": "456"
+    }
+  ],
+  "templates": [
+    {
+      "schema": [
+        [
+          {
+            "id": "456",
+            "entity": "allergies",
+            "name": "allergies single"
+          }
+        ],
+        [
+          {
+            "id": "789",
+            "entity": "manifestations",
+            "name": "manifestations multi"
+          },
+          {
+            "id": "123",
+            "entity": "allergies",
+            "name": "allergies multi"
+          }
+        ]
+      ],
+      "org_id": "",
+      "crud": "patients",
+      "primary": "true"
+    }
+  ]
 }
