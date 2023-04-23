@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Builder.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/RowBuilder.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model.json" beforeDir="false" afterPath="$PROJECT_DIR$/model.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/form/SigninForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/SigninForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/templates/create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/templates/create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +65,7 @@
       <workItem from="1682035627337" duration="598000" />
       <workItem from="1682108837573" duration="12026000" />
       <workItem from="1682179190227" duration="11023000" />
+      <workItem from="1682246653073" duration="7451000" />
     </task>
     <servers />
   </component>
