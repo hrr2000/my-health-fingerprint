@@ -101,39 +101,41 @@
   "components": [
     {
       "type": "multi-select",
+      "entity": "allergies",
       "id": "789"
     },
     {
       "type": "multi-select",
+      "entity": "manifestations",
       "id": "123"
     },
     {
       "type": "single-select",
+      "entity": "allergies",
       "id": "456"
     }
   ],
   "templates": [
     {
       "schema": [
-        [
           {
+            "name": "allergies single",
+            "key": "allergies_single",
             "id": "456",
-            "entity": "allergies",
-            "name": "allergies single"
-          }
-        ],
-        [
-          {
-            "id": "789",
-            "entity": "manifestations",
-            "name": "manifestations multi"
+            "position": [0, 0]
           },
           {
+            "name": "manifestation multi",
+            "key": "manifestation_multi",
+            "id": "789",
+            "position": [1, 0]
+          },
+          {
+            "name": "allergies multi",
+            "key": "allergies_multi",
             "id": "123",
-            "entity": "allergies",
-            "name": "allergies multi"
+            "position": [1, 1]
           }
-        ]
       ],
       "org_id": "",
       "crud": "patients",
