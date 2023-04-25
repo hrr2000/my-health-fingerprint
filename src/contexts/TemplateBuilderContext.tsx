@@ -140,4 +140,4 @@ export function TemplateBuilderContextProvider({
   );
 }
 
-export const useTemplateBulider = () => useContext(TemplateBuilderContext);
+export const useTemplateBuilder = () => useContext(TemplateBuilderContext);

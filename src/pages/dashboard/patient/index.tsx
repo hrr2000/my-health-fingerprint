@@ -6,19 +6,19 @@ import {
 import { getServerAuthSession } from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
 import { useState } from "react";
-import { api } from "@/utils/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { GiHealthNormal } from "react-icons/gi";
+import { usePatientContext } from "@/contexts/PatientContext";
+import { TabsProvider } from "@/contexts/TabsContext";
+import { Tab } from "@/contexts/Tab";
+import { TabPanel } from "@/contexts/TabPanel";
+
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 
 const DashboardPage: serverSidePropsType = ({ user }) => {
-  const [patientId, setPatientId] = useState("");
-  const { data, fetchStatus, error } = api.patient.findOne.useQuery(
-    { id: patientId },
-    { enabled: !!patientId, retry: 1 }
-  );
+  const { data, error, fetchStatus, setPatientId } = usePatientContext();
   const [inputVal, setInputVal] = useState("");
 
   return (
@@ -44,6 +44,20 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
               )}
             </span>
             {data && JSON.stringify(data)}
+            <TabsProvider initialValue="1">
+              <div>
+                <Tab value="1" textContext="hehe" className="" />
+                <Tab value="2" textContext="xD" className="" />
+              </div>
+              <div>
+                <TabPanel value="1">
+                  <p>HELLO</p>
+                </TabPanel>
+                <TabPanel value="2">
+                  <p>BITCHES</p>
+                </TabPanel>
+              </div>
+            </TabsProvider>
           </section>
           {!data && fetchStatus === "fetching" && (
             <div className="absolute inset-0 flex items-center justify-center bg-white">
@@ -69,7 +83,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
               (fetchStatus === "idle" || fetchStatus === "fetching") && (
                 <button
                   disabled={fetchStatus === "fetching"}
-                  onClick={() => setPatientId(inputVal)}
+                  onClick={() => setPatientId?.(inputVal)}
                   className="rounded-md bg-black p-2 text-white disabled:bg-slate-700 "
                 >
                   Search
@@ -78,7 +92,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
             {data && (fetchStatus === "idle" || fetchStatus === "fetching") && (
               <button
                 onClick={() => {
-                  setPatientId("");
+                  setPatientId?.("");
                   setInputVal("");
                 }}
                 className="rounded-md bg-red-600 p-2 text-white"

@@ -1,7 +1,7 @@
-import { useTemplateBulider } from "@/contexts/TemplateBuilderContext";
+import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
 
 export default function Toolbar() {
-  const { collectionDetails } = useTemplateBulider();
+  const { collectionDetails } = useTemplateBuilder();
 
   return (
     <section className="flex flex-col border-slate-200 p-5 text-black">
