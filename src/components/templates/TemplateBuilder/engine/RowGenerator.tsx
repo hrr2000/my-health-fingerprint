@@ -1,9 +1,9 @@
 import { IoIosAdd } from "react-icons/io";
 import { useState } from "react";
-import { useTemplateBulider } from "@/contexts/TemplateBuilderContext";
+import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
 
 export default function RowGenerator() {
-  const { appendRow } = useTemplateBulider();
+  const { appendRow } = useTemplateBuilder();
   const [formDisplay, setFormDisplay] = useState(false);
   const [columnsCount, setColumnsCount] = useState(0);
 

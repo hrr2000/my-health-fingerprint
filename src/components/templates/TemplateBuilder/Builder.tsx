@@ -1,9 +1,9 @@
-import { useTemplateBulider } from "@/contexts/TemplateBuilderContext";
+import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
 import RowGenerator from "@/components/templates/TemplateBuilder/engine/RowGenerator";
 import Row from "@/components/templates/TemplateBuilder/engine/Row";
 
 export default function Builder() {
-  const { templateDetails } = useTemplateBulider();
+  const { templateDetails } = useTemplateBuilder();
 
   return (
     <section className="flex border-r-[1px] border-slate-200 p-5 text-black">
