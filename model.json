@@ -18,6 +18,14 @@
       }
     }
   ],
+  "patient": [
+    {
+      "health_record": {
+        "id": "sasdasdasd",
+        "allergies": [{ "id": "sss222", "createdAt": "" }]
+      }
+    }
+  ],
   "organizations": [
     {
       "name": "lol",
@@ -33,7 +41,14 @@
           {
             "id": "111"
           }
-        ]
+        ],
+        "templates": {
+          "patient": [
+            {
+              "id": "111"
+            }
+          ]
+        }
       }
     }
   ],
@@ -118,24 +133,24 @@
   "templates": [
     {
       "schema": [
-          {
-            "name": "allergies single",
-            "key": "allergies_single",
-            "id": "456",
-            "position": [0, 0]
-          },
-          {
-            "name": "manifestation multi",
-            "key": "manifestation_multi",
-            "id": "789",
-            "position": [1, 0]
-          },
-          {
-            "name": "allergies multi",
-            "key": "allergies_multi",
-            "id": "123",
-            "position": [1, 1]
-          }
+        {
+          "name": "allergies single",
+          "key": "allergies_single",
+          "id": "456",
+          "position": [0, 0]
+        },
+        {
+          "name": "manifestation multi",
+          "key": "manifestation_multi",
+          "id": "789",
+          "position": [1, 0]
+        },
+        {
+          "name": "allergies multi",
+          "key": "allergies_multi",
+          "id": "123",
+          "position": [1, 1]
+        }
       ],
       "org_id": "",
       "crud": "patients",
