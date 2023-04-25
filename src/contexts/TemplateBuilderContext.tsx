@@ -1,13 +1,13 @@
 import {createContext, Dispatch, ReactNode, SetStateAction, useState} from 'react';
 
-const templateDetailsInitialValues = {
+export const templateDetailsInitialValues = {
   name: "",
   schema: [],
   printable: false,
   public: false
 };
 
-const collectionDetailsInitialValues = {
+export const collectionDetailsInitialValues = {
   name: "",
   description: "",
   icon: "",
@@ -15,20 +15,20 @@ const collectionDetailsInitialValues = {
   organization: ""
 }
 
-interface TemplateComponent {
+export interface TemplateComponent {
   _id: string;
   type: string;
-  entity?: string;
+  collection?: string;
 }
 
-interface TemplateDetails {
+export interface TemplateDetails {
   name: string;
-  schema: (TemplateComponent & {position: number[]})[];
+  schema: Partial<TemplateComponent>[][];
   printable: boolean;
   public: boolean;
 }
 
-interface CollectionDetails {
+export interface CollectionDetails {
   name: string;
   description: string;
   icon: string;
@@ -41,17 +41,63 @@ export const TemplateBuilderContext = createContext<{
   collectionDetails: CollectionDetails,
   setTemplateDetails?: Dispatch<SetStateAction<TemplateDetails>>,
   setCollectionDetails?: Dispatch<SetStateAction<CollectionDetails>>,
+  appendRow: (columnsCount: number) => void,
+  removeRow: (index: number) => void,
+  updateColumn: (rowIndex: number, columnIndex: number, updateQuery: Partial<TemplateComponent>) => void
 }>({
   templateDetails: templateDetailsInitialValues,
   collectionDetails: collectionDetailsInitialValues,
+  appendRow: (columnsCount: number) => {},
+  removeRow: (index: number) => {},
+  updateColumn: (rowIndex: number, columnIndex: number, updateQuery: Partial<TemplateComponent>) => {}
 });
 
 export function TemplateBuilderContextProvider({children}: {children: ReactNode}) {
   const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(templateDetailsInitialValues);
   const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(collectionDetailsInitialValues);
 
+  const appendRow = (columnsCount: number) => {
+    if(!columnsCount || columnsCount > 4) return;
+    const row = [];
+    for(let i = 0; i < columnsCount; i ++) row.push({})
+    setTemplateDetails({
+      ...templateDetails,
+      schema: [...templateDetails.schema, row]
+    });
+  }
+
+  const removeRow = (index: number) => {
+    setTemplateDetails({
+      ...templateDetails,
+      schema: templateDetails.schema.filter((item, idx) => idx != index)
+    });
+  }
+
+  const updateColumn = (rowIndex: number, columnIndex: number, updateQuery: Partial<TemplateComponent>) => {
+    const tmpSchema = templateDetails.schema;
+    if(tmpSchema?.[rowIndex]?.[columnIndex]) {
+      // @ts-ignore
+      tmpSchema[rowIndex][columnIndex] = {
+        ...tmpSchema?.[rowIndex]?.[columnIndex],
+        ...updateQuery
+      };
+    }
+    setTemplateDetails({
+      ...templateDetails,
+      schema: tmpSchema
+    });
+  }
+
   return (
-    <TemplateBuilderContext.Provider value={{templateDetails, setTemplateDetails, collectionDetails, setCollectionDetails}}>
+    <TemplateBuilderContext.Provider value={{
+      templateDetails,
+      setTemplateDetails,
+      collectionDetails,
+      setCollectionDetails,
+      appendRow,
+      removeRow,
+      updateColumn
+    }}>
       {children}
     </TemplateBuilderContext.Provider>
   )
