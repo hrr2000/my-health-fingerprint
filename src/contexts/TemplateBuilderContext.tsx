@@ -1,10 +1,17 @@
-import {createContext, Dispatch, ReactNode, SetStateAction, useState} from 'react';
+import {
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
 export const templateDetailsInitialValues = {
   name: "",
   schema: [],
   printable: false,
-  public: false
+  public: false,
 };
 
 export const collectionDetailsInitialValues = {
@@ -12,8 +19,8 @@ export const collectionDetailsInitialValues = {
   description: "",
   icon: "",
   public: false,
-  organization: ""
-}
+  organization: "",
+};
 
 export interface TemplateComponent {
   _id: string;
@@ -36,69 +43,101 @@ export interface CollectionDetails {
   organization: string;
 }
 
-export const TemplateBuilderContext = createContext<{
-  templateDetails: TemplateDetails,
-  collectionDetails: CollectionDetails,
-  setTemplateDetails?: Dispatch<SetStateAction<TemplateDetails>>,
-  setCollectionDetails?: Dispatch<SetStateAction<CollectionDetails>>,
-  appendRow: (columnsCount: number) => void,
-  removeRow: (index: number) => void,
-  updateColumn: (rowIndex: number, columnIndex: number, updateQuery: Partial<TemplateComponent>) => void
+const TemplateBuilderContext = createContext<{
+  templateDetails: TemplateDetails;
+  collectionDetails: CollectionDetails;
+  setTemplateDetails?: Dispatch<SetStateAction<TemplateDetails>>;
+  setCollectionDetails?: Dispatch<SetStateAction<CollectionDetails>>;
+  appendRow: (columnsCount: number) => void;
+  removeRow: (index: number) => void;
+  updateColumn: (
+    rowIndex: number,
+    columnIndex: number,
+    updateQuery: Partial<TemplateComponent>
+  ) => void;
 }>({
   templateDetails: templateDetailsInitialValues,
   collectionDetails: collectionDetailsInitialValues,
-  appendRow: (columnsCount: number) => {},
-  removeRow: (index: number) => {},
-  updateColumn: (rowIndex: number, columnIndex: number, updateQuery: Partial<TemplateComponent>) => {}
+  appendRow: (columnsCount: number) => {
+    return undefined;
+  },
+  removeRow: (index: number) => {
+    return undefined;
+  },
+  updateColumn: (
+    rowIndex: number,
+    columnIndex: number,
+    updateQuery: Partial<TemplateComponent>
+  ) => {
+    return undefined;
+  },
 });
 
-export function TemplateBuilderContextProvider({children}: {children: ReactNode}) {
-  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(templateDetailsInitialValues);
-  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(collectionDetailsInitialValues);
+export function TemplateBuilderContextProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
+    templateDetailsInitialValues
+  );
+  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
+    collectionDetailsInitialValues
+  );
 
   const appendRow = (columnsCount: number) => {
-    if(!columnsCount || columnsCount > 4) return;
+    if (!columnsCount || columnsCount > 4) return;
     const row = [];
-    for(let i = 0; i < columnsCount; i ++) row.push({})
+    for (let i = 0; i < columnsCount; i++) row.push({});
     setTemplateDetails({
       ...templateDetails,
-      schema: [...templateDetails.schema, row]
+      schema: [...templateDetails.schema, row],
     });
-  }
+  };
 
   const removeRow = (index: number) => {
     setTemplateDetails({
       ...templateDetails,
-      schema: templateDetails.schema.filter((item, idx) => idx != index)
+      schema: templateDetails.schema.filter((_, idx) => idx != index),
     });
-  }
+  };
 
-  const updateColumn = (rowIndex: number, columnIndex: number, updateQuery: Partial<TemplateComponent>) => {
+  const updateColumn = (
+    rowIndex: number,
+    columnIndex: number,
+    updateQuery: Partial<TemplateComponent>
+  ) => {
     const tmpSchema = templateDetails.schema;
-    if(tmpSchema?.[rowIndex]?.[columnIndex]) {
-      // @ts-ignore
-      tmpSchema[rowIndex][columnIndex] = {
-        ...tmpSchema?.[rowIndex]?.[columnIndex],
-        ...updateQuery
-      };
+    if (tmpSchema[rowIndex]) {
+      const columns = tmpSchema[rowIndex];
+      if (columns) {
+        columns[columnIndex] = {
+          ...tmpSchema?.[rowIndex]?.[columnIndex],
+          ...updateQuery,
+        };
+      }
     }
     setTemplateDetails({
       ...templateDetails,
-      schema: tmpSchema
+      schema: tmpSchema,
     });
-  }
+  };
 
   return (
-    <TemplateBuilderContext.Provider value={{
-      templateDetails,
-      setTemplateDetails,
-      collectionDetails,
-      setCollectionDetails,
-      appendRow,
-      removeRow,
-      updateColumn
-    }}>
+    <TemplateBuilderContext.Provider
+      value={{
+        templateDetails,
+        collectionDetails,
+        setTemplateDetails,
+        setCollectionDetails,
+        appendRow,
+        removeRow,
+        updateColumn,
+      }}
+    >
       {children}
     </TemplateBuilderContext.Provider>
-  )
+  );
 }
+
+export const useTemplateBulider = () => useContext(TemplateBuilderContext);
