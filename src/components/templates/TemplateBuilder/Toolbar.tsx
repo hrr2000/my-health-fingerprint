@@ -1,51 +1,67 @@
-import {useContext} from "react";
-import {TemplateBuilderContext} from "@/contexts/TemplateBuilderContext";
+import { useTemplateBulider } from "@/contexts/TemplateBuilderContext";
 
 export default function Toolbar() {
-  const {collectionDetails} = useContext(TemplateBuilderContext);
+  const { collectionDetails } = useTemplateBulider();
 
   return (
-    <section className="flex flex-col border-slate-200 text-black p-5">
+    <section className="flex flex-col border-slate-200 p-5 text-black">
       <div className={`w-full py-2 px-4`}>
-        <h3 className={`text-slate-800 mb-2 border-b-slate-200 border-b-[1px]`}>Template Details</h3>
-        <div className={`flex flex-col gap-2 text-sm items-center py-1`}>
-          <select className="text-sm text-black w-full border-slate-300">
+        <h3 className={`mb-2 border-b-[1px] border-b-slate-200 text-slate-800`}>
+          Template Details
+        </h3>
+        <div className={`flex flex-col items-center gap-2 py-1 text-sm`}>
+          <select className="w-full border-slate-300 text-sm text-black">
             <option>select icon</option>
           </select>
           <input
-            className="text-sm text-black w-full border-slate-300"
+            className="w-full border-slate-300 text-sm text-black"
             type="text"
             placeholder="name..."
           />
           <textarea
-            className="text-sm text-black w-full border-slate-300"
+            className="w-full border-slate-300 text-sm text-black"
             rows={3}
             placeholder="short description..."
           />
         </div>
       </div>
       <div className={`w-full py-2 px-4`}>
-        <h3 className={`text-slate-800 mb-2 border-b-slate-200 border-b-[1px]`}>Preferences</h3>
-        <div className={`flex gap-2 text-sm items-center py-1`}>
-          <input id={'is_template_printable'} name={'is_template_printable'} type="checkbox" className={`w-3 h-3`} />
-          <label htmlFor={'is_template_printable'} >Printable</label>
+        <h3 className={`mb-2 border-b-[1px] border-b-slate-200 text-slate-800`}>
+          Preferences
+        </h3>
+        <div className={`flex items-center gap-2 py-1 text-sm`}>
+          <input
+            id={"is_template_printable"}
+            name={"is_template_printable"}
+            type="checkbox"
+            className={`h-3 w-3`}
+          />
+          <label htmlFor={"is_template_printable"}>Printable</label>
         </div>
-        <div className={`flex gap-2 text-sm items-center py-1`}>
-          <input id={'is_template_printable'} name={'is_template_printable'} type="checkbox" className={`w-3 h-3`} />
-          <label htmlFor={'is_template_printable'} >Patient Profile</label>
+        <div className={`flex items-center gap-2 py-1 text-sm`}>
+          <input
+            id={"is_template_printable"}
+            name={"is_template_printable"}
+            type="checkbox"
+            className={`h-3 w-3`}
+          />
+          <label htmlFor={"is_template_printable"}>Patient Profile</label>
         </div>
-        <div className={`flex gap-2 text-sm items-center py-1`}>
-          <input id={'is_template_printable'} name={'is_template_printable'} type="checkbox" className={`w-3 h-3`} />
-          <label htmlFor={'is_template_printable'} >Public</label>
+        <div className={`flex items-center gap-2 py-1 text-sm`}>
+          <input
+            id={"is_template_printable"}
+            name={"is_template_printable"}
+            type="checkbox"
+            className={`h-3 w-3`}
+          />
+          <label htmlFor={"is_template_printable"}>Public</label>
         </div>
       </div>
       <div className={`w-full py-2 px-4`}>
-        <button
-          className="rounded-md bg-black p-2 text-white disabled:bg-slate-700 w-full"
-        >
+        <button className="w-full rounded-md bg-black p-2 text-white disabled:bg-slate-700">
           Save
         </button>
       </div>
     </section>
-  )
+  );
 }
