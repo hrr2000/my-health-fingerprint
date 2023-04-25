@@ -1,9 +1,9 @@
-import {IoIosAdd} from "react-icons/io";
-import {useContext, useState} from "react";
-import {TemplateBuilderContext} from "@/contexts/TemplateBuilderContext";
+import { IoIosAdd } from "react-icons/io";
+import { useState } from "react";
+import { useTemplateBulider } from "@/contexts/TemplateBuilderContext";
 
 export default function RowGenerator() {
-  const {appendRow} = useContext(TemplateBuilderContext);
+  const { appendRow } = useTemplateBulider();
   const [formDisplay, setFormDisplay] = useState(false);
   const [columnsCount, setColumnsCount] = useState(0);
 
@@ -12,17 +12,16 @@ export default function RowGenerator() {
       {!formDisplay ? (
         <button
           onClick={() => setFormDisplay(true)}
-          className={`border-slate-200 w-full hover:shadow-md duration-300 flex items-center justify-center border-[1px] min-h-[50px]`}>
+          className={`flex min-h-[50px] w-full items-center justify-center border-[1px] border-slate-200 duration-300 hover:shadow-md`}
+        >
           <IoIosAdd size={20} />
-          <span className={`text-xs`}>
-            Add A Row
-          </span>
+          <span className={`text-xs`}>Add A Row</span>
         </button>
       ) : (
-        <div className={`p-3 bg-slate-100`}>
+        <div className={`bg-slate-100 p-3`}>
           <input
             onChange={(e) => setColumnsCount(parseInt(e.target.value))}
-            className="text-sm max-w-xs text-black w-full border-slate-300"
+            className="w-full max-w-xs border-slate-300 text-sm text-black"
             type="number"
             placeholder="number of columns..."
           />
@@ -32,23 +31,19 @@ export default function RowGenerator() {
                 appendRow(columnsCount);
                 setFormDisplay(false);
               }}
-              className="rounded-md border-[1px] border-black flex max-w-fit bg-black my-2 p-2 px-4 text-white w-full"
+              className="my-2 flex w-full max-w-fit rounded-md border-[1px] border-black bg-black p-2 px-4 text-white"
             >
-            <span>
-                + Apply the Row
-            </span>
+              <span>+ Apply the Row</span>
             </button>
             <button
               onClick={() => setFormDisplay(false)}
-              className="rounded-md border-[1px] flex max-w-fit border-black bg-white my-2 p-2 px-4 w-full"
+              className="my-2 flex w-full max-w-fit rounded-md border-[1px] border-black bg-white p-2 px-4"
             >
-            <span>
-                Cancel
-            </span>
+              <span>Cancel</span>
             </button>
           </div>
         </div>
       )}
     </div>
-  )
+  );
 }
