@@ -8,6 +8,7 @@ import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { PatientProvider } from "@/contexts/PatientContext";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -42,7 +43,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <AnimatePresence initial={true}>
       <SessionProvider session={session}>
-        <Component className={`${montserrat.variable}`} {...pageProps} />
+        <PatientProvider>
+          <Component className={`${montserrat.variable}`} {...pageProps} />
+        </PatientProvider>
       </SessionProvider>
     </AnimatePresence>
   );
