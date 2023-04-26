@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/Row.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/RowGenerator.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.json" beforeDir="false" afterPath="$PROJECT_DIR$/model.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Builder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Builder.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/RowBuilder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/Column.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/RowGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/RowGenerator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,6 +62,9 @@
       <workItem from="1682179190227" duration="11023000" />
       <workItem from="1682246653073" duration="8216000" />
       <workItem from="1682317507007" duration="8920000" />
+      <workItem from="1682400745070" duration="4263000" />
+      <workItem from="1682429126588" duration="4080000" />
+      <workItem from="1682499649980" duration="1944000" />
     </task>
     <servers />
   </component>
