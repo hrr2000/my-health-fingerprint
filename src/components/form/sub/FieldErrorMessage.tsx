@@ -1,6 +1,6 @@
 import { useField } from "formik";
 import React from "react";
-import { type GenericProps } from "../../toolbox/types";
+import { type GenericProps } from "@/types/application";
 interface LocalProps extends GenericProps {
   name: string;
 }
