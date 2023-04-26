@@ -10,7 +10,7 @@ interface ReportDocument {
 interface PatientDocument {
   name: string;
   nationalId: string;
-  reports: Report[];
+  reports: ReportDocument[];
   history?: object;
 }
 
