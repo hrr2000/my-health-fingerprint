@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import Modal from 'react-modal';
+import {AiOutlineClose} from "react-icons/ai";
 
 export const templateDetailsInitialValues = {
   name: "",
@@ -49,29 +50,27 @@ const TemplateBuilderContext = createContext<{
   collectionDetails: CollectionDetails;
   setTemplateDetails?: Dispatch<SetStateAction<TemplateDetails>>;
   setCollectionDetails?: Dispatch<SetStateAction<CollectionDetails>>;
+  openModal: () => void;
+  closeModal: () => void;
   appendRow: (columnsCount: number) => void;
   removeRow: (index: number) => void;
   updateColumn: (
     rowIndex: number,
     columnIndex: number,
-    updateQuery: Partial<TemplateComponent>
+    updateQuery: Partial<TemplateComponent>,
   ) => void;
 }>({
   templateDetails: templateDetailsInitialValues,
   collectionDetails: collectionDetailsInitialValues,
-  appendRow: (columnsCount: number) => {
-    return undefined;
-  },
-  removeRow: (index: number) => {
-    return undefined;
-  },
+  openModal: () => undefined,
+  closeModal: () => undefined,
+  appendRow: (columnsCount: number) => undefined,
+  removeRow: (index: number) => undefined,
   updateColumn: (
     rowIndex: number,
     columnIndex: number,
     updateQuery: Partial<TemplateComponent>
-  ) => {
-    return undefined;
-  },
+  ) => undefined,
 });
 
 export function TemplateBuilderContextProvider({
@@ -160,6 +159,8 @@ export function TemplateBuilderContextProvider({
         appendRow,
         removeRow,
         updateColumn,
+        openModal,
+        closeModal
       }}
     >
       {children}
@@ -172,16 +173,24 @@ export function TemplateBuilderContextProvider({
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-          <button onClick={closeModal}>close</button>
-          <div>I am a modal</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
+          <div className={`w-[600px]`}>
+            <h2 className={`flex justify-between border-b-2`}>
+              <span className={`font-bold text-slate-800`}>Primary Fields</span>
+              <button
+                onClick={() => closeModal()}
+                className={`text-slate-500 cursor-pointer`}>
+                <AiOutlineClose size={15} />
+              </button>
+            </h2>
+            <div className={`my-3 flex gap-3`}>
+              <div className={`border-2 w-fit p-5 duration-300 hover:border-black cursor-pointer`}>
+                Text Field
+              </div>
+              <div className={`border-2 w-fit p-5 duration-300 hover:border-black cursor-pointer`}>
+                Number Field
+              </div>
+            </div>
+          </div>
         </Modal>
       </div>
     </TemplateBuilderContext.Provider>
