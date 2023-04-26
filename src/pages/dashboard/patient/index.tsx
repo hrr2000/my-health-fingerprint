@@ -24,46 +24,57 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
   return (
     <DashBoardLayout user={user} title="" description="">
       <main className="relative grid h-full grid-cols-[1fr_250px] gap-2">
-        <section className="flex gap-2 border-r-[1px] border-slate-200 text-black ">
-          {!data && fetchStatus === "idle" ? null : (
-            <aside className="w-[70px]">POs</aside>
-          )}
-          <section
-            className={` flex  flex-1 flex-col  ${
-              !data && fetchStatus === "idle"
-                ? "items-center justify-center"
-                : ""
-            }`}
-          >
-            <span className="font-mono text-3xl font-semibold">
-              {!data && fetchStatus === "idle" && (
-                <div className="flex flex-col items-center gap-6">
-                  <GiHealthNormal size={80} />
-                  <p className="text-3xl">Please Search for a patient</p>
-                </div>
+        <section className=" bg-slate- gap-2 border-r-[1px] border-slate-200 bg-slate-200 p-3 pb-16 text-black ">
+          <div className="flex h-full overflow-hidden rounded-md border-[1px] border-slate-200 bg-white shadow-md">
+            <TabsProvider
+              initialValue="profile"
+              defaultTabClassName="border-b-2 border-white p-2"
+              defaultActiveTabClassName="bg-violet-400/30 border-b-2 border-white  transition-all p-2"
+            >
+              {data && (
+                <aside className="flex min-w-[100px] flex-col  bg-black  text-lg text-white">
+                  <Tab value="profile" textContext="Profile" />
+                  <Tab value="scan" textContext="Scan" />
+                  <Tab value="record" textContext="Record" />
+                </aside>
               )}
-            </span>
-            {data && JSON.stringify(data)}
-            <TabsProvider initialValue="1">
-              <div>
-                <Tab value="1" textContext="hehe" className="" />
-                <Tab value="2" textContext="xD" className="" />
-              </div>
-              <div>
-                <TabPanel value="1">
-                  <p>HELLO</p>
-                </TabPanel>
-                <TabPanel value="2">
-                  <p>BITCHES</p>
-                </TabPanel>
-              </div>
+              <section
+                className={` flex  flex-1 flex-col p-2  ${
+                  !data && fetchStatus === "idle"
+                    ? "items-center justify-center"
+                    : ""
+                }`}
+              >
+                <span className="font-mono text-3xl font-semibold">
+                  {!data && fetchStatus === "idle" && (
+                    <div className="flex flex-col items-center gap-6">
+                      <GiHealthNormal size={80} />
+                      <p className="text-3xl">Please Search for a patient</p>
+                    </div>
+                  )}
+                </span>
+                {data && (
+                  <div>
+                    <TabPanel value="profile">
+                      <p>{JSON.stringify(data)}</p>
+                    </TabPanel>
+                    <TabPanel value="scan">
+                      <p>SCAN TAB</p>
+                    </TabPanel>
+                    <TabPanel value="record">
+                      <p>RECORDS TAB</p>
+                    </TabPanel>
+                  </div>
+                )}
+              </section>
             </TabsProvider>
-          </section>
-          {!data && fetchStatus === "fetching" && (
-            <div className="absolute inset-0 flex items-center justify-center bg-white">
-              <AiOutlineLoading3Quarters size={60} className="animate-spin" />
-            </div>
-          )}
+
+            {!data && fetchStatus === "fetching" && (
+              <div className="absolute inset-0 flex items-center justify-center bg-white">
+                <AiOutlineLoading3Quarters size={60} className="animate-spin" />
+              </div>
+            )}
+          </div>
         </section>
 
         <aside className="relative py-4 px-2 text-black ">

@@ -7,19 +7,35 @@ const tabsContext = createContext<
     setCurrentTab: Dispatch<SetStateAction<any>> | undefined;
     currentTab: string;
     tabs: string[];
+    defaultTabClassName: string;
+    defaultActiveTabClassName: string;
   }>
 >({});
 
 interface LocalProps extends GenericProps {
   children: React.ReactNode;
   initialValue: string;
+  defaultTabClassName: string;
+  defaultActiveTabClassName: string;
 }
 
 // (typeof tabs)[number]
-const TabsProvider = ({ children, initialValue }: LocalProps) => {
+const TabsProvider = ({
+  children,
+  initialValue,
+  defaultTabClassName,
+  defaultActiveTabClassName,
+}: LocalProps) => {
   const [currentTab, setCurrentTab] = useState(initialValue);
   return (
-    <tabsContext.Provider value={{ currentTab, setCurrentTab }}>
+    <tabsContext.Provider
+      value={{
+        currentTab,
+        setCurrentTab,
+        defaultTabClassName,
+        defaultActiveTabClassName,
+      }}
+    >
       {children}
     </tabsContext.Provider>
   );
