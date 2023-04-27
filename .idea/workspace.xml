@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/Column.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/Column.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +58,8 @@
       <workItem from="1682317507007" duration="8920000" />
       <workItem from="1682400745070" duration="4263000" />
       <workItem from="1682429126588" duration="4080000" />
-      <workItem from="1682499649980" duration="3807000" />
+      <workItem from="1682499649980" duration="4851000" />
+      <workItem from="1682585695235" duration="870000" />
     </task>
     <servers />
   </component>
