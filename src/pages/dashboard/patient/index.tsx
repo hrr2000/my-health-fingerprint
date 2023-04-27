@@ -29,7 +29,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
             <TabsProvider
               initialValue="profile"
               defaultTabClassName="border-b-2 border-white p-2"
-              defaultActiveTabClassName="bg-violet-400/30 border-b-2 border-white  transition-all p-2"
+              defaultActiveTabClassName="bg-violet-400/30 border-b-2 border-white p-2 transition-all"
             >
               {data && (
                 <aside className="flex min-w-[100px] flex-col  bg-black  text-lg text-white">

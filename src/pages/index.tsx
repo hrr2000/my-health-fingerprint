@@ -26,19 +26,7 @@ const Home: NextPage = () => {
             back office.
           </p>
           <button
-            onClick={() =>
-              mutate({
-                first_name: "kerolous",
-                last_name: "amged",
-                nationalId: "12345678912345",
-                email: "kokp@a.com",
-                password: "12345678",
-                orgId: "41224d776a326fb40f000001",
-                orgName: "Ain Shams University Hospital",
-                roles: ["41224d776a326fb40f340001"],
-                jobTitle: "doctor",
-              })
-            }
+            onClick={() => mutate()}
             className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md"
           >
             Request demo
