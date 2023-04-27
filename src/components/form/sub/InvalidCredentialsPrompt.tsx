@@ -1,5 +1,5 @@
 import React from "react";
-import { type GenericProps } from "@/components/toolbox/types";
+import { type GenericProps } from "@/types/application";
 interface LocalProps extends GenericProps {
   isInvalidCredentials: boolean;
 }

@@ -40,7 +40,7 @@ export const userRouter = createTRPCRouter({
         });
 
         const userStarterImage = await fetch(
-          `https://ui-avatars.com/api/?name=${input.first_name}+${input.last_name}&size=50`
+          `https://ui-avatars.com/api/?name=${input.firstName}+${input.lastName}&size=50`
         )
           .then((res) => res.blob())
           .then((res) => res.arrayBuffer());
