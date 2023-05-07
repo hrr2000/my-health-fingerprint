@@ -6,8 +6,10 @@ import {
   useContext,
   useState,
 } from "react";
-import Modal from 'react-modal';
-import {AiOutlineClose} from "react-icons/ai";
+import AddFieldModal, {
+  AddFieldModalController,
+  IAddFieldModalController
+} from "@/components/templates/TemplateBuilder/modals/AddFieldModal";
 
 export const templateDetailsInitialValues = {
   name: "",
@@ -59,19 +61,7 @@ const TemplateBuilderContext = createContext<{
     columnIndex: number,
     updateQuery: Partial<TemplateComponent>,
   ) => void;
-}>({
-  templateDetails: templateDetailsInitialValues,
-  collectionDetails: collectionDetailsInitialValues,
-  openModal: () => undefined,
-  closeModal: () => undefined,
-  appendRow: (columnsCount: number) => undefined,
-  removeRow: (index: number) => undefined,
-  updateColumn: (
-    rowIndex: number,
-    columnIndex: number,
-    updateQuery: Partial<TemplateComponent>
-  ) => undefined,
-});
+} & IAddFieldModalController | null>(null);
 
 export function TemplateBuilderContextProvider({
   children,
@@ -84,21 +74,7 @@ export function TemplateBuilderContextProvider({
   const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
     collectionDetailsInitialValues
   );
-
-  let subtitle;
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const fieldModalController = AddFieldModalController();
 
   const appendRow = (columnsCount: number) => {
     if (!columnsCount || columnsCount > 4) return;
@@ -138,17 +114,6 @@ export function TemplateBuilderContextProvider({
     });
   }
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
-
   return (
     <TemplateBuilderContext.Provider
       value={{
@@ -159,42 +124,30 @@ export function TemplateBuilderContextProvider({
         appendRow,
         removeRow,
         updateColumn,
-        openModal,
-        closeModal
+        ...fieldModalController
       }}
     >
       {children}
       <div>
-        <button onClick={openModal}>Open Modal</button>
-        <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <div className={`w-[600px]`}>
-            <h2 className={`flex justify-between border-b-2`}>
-              <span className={`font-bold text-slate-800`}>Primary Fields</span>
-              <button
-                onClick={() => closeModal()}
-                className={`text-slate-500 cursor-pointer`}>
-                <AiOutlineClose size={15} />
-              </button>
-            </h2>
-            <div className={`my-3 flex gap-3`}>
-              <div className={`border-2 w-fit p-5 duration-300 hover:border-black cursor-pointer`}>
-                Text Field
-              </div>
-              <div className={`border-2 w-fit p-5 duration-300 hover:border-black cursor-pointer`}>
-                Number Field
-              </div>
-            </div>
-          </div>
-        </Modal>
+       <AddFieldModal />
       </div>
     </TemplateBuilderContext.Provider>
   );
 }
 
-export const useTemplateBuilder = () => useContext(TemplateBuilderContext);
+export const useTemplateBuilder = () => {
+  const hook = useContext(TemplateBuilderContext);
+  if(!hook) return {
+    templateDetails: templateDetailsInitialValues,
+    collectionDetails: collectionDetailsInitialValues,
+    appendRow: (columnsCount: number) => undefined,
+    removeRow: (index: number) => undefined,
+    updateColumn: (
+      rowIndex: number,
+      columnIndex: number,
+      updateQuery: Partial<TemplateComponent>
+    ) => undefined,
+    ...AddFieldModalController()
+  }
+  return hook;
+}
