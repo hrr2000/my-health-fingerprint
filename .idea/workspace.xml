@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/fields/GenericField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/fields/GenericField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.json" beforeDir="false" afterPath="$PROJECT_DIR$/model.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/Column.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/Column.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/modals/AddFieldModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/modals/AddFieldModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +66,9 @@
       <workItem from="1682585695235" duration="2809000" />
       <workItem from="1683285501035" duration="2359000" />
       <workItem from="1683340891552" duration="6090000" />
-      <workItem from="1683407083541" duration="7682000" />
+      <workItem from="1683407083541" duration="10174000" />
+      <workItem from="1683482031103" duration="4799000" />
+      <workItem from="1683523564939" duration="6864000" />
     </task>
     <servers />
   </component>

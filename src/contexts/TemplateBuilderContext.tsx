@@ -52,8 +52,6 @@ const TemplateBuilderContext = createContext<{
   collectionDetails: CollectionDetails;
   setTemplateDetails?: Dispatch<SetStateAction<TemplateDetails>>;
   setCollectionDetails?: Dispatch<SetStateAction<CollectionDetails>>;
-  openModal: () => void;
-  closeModal: () => void;
   appendRow: (columnsCount: number) => void;
   removeRow: (index: number) => void;
   updateColumn: (
