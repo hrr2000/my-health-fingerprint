@@ -1,26 +1,32 @@
 import Modal from "react-modal";
-import {AiOutlineClose} from "react-icons/ai";
-import {useState} from "react";
+import {AiOutlineClose, AiOutlineUnorderedList} from "react-icons/ai";
+import {ChangeEvent, ReactNode, useState} from "react";
 import GenericButton from "@/components/common/GenericButton";
 import {useTemplateBuilder} from "@/contexts/TemplateBuilderContext";
+import {GoTextSize} from "react-icons/go";
+import {TiSortNumerically} from "react-icons/ti";
 
 type FieldType = 'text' | 'number' | 'select';
 
 interface IField {
+  icon?: ReactNode,
   type: FieldType,
   name: string,
 }
 
-const fields: IField[] = [
+export const fields: IField[] = [
   {
+    icon: <GoTextSize size={25} />,
     type: 'text',
     name: 'Text Field',
   },
   {
+    icon: <TiSortNumerically size={25} />,
     type: 'number',
     name: 'Number Field',
   },
   {
+    icon: <AiOutlineUnorderedList size={25} />,
     type: 'select',
     name: 'Select Field',
   },
@@ -41,24 +47,38 @@ const customStyles = {
 export const AddFieldModalController = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalStep, setModalStep] = useState(0);
+  const [fieldObject, setFieldObject] = useState({});
+  const [cell, setCell] = useState({
+    rowIndex: 0,
+    columnIndex: 0,
+  })
 
 
-  function openModal() {
+  function openModal(rowIndex: number, columnIndex: number) {
+    setCell({
+      rowIndex,
+      columnIndex
+    })
     setIsOpen(true);
+    setFieldObject({});
   }
 
   function afterOpenModal() {
-    // references are now sync'd and can be accessed.
   }
 
   function closeModal() {
+    setModalStep(0);
     setIsOpen(false);
   }
 
   return {
+    fieldObject,
     modalStep,
-    setModalStep,
     modalIsOpen,
+    cell,
+    setCell,
+    setFieldObject,
+    setModalStep,
     setIsOpen,
     openModal,
     afterOpenModal,
@@ -68,16 +88,74 @@ export const AddFieldModalController = () => {
 
 export type IAddFieldModalController = ReturnType<typeof AddFieldModalController>
 
-export default function AddFieldModal() {
+function ChooseFieldStep({setFieldObject}: any) {
+  const [activeField, setActiveField] = useState<FieldType | 'None'>('None');
+  return (
+    <div className={`w-[600px]`}>
+      <div className={`my-3 grid grid-cols-3 gap-3 text-sm text-slate-600`}>
+        {fields.map((field, idx) => {
+          return (
+            <div key={`primary_field-${idx}`}
+                 className={`border-2 flex items-center justify-start gap-4 w-fit p-3 duration-300 hover:border-black hover:text-black font-bold ${field.type == activeField ? "border-black text-black" : "text-slate-500"} cursor-pointer w-full`}
+                 onClick={() => {
+                   setActiveField(field.type)
+                   setFieldObject((obj: any) => ({...obj, type: field.type}))
+                 }}
+            >
+              <span>{field.icon}</span>
+              <span>{field.name}</span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  );
+}
 
-  const [activeField, setActiveField] = useState<FieldType>('text');
-  const [fieldObject, setFieldObject] = useState({});
+function PreferencesStep({setFieldObject}: any) {
+  const handleChange = (key: string) => {
+    return (e: ChangeEvent<HTMLInputElement>) => setFieldObject((obj: any) => ({...obj, [key]: e.target.value}))
+  }
+
+  return (
+    <div className={`w-[600px]`}>
+        <form className={`grid grid-cols-2 gap-3 my-5`}>
+          <input
+            type="text"
+            placeholder="Label"
+            name="label"
+            onChange={handleChange('label')}
+          />
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            onChange={handleChange('name')}
+          />
+        </form>
+    </div>
+  );
+}
+
+const steps = [
+  {
+    title: "Choose Field",
+  },
+  {
+    title: "Preferences",
+  },
+];
+
+export default function AddFieldModal() {
   const {
+    fieldObject,
     modalStep,
-    setModalStep,
     modalIsOpen,
-    setIsOpen,
-    openModal,
+    templateDetails,
+    setTemplateDetails,
+    cell,
+    setModalStep,
+    setFieldObject,
     afterOpenModal,
     closeModal
   } = useTemplateBuilder();
@@ -88,49 +166,57 @@ export default function AddFieldModal() {
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
       style={customStyles}
-      contentLabel="Example Modal"
     >
-      <div className={`w-[600px]`}>
-        <h2 className={`flex justify-between`}>
-          <span className={`font-bold text-slate-800`}>Primary Fields</span>
-          <button
-            onClick={() => closeModal()}
-            className={`text-slate-500 cursor-pointer`}>
-            <AiOutlineClose size={15} />
-          </button>
-        </h2>
-        <div className={`my-3 grid grid-cols-3 gap-3 text-sm text-slate-600`}>
-          {fields.map((field, idx) => {
-            return (
-              <div key={`primary_field-${idx}`}
-                   className={`border-2 w-fit p-3 duration-300 hover:border-black hover:text-black font-bold ${field.type == activeField ? "border-black text-black" : "text-slate-500"} cursor-pointer w-full`}
-                   onClick={() => setActiveField(field.type)}
-              >
-                {field.name}
-              </div>
-            )
-          })}
-        </div>
-        <div className={`flex justify-between`}>
-          {modalStep > 0 ? (
-            <GenericButton
-              theme={'secondary'}
-              text={'Back'}
-              onClick={() => {
-                setModalStep(step => Math.min(2, step - 1));
-              }}
-            />
-          ) : (
-            <span></span>
-          )}
+      <h2 className={`flex justify-between`}>
+        <span className={`font-bold text-slate-800`}>{steps[modalStep]?.title}</span>
+        <button
+          onClick={() => closeModal()}
+          className={`text-slate-500 cursor-pointer`}>
+          <AiOutlineClose size={15} />
+        </button>
+      </h2>
+
+      {modalStep === 0 && <ChooseFieldStep setFieldObject={setFieldObject} />}
+      {modalStep === 1 && <PreferencesStep setFieldObject={setFieldObject} />}
+
+      <div className={`flex justify-between`}>
+        {modalStep > 0 ? (
+          <GenericButton
+            theme={'secondary'}
+            text={'Back'}
+            onClick={() => {
+              setModalStep(step => Math.min(steps.length - 1, step - 1));
+            }}
+          />
+        ) : (
+          <span></span>
+        )}
+        {modalStep == steps.length - 1 ? (
+          <GenericButton
+            theme={'primary'}
+            text={'Apply'}
+            onClick={() => {
+              const schema = templateDetails.schema;
+              if(schema?.[cell.rowIndex]?.[cell.columnIndex]) {
+                // @ts-ignore
+                schema[cell.rowIndex][cell.columnIndex] = fieldObject;
+              }
+              setTemplateDetails?.((obj) => ({
+                ...obj,
+                schema
+              }))
+              closeModal();
+            }}
+          />
+        ) : (
           <GenericButton
             theme={'primary'}
             text={'Next'}
             onClick={() => {
-              setModalStep(step => Math.min(2, step + 1));
+              setModalStep(step => Math.min(steps.length - 1, step + 1));
             }}
           />
-        </div>
+        )}
       </div>
     </Modal>
   )

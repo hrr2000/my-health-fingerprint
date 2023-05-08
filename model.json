@@ -18,14 +18,6 @@
       }
     }
   ],
-  "patient": [
-    {
-      "health_record": {
-        "id": "sasdasdasd",
-        "allergies": [{ "id": "sss222", "createdAt": "" }]
-      }
-    }
-  ],
   "organizations": [
     {
       "name": "lol",
