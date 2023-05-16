@@ -128,19 +128,16 @@
         {
           "name": "allergies single",
           "key": "allergies_single",
-          "id": "456",
-          "position": [0, 0]
+          "collection": "456"
         },
         {
           "name": "manifestation multi",
           "key": "manifestation_multi",
-          "id": "789",
-          "position": [1, 0]
+          "id": "789"
         },
         {
           "key": "allergies_multi",
-          "id": "123",
-          "position": [1, 1]
+          "id": "123"
         }
       ],
       "org_id": "",

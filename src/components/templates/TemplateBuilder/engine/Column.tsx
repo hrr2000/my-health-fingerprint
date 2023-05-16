@@ -9,6 +9,7 @@ export default function Column({rowIndex, columnIndex, gridSpan}: {rowIndex: num
   const data: any = templateDetails.schema[rowIndex][columnIndex];
   const isFilled = data && Object.keys(data).length;
   console.log(fields);
+  console.log(templateDetails.schema);
 
   return (
     <div  className={`border-slate-200 border-[1px]`} style={{

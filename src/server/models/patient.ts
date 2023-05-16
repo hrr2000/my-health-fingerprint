@@ -1,18 +1,8 @@
-import mongoose, { type ObjectId } from "mongoose";
+import mongoose from "mongoose";
+import {PatientDocument, ReportDocument} from "@/types/mongo";
 
 const { Schema, Types } = mongoose;
 
-interface ReportDocument {
-  author: string;
-  notes: string;
-}
-
-interface PatientDocument {
-  name: string;
-  nationalId: string;
-  reports: ReportDocument[];
-  history?: object;
-}
 
 const reportSchema = new Schema<ReportDocument>(
   { author: String, notes: String },

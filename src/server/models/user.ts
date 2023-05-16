@@ -1,23 +1,8 @@
-import { type User } from "next-auth";
-import mongoose, { type ObjectId } from "mongoose";
+import mongoose from "mongoose";
+import {UserDocument} from "@/types/mongo";
 
 const { Schema, Types } = mongoose;
 
-export interface UserDocument extends User {
-  nationalId: string;
-  first_name: string;
-  last_name: string;
-  organizations: {
-    org_id: ObjectId;
-    org_name: string;
-    picture: string;
-    password: string;
-    email: string;
-    emailConfirmed: Date;
-    jobTitle: string;
-    roles: ObjectId[];
-  }[];
-}
 const schema = new Schema<UserDocument>(
   {
     nationalId: {
