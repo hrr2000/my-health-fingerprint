@@ -1,14 +1,11 @@
-import mongoose, { type ObjectId } from "mongoose";
+import mongoose from "mongoose";
+import {PermissionDocument} from "@/types/mongo";
 
 const { Schema, Types } = mongoose;
 
-interface PermissionDocument {
-  _id: ObjectId;
-  name: string;
-}
+
 const schema = new Schema<PermissionDocument>(
   {
-    _id: Types.ObjectId,
     name: String,
   },
   { timestamps: true }

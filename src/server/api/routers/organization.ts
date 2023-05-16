@@ -18,7 +18,6 @@ export const organizationRouter = createTRPCRouter({
         },
         { last_name: true, first_name: true, organizations: true }
       );
-      console.log(user);
 
       if (!user) {
         throw new TRPCError({
@@ -26,6 +25,7 @@ export const organizationRouter = createTRPCRouter({
           code: "NOT_FOUND",
         });
       }
+
       const userAccounts = user?.organizations.map(
         ({ jobTitle, picture, org_id, org_name }) => ({
           jobTitle,

@@ -1,15 +1,10 @@
-import mongoose, { type ObjectId, type Document } from "mongoose";
+import mongoose from "mongoose";
+import {AllowedPermissionDocument} from "@/types/mongo";
 
 const { Schema, Types } = mongoose;
 
-interface AllowedPermissionDocument extends Document {
-  _id: ObjectId;
-  entity_name: string;
-  permissions: ObjectId[];
-}
 const schema = new Schema<AllowedPermissionDocument>(
   {
-    _id: Types.ObjectId,
     entity_name: String,
     permissions: [Types.ObjectId],
   },

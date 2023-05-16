@@ -2,11 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/server/api/routers/collection.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/models/custom-collection.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/models/template.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/validation/collection.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model.json" beforeDir="false" afterPath="$PROJECT_DIR$/model.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/Column.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/Column.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/modals/AddFieldModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/modals/AddFieldModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/RowGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/RowGenerator.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/api/routers/organization.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/organization.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/models/allowed-permission.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/allowed-permission.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/models/organization.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/organization.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/models/patient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/patient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/models/permission.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/permission.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/models/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/mongo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/mongo.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +80,10 @@
       <workItem from="1683340891552" duration="6090000" />
       <workItem from="1683407083541" duration="10174000" />
       <workItem from="1683482031103" duration="4799000" />
-      <workItem from="1683523564939" duration="6864000" />
+      <workItem from="1683523564939" duration="8759000" />
+      <workItem from="1683889735626" duration="59000" />
+      <workItem from="1684053033624" duration="5966000" />
+      <workItem from="1684239486995" duration="4936000" />
     </task>
     <servers />
   </component>
@@ -85,5 +100,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/types/mongo.ts</url>
+          <line>51</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

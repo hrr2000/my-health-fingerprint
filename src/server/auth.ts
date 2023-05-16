@@ -24,7 +24,6 @@ export const authOptions: NextAuthOptions = {
         token.nationalId = user.nationalId;
         token.orgName = user.orgName;
         token.orgId = user.orgId;
-        token.roles = user.roles;
         token.jobTitle = user.jobTitle;
       }
 
@@ -35,7 +34,6 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.sub as string;
         session.user.nationalId = token.nationalId;
         session.user.orgId = token.orgId;
-        session.user.roles = token.roles;
         session.user.jobTitle = token.jobTitle;
         session.user.orgName = token.orgName;
       }
@@ -67,7 +65,7 @@ export const authOptions: NextAuthOptions = {
         if (!selectedOrg) {
           return null;
         }
-        const { org_name, org_id, email, picture, jobTitle, roles } =
+        const { org_name, org_id, email, picture, jobTitle } =
           selectedOrg;
 
         return {
@@ -79,7 +77,6 @@ export const authOptions: NextAuthOptions = {
           picture,
           jobTitle,
           orgId: org_id,
-          roles,
           nationalId: creds?.nationalId,
         };
       },
@@ -106,7 +103,6 @@ declare module "next-auth" {
     user: {
       id: string;
       nationalId: string;
-      roles: ObjectId[];
       orgId: string;
       orgName: string;
       jobTitle: string;
@@ -115,7 +111,6 @@ declare module "next-auth" {
 
   interface User {
     // ...other properties
-    roles: ObjectId[];
     firstName: string;
     lastName: string;
     orgId: string;
@@ -128,7 +123,6 @@ declare module "next-auth" {
 }
 declare module "next-auth/jwt" {
   interface JWT {
-    roles: ObjectId[];
     orgId: string;
     orgName: string;
     nationalId: string;
