@@ -3,15 +3,16 @@ import { useRouter } from "next/router";
 import { type SigninType } from "@/validation/signin";
 import { signIn } from "next-auth/react";
 
-type Credentials = Record<string, string>;
-export function useSigninWithCreds(creds: Credentials) {
+export function useSigninWithCreds() {
+  const [nationalId, setNationalId] = useState(""); // state
+  const [selectedOrgId, setSelectedOrgId] = useState("");
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
   const router = useRouter();
 
   const signin = async (values: { password: string }) => {
-    console.log({ creds, values });
     const response = await signIn("credentials", {
-      ...creds,
+      nationalId,
+      selectedOrgId,
       ...values,
       redirect: false,
     });
@@ -23,5 +24,12 @@ export function useSigninWithCreds(creds: Credentials) {
     setIsInvalidCredentials(true);
   };
 
-  return { isInvalidCredentials, signin };
+  return {
+    isInvalidCredentials,
+    nationalId,
+    selectedOrgId,
+    setNationalId,
+    setSelectedOrgId,
+    signin,
+  };
 }

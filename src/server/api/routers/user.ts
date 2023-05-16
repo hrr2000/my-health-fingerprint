@@ -26,56 +26,45 @@ export const userRouter = createTRPCRouter({
               roles,
               email,
             },
-            {
-              org_id: "640c5bdb238a36ee26f1ffb4",
-              org_name: "helwan university hospital",
-              jobTitle: "doctor",
-              password: "123456788",
-              roles: ["640c5bd134f906d943702634", "640c5bd6f0a2e0bbd3c68aeb"],
-              email: "kokp.amged@gmail.com",
-              picture:
-                "https://nflqlknmqitbrxqkxtbl.supabase.co/storage/v1/object/public/mhfp/avatars/640c5be3fdfa9afd47546dff-41224d776a326fb40f000001.png",
-            },
           ],
         });
 
         const userStarterImage = await fetch(
           `https://ui-avatars.com/api/?name=${input.firstName}+${input.lastName}&size=50`
-        )
-          .then((res) => res.blob())
-          .then((res) => res.arrayBuffer());
+        ).then((res) => res.body);
 
-        const { data, error } = await supabase.storage
-          .from("mhfp")
-          .upload(
-            `avatars/${user._id.toString()}-${orgId}.png`,
-            userStarterImage,
-            {
-              cacheControl: "3600",
-              upsert: false,
-              contentType: "image/png",
-            }
-          );
-
-        if (error) {
-          throw new TRPCError({
-            message: error.message,
-            code: "BAD_REQUEST",
-            cause: error.cause,
-          });
-        }
-        if (data) {
-          const imagePublicURL = supabase.storage
+        if (userStarterImage) {
+          const { data, error } = await supabase.storage
             .from("mhfp")
-            .getPublicUrl(data.path);
-          const organizationAccount = user?.organizations.find(
-            (organizationAccount) =>
-              organizationAccount.org_id.toString() === orgId
-          );
-          if (organizationAccount) {
-            organizationAccount.picture = imagePublicURL.data.publicUrl;
+            .upload(
+              `avatars/${user._id.toString()}-${orgId}.png`,
+              userStarterImage,
+              {
+                cacheControl: "3600",
+                upsert: false,
+                contentType: "image/png",
+              }
+            );
+          if (error) {
+            throw new TRPCError({
+              message: error.message,
+              code: "BAD_REQUEST",
+              cause: error.cause,
+            });
           }
-          await user.save();
+          if (data) {
+            const imagePublicURL = supabase.storage
+              .from("mhfp")
+              .getPublicUrl(data.path);
+            const organizationAccount = user?.organizations.find(
+              (organizationAccount) =>
+                organizationAccount.org_id.toString() === orgId
+            );
+            if (organizationAccount) {
+              organizationAccount.picture = imagePublicURL.data.publicUrl;
+            }
+            await user.save();
+          }
         }
       }
     ),

@@ -1,6 +1,6 @@
 import React, { type RefObject, useState } from "react";
 import Link from "next/link";
-import { FaHandHoldingMedical } from "react-icons/fa";
+import { FaHandHoldingMedical, FaFolder } from "react-icons/fa";
 import { FiActivity, FiFolder, FiTool } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { HiOutlineLogout } from "react-icons/hi";
@@ -46,8 +46,8 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
               className="flex flex-1 items-center rounded-md p-2 text-lg hover:bg-gray-400/25"
               href="/dashboard/templates"
             >
-              <FiFolder className="h-[30px] w-[30px] shrink-0" />
-              <span className="ml-4 whitespace-nowrap">Templates</span>
+              <FaFolder className="h-[30px] w-[30px] shrink-0" />
+              <span className="ml-4 whitespace-nowrap">Collections</span>
             </Link>
           </li>
           <li>
