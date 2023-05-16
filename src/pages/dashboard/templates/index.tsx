@@ -32,7 +32,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
             className={`flex h-40 w-40 flex-col items-center justify-center gap-4 border-[1px] border-slate-300 p-5 duration-300 hover:shadow-lg`}
           >
             <IoIosAdd size={25} />
-            <span className={`text-xs`}>Create a Template</span>
+            <span className={`text-xs`}>Create a Collection</span>
           </button>
           <button
             className={`flex h-40 w-40 flex-col items-center justify-center gap-4 border-[1px] border-slate-300 p-5 duration-300 hover:shadow-lg`}

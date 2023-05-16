@@ -8,10 +8,9 @@ import DashBoardLayout from "@/layouts/DashboardLayout";
 import TemplateBuilder from "@/components/templates/TemplateBuilder";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
-  >;
+>;
 
 const DashboardPage: serverSidePropsType = ({ user }) => {
-
   return (
     <DashBoardLayout user={user} title="" description="">
       <main className="relative grid h-full grid-cols-[1fr_350px]">
