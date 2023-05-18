@@ -4,12 +4,12 @@ import AddFieldModal, {
   type IAddFieldModalController,
 } from "@/components/templates/TemplateBuilder/modals/AddFieldModal";
 import {
-  type IRowGeneratorController,
-  RowGeneratorController,
+  BuilderController,
+  type IBuilderController,
 } from "@/components/templates/TemplateBuilder/engine/RowGenerator";
 
 const TemplateBuilderContext = createContext<
-  (IRowGeneratorController & IAddFieldModalController) | null
+  (IBuilderController & IAddFieldModalController) | null
 >(null);
 
 export function TemplateBuilderContextProvider({
@@ -17,18 +17,17 @@ export function TemplateBuilderContextProvider({
 }: {
   children: ReactNode;
 }) {
-  const rowGeneratorController = RowGeneratorController();
+  const builderController = BuilderController();
   const fieldModalController = AddFieldModalController();
 
   return (
     <TemplateBuilderContext.Provider
       value={{
-        ...rowGeneratorController,
+        ...builderController,
         ...fieldModalController,
       }}
     >
       {children}
-
       <AddFieldModal />
     </TemplateBuilderContext.Provider>
   );
@@ -41,7 +40,7 @@ export const useTemplateBuilder = () => {
   const hook = useTemplateBuilderContext();
   if (!hook)
     return {
-      ...RowGeneratorController(),
+      ...BuilderController(),
       ...AddFieldModalController(),
     };
   return hook;

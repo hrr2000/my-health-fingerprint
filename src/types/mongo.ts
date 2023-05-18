@@ -61,7 +61,8 @@ export interface CustomCollectionDocument {
 
 export interface CollectionTemplateDocument {
   schema: string;
-  org_id: ObjectId;
   collection_id: string;
   primary: boolean;
+  printable: boolean;
+  name: string;
 }

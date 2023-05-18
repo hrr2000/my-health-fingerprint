@@ -5,9 +5,14 @@ const { Schema, Types } = mongoose;
 
 const schema = new Schema<CollectionTemplateDocument>(
   {
+    name: {
+      type: String,
+      unique: true,
+      index: true
+    },
     schema: String,
-    org_id: Types.ObjectId,
     collection_id: String,
+    printable: Boolean,
     primary: Boolean,
   },
   { timestamps: true }
