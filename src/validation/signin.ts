@@ -3,7 +3,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 
 // this is for zod in trpc
 export const signinSchema = z.object({
-  nationalId: z.string(),
+  nationalId: z.string().trim(),
 });
 // this is for formik
 export const signinFormSchema = toFormikValidationSchema(signinSchema);

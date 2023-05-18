@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {OrganizationDocument} from "@/types/mongo";
+import { type OrganizationDocument } from "@/types/mongo";
 
 const { Schema, Types } = mongoose;
 

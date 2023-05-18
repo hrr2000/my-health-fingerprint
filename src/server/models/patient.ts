@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import {PatientDocument, ReportDocument} from "@/types/mongo";
+import { type PatientDocument, type ReportDocument } from "@/types/mongo";
 
-const { Schema, Types } = mongoose;
-
+const { Schema } = mongoose;
 
 const reportSchema = new Schema<ReportDocument>(
   { author: String, notes: String },
