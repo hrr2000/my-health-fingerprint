@@ -1,7 +1,9 @@
-import {ButtonHTMLAttributes} from "react";
+import { type ButtonHTMLAttributes } from "react";
 
-
-const PrimaryButton = ({text, ...props}: {text: string} & ButtonHTMLAttributes<HTMLButtonElement>) => {
+const PrimaryButton = ({
+  text,
+  ...props
+}: { text: string } & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       {...props}
@@ -9,33 +11,40 @@ const PrimaryButton = ({text, ...props}: {text: string} & ButtonHTMLAttributes<H
     >
       <span>{text}</span>
     </button>
-  )
-}
+  );
+};
 
-const SecondaryButton = ({text, ...props}: {text: string} & ButtonHTMLAttributes<HTMLButtonElement>) => {
+const SecondaryButton = ({
+  text,
+  ...props
+}: { text: string } & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
-
     <button
       {...props}
       className="my-2 flex w-full max-w-fit rounded-md border-[1px] border-black bg-white p-2 px-4"
     >
       <span>{text}</span>
     </button>
-  )
-}
+  );
+};
 
 const buttons = {
   primary: PrimaryButton,
-  secondary: SecondaryButton
-}
+  secondary: SecondaryButton,
+};
 
-type ButtonTheme = keyof typeof buttons
+type ButtonTheme = keyof typeof buttons;
 
-export default function GenericButton({text, theme, ...props}: {text: string, theme: ButtonTheme}  & ButtonHTMLAttributes<HTMLButtonElement>) {
-  return (
-    buttons[theme]({
-      text,
-      ...props
-    })
-  )
+export default function GenericButton({
+  text,
+  theme,
+  ...props
+}: {
+  text: string;
+  theme: ButtonTheme;
+} & ButtonHTMLAttributes<HTMLButtonElement>) {
+  return buttons[theme]({
+    text,
+    ...props,
+  });
 }
