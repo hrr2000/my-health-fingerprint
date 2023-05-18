@@ -1,5 +1,5 @@
-import {User} from "next-auth";
-import {Document, ObjectId} from "mongoose";
+import { type User } from "next-auth";
+import { type Document, type ObjectId } from "mongoose";
 
 export interface UserDocument extends User {
   nationalId: string;
@@ -21,7 +21,6 @@ export interface PermissionDocument {
   _id: ObjectId;
   name: string;
 }
-
 
 export interface ReportDocument {
   author: string;
@@ -54,16 +53,15 @@ export interface AllowedPermissionDocument extends Document {
 }
 
 export interface CustomCollectionDocument {
-  _id: ObjectId,
+  _id: ObjectId;
   name: string;
   is_public: boolean;
   patient_profile: boolean;
 }
 
 export interface CollectionTemplateDocument {
-  schema: string,
-  org_id: ObjectId,
-  collection: string;
+  schema: string;
+  org_id: ObjectId;
+  collection_id: string;
   primary: boolean;
 }
-

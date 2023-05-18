@@ -1,10 +1,6 @@
 import { IoIosAdd } from "react-icons/io";
 import { useState } from "react";
-import {
-  useTemplateBuilder
-} from "@/contexts/TemplateBuilderContext";
-
-
+import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
 
 export interface TemplateDetails {
   name: string;
@@ -25,6 +21,7 @@ export interface TemplateComponent {
   _id: string;
   type: string;
   collection?: string;
+  label: string;
 }
 
 export const templateDetailsInitialValues = {
@@ -86,7 +83,7 @@ export function RowGeneratorController() {
       ...templateDetails,
       schema: tmpSchema,
     });
-  }
+  };
 
   return {
     templateDetails,
@@ -95,11 +92,11 @@ export function RowGeneratorController() {
     setTemplateDetails,
     appendRow,
     removeRow,
-    updateColumn
-  }
+    updateColumn,
+  };
 }
 
-export type IRowGeneratorController = ReturnType<typeof RowGeneratorController>
+export type IRowGeneratorController = ReturnType<typeof RowGeneratorController>;
 
 export default function RowGenerator() {
   const { appendRow } = useTemplateBuilder();

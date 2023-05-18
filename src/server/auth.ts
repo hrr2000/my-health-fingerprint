@@ -7,7 +7,6 @@ import {
 import CredentialsProvider from "next-auth/providers/credentials";
 import { UserModel } from "./models";
 import { dbConnect } from "@/server/db";
-import { type ObjectId } from "mongoose";
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
@@ -65,8 +64,7 @@ export const authOptions: NextAuthOptions = {
         if (!selectedOrg) {
           return null;
         }
-        const { org_name, org_id, email, picture, jobTitle } =
-          selectedOrg;
+        const { org_name, org_id, email, picture, jobTitle } = selectedOrg;
 
         return {
           id: _id,

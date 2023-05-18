@@ -1,8 +1,8 @@
 import { patientRouter } from "./patient";
-import { createTRPCRouter } from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { userRouter } from "./user";
 import { organizationRouter } from "./organization";
-
+import { custom_collections } from "@/server/models";
 /**
  * This is the primary router for your server.
  *
@@ -12,6 +12,10 @@ export const appRouter = createTRPCRouter({
   patient: patientRouter,
   user: userRouter,
   organization: organizationRouter,
+  test: publicProcedure.mutation(async () => {
+    const cc = new custom_collections({ name: "asdsad" });
+    await cc.save();
+  }),
 });
 
 // export type definition of API

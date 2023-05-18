@@ -1,18 +1,16 @@
-import {
-  type ReactNode,
-  createContext,
-  useContext,
-} from "react";
+import { type ReactNode, createContext, useContext } from "react";
 import AddFieldModal, {
   AddFieldModalController,
-  IAddFieldModalController
+  type IAddFieldModalController,
 } from "@/components/templates/TemplateBuilder/modals/AddFieldModal";
 import {
-  IRowGeneratorController,
-  RowGeneratorController
+  type IRowGeneratorController,
+  RowGeneratorController,
 } from "@/components/templates/TemplateBuilder/engine/RowGenerator";
 
-const TemplateBuilderContext = createContext< IRowGeneratorController & IAddFieldModalController | null>(null);
+const TemplateBuilderContext = createContext<
+  (IRowGeneratorController & IAddFieldModalController) | null
+>(null);
 
 export function TemplateBuilderContextProvider({
   children,
@@ -26,22 +24,25 @@ export function TemplateBuilderContextProvider({
     <TemplateBuilderContext.Provider
       value={{
         ...rowGeneratorController,
-        ...fieldModalController
+        ...fieldModalController,
       }}
     >
       {children}
-      <div>
-       <AddFieldModal />
-      </div>
+
+      <AddFieldModal />
     </TemplateBuilderContext.Provider>
   );
 }
 
+export const useTemplateBuilderContext = () =>
+  useContext(TemplateBuilderContext);
+
 export const useTemplateBuilder = () => {
-  const hook = useContext(TemplateBuilderContext);
-  if(!hook) return {
-    ...RowGeneratorController(),
-    ...AddFieldModalController()
-  }
+  const hook = useTemplateBuilderContext();
+  if (!hook)
+    return {
+      ...RowGeneratorController(),
+      ...AddFieldModalController(),
+    };
   return hook;
-}
+};

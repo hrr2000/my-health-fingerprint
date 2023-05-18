@@ -2,5 +2,18 @@
 #__next {
   overflow: hidden;
 }
+.bg-mesh {
+  background-color: rgb(216, 180, 254);
+  background-image: radial-gradient(
+      at 24% 59%,
+      rgb(127, 29, 29) 0,
+      transparent 0%
+    ),
+    radial-gradient(at 4% 63%, rgb(253, 224, 71) 0, transparent 79%),
+    radial-gradient(at 5% 97%, rgb(112, 26, 117) 0, transparent 16%),
+    radial-gradient(at 60% 29%, rgb(125, 211, 252) 0, transparent 84%),
+    radial-gradient(at 87% 78%, rgb(224, 231, 255) 0, transparent 54%),
+    radial-gradient(at 34% 23%, rgb(217, 70, 239) 0, transparent 8%);
+}
 @tailwind components;
 @tailwind utilities;
