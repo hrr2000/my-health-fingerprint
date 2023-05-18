@@ -8,7 +8,7 @@ export const templateSchema = z.object({
     .string()
     .trim()
     .refine((val) => isValidObjectId(val), `Input must be an ObjectId`),
-  collection: z.string().trim(),
+  collectionId: z.string().trim(),
   primary: z.boolean(),
 });
 // this is for formik
