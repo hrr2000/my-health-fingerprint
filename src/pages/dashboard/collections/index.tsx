@@ -28,7 +28,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
         </section>
         <section className="flex h-full gap-2 border-r-2 border-black p-5 text-black">
           <button
-            onClick={() => void router.push("templates/create")}
+            onClick={() => void router.push("collections/create")}
             className={`flex h-40 w-40 flex-col items-center justify-center gap-4 border-[1px] border-slate-300 p-5 duration-300 hover:shadow-lg`}
           >
             <IoIosAdd size={25} />

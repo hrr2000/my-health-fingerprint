@@ -1,9 +1,17 @@
-import {type TemplateComponent} from "@/contexts/TemplateBuilderContext";
+import { type TemplateComponent } from "@/components/templates/TemplateBuilder/engine/RowGenerator";
 import Column from "@/components/templates/TemplateBuilder/engine/Column";
 
-export default function Row({data, rowIndex}: {data: Partial<TemplateComponent>[]; rowIndex: number}) {
+export default function Row({
+  data,
+  rowIndex,
+}: {
+  data: Partial<TemplateComponent>[];
+  rowIndex: number;
+}) {
   return (
-    <div className={`border-slate-200 w-full grid grid-cols-12 justify-center border-[1px] min-h-[50px]`}>
+    <div
+      className={`grid min-h-[50px] w-full grid-cols-12 justify-center border-[1px] border-slate-200`}
+    >
       {data.map((item, idx) => {
         return (
           <Column
@@ -13,8 +21,8 @@ export default function Row({data, rowIndex}: {data: Partial<TemplateComponent>[
             item={item}
             gridSpan={12 / data.length}
           />
-        )
+        );
       })}
     </div>
-  )
+  );
 }

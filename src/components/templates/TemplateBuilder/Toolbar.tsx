@@ -4,7 +4,7 @@ export default function Toolbar() {
   const { collectionDetails } = useTemplateBuilder();
 
   return (
-    <section className="flex flex-col border-slate-200 p-5 text-black">
+    <section className="flex flex-col border-slate-200 p-5 pb-16 text-black">
       <div className={`w-full py-2 px-4`}>
         <h3 className={`mb-2 border-b-[1px] border-b-slate-200 text-slate-800`}>
           Template Details
@@ -58,7 +58,7 @@ export default function Toolbar() {
         </div>
       </div>
       <div className={`w-full py-2 px-4`}>
-        <button className="w-full rounded-md bg-black p-2 text-white disabled:bg-slate-700">
+        <button className="w-full rounded-md bg-black p-2 text-white transition-all disabled:bg-slate-700 hover:bg-purple-800">
           Save
         </button>
       </div>

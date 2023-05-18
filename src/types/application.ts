@@ -2,6 +2,7 @@ import { type ReactNode } from "react";
 import { type Session } from "next-auth";
 export interface ILink {
   href: string;
+  image?: ReactNode | string;
   display_text: string;
 }
 
@@ -16,7 +17,7 @@ export interface GenericProps {
     | ILink[]
     | Meta[]
     | Session["user"]
-    | (() => void)
+    | (() => void | React.ReactNode)
     | Record<string, string>
     | FormValues;
 }

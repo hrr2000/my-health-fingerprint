@@ -95,7 +95,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
                 <button
                   disabled={fetchStatus === "fetching"}
                   onClick={() => setPatientId?.(inputVal)}
-                  className="rounded-md bg-black p-2 text-white disabled:bg-slate-700 "
+                  className="rounded-md bg-black p-2 text-white transition-all disabled:bg-slate-700 hover:bg-purple-800 "
                 >
                   Search
                 </button>

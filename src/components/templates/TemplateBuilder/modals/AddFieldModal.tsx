@@ -1,46 +1,51 @@
 import Modal from "react-modal";
-import {AiOutlineClose, AiOutlineUnorderedList} from "react-icons/ai";
-import {ChangeEvent, ReactNode, useState} from "react";
+import { AiOutlineClose, AiOutlineUnorderedList } from "react-icons/ai";
+import {
+  type ChangeEvent,
+  type ReactNode,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import GenericButton from "@/components/common/GenericButton";
-import {useTemplateBuilder} from "@/contexts/TemplateBuilderContext";
-import {GoTextSize} from "react-icons/go";
-import {TiSortNumerically} from "react-icons/ti";
+import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
+import { GoTextSize } from "react-icons/go";
+import { TiSortNumerically } from "react-icons/ti";
 
-type FieldType = 'text' | 'number' | 'select';
+type FieldType = "text" | "number" | "select";
 
 interface IField {
-  icon?: ReactNode,
-  type: FieldType,
-  name: string,
+  icon?: ReactNode;
+  type: FieldType;
+  name: string;
 }
 
 export const fields: IField[] = [
   {
     icon: <GoTextSize size={25} />,
-    type: 'text',
-    name: 'Text Field',
+    type: "text",
+    name: "Text Field",
   },
   {
     icon: <TiSortNumerically size={25} />,
-    type: 'number',
-    name: 'Number Field',
+    type: "number",
+    name: "Number Field",
   },
   {
     icon: <AiOutlineUnorderedList size={25} />,
-    type: 'select',
-    name: 'Select Field',
+    type: "select",
+    name: "Select Field",
   },
-]
-
+];
 
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
   },
 };
 
@@ -51,19 +56,19 @@ export const AddFieldModalController = () => {
   const [cell, setCell] = useState({
     rowIndex: 0,
     columnIndex: 0,
-  })
-
+  });
 
   function openModal(rowIndex: number, columnIndex: number) {
     setCell({
       rowIndex,
-      columnIndex
-    })
+      columnIndex,
+    });
     setIsOpen(true);
     setFieldObject({});
   }
 
   function afterOpenModal() {
+    return;
   }
 
   function closeModal() {
@@ -82,57 +87,73 @@ export const AddFieldModalController = () => {
     setIsOpen,
     openModal,
     afterOpenModal,
-    closeModal
-  }
-}
+    closeModal,
+  };
+};
 
-export type IAddFieldModalController = ReturnType<typeof AddFieldModalController>
+export type IAddFieldModalController = ReturnType<
+  typeof AddFieldModalController
+>;
 
-function ChooseFieldStep({setFieldObject}: any) {
-  const [activeField, setActiveField] = useState<FieldType | 'None'>('None');
+function ChooseFieldStep({
+  setFieldObject,
+}: {
+  setFieldObject: Dispatch<SetStateAction<object>>;
+}) {
+  const [activeField, setActiveField] = useState<FieldType | "None">("None");
   return (
     <div className={`w-[600px]`}>
       <div className={`my-3 grid grid-cols-3 gap-3 text-sm text-slate-600`}>
         {fields.map((field, idx) => {
           return (
-            <div key={`primary_field-${idx}`}
-                 className={`border-2 flex items-center justify-start gap-4 w-fit p-3 duration-300 hover:border-black hover:text-black font-bold ${field.type == activeField ? "border-black text-black" : "text-slate-500"} cursor-pointer w-full`}
-                 onClick={() => {
-                   setActiveField(field.type)
-                   setFieldObject((obj: any) => ({...obj, type: field.type}))
-                 }}
+            <div
+              key={`primary_field-${idx}`}
+              className={`flex w-fit items-center justify-start gap-4 border-2 p-3 font-bold duration-300 hover:border-black hover:text-black ${
+                field.type == activeField
+                  ? "border-black text-black"
+                  : "text-slate-500"
+              } w-full cursor-pointer`}
+              onClick={() => {
+                setActiveField(field.type);
+                setFieldObject((obj: object) => ({ ...obj, type: field.type }));
+              }}
             >
               <span>{field.icon}</span>
               <span>{field.name}</span>
             </div>
-          )
+          );
         })}
       </div>
     </div>
   );
 }
 
-function PreferencesStep({setFieldObject}: any) {
+function PreferencesStep({
+  setFieldObject,
+}: {
+  setFieldObject: Dispatch<SetStateAction<object>>;
+}) {
   const handleChange = (key: string) => {
-    return (e: ChangeEvent<HTMLInputElement>) => setFieldObject((obj: any) => ({...obj, [key]: e.target.value}))
-  }
+    return (e: ChangeEvent<HTMLInputElement>) =>
+      void setFieldObject((obj: object) => ({ ...obj, [key]: e.target.value }));
+  };
 
   return (
     <div className={`w-[600px]`}>
-        <form className={`grid grid-cols-2 gap-3 my-5`}>
-          <input
-            type="text"
-            placeholder="Label"
-            name="label"
-            onChange={handleChange('label')}
-          />
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            onChange={handleChange('name')}
-          />
-        </form>
+      <form className={`my-5 grid grid-cols-2 gap-3`}>
+        <input
+          type="text"
+          placeholder="Label"
+          name="label"
+          onChange={handleChange("label")}
+        />
+        <input
+          type="text"
+          placeholder="Name"
+          name="name"
+          onChange={handleChange("name")}
+        />
+      </form>
     </div>
   );
 }
@@ -157,7 +178,7 @@ export default function AddFieldModal() {
     setModalStep,
     setFieldObject,
     afterOpenModal,
-    closeModal
+    closeModal,
   } = useTemplateBuilder();
 
   return (
@@ -168,10 +189,13 @@ export default function AddFieldModal() {
       style={customStyles}
     >
       <h2 className={`flex justify-between`}>
-        <span className={`font-bold text-slate-800`}>{steps[modalStep]?.title}</span>
+        <span className={`font-bold text-slate-800`}>
+          {steps[modalStep]?.title}
+        </span>
         <button
           onClick={() => closeModal()}
-          className={`text-slate-500 cursor-pointer`}>
+          className={`cursor-pointer text-slate-500`}
+        >
           <AiOutlineClose size={15} />
         </button>
       </h2>
@@ -182,10 +206,10 @@ export default function AddFieldModal() {
       <div className={`flex justify-between`}>
         {modalStep > 0 ? (
           <GenericButton
-            theme={'secondary'}
-            text={'Back'}
+            theme={"secondary"}
+            text={"Back"}
             onClick={() => {
-              setModalStep(step => Math.min(steps.length - 1, step - 1));
+              setModalStep((step) => Math.min(steps.length - 1, step - 1));
             }}
           />
         ) : (
@@ -193,31 +217,32 @@ export default function AddFieldModal() {
         )}
         {modalStep == steps.length - 1 ? (
           <GenericButton
-            theme={'primary'}
-            text={'Apply'}
+            theme={"primary"}
+            text={"Apply"}
             onClick={() => {
               const schema = templateDetails.schema;
-              if(schema?.[cell.rowIndex]?.[cell.columnIndex]) {
-                // @ts-ignore
-                schema[cell.rowIndex][cell.columnIndex] = fieldObject;
+              const rowVal = schema?.[cell.rowIndex];
+              if (!rowVal) {
+                return;
               }
+              rowVal[cell.columnIndex] = fieldObject;
               setTemplateDetails?.((obj) => ({
                 ...obj,
-                schema
-              }))
+                schema,
+              }));
               closeModal();
             }}
           />
         ) : (
           <GenericButton
-            theme={'primary'}
-            text={'Next'}
+            theme={"primary"}
+            text={"Next"}
             onClick={() => {
-              setModalStep(step => Math.min(steps.length - 1, step + 1));
+              setModalStep((step) => Math.min(steps.length - 1, step + 1));
             }}
           />
         )}
       </div>
     </Modal>
-  )
+  );
 }
