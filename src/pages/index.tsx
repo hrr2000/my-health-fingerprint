@@ -5,7 +5,7 @@ import PageLayout from "@/layouts/PageLayout";
 import { motion } from "framer-motion";
 import { api } from "@/utils/api";
 const Home: NextPage = () => {
-  const { mutate } = api.patient.createOne.useMutation();
+  const { mutate } = api.test.useMutation();
 
   return (
     <PageLayout title="Home" description="مهفب ءفءح">
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
           </p>
           <button
             onClick={() => mutate()}
-            className="rounded-md bg-white px-6 py-3 font-semibold text-black shadow-md"
+            className="rounded-sm border-2 border-white px-6 py-3 text-lg font-semibold capitalize shadow-sm transition-all  hover:bg-gradient-to-r hover:from-[#f75e8e] hover:to-[#fc737c] hover:bg-clip-text hover:text-transparent "
           >
             Request demo
           </button>
