@@ -5,7 +5,11 @@ const { Schema } = mongoose;
 
 const schema = new Schema<CustomCollectionDocument>(
   {
-    name: String,
+    name: {
+      type: String,
+      unique: true,
+      index: true
+    },
     is_public: Boolean,
     patient_profile: Boolean,
   },

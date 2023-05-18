@@ -6,15 +6,13 @@ export interface TemplateDetails {
   name: string;
   schema: Partial<TemplateComponent>[][];
   printable: boolean;
-  public: boolean;
 }
 
 export interface CollectionDetails {
   name: string;
   description: string;
-  icon: string;
-  public: boolean;
-  organization: string;
+  isPublic: boolean;
+  isPatientProfile: boolean,
 }
 
 export interface TemplateComponent {
@@ -28,18 +26,16 @@ export const templateDetailsInitialValues = {
   name: "",
   schema: [],
   printable: false,
-  public: false,
 };
 
 export const collectionDetailsInitialValues = {
   name: "",
   description: "",
-  icon: "",
-  public: false,
-  organization: "",
+  isPublic: false,
+  isPatientProfile: false,
 };
 
-export function RowGeneratorController() {
+export function BuilderController() {
   const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
     templateDetailsInitialValues
   );
@@ -96,7 +92,7 @@ export function RowGeneratorController() {
   };
 }
 
-export type IRowGeneratorController = ReturnType<typeof RowGeneratorController>;
+export type IBuilderController = ReturnType<typeof BuilderController>;
 
 export default function RowGenerator() {
   const { appendRow } = useTemplateBuilder();

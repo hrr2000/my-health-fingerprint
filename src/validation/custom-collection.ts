@@ -4,9 +4,17 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 // this is for zod in trpc
 
 export const createCollectionSchema = z.object({
-  name: z.string().trim().min(3).max(45),
-  isPublic: z.boolean(),
-  patientProfile: z.boolean(),
+  collection: z.object({
+    name: z.string().trim().min(3).max(45),
+    isPublic: z.boolean(),
+    isPatientProfile: z.boolean(),
+    description: z.string()
+  }),
+  template: z.object({
+    schema: z.any(),
+    name: z.string(),
+    printable: z.boolean(),
+  }),
 });
 // this is for client-side validation
 export const createCollectionFormSchema = toFormikValidationSchema(
