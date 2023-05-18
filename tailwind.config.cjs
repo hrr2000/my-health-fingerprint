@@ -10,6 +10,9 @@ module.exports = {
         "black-soft": "#242424",
         "black-mute": "#2f2f2f",
       },
+      gridTemplateColumns: {
+        collections: "repeat(auto-fit, minmax(250px,1fr))",
+      },
     },
   },
   plugins: [
