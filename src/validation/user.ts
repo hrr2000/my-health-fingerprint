@@ -1,17 +1,16 @@
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-const numeric = () => z.string().regex(/^\d+$/);
-
+import { numeric } from "./utils";
 // this is for zod in trpc
 export const createUserSchema = z.object({
-  firstName: z.string().min(3).max(100).trim(),
-  lastName: z.string().min(3).max(100).trim(),
+  firstName: z.string().trim().min(3).max(100),
+  lastName: z.string().trim().min(3).max(100),
   nationalId: numeric().min(14).max(14).trim(),
-  password: z.string().min(8).max(50),
-  email: z.string().email().trim(),
-  orgId: z.string(),
+  password: z.string().trim().min(8).max(50),
+  email: z.string().trim().email(),
+  orgId: z.string().trim(),
   orgName: z.string().trim(),
-  roles: z.string().array(),
+  roles: z.string().trim().array(),
   jobTitle: z.string().trim(),
 });
 // this is for clientside validation

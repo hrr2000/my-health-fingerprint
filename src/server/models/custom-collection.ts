@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
-import {CustomCollectionDocument} from "@/types/mongo";
+import { type CustomCollectionDocument } from "@/types/mongo";
 
-const { Schema: {Types}, Schema } = mongoose;
+const {
+  Schema: { Types },
+  Schema,
+} = mongoose;
 
 const schema = new Schema<CustomCollectionDocument>(
   {
@@ -13,5 +16,5 @@ const schema = new Schema<CustomCollectionDocument>(
 );
 
 export default (mongoose.models
-  .allowed_permissions as mongoose.Model<CustomCollectionDocument>) ||
-mongoose.model<CustomCollectionDocument>("CustomCollectionDocument", schema);
+  .customCollections as mongoose.Model<CustomCollectionDocument>) ||
+  mongoose.model<CustomCollectionDocument>("CustomCollectionDocument", schema);

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {AllowedPermissionDocument} from "@/types/mongo";
+import { type AllowedPermissionDocument } from "@/types/mongo";
 
 const { Schema, Types } = mongoose;
 
