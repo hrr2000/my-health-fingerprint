@@ -12,10 +12,27 @@
   ],
   "patient": [
     {
+      "id" : "",
+      "nationaId" : "",
       "health_record": {
-        "id": "sasdasdasd",
-        "allergies": [{ "id": "sss222", "createdAt": "" }]
+        "allergies" : [
+          {
+            "created_at" : "",
+            "name" : "",
+            "org_name" :"",
+            "diagnosee" : ""
+          }
+        ],
+        "fh" :  [
+          {
+            "created_at" : "",
+            "name" : "",
+            "org_name" :"",
+            "diagnosee" : ""
+          }
+        ]
       }
+       
     }
   ],
   "organizations": [
@@ -65,12 +82,13 @@
       "permissions": [1, 2, 3]
     }
   ],
-  "entityCrudPages": [
+  "collection_metaData": [
     {
       "name": "allergies",
       "status": "approved",
       "is_public": "true",
-      "patient_profile": "true"
+      "patient_profile": "true",
+      "documentShapeInsideTheCollection": "{"id":"string","name":"","string":"","manifestation":""}"
     },
     {
       "name": "patients",
