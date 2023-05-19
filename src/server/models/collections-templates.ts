@@ -11,8 +11,8 @@ const schema = new Schema<CollectionTemplateDocument>(
       index: true
     },
     schema: String,
-    collection_id: String,
-    printable: Boolean,
+    collection_id: Schema.Types.ObjectId,
+    is_printable: Boolean,
     primary: Boolean,
   },
   { timestamps: true }

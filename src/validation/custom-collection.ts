@@ -13,7 +13,7 @@ export const createCollectionSchema = z.object({
   template: z.object({
     schema: z.any(),
     name: z.string(),
-    printable: z.boolean(),
+    isPrintable: z.boolean(),
   }),
 });
 // this is for client-side validation
