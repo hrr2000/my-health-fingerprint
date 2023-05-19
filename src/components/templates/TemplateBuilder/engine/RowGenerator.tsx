@@ -1,11 +1,12 @@
 import { IoIosAdd } from "react-icons/io";
 import { useState } from "react";
 import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
+import {api} from "@/utils/api";
 
 export interface TemplateDetails {
   name: string;
   schema: Partial<TemplateComponent>[][];
-  printable: boolean;
+  isPrintable: boolean;
 }
 
 export interface CollectionDetails {
@@ -25,7 +26,7 @@ export interface TemplateComponent {
 export const templateDetailsInitialValues = {
   name: "",
   schema: [],
-  printable: false,
+  isPrintable: false,
 };
 
 export const collectionDetailsInitialValues = {
@@ -35,7 +36,10 @@ export const collectionDetailsInitialValues = {
   isPatientProfile: false,
 };
 
-export function BuilderController() {
+export function BuilderController({slug}: {slug: string | null}) {
+  const collection = slug ? api.collection.find.useQuery({
+    collection_id: slug
+  }) : null;
   const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
     templateDetailsInitialValues
   );
