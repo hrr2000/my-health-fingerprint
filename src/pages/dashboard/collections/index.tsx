@@ -10,15 +10,18 @@ import { MdMedicalServices } from "react-icons/md";
 import { useRouter } from "next/router";
 import { api } from "@/utils/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useState } from "react";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 
 const DashboardPage: serverSidePropsType = ({ user }) => {
+  const [page, setPage] = useState(1);
   const { data: collections, isLoading } = api.collection.list.useQuery({
-    limit: 10,
-    page: 1,
+    page: page,
+    perPage: 10,
   });
+
   const router = useRouter();
 
   return (
@@ -27,6 +30,12 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
         <section className="flex gap-2 border-black bg-slate-100 px-5 py-3 text-black">
           <button className="p-1">
             <span> All Templates </span>
+          </button>
+          <button className="p-1" onClick={() => setPage(page + 1)}>
+            <span> Page+</span>
+          </button>
+          <button className="p-1" onClick={() => setPage(page - 1)}>
+            <span> Page-</span>
           </button>
           <button className="p-1">
             <span> Templates Store </span>
@@ -45,7 +54,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
             collections &&
             collections.collections.map((collection) => (
               <button
-                key={collection.name}
+                key={collection._id.toString()}
                 onClick={() =>
                   void router.push(`collections/${collection._id.toString()}`)
                 }
