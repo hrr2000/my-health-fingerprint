@@ -1,7 +1,7 @@
 import { IoIosAdd } from "react-icons/io";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
-import {api} from "@/utils/api";
+import { api } from "@/utils/api";
 
 export interface TemplateDetails {
   name: string;
@@ -13,7 +13,7 @@ export interface CollectionDetails {
   name: string;
   description: string;
   isPublic: boolean;
-  isPatientProfile: boolean,
+  isPatientProfile: boolean;
 }
 
 export interface TemplateComponent {
@@ -36,17 +36,23 @@ export const collectionDetailsInitialValues = {
   isPatientProfile: false,
 };
 
-export function BuilderController({slug}: {slug: string | null}) {
-  const collection = slug ? api.collection.find.useQuery({
-    collection_id: slug
-  }) : null;
+export function BuilderController({ slug }: { slug: string | null }) {
+  // check if slug is null
+  // if null then state is create -> call create mutation endpoint
+  // if not then state is update -> call update mutation endpoint
+
   const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
     templateDetailsInitialValues
   );
   const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
     collectionDetailsInitialValues
   );
-
+  const { mutate: createCollection, isLoading: isCreating } =
+    api.collection.create.useMutation();
+  const { mutate: updateCollection, isLoading: isUpdating } =
+    api.collection.update.useMutation();
+  const mutationState = useRef<"update" | "create">(slug ? "update" : "create");
+  const isSaving = isCreating || isUpdating;
   const appendRow = (columnsCount: number) => {
     if (!columnsCount || columnsCount > 4 || columnsCount < 1) return;
     const row = [];
@@ -54,6 +60,29 @@ export function BuilderController({slug}: {slug: string | null}) {
     setTemplateDetails({
       ...templateDetails,
       schema: [...templateDetails.schema, row],
+    });
+  };
+
+  const saveData = (values: {
+    collection: CollectionDetails;
+    template: TemplateDetails;
+  }) => {
+    const temp = {
+      collection: values.collection,
+      template: {
+        ...values.template,
+        schema: JSON.stringify(values.template.schema),
+      },
+    };
+
+    if (mutationState.current === "create") {
+      createCollection(temp);
+      return;
+    }
+
+    updateCollection({
+      ...temp,
+      slug: slug ?? "",
     });
   };
 
@@ -88,10 +117,14 @@ export function BuilderController({slug}: {slug: string | null}) {
   return {
     templateDetails,
     collectionDetails,
+    saveData,
     setCollectionDetails,
     setTemplateDetails,
     appendRow,
     removeRow,
+    isUpdating,
+    isCreating,
+    isSaving,
     updateColumn,
   };
 }

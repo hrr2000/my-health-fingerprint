@@ -1,10 +1,8 @@
-import {
-  createTRPCRouter,
-  protectedProcedure,
-} from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 import {
   createCollectionSchema,
+  updateCollectionSchema,
 } from "@/validation/custom-collection";
 import {
   CustomCollectionModel,
@@ -14,7 +12,6 @@ import mongoose, { Schema } from "mongoose";
 import { z } from "zod";
 
 export const collectionRouter = createTRPCRouter({
-
   /**
    *
    * This procedure creates a new custom collection with its primary template.
@@ -24,7 +21,6 @@ export const collectionRouter = createTRPCRouter({
     .input(createCollectionSchema)
     .mutation(async ({ input: { collection, template } }) => {
       try {
-
         // Create the custom collection and save it in the database.
         const customCollection = new CustomCollectionModel({
           name: collection.name,
@@ -52,22 +48,61 @@ export const collectionRouter = createTRPCRouter({
         });
       }
     }),
+  update: protectedProcedure
+    .input(updateCollectionSchema)
+    .mutation(async ({ input: { collection, template, slug } }) => {
+      // update schema shape in customCollectionModel using the slug
+      try {
+        // Create the custom collection and save it in the database.
+        const updateCollectionCall = CustomCollectionModel.updateOne(
+          { _id: slug },
+          {
+            $set: {
+              name: collection.name,
+              patient_profile: collection.isPatientProfile,
+              is_public: collection.isPublic,
+            },
+          }
+        );
+
+        const updateCollectionTemplateCall = CollectionTemplateModel.updateOne(
+          { collection_id: slug },
+          {
+            $set: {
+              collection_id: slug,
+              schema: JSON.stringify(template.schema),
+              name: template.name,
+              primary: true,
+            },
+          }
+        );
+
+        await Promise.all([updateCollectionCall, updateCollectionTemplateCall]);
+      } catch (e) {
+        console.error(e);
+        throw new TRPCError({
+          message: `Collection Isn't Created!`,
+          code: "INTERNAL_SERVER_ERROR",
+        });
+      }
+    }),
 
   /**
    *
    *
    */
-  find: protectedProcedure.input(z.object({collection_id: z.string()}))
-    .query(async ({input: {collection_id}}) => {
+  find: protectedProcedure
+    .input(z.object({ collection_id: z.string() }))
+    .query(async ({ input: { collection_id } }) => {
       try {
         return await CustomCollectionModel.findOne({
-          _id: collection_id
-        })
+          _id: collection_id,
+        });
       } catch (e) {
         throw new TRPCError({
-          message: 'Collection Not Found',
-          code: "NOT_FOUND"
-        })
+          message: "Collection Not Found",
+          code: "NOT_FOUND",
+        });
       }
     }),
 
