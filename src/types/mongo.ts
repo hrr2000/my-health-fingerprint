@@ -63,6 +63,6 @@ export interface CollectionTemplateDocument {
   schema: string;
   collection_id: string;
   primary: boolean;
-  printable: boolean;
+  is_printable: boolean;
   name: string;
 }

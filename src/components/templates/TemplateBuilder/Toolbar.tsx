@@ -53,7 +53,7 @@ export default function Toolbar() {
                   <TextInput
                     name="template.name"
                     label="Template Name"
-                    placeholder="Description ..."
+                    placeholder="Template Name ..."
                   />
                 </div>
               </div>
@@ -63,30 +63,30 @@ export default function Toolbar() {
                 </h3>
                 <div className={`flex items-center gap-2 py-1 text-sm`}>
                   <Field
-                    id={"printable"}
-                    name={"template.printable"}
+                    id={"isPrintable"}
+                    name={"template.isPrintable"}
                     type="checkbox"
                     className={`h-3 w-3`}
                   />
-                  <label htmlFor={"is_template_printable"}>Printable</label>
+                  <label htmlFor={"isPrintable"}>Printable</label>
                 </div>
                 <div className={`flex items-center gap-2 py-1 text-sm`}>
                   <input
-                    id={"is_template_printable"}
-                    name={"is_template_printable"}
+                    id={"isPatientProfile"}
+                    name={"collection.isPatientProfile"}
                     type="checkbox"
                     className={`h-3 w-3`}
                   />
-                  <label htmlFor={"is_template_printable"}>Patient Profile</label>
+                  <label htmlFor={"isPatientProfile"}>Patient Profile</label>
                 </div>
                 <div className={`flex items-center gap-2 py-1 text-sm`}>
                   <input
-                    id={"is_template_printable"}
-                    name={"is_template_printable"}
+                    id={"isPublic"}
+                    name={"collection.isPublic"}
                     type="checkbox"
                     className={`h-3 w-3`}
                   />
-                  <label htmlFor={"is_template_printable"}>Public</label>
+                  <label htmlFor={"isPublic"}>Public</label>
                 </div>
               </div>
               <div className={`w-full py-2 px-4`}>
