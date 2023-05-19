@@ -45,6 +45,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <SessionProvider session={session}>
         <PatientProvider>
           <Component className={`${montserrat.variable}`} {...pageProps} />
+          {/* <ReactQueryDevtools /> */}
         </PatientProvider>
       </SessionProvider>
     </AnimatePresence>
