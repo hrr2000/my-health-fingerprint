@@ -7,6 +7,7 @@ import {
   BuilderController,
   type IBuilderController,
 } from "@/components/templates/TemplateBuilder/engine/RowGenerator";
+import {useRouter} from "next/router";
 
 const TemplateBuilderContext = createContext<
   (IBuilderController & IAddFieldModalController) | null
@@ -17,7 +18,8 @@ export function TemplateBuilderContextProvider({
 }: {
   children: ReactNode;
 }) {
-  const builderController = BuilderController();
+  const {query: {slug}} = useRouter();
+  const builderController = BuilderController({slug: slug as string});
   const fieldModalController = AddFieldModalController();
 
   return (
@@ -37,10 +39,11 @@ export const useTemplateBuilderContext = () =>
   useContext(TemplateBuilderContext);
 
 export const useTemplateBuilder = () => {
+  const {query: {slug}} = useRouter();
   const hook = useTemplateBuilderContext();
   if (!hook)
     return {
-      ...BuilderController(),
+      ...BuilderController({slug: slug as string}),
       ...AddFieldModalController(),
     };
   return hook;

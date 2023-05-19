@@ -1,42 +1,48 @@
-import { UserModel } from "@/server/models";
 import {
   createTRPCRouter,
-  publicProcedure,
   protectedProcedure,
 } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 import {
   createCollectionSchema,
-  createCollectionType,
 } from "@/validation/custom-collection";
 import {
   CustomCollectionModel,
   CollectionTemplateModel,
 } from "@/server/models";
 import mongoose, { Schema } from "mongoose";
-import { CollectionTemplateDocument } from "@/types/mongo";
 import { z } from "zod";
 
 export const collectionRouter = createTRPCRouter({
+
+  /**
+   *
+   * This procedure creates a new custom collection with its primary template.
+   * It creates a collection in the database too using the name of the custom collection.
+   */
   create: protectedProcedure
     .input(createCollectionSchema)
     .mutation(async ({ input: { collection, template } }) => {
       try {
+
+        // Create the custom collection and save it in the database.
         const customCollection = new CustomCollectionModel({
           name: collection.name,
           patient_profile: collection.isPatientProfile,
           is_public: collection.isPublic,
         });
-
         const { _id, name: collection_name } = await customCollection.save();
 
+        // Create the primary template for this collection using the collection id returned after save.
         const collectionTemplate = new CollectionTemplateModel({
           collection_id: _id,
-          ...template,
+          schema: JSON.stringify(template.schema),
+          name: template.name,
           primary: true,
         });
         await collectionTemplate.save();
 
+        // Create the physical Collection in the database.
         mongoose.model(collection_name, new Schema({}, { autoCreate: false }));
       } catch (e) {
         console.error(e);
@@ -47,6 +53,28 @@ export const collectionRouter = createTRPCRouter({
       }
     }),
 
+  /**
+   *
+   *
+   */
+  find: protectedProcedure.input(z.object({collection_id: z.string()}))
+    .query(async ({input: {collection_id}}) => {
+      try {
+        return await CustomCollectionModel.findOne({
+          _id: collection_id
+        })
+      } catch (e) {
+        throw new TRPCError({
+          message: 'Collection Not Found',
+          code: "NOT_FOUND"
+        })
+      }
+    }),
+
+  /**
+   *
+   * This Procedure lists all the custom collections with Pagination.
+   */
   list: protectedProcedure
     .input(
       z.object({

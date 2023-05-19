@@ -8,7 +8,7 @@ const FieldErrorMessage = ({ name }: LocalProps) => {
   const [_, meta] = useField(name);
   return meta.touched && meta.error ? (
     <div className="text-sm font-semibold capitalize text-red-500">
-      this is field is {meta.error}
+      this field is {meta.error}
     </div>
   ) : null;
 };
