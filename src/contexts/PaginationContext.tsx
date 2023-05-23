@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import useGetPatientData from "@/hooks/useGetPatientData";
 import { type GenericProps } from "@/types/application";
 import { createContext } from "react";
 

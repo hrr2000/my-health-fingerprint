@@ -1,10 +1,16 @@
-import React, { useContext } from "react";
-import useGetPatientData from "@/hooks/useGetPatientData";
+import React, { useContext, useState } from "react";
+import useGetPatientProfileData from "@/hooks/useGetPatientProfileData";
 import { type GenericProps } from "@/types/application";
 import { createContext } from "react";
+import useGetHealthRecordData from "@/hooks/useGetHealthRecordData";
 
 const patientContext = createContext<
-  Partial<ReturnType<typeof useGetPatientData>>
+  Partial<{
+    profile: ReturnType<typeof useGetPatientProfileData>;
+    records: ReturnType<typeof useGetHealthRecordData>;
+    patientId: string;
+    setPatientId: React.Dispatch<React.SetStateAction<string>>;
+  }>
 >({});
 
 interface LocalProps extends GenericProps {
@@ -12,10 +18,19 @@ interface LocalProps extends GenericProps {
 }
 
 const PatientProvider = ({ children }: LocalProps) => {
-  const { data, error, fetchStatus, setPatientId } = useGetPatientData();
+  const [patientId, setPatientId] = useState("");
+  const profile = useGetPatientProfileData(patientId);
+  const records = useGetHealthRecordData(patientId);
 
   return (
-    <patientContext.Provider value={{ data, error, fetchStatus, setPatientId }}>
+    <patientContext.Provider
+      value={{
+        profile,
+        records,
+        patientId,
+        setPatientId,
+      }}
+    >
       {children}
     </patientContext.Provider>
   );
