@@ -7,16 +7,17 @@ import {
   collectionDetailsInitialValues,
   templateDetailsInitialValues,
 } from "@/components/templates/TemplateBuilder/engine/RowGenerator";
+import {useEffect} from "react";
 
 export default function Toolbar() {
-  const { saveData } = useTemplateBuilder();
+  const { saveData, collectionDetails, templateDetails  } = useTemplateBuilder();
 
   return (
     <section className="flex flex-col border-slate-200 p-5 pb-16 text-black">
       <Formik
         initialValues={{
-          collection: collectionDetailsInitialValues,
-          template: templateDetailsInitialValues,
+          collection: collectionDetails,
+          template: templateDetails,
         }}
         onSubmit={(values, formikHelpers) => {
           saveData({
@@ -27,9 +28,10 @@ export default function Toolbar() {
             },
           });
         }}
+        enableReinitialize
         validationSchema={createCollectionFormSchema}
       >
-        {({ errors }) => {
+        {({ errors, setValues }) => {
           console.log(errors);
           return (
             <Form>

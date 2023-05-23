@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/form/sub/FieldErrorMessage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/sub/FieldErrorMessage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/sub/TextInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/sub/TextInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Builder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Builder.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/RowGenerator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/engine/RowGenerator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/TemplateBuilderContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/collections/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/collections/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/api/routers/collection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/collection.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/models/collections-templates.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/collections-templates.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/models/custom-collection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/custom-collection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/types/mongo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/mongo.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/validation/custom-collection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation/custom-collection.ts" afterDir="false" />
     </list>
@@ -41,6 +41,7 @@
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;ts.external.directory.path&quot;: &quot;D:\\Mostafa\\Study\\GP\\my-health-fingerprint\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -81,6 +82,9 @@
       <workItem from="1684318074023" duration="73000" />
       <workItem from="1684416918379" duration="10591000" />
       <workItem from="1684495106179" duration="9564000" />
+      <workItem from="1684572612005" duration="7311000" />
+      <workItem from="1684666815366" duration="1012000" />
+      <workItem from="1684842570587" duration="933000" />
     </task>
     <servers />
   </component>

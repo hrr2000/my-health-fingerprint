@@ -1,5 +1,5 @@
 import { IoIosAdd } from "react-icons/io";
-import { useState, useRef } from "react";
+import {useState, useRef, useEffect} from "react";
 import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
 import { api } from "@/utils/api";
 
@@ -41,18 +41,40 @@ export function BuilderController({ slug }: { slug: string | null }) {
   // if null then state is create -> call create mutation endpoint
   // if not then state is update -> call update mutation endpoint
 
-  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
-    templateDetailsInitialValues
-  );
-  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
-    collectionDetailsInitialValues
-  );
+  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>( templateDetailsInitialValues);
+  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(collectionDetailsInitialValues);
+
   const { mutate: createCollection, isLoading: isCreating } =
     api.collection.create.useMutation();
   const { mutate: updateCollection, isLoading: isUpdating } =
     api.collection.update.useMutation();
   const mutationState = useRef<"update" | "create">(slug ? "update" : "create");
+
+  const { data, status, error } = api.collection.findOne.useQuery(
+    { slug: slug || "" },
+    { enabled: mutationState.current == "update", retry: 1 }
+  );
+
+  useEffect(() => {
+    if(status != 'success') return;
+    if(!data) return;
+    const {template, collection } = data;
+    if(!template || !collection) return;
+    setTemplateDetails({
+      ...template,
+      schema: JSON.parse(template.schema),
+      isPrintable: template.is_printable || false,
+      name: template.name || ""
+    });
+    setCollectionDetails({
+      ...collection,
+      isPatientProfile: collection.is_patient_profile,
+      isPublic: collection.is_public
+    });
+  }, [status]);
+
   const isSaving = isCreating || isUpdating;
+
   const appendRow = (columnsCount: number) => {
     if (!columnsCount || columnsCount > 4 || columnsCount < 1) return;
     const row = [];
@@ -62,7 +84,6 @@ export function BuilderController({ slug }: { slug: string | null }) {
       schema: [...templateDetails.schema, row],
     });
   };
-
   const saveData = (values: {
     collection: CollectionDetails;
     template: TemplateDetails;
@@ -85,7 +106,6 @@ export function BuilderController({ slug }: { slug: string | null }) {
       slug: slug ?? "",
     });
   };
-
   const removeRow = (index: number) => {
     setTemplateDetails({
       ...templateDetails,
