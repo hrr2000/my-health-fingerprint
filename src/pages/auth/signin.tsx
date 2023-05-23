@@ -16,15 +16,7 @@ const SigninPage: SignInPageType = () => {
         <div className=" col-span-1 col-start-1 flex flex-col items-center justify-center gap-5 p-6">
           <SigninForm />
         </div>
-        <figure className="relative col-start-2 hidden before:col-span-2  lg:block ">
-          <Image
-            className="object-cover "
-            // src="/research-woman.webp"
-            src={`/logo.png`}
-            alt=""
-            priority={true}
-            fill={true}
-          />
+        <figure className="relative col-start-2 hidden before:col-span-2 lg:block bg-primary">
         </figure>
       </main>
     </>

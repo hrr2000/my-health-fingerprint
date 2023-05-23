@@ -1,13 +1,13 @@
 import React, { type RefObject, useState } from "react";
 import { FiActivity } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { HiOutlineLogout } from "react-icons/hi";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { type GenericProps } from "@/types/application";
 import useOnClickOutside from "@/hooks/useClickOutside";
 import { NavBar } from "../common/NavBar";
 import { routes } from "@/routes";
+import {CiLogout} from "react-icons/ci";
 
 interface LocalProps extends GenericProps {
   username: string;
@@ -73,7 +73,7 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
           onClick={() => void signOut()}
           className="flex w-full flex-1 items-center overflow-hidden rounded-md p-2 text-lg hover:bg-gray-400/25"
         >
-          <HiOutlineLogout className="h-[30px] w-[30px] shrink-0" />
+          <CiLogout className="h-[30px] w-[30px] shrink-0" />
           <span className="ml-4 whitespace-nowrap">Signout</span>
         </button>
         {isUserTooltipOpen && (

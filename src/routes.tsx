@@ -1,7 +1,6 @@
 import { type ILink } from "@/types/application";
 
-import { FaHandHoldingMedical, FaFolder } from "react-icons/fa";
-import { FiTool } from "react-icons/fi";
+import {CiFolderOn, CiMedicalCase, CiSettings} from "react-icons/ci";
 
 export const routes: {
   landingPages: ILink[];
@@ -24,17 +23,17 @@ export const routes: {
   dashboardPages: [
     {
       href: "dashboard/patient",
-      image: <FaHandHoldingMedical className="h-[30px] w-[30px] shrink-0" />,
+      image: <CiMedicalCase className="h-[30px] w-[30px] shrink-0" />,
       display_text: "patient",
     },
     {
       href: "dashboard/collections",
-      image: <FaFolder className="h-[30px] w-[30px] shrink-0" />,
+      image: <CiFolderOn className="h-[30px] w-[30px] shrink-0" />,
       display_text: "collections",
     },
     {
       href: "dashboard/settings",
-      image: <FiTool className="h-[30px] w-[30px] shrink-0" />,
+      image: <CiSettings className="h-[30px] w-[30px] shrink-0" />,
       display_text: "settings",
     },
   ],
