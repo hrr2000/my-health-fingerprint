@@ -76,6 +76,7 @@
       "status": "approved",
       "is_public": "true",
       "patient_profile": "true",
+      "patient_specific": "false",
       "id": "123"
     },
     {
@@ -83,12 +84,14 @@
       "status": "approved",
       "is_public": "true",
       "patient_profile": "true",
+      "patient_specific": "false",
       "id": "456"
     },
     {
       "name": "family history",
       "status": "approved",
       "is_public": "true",
+      "patient_profile": "true",
       "patient_specific": "true",
       "id": "789"
     }
