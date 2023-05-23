@@ -39,7 +39,7 @@ export const createCollectionFormSchema = toFormikValidationSchema(
   createCollectionSchema
 );
 export const updateCollectionFormSchema = toFormikValidationSchema(
-  createCollectionSchema
+  updateCollectionSchema
 );
 
 // for general purposes -> server validation , usage in services , uses in application itself
