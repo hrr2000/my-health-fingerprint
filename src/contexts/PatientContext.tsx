@@ -20,13 +20,11 @@ interface LocalProps extends GenericProps {
 const PatientProvider = ({ children }: LocalProps) => {
   const [patientId, setPatientId] = useState("");
   const profile = useGetPatientProfileData(patientId);
-  const records = useGetHealthRecordData(patientId);
 
   return (
     <patientContext.Provider
       value={{
         profile,
-        records,
         patientId,
         setPatientId,
       }}
