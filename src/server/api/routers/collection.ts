@@ -91,14 +91,25 @@ export const collectionRouter = createTRPCRouter({
    *
    *
    */
-  find: protectedProcedure
-    .input(z.object({ collection_id: z.string() }))
-    .query(async ({ input: { collection_id } }) => {
+  findOne: protectedProcedure
+    .input(z.object({ slug: z.string() }))
+    .query(async ({ input: { slug } }) => {
       try {
-        return await CustomCollectionModel.findOne({
-          _id: collection_id,
+        const collection = await CustomCollectionModel.findOne({
+          _id: slug,
         });
+        const template = await CollectionTemplateModel.findOne({
+          collection_id: slug,
+        });
+        return {
+          collection,
+          template: {
+            ...template,
+            schema: JSON.parse(template?.schema || "[]")
+          }
+        };
       } catch (e) {
+        console.error(e);
         throw new TRPCError({
           message: "Collection Not Found",
           code: "NOT_FOUND",
@@ -135,5 +146,5 @@ export const collectionRouter = createTRPCRouter({
         totalPages,
         isNextPage: currentPage < totalPages,
       };
-    }),
+    })
 });

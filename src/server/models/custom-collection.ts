@@ -11,7 +11,8 @@ const schema = new Schema<CustomCollectionDocument>(
       index: true
     },
     is_public: Boolean,
-    patient_profile: Boolean,
+    is_patient_profile: Boolean,
+    description: String,
   },
   { timestamps: true }
 );

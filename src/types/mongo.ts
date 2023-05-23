@@ -56,7 +56,8 @@ export interface CustomCollectionDocument {
   _id: ObjectId;
   name: string;
   is_public: boolean;
-  patient_profile: boolean;
+  is_patient_profile: boolean;
+  description: string;
 }
 
 export interface CollectionTemplateDocument {
