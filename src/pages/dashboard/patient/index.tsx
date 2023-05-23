@@ -6,73 +6,69 @@ import {
 import { getServerAuthSession } from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
 import { useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { GiHealthNormal } from "react-icons/gi";
 import { usePatientContext } from "@/contexts/PatientContext";
-import { TabsProvider } from "@/contexts/TabsContext";
-import { Tab } from "@/contexts/Tab";
+import { TabsProvider } from "@/components/tabs/TabsContext";
+import { Tab } from "@/components/tabs/Tab";
 import { TabPanel } from "@/contexts/TabPanel";
+import { LoadingSpinner } from "@/components/common/LoadingSpinner";
+import { PatientProfileView } from "@/components/patient/PatientProfileView";
+import { PatientRecordsView } from "@/components/patient/PatientRecordsView";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 
 const DashboardPage: serverSidePropsType = ({ user }) => {
-  const { data, error, fetchStatus, setPatientId } = usePatientContext();
+  const { profile, setPatientId } = usePatientContext();
   const [inputVal, setInputVal] = useState("");
 
   return (
     <DashBoardLayout user={user} title="" description="">
       <main className="relative grid h-full grid-cols-[1fr_250px] gap-2">
-        <section className=" bg-slate- gap-2 border-r-[1px] border-slate-200 bg-slate-200 p-3 pb-16 text-black ">
-          <div className="flex h-full overflow-hidden rounded-md border-[1px] border-slate-200 bg-white shadow-md">
+        <section className="gap-2 text-black ">
+          <div className="flex h-full flex-col overflow-hidden border-r-[1px] border-black">
             <TabsProvider
               initialValue="profile"
-              defaultTabClassName="border-b-2 border-white p-2"
-              defaultActiveTabClassName="bg-violet-400/30 border-b-2 border-white p-2 transition-all"
+              defaultTabClassName="border-b-2 p-2 font-semibold"
+              defaultActiveTabClassName="bg-violet-400/30 border-b-2 p-2 font-semibold transition-all"
             >
-              {data && (
-                <aside className="flex min-w-[100px] flex-col  bg-black  text-lg text-white">
+              {profile?.data && (
+                <header className="flex min-w-[100px] gap-2 border-[1px] border-b-black text-lg text-black">
                   <Tab value="profile" textContext="Profile" />
-                  <Tab value="scan" textContext="Scan" />
                   <Tab value="record" textContext="Record" />
-                </aside>
+                </header>
               )}
               <section
                 className={` flex  flex-1 flex-col p-2  ${
-                  !data && fetchStatus === "idle"
+                  !profile?.data && profile?.fetchStatus === "idle"
                     ? "items-center justify-center"
                     : ""
                 }`}
               >
                 <span className="font-mono text-3xl font-semibold">
-                  {!data && fetchStatus === "idle" && (
+                  {!profile?.data && profile?.fetchStatus === "idle" && (
                     <div className="flex flex-col items-center gap-6">
                       <GiHealthNormal size={80} />
                       <p className="text-3xl">Please Search for a patient</p>
                     </div>
                   )}
                 </span>
-                {data && (
+                {profile?.data && (
                   <div>
                     <TabPanel value="profile">
-                      <p>{JSON.stringify(data)}</p>
-                    </TabPanel>
-                    <TabPanel value="scan">
-                      <p>SCAN TAB</p>
+                      <PatientProfileView />
                     </TabPanel>
                     <TabPanel value="record">
-                      <p>RECORDS TAB</p>
+                      <PatientRecordsView />
                     </TabPanel>
                   </div>
                 )}
               </section>
             </TabsProvider>
 
-            {!data && fetchStatus === "fetching" && (
-              <div className="absolute inset-0 flex items-center justify-center bg-white">
-                <AiOutlineLoading3Quarters size={60} className="animate-spin" />
-              </div>
+            {!profile?.data && profile?.fetchStatus === "fetching" && (
+              <LoadingSpinner />
             )}
           </div>
         </section>
@@ -90,29 +86,35 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
               placeholder="NationalId..."
               id="patient"
             />
-            {!data &&
-              (fetchStatus === "idle" || fetchStatus === "fetching") && (
+            {!profile?.data &&
+              (profile?.fetchStatus === "idle" ||
+                profile?.fetchStatus === "fetching") && (
                 <button
-                  disabled={fetchStatus === "fetching"}
+                  disabled={profile?.fetchStatus === "fetching"}
                   onClick={() => setPatientId?.(inputVal)}
                   className="rounded-md bg-black p-2 text-white transition-all disabled:bg-slate-700 hover:bg-purple-800 "
                 >
                   Search
                 </button>
               )}
-            {data && (fetchStatus === "idle" || fetchStatus === "fetching") && (
-              <button
-                onClick={() => {
-                  setPatientId?.("");
-                  setInputVal("");
-                }}
-                className="rounded-md bg-red-600 p-2 text-white"
-              >
-                Reset
-              </button>
+            {profile?.data &&
+              (profile?.fetchStatus === "idle" ||
+                profile?.fetchStatus === "fetching") && (
+                <button
+                  onClick={() => {
+                    setPatientId?.("");
+                    setInputVal("");
+                  }}
+                  className="rounded-md bg-red-600 p-2 text-white"
+                >
+                  Reset
+                </button>
+              )}
+            {profile?.error && (
+              <p>
+                Patient Not Found Please Make Sure to use the Patient NationalId
+              </p>
             )}
-            {error &&
-              "Patient Not Found Please Make Sure to use the Patient's NationalId"}
           </div>
         </aside>
       </main>

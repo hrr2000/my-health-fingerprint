@@ -1,4 +1,9 @@
-import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import React, {
+  type Dispatch,
+  type SetStateAction,
+  useContext,
+  useState,
+} from "react";
 import { type GenericProps } from "@/types/application";
 import { createContext } from "react";
 

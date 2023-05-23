@@ -1,5 +1,5 @@
 import React from "react";
-import { useTabsContext } from "./TabsContext";
+import { useTabsContext } from "../components/tabs/TabsContext";
 import { type GenericProps } from "@/types/application";
 
 interface LocalProps extends GenericProps {
