@@ -28,10 +28,19 @@ export interface ReportDocument {
 }
 
 export interface PatientDocument {
-  name: string;
-  nationalId: string;
-  reports: ReportDocument[];
-  history?: object;
+  profile: {
+    gender: string;
+    date_of_birth: Date;
+    nationalId: string;
+    name: string;
+    address: string;
+    imageUrl: string;
+    primary_phone_number: string;
+    alternative_phone_numbers: string[];
+  };
+  health_record: {
+    [k: string]: object | string[];
+  };
 }
 
 export type UserRole = {

@@ -4,7 +4,7 @@
       "name": "hey",
       "organizations": [
         {
-          "id": "FJGIE",
+          "id": "842ff2a5-40ca-4a0e-9ac7-c066e8a42c2a",
           "roles": ["owner_role_id", "manager_role_id", "doctor_role_id"]
         }
       ]
@@ -12,53 +12,41 @@
   ],
   "patient": [
     {
-      "id" : "",
-      "nationaId" : "",
+      "id": "c40ee476-b61d-4780-85c2-3d690341427b",
+      "profile": {
+        "nationaId": "",
+        "name": "",
+        "address": "",
+        "imageUrl": "",
+        "phone_number": "",
+        "alternative_phone_number": ""
+      },
       "health_record": {
-        "allergies" : [
+        "allergies": [
           {
-            "created_at" : "",
-            "name" : "",
-            "org_name" :"",
-            "diagnosee" : ""
+            "id": "25718b32-29cf-435c-8102-2d506a08dd47",
+            "name": "celiac disease",
+            "cause": "genetic disposition",
+            "description": "inflammatory reaction to gluten diet",
+            "manifestations": ["vomiting"]
           }
         ],
-        "fh" :  [
-          {
-            "created_at" : "",
-            "name" : "",
-            "org_name" :"",
-            "diagnosee" : ""
-          }
-        ]
+        "family_history": ["95220cd0-1a5b-4c0f-96fe-54b7eee9c2c1"],
+        "manifestations": []
       }
-       
     }
   ],
   "organizations": [
     {
-      "name": "lol",
+      "id": "842ff2a5-40ca-4a0e-9ac7-c066e8a42c2a",
+      "name": "Ain shams University",
       "roles": [
         {
           "slug": "owner",
           "id": "FEE",
           "permissions": [1, 2, 3]
         }
-      ],
-      "templates": {
-        "patient": [
-          {
-            "id": "111"
-          }
-        ],
-        "templates": {
-          "patient": [
-            {
-              "id": "111"
-            }
-          ]
-        }
-      }
+      ]
     }
   ],
   "permissions": [
@@ -82,62 +70,27 @@
       "permissions": [1, 2, 3]
     }
   ],
-  "collection_metaData": [
+  "custom_collections": [
     {
       "name": "allergies",
       "status": "approved",
       "is_public": "true",
       "patient_profile": "true",
-      "documentShapeInsideTheCollection": "{"id":"string","name":"","string":"","manifestation":""}"
-    },
-    {
-      "name": "patients",
-      "status": "approved",
-      "is_public": "true",
-      "patient_profile": "true"
-    },
-    {
-      "name": "billings",
-      "status": "approved",
-      "is_public": "true",
-      "patient_profile": "true"
+      "id": "123"
     },
     {
       "name": "manifestations",
       "status": "approved",
       "is_public": "true",
-      "patient_profile": "true"
+      "patient_profile": "true",
+      "id": "456"
     },
     {
       "name": "family history",
       "status": "approved",
       "is_public": "true",
-      "patient_profile": "true"
-    }
-  ],
-  "allergies": [
-    {
-      "id": "sss222",
-      "name": "",
-      "cause": "",
-      "manifestation": ""
-    }
-  ],
-  "components": [
-    {
-      "type": "multi-select",
-      "entity": "allergies",
+      "patient_specific": "true",
       "id": "789"
-    },
-    {
-      "type": "multi-select",
-      "entity": "manifestations",
-      "id": "123"
-    },
-    {
-      "type": "single-select",
-      "entity": "allergies",
-      "id": "456"
     }
   ],
   "templates": [
@@ -161,6 +114,84 @@
       "org_id": "",
       "crud": "patients",
       "primary": "true"
+    }
+  ],
+  "allergies": [
+    {
+      "id": "25718b32-29cf-435c-8102-2d506a08dd47",
+      "name": "celiac disease",
+      "cause": "genetic disposition",
+      "description": "inflammatory reaction to gluten diet",
+      "manifestations": ["vomiting"]
+    }
+  ],
+
+  "manifestations": [
+    {
+      "id": "accab3ad-5d78-435a-ad83-3b6fb908d539",
+      "name": "vomiting",
+      "description": "shit from mouth"
+    }
+  ],
+  "family_history": [
+    {
+      "id ": "95220cd0-1a5b-4c0f-96fe-54b7eee9c2c1",
+      "created_at": "",
+      "name": "",
+      "org_name": "",
+      "supervising_doctor": "",
+      "relative": "",
+      "relatives_disease": ""
+    }
+  ],
+  "indications": [
+    {
+      "id": "a7785cbd-a936-4f83-b350-5214964b5edc",
+      "name": "fever"
+    },
+    {
+      "id": "62041f31-d65d-4bcc-8947-8918b65b038c",
+      "name": "headache"
+    },
+    {
+      "id": "7c39f162-5bcf-4f04-9a35-d0b676031e37",
+      "name": "pain"
+    },
+    {
+      "id": "68db6ae7-4a6d-4fa3-b43f-0e11c5aeacca",
+      "name": "inflammation"
+    },
+    {
+      "id": "1ba5b1b6-8422-4be1-8ceb-d6bb387200f4",
+      "name": "GERD"
+    },
+    {
+      "id": "e033e5ba-ee89-480f-9893-315b4f38ac1e",
+      "name": "ulcers"
+    },
+    {
+      "id": "8c5dad91-23d3-4383-a7d3-ddb35f0df8f0",
+      "name": "acid"
+    },
+    {
+      "id": "48c353ed-f0b8-4543-8600-b9bf46b6fc9a",
+      "name": "infection"
+    },
+    {
+      "id": "e9f9a4d1-670f-4bf6-b623-f0c123e2d44f",
+      "name": "depression"
+    },
+    {
+      "id": "06374d07-81aa-405d-a4b4-a8dcae4c0d75",
+      "name": "anxiety"
+    },
+    {
+      "id": "50d38855-89d9-4570-a6cb-bddf2c2f219f",
+      "name": "OCD"
+    },
+    {
+      "id": "e18f3308-eed6-4908-8a6d-78a2f5a702bf",
+      "name": "PTSD"
     }
   ]
 }
