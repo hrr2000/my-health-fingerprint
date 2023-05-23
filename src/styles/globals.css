@@ -1,10 +1,11 @@
 @tailwind base;
-#__next {
-  overflow: hidden;
-}
-.bg-mesh {
-  background-color: rgb(49 142 216);
-  background-image: radial-gradient( at 24% 59%, rgb(20 14 14) 0, transparent 0% ), radial-gradient(at 4% 63%, rgb(180 199 251) 0, transparent 79%), radial-gradient(at 5% 97%, rgb(112, 26, 117) 0, transparent 16%), radial-gradient(at 60% 29%, rgb(125, 211, 252) 0, transparent 84%), radial-gradient(at 87% 78%, rgb(224, 231, 255) 0, transparent 54%), radial-gradient(at 34% 23%, rgb(239 70 153 / 0%) 0, transparent 8%);
-}
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+#__next {
+  overflow: hidden;
+  font-family: Tajawal;
+  background: #eaf5fd;
+}

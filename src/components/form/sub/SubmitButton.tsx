@@ -20,7 +20,7 @@ const SubmitButton = ({
 
   return (
     <button
-      className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-400 px-5 py-2 text-xl text-white  transition-all disabled:cursor-not-allowed disabled:bg-slate-600 hover:bg-blue-700  "
+      className="my-2 cursor-pointer disabled:cursor-not-allowed w-full flex shadow-lg text-center items-center justify-center shadow-sky-200 w-full rounded-md border-[1px] transition hover:bg-primary-hover hover:border-primary-hover border-primary bg-primary p-2 px-4 text-white font-semibold text-lg"
       type="submit"
       disabled={isLoading || isValueEmpty}
     >

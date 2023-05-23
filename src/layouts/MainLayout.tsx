@@ -31,7 +31,7 @@ MainLayout.columnOne = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className={`col-span-1 col-start-1 ${className ? className : ""} `}>
+  <div className={`col-start-1 col-end-2 ${className ? className : ""} `}>
     {children}
   </div>
 );
@@ -43,7 +43,7 @@ MainLayout.columnTwo = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className={`col-span-8 col-start-2 ${className ? className : ""}`}>
+  <div className={`col-start-2 col-end-3 ${className ? className : ""}`}>
     {children}
   </div>
 );

@@ -4,39 +4,38 @@ import MainLayout from "@/layouts/MainLayout";
 import PageLayout from "@/layouts/PageLayout";
 import { motion } from "framer-motion";
 import { api } from "@/utils/api";
+import GenericButton from "@/components/common/GenericButton";
 const Home: NextPage = () => {
   const { mutate } = api.test.useMutation();
 
   return (
-    <PageLayout title="Home" description="مهفب ءفءح">
+    <PageLayout title="Home" description="">
       <MainLayout cols="2">
-        <MainLayout.columnOne className="flex flex-col items-start justify-center gap-10 text-white">
+        <MainLayout.columnOne className="flex flex-col items-start justify-center gap-10">
           <div className="flex flex-col gap-3 font-mont font-semibold capitalize">
-            <motion.h2 className="text-5xl lg:text-6xl">Intelligent</motion.h2>
-            <h2 className="text-5xl lg:text-6xl">automation</h2>
-            <h2 className="text-5xl lg:text-6xl">
-              For{" "}
-              <span className="bg-gradient-to-r from-[#f75e8e] to-[#fc737c] bg-clip-text text-transparent">
+            <motion.h2 className="text-5xl lg:text-7xl">Intelligent</motion.h2>
+            <h2 className="text-5xl lg:text-7xl text">automation</h2>
+            <h2 className="text-5xl lg:text-7xl">
+              <span className={`text-7xl`}>
+                For{" "}
+              </span>
+              <span className="text-highlight">
                 healthcare
               </span>
             </h2>
           </div>
-          <p className="max-w-[30ch] text-2xl font-normal leading-normal">
+          <p className="max-w-[30ch] text-4xl font-normal leading-normal">
             Automate every patient encounter and workflow, from front desk to
             back office.
           </p>
-          <button
-            onClick={() => mutate()}
-            className="rounded-sm border-2 border-white px-6 py-3 text-lg font-semibold capitalize shadow-sm transition-all  hover:bg-gradient-to-r hover:from-[#f75e8e] hover:to-[#fc737c] hover:bg-clip-text hover:text-transparent "
-          >
-            Request demo
-          </button>
+          <GenericButton text={'Request a Demo'} theme={'primary'} />
         </MainLayout.columnOne>
         <MainLayout.columnTwo className="hidden md:flex">
           <Image
-            width={1000}
-            height={1000}
-            src="/test.svg"
+            width={900}
+            height={900}
+            draggable={false}
+            src="/banner.png"
             alt=""
             priority={true}
           />
