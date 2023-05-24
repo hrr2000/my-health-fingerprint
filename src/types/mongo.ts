@@ -66,6 +66,7 @@ export interface CustomCollectionDocument {
   name: string;
   is_public: boolean;
   is_patient_profile: boolean;
+  is_patient_specific: boolean;
   description: string;
 }
 

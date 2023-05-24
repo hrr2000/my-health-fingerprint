@@ -15,10 +15,12 @@ module.exports = {
       backgroundColor: {
         "primary": "#1479ff",
         "primary-hover": "#0953D1",
+        "dark": "#22375B",
       },
       borderColor: {
         "primary": "#1479ff",
         "primary-hover": "#0A46AF",
+        "dark": "#22375B",
       },
       gridTemplateColumns: {
         collections: "repeat(auto-fit, minmax(250px,1fr))",

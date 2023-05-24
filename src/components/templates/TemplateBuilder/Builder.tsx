@@ -1,6 +1,6 @@
-import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
 import RowGenerator from "@/components/templates/TemplateBuilder/engine/RowGenerator";
 import Row from "@/components/templates/TemplateBuilder/engine/Row";
+import {useTemplateBuilder} from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 
 export default function Builder() {
   const { templateDetails } = useTemplateBuilder();
