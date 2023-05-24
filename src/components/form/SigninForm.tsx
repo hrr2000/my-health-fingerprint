@@ -90,15 +90,15 @@ export default function SigninForm() {
               Hi, {data?.firstName} {data?.lastName}
             </div>
             <p>What would you like to login with?</p>
-            <div className="mt-5 flex h-[170px] flex-col gap-4 overflow-auto rounded-md  bg-white bg-gray-400/10 py-3 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent  group-hover:scrollbar-thumb-gray-300">
+            <div className="mt-5 flex min-h-[170px] flex-col gap-4 overflow-auto rounded-md py-3 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent  group-hover:scrollbar-thumb-gray-300">
               {data?.orgs?.map(({ org_name, picture, jobTitle, org_id }) => (
                 <button
-                  className="relative flex items-center gap-5 overflow-hidden rounded-md bg-gradient-to-r  from-[#f75e8e] to-[#fc737c] p-3  text-left text-white shadow-lg before:absolute  before:inset-0 before:scale-0 before:bg-slate-100/10 before:hover:scale-100"
+                  className="relative flex items-center gap-5 rounded-md bg-gradient-to-r border-dark border-[1px] text-primary p-3 text-left transition hover:shadow-lg before:absolute before:inset-0 before:scale-0 before:bg-slate-100/10 before:hover:scale-100"
                   key={org_id.toString()}
                   onClick={() => setSelectedOrgId(org_id.toString())}
                 >
                   <Image
-                    className="rounded-[50%]"
+                    className="rounded-[50%] border-[1px] border-dark"
                     src={picture}
                     width={40}
                     height={40}
@@ -106,7 +106,7 @@ export default function SigninForm() {
                   />
                   <div>
                     <p className="font-semibold capitalize">{org_name}</p>
-                    <p className="font-light capitalize">{jobTitle}</p>
+                    <p className="capitalize">{jobTitle}</p>
                   </div>
                 </button>
               ))}

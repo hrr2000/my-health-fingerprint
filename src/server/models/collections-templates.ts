@@ -7,7 +7,6 @@ const schema = new Schema<CollectionTemplateDocument>(
   {
     name: {
       type: String,
-      unique: true,
       index: true
     },
     schema: String,

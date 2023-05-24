@@ -1,13 +1,14 @@
 import { type ReactNode, createContext, useContext } from "react";
 import AddFieldModal, {
-  AddFieldModalController,
-  type IAddFieldModalController,
 } from "@/components/templates/TemplateBuilder/modals/AddFieldModal";
 import {
-  BuilderController,
-  type IBuilderController,
 } from "@/components/templates/TemplateBuilder/engine/RowGenerator";
 import {useRouter} from "next/router";
+import BuilderController, {IBuilderController} from "@/components/templates/TemplateBuilder/controllers/BuilderController";
+import {
+  AddFieldModalController,
+  IAddFieldModalController
+} from "@/components/templates/TemplateBuilder/controllers/AddFieldModalController";
 
 const TemplateBuilderContext = createContext<
   (IBuilderController & IAddFieldModalController) | null

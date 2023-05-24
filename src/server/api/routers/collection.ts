@@ -24,8 +24,10 @@ export const collectionRouter = createTRPCRouter({
         // Create the custom collection and save it in the database.
         const customCollection = new CustomCollectionModel({
           name: collection.name,
-          patient_profile: collection.isPatientProfile,
+          is_patient_profile: collection.isPatientProfile,
+          is_patient_specific: collection.isPatientSpecific,
           is_public: collection.isPublic,
+          description: collection.description,
         });
         const { _id, name: collection_name } = await customCollection.save();
 
@@ -34,6 +36,7 @@ export const collectionRouter = createTRPCRouter({
           collection_id: _id,
           schema: JSON.stringify(template.schema),
           name: template.name,
+          is_printable: template.isPrintable,
           primary: true,
         });
         await collectionTemplate.save();
@@ -48,6 +51,7 @@ export const collectionRouter = createTRPCRouter({
         });
       }
     }),
+
   update: protectedProcedure
     .input(updateCollectionSchema)
     .mutation(async ({ input: { collection, template, slug } }) => {
@@ -58,9 +62,10 @@ export const collectionRouter = createTRPCRouter({
           { _id: slug },
           {
             $set: {
-              name: collection.name,
-              patient_profile: collection.isPatientProfile,
+              is_patient_profile: collection.isPatientProfile,
+              is_patient_specific: collection.isPatientSpecific,
               is_public: collection.isPublic,
+              description: collection.description,
             },
           }
         );
@@ -69,9 +74,8 @@ export const collectionRouter = createTRPCRouter({
           { collection_id: slug },
           {
             $set: {
-              collection_id: slug,
               schema: JSON.stringify(template.schema),
-              name: template.name,
+              is_printable: template.isPrintable,
               primary: true,
             },
           }
@@ -98,14 +102,23 @@ export const collectionRouter = createTRPCRouter({
         const collection = await CustomCollectionModel.findOne({
           _id: slug,
         });
+
         const template = await CollectionTemplateModel.findOne({
           collection_id: slug,
+          primary: true
         });
+
+        if(!template || !collection) {
+          throw new Error('Not Found');
+        }
+
         return {
           collection,
           template: {
-            ...template,
-            schema: JSON.parse(template?.schema || "[]")
+            name: template.name,
+            primary: template.primary,
+            is_printable: template.is_printable,
+            schema: JSON.parse(template.schema || "[]")
           }
         };
       } catch (e) {

@@ -9,6 +9,7 @@ export const createCollectionSchema = z.object({
     name: z.string().trim().min(3).max(45),
     isPublic: z.boolean().default(false),
     isPatientProfile: z.boolean().default(false),
+    isPatientSpecific: z.boolean().default(false),
     description: z.string(),
   }),
   template: z.object({
@@ -23,6 +24,7 @@ export const updateCollectionSchema = z.object({
     name: z.string().trim().min(3).max(45),
     isPublic: z.boolean().default(false),
     isPatientProfile: z.boolean().default(false),
+    isPatientSpecific: z.boolean().default(false),
     description: z.string(),
   }),
   template: z.object({

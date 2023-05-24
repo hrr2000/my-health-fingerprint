@@ -1,7 +1,6 @@
 import { useField } from "formik";
 import { type GenericProps } from "@/types/application";
 import FieldErrorMessage from "@/components/form/sub/FieldErrorMessage";
-import {useTemplateBuilder} from "@/contexts/TemplateBuilderContext";
 
 interface LocalProps extends GenericProps {
   label?: string;
@@ -11,7 +10,6 @@ interface LocalProps extends GenericProps {
 
 const TextInput = ({ label, name, type = "text", ...props }: LocalProps) => {
   const [field, meta] = useField(name);
-  const {collectionDetails} = useTemplateBuilder();
 
   return (
     <div className="flex flex-col gap-2 w-full">
@@ -20,7 +18,7 @@ const TextInput = ({ label, name, type = "text", ...props }: LocalProps) => {
           {label}
         </label>
         <input
-          className={`rounded-sm  bg-slate-100 text-sm ${
+          className={`rounded-sm disabled:text-gray-500 disabled:font-semibold bg-slate-100 text-sm disabled:cursor-not-allowed disabled:bg-gray-200 ${
             meta.touched && meta.error ? "border-1 border-red-500" : "border-0"
           }`}
           id={name}
