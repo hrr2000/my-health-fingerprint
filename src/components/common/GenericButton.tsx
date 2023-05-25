@@ -24,7 +24,7 @@ const SecondaryButton = ({
   return (
     <button
       {...props}
-      className="my-2 w-full flex w-full min-w-fit rounded-md border-[1px] border-black bg-white p-2 px-4"
+      className="my-2 w-full flex w-full max-w-fit rounded-md border-[1px] border-black bg-white p-2 px-4"
     >
       <span>{text}</span>
       {children}
