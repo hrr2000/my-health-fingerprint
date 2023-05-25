@@ -6,7 +6,7 @@ export default function useGetHealthRecordData(
 ) {
   const { data, fetchStatus, error } =
     api.patient.getRegisteredCollections.useQuery(
-      { id: patientId },
+      { nationalId: patientId },
       {
         enabled: !!patientId && requestedData === "registered_collections",
         retry: 1,

@@ -4,7 +4,8 @@ import React from "react";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { Tab } from "@/components/tabs/Tab";
 import { TabPanel } from "@/components/tabs/TabPanel";
-import { TabsProvider } from "@/contexts/TabsContext";
+import { TabsProvider, useTabsContext } from "@/contexts/TabsContext";
+import { api } from "@/utils/api";
 
 const formatFieldNamesToReadable = (fieldName: string) => {
   const separatedFieldName = fieldName.split("_");
@@ -17,6 +18,7 @@ export const PatientRecordsView = () => {
     patientId || "",
     "registered_collections"
   );
+
   return (
     <main>
       {!data ? (
@@ -50,7 +52,10 @@ export const PatientRecordsView = () => {
             <div>
               {data.health_record.map(({ collection_name }) => (
                 <TabPanel key={collection_name} value={collection_name}>
-                  {collection_name}
+                  <CollectionDetailsView
+                    patientId={patientId || ""}
+                    tabName={collection_name}
+                  />
                 </TabPanel>
               ))}
             </div>
@@ -59,6 +64,25 @@ export const PatientRecordsView = () => {
       )}
     </main>
   );
+};
+
+const CollectionDetailsView = ({
+  tabName,
+  patientId,
+}: {
+  tabName: string;
+  patientId: string;
+}) => {
+  const { currentTab } = useTabsContext();
+  const { data: d, isLoading } =
+    api.patient.getRegisteredCollectionDetails.useQuery(
+      { collection_name: tabName, nationalId: patientId },
+      { enabled: currentTab === tabName && !!patientId }
+    );
+  if (isLoading) {
+    return <div>Loading....</div>;
+  }
+  return <div>{JSON.stringify(d, null, 2)}</div>;
 };
 
 //  {
