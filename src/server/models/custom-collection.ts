@@ -12,6 +12,7 @@ const schema = new Schema<CustomCollectionDocument>(
     },
     is_public: Boolean,
     is_patient_profile: Boolean,
+    is_patient_specific: Boolean,
     description: String,
   },
   { timestamps: true }

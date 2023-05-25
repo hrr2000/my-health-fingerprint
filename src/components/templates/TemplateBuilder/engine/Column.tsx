@@ -1,8 +1,8 @@
 import { IoIosAdd } from "react-icons/io";
-import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
-import { type TemplateComponent } from "@/components/templates/TemplateBuilder/engine/RowGenerator";
 
 import { fields } from "@/components/templates/TemplateBuilder/modals/AddFieldModal";
+import {TemplateComponent} from "@/components/templates/TemplateBuilder/types";
+import {useTemplateBuilder} from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 
 export default function Column({
   rowIndex,

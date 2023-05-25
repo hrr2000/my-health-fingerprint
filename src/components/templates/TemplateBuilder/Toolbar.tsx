@@ -1,16 +1,15 @@
-import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
-import { api } from "@/utils/api";
 import { Field, Form, Formik } from "formik";
 import { createCollectionFormSchema } from "@/validation/custom-collection";
 import TextInput from "@/components/form/sub/TextInput";
-import {
-  collectionDetailsInitialValues,
-  templateDetailsInitialValues,
-} from "@/components/templates/TemplateBuilder/engine/RowGenerator";
-import {useEffect} from "react";
+import {useTemplateBuilder} from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
+import ToolbarController from "@/components/templates/TemplateBuilder/controllers/ToolbarController";
+import React, {useEffect} from "react";
+import {CiCircleCheck, CiWarning} from "react-icons/ci";
+import {AiOutlineLoading3Quarters} from "react-icons/ai";
 
 export default function Toolbar() {
-  const { saveData, collectionDetails, templateDetails  } = useTemplateBuilder();
+  const { collectionDetails, templateDetails, setCollectionDetails, setTemplateDetails, mutationState } = useTemplateBuilder();
+  const {saveData, isSaving, isSaved, savingError} = ToolbarController();
 
   return (
     <section className="flex flex-col border-slate-200 p-5 pb-16 text-black">
@@ -21,7 +20,9 @@ export default function Toolbar() {
         }}
         onSubmit={(values, formikHelpers) => {
           saveData({
-            collection: values.collection,
+            collection: {
+              ...values.collection
+            },
             template: {
               ...values.template,
               schema: values.template.schema,
@@ -31,11 +32,53 @@ export default function Toolbar() {
         enableReinitialize
         validationSchema={createCollectionFormSchema}
       >
-        {({ errors, setValues }) => {
-          console.log(errors);
+        {({ errors, values, setValues }) => {
+
+          useEffect(() => {
+            console.log(collectionDetails)
+            setCollectionDetails({
+              ...collectionDetails,
+              ...values.collection
+            });
+            setTemplateDetails({
+              ...templateDetails,
+              ...values.template
+            })
+          }, [values]);
+
           return (
             <Form>
               <div className={`w-full py-2 px-4`}>
+                {savingError && (
+                  <div className={`text-red-500 flex gap-3 items-center border-[1px] border-red-500 p-2 rounded-md my-4`}>
+                    <span>
+                      <CiWarning />
+                    </span>
+                    <span>
+                    Unsaved Changes!
+                  </span>
+                  </div>
+                )}
+                {isSaving && (
+                  <div className={`text-yellow-500 flex gap-3 items-center border-[1px] border-yellow-500 p-2 rounded-md my-4`}>
+                    <span>
+                      <AiOutlineLoading3Quarters size={1} className="animate-spin" />
+                    </span>
+                      <span>
+                      Saving ...
+                    </span>
+                  </div>
+                )}
+                {isSaved && (
+                  <div className={`text-green-500 flex gap-3 items-center border-[1px] border-green-500 p-2 rounded-md my-4`}>
+                  <span>
+                    <CiCircleCheck />
+                  </span>
+                    <span>
+                    Up to date
+                  </span>
+                  </div>
+                )}
                 <h3
                   className={`mb-2 border-b-[1px] border-b-slate-200 text-slate-800`}
                 >
@@ -46,6 +89,7 @@ export default function Toolbar() {
                 >
                   <TextInput
                     name="collection.name"
+                    disabled={mutationState.current == 'update'}
                     label="Collection Name"
                     placeholder="Collection Name ..."
                   />
@@ -77,7 +121,7 @@ export default function Toolbar() {
                   <label htmlFor={"isPrintable"}>Printable</label>
                 </div>
                 <div className={`flex items-center gap-2 py-1 text-sm`}>
-                  <input
+                  <Field
                     id={"isPatientProfile"}
                     name={"collection.isPatientProfile"}
                     type="checkbox"
@@ -86,7 +130,16 @@ export default function Toolbar() {
                   <label htmlFor={"isPatientProfile"}>Patient Profile</label>
                 </div>
                 <div className={`flex items-center gap-2 py-1 text-sm`}>
-                  <input
+                  <Field
+                    id={"isPatientSpecific"}
+                    name={"collection.isPatientSpecific"}
+                    type="checkbox"
+                    className={`h-3 w-3`}
+                  />
+                  <label htmlFor={"isPatientSpecific"}>Patient Specific</label>
+                </div>
+                <div className={`flex items-center gap-2 py-1 text-sm`}>
+                  <Field
                     id={"isPublic"}
                     name={"collection.isPublic"}
                     type="checkbox"

@@ -8,9 +8,9 @@ import {
   type SetStateAction,
 } from "react";
 import GenericButton from "@/components/common/GenericButton";
-import { useTemplateBuilder } from "@/contexts/TemplateBuilderContext";
 import { GoTextSize } from "react-icons/go";
 import { TiSortNumerically } from "react-icons/ti";
+import {useTemplateBuilder} from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 
 type FieldType = "text" | "number" | "select";
 
@@ -49,123 +49,6 @@ const customStyles = {
   },
 };
 
-export const AddFieldModalController = () => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalStep, setModalStep] = useState(0);
-  const [fieldObject, setFieldObject] = useState({});
-  const [cell, setCell] = useState({
-    rowIndex: 0,
-    columnIndex: 0,
-  });
-
-  function openModal(rowIndex: number, columnIndex: number) {
-    setCell({
-      rowIndex,
-      columnIndex,
-    });
-    setIsOpen(true);
-    setFieldObject({});
-  }
-
-  function afterOpenModal() {
-    return;
-  }
-
-  function closeModal() {
-    setModalStep(0);
-    setIsOpen(false);
-  }
-
-  return {
-    fieldObject,
-    modalStep,
-    modalIsOpen,
-    cell,
-    setCell,
-    setFieldObject,
-    setModalStep,
-    setIsOpen,
-    openModal,
-    afterOpenModal,
-    closeModal,
-  };
-};
-
-export type IAddFieldModalController = ReturnType<
-  typeof AddFieldModalController
->;
-
-function ChooseFieldStep({
-  setFieldObject,
-}: {
-  setFieldObject: Dispatch<SetStateAction<object>>;
-}) {
-  const [activeField, setActiveField] = useState<FieldType | "None">("None");
-  return (
-    <div className={`w-[600px]`}>
-      <div className={`my-3 grid grid-cols-3 gap-3 text-sm text-slate-600`}>
-        {fields.map((field, idx) => {
-          return (
-            <div
-              key={`primary_field-${idx}`}
-              className={`flex w-fit items-center justify-start gap-4 border-2 p-3 font-bold duration-300 hover:border-black hover:text-black ${
-                field.type == activeField
-                  ? "border-black text-black"
-                  : "text-slate-500"
-              } w-full cursor-pointer`}
-              onClick={() => {
-                setActiveField(field.type);
-                setFieldObject((obj: object) => ({ ...obj, type: field.type }));
-              }}
-            >
-              <span>{field.icon}</span>
-              <span>{field.name}</span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function PreferencesStep({
-  setFieldObject,
-}: {
-  setFieldObject: Dispatch<SetStateAction<object>>;
-}) {
-  const handleChange = (key: string) => {
-    return (e: ChangeEvent<HTMLInputElement>) =>
-      void setFieldObject((obj: object) => ({ ...obj, [key]: e.target.value }));
-  };
-
-  return (
-    <div className={`w-[600px]`}>
-      <form className={`my-5 grid grid-cols-2 gap-3`}>
-        <input
-          type="text"
-          placeholder="Label"
-          name="label"
-          onChange={handleChange("label")}
-        />
-        <input
-          type="text"
-          placeholder="Name"
-          name="name"
-          onChange={handleChange("name")}
-        />
-      </form>
-    </div>
-  );
-}
-
-const steps = [
-  {
-    title: "Choose Field",
-  },
-  {
-    title: "Preferences",
-  },
-];
 
 export default function AddFieldModal() {
   const {
@@ -246,3 +129,76 @@ export default function AddFieldModal() {
     </Modal>
   );
 }
+
+function ChooseFieldStep({
+  setFieldObject,
+}: {
+  setFieldObject: Dispatch<SetStateAction<object>>;
+}) {
+  const [activeField, setActiveField] = useState<FieldType | "None">("None");
+  return (
+    <div className={`w-[600px]`}>
+      <div className={`my-3 grid grid-cols-3 gap-3 text-sm text-slate-600`}>
+        {fields.map((field, idx) => {
+          return (
+            <div
+              key={`primary_field-${idx}`}
+              className={`flex w-fit items-center justify-start gap-4 border-2 p-3 font-bold duration-300 hover:border-black hover:text-black ${
+                field.type == activeField
+                  ? "border-black text-black"
+                  : "text-slate-500"
+              } w-full cursor-pointer`}
+              onClick={() => {
+                setActiveField(field.type);
+                setFieldObject((obj: object) => ({ ...obj, type: field.type }));
+              }}
+            >
+              <span>{field.icon}</span>
+              <span>{field.name}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function PreferencesStep({
+  setFieldObject,
+}: {
+  setFieldObject: Dispatch<SetStateAction<object>>;
+}) {
+  const handleChange = (key: string) => {
+    return (e: ChangeEvent<HTMLInputElement>) =>
+      void setFieldObject((obj: object) => ({ ...obj, [key]: e.target.value }));
+  };
+
+  return (
+    <div className={`w-[600px]`}>
+      <form className={`my-5 grid grid-cols-2 gap-3`}>
+        <input
+          type="text"
+          placeholder="Label"
+          name="label"
+          onChange={handleChange("label")}
+        />
+        <input
+          type="text"
+          placeholder="Name"
+          name="name"
+          onChange={handleChange("name")}
+        />
+      </form>
+    </div>
+  );
+}
+
+const steps = [
+  {
+    title: "Choose Field",
+  },
+  {
+    title: "Preferences",
+  },
+];
+

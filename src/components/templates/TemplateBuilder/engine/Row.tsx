@@ -1,5 +1,5 @@
-import { type TemplateComponent } from "@/components/templates/TemplateBuilder/engine/RowGenerator";
 import Column from "@/components/templates/TemplateBuilder/engine/Column";
+import {TemplateComponent} from "@/components/templates/TemplateBuilder/types";
 
 export default function Row({
   data,
