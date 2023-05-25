@@ -20,7 +20,7 @@ export const patientRouter = createTRPCRouter({
       }
       return patient;
     }),
-  getRecords: publicProcedure
+  getRegisteredCollections: publicProcedure
     .input(
       z.object({
         id: z.string(),
@@ -29,11 +29,15 @@ export const patientRouter = createTRPCRouter({
     .query(async ({ input: { id } }) => {
       const healthRecord = await PatientModel.findOne(
         { _id: id },
-        { health_record: true }
+        { "health_record.collection_name": true }
       );
       if (!healthRecord) {
-        throw new TRPCError({ message: "No record found", code: "NOT_FOUND" });
+        throw new TRPCError({
+          message: "No record found",
+          code: "NOT_FOUND",
+        });
       }
+
       // get keys
       // custom_collections
       // {collectionName : ith key , patient_specific : true | false}

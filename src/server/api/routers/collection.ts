@@ -34,7 +34,7 @@ export const collectionRouter = createTRPCRouter({
         // Create the primary template for this collection using the collection id returned after save.
         const collectionTemplate = new CollectionTemplateModel({
           collection_id: _id,
-          schema: JSON.stringify(template.schema),
+          schema: template.schema,
           name: template.name,
           is_printable: template.isPrintable,
           primary: true,
@@ -74,7 +74,7 @@ export const collectionRouter = createTRPCRouter({
           { collection_id: slug, primary: true },
           {
             $set: {
-              schema: JSON.stringify(template.schema),
+              schema: template.schema,
               is_printable: template.isPrintable,
               primary: true,
             },
@@ -105,12 +105,13 @@ export const collectionRouter = createTRPCRouter({
 
         const template = await CollectionTemplateModel.findOne({
           collection_id: slug,
-          primary: true
+          primary: true,
         });
 
-        if(!template || !collection) {
-          throw new Error('Not Found');
+        if (!template || !collection) {
+          throw new Error("Not Found");
         }
+        console.log({ server: template });
 
         return {
           collection,
@@ -118,8 +119,8 @@ export const collectionRouter = createTRPCRouter({
             name: template.name,
             primary: template.primary,
             is_printable: template.is_printable,
-            schema: JSON.parse(template.schema || "[]")
-          }
+            schema: template.schema,
+          },
         };
       } catch (e) {
         console.error(e);
@@ -159,5 +160,5 @@ export const collectionRouter = createTRPCRouter({
         totalPages,
         isNextPage: currentPage < totalPages,
       };
-    })
+    }),
 });

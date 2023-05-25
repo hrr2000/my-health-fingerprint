@@ -1,15 +1,21 @@
 import { Field, Form, Formik } from "formik";
 import { createCollectionFormSchema } from "@/validation/custom-collection";
 import TextInput from "@/components/form/sub/TextInput";
-import {useTemplateBuilder} from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
+import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 import ToolbarController from "@/components/templates/TemplateBuilder/controllers/ToolbarController";
-import React, {useEffect} from "react";
-import {CiCircleCheck, CiWarning} from "react-icons/ci";
-import {AiOutlineLoading3Quarters} from "react-icons/ai";
+import { useEffect } from "react";
+import { CiCircleCheck, CiWarning } from "react-icons/ci";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function Toolbar() {
-  const { collectionDetails, templateDetails, setCollectionDetails, setTemplateDetails, mutationState } = useTemplateBuilder();
-  const {saveData, isSaving, isSaved, savingError} = ToolbarController();
+  const {
+    collectionDetails,
+    templateDetails,
+    setCollectionDetails,
+    setTemplateDetails,
+    mutationState,
+  } = useTemplateBuilder();
+  const { saveData, isSaving, isSaved, savingError } = ToolbarController();
 
   return (
     <section className="flex flex-col border-slate-200 p-5 pb-16 text-black">
@@ -21,7 +27,7 @@ export default function Toolbar() {
         onSubmit={(values, formikHelpers) => {
           saveData({
             collection: {
-              ...values.collection
+              ...values.collection,
             },
             template: {
               ...values.template,
@@ -32,51 +38,52 @@ export default function Toolbar() {
         enableReinitialize
         validationSchema={createCollectionFormSchema}
       >
-        {({ errors, values, setValues }) => {
-
+        {({ errors, values }) => {
           useEffect(() => {
-            console.log(collectionDetails)
             setCollectionDetails({
               ...collectionDetails,
-              ...values.collection
+              ...values.collection,
             });
             setTemplateDetails({
               ...templateDetails,
-              ...values.template
-            })
+              ...values.template,
+            });
           }, [values]);
 
           return (
             <Form>
               <div className={`w-full py-2 px-4`}>
                 {savingError && (
-                  <div className={`text-red-500 flex gap-3 items-center border-[1px] border-red-500 p-2 rounded-md my-4`}>
+                  <div
+                    className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-red-500 p-2 text-red-500`}
+                  >
                     <span>
                       <CiWarning />
                     </span>
-                    <span>
-                    Unsaved Changes!
-                  </span>
+                    <span>Unsaved Changes!</span>
                   </div>
                 )}
                 {isSaving && (
-                  <div className={`text-yellow-500 flex gap-3 items-center border-[1px] border-yellow-500 p-2 rounded-md my-4`}>
+                  <div
+                    className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-yellow-500 p-2 text-yellow-500`}
+                  >
                     <span>
-                      <AiOutlineLoading3Quarters size={1} className="animate-spin" />
+                      <AiOutlineLoading3Quarters
+                        size={1}
+                        className="animate-spin"
+                      />
                     </span>
-                      <span>
-                      Saving ...
-                    </span>
+                    <span>Saving ...</span>
                   </div>
                 )}
                 {isSaved && (
-                  <div className={`text-green-500 flex gap-3 items-center border-[1px] border-green-500 p-2 rounded-md my-4`}>
-                  <span>
-                    <CiCircleCheck />
-                  </span>
+                  <div
+                    className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-green-500 p-2 text-green-500`}
+                  >
                     <span>
-                    Up to date
-                  </span>
+                      <CiCircleCheck />
+                    </span>
+                    <span>Up to date</span>
                   </div>
                 )}
                 <h3
@@ -89,7 +96,7 @@ export default function Toolbar() {
                 >
                   <TextInput
                     name="collection.name"
-                    disabled={mutationState.current == 'update'}
+                    disabled={mutationState.current == "update"}
                     label="Collection Name"
                     placeholder="Collection Name ..."
                   />

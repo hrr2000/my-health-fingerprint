@@ -17,7 +17,7 @@ type serverSidePropsType = NextPage<
 
 const DashboardPage: serverSidePropsType = ({ user }) => {
   const [page, setPage] = useState(1);
-  const { data: collections, isLoading } = api.collection.list.useQuery({
+  const { data: paginatedData, isLoading } = api.collection.list.useQuery({
     page: page,
     perPage: 10,
   });
@@ -50,8 +50,8 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
           </button>
 
           {!isLoading &&
-            collections &&
-            collections.collections.map((collection) => (
+            paginatedData &&
+            paginatedData.collections.map((collection) => (
               <button
                 key={collection._id.toString()}
                 onClick={() =>
