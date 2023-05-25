@@ -1,4 +1,8 @@
-import { PatientModel } from "@/server/models";
+import {
+  CollectionTemplateModel,
+  CustomCollectionModel,
+  PatientModel,
+} from "@/server/models";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
@@ -7,12 +11,12 @@ export const patientRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string().optional(),
-        id: z.string(),
+        nationalId: z.string(),
       })
     )
-    .query(async ({ input: { id } }) => {
+    .query(async ({ input: { nationalId } }) => {
       const patient = await PatientModel.findOne(
-        { _id: id },
+        { "profile.nationalId": nationalId },
         { profile: true }
       );
       if (!patient) {
@@ -23,12 +27,12 @@ export const patientRouter = createTRPCRouter({
   getRegisteredCollections: publicProcedure
     .input(
       z.object({
-        id: z.string(),
+        nationalId: z.string(),
       })
     )
-    .query(async ({ input: { id } }) => {
+    .query(async ({ input: { nationalId } }) => {
       const healthRecord = await PatientModel.findOne(
-        { _id: id },
+        { "profile.nationalId": nationalId },
         { "health_record.collection_name": true }
       );
       if (!healthRecord) {
@@ -37,12 +41,36 @@ export const patientRouter = createTRPCRouter({
           code: "NOT_FOUND",
         });
       }
-
-      // get keys
-      // custom_collections
-      // {collectionName : ith key , patient_specific : true | false}
       return healthRecord;
     }),
+
+  getRegisteredCollectionDetails: publicProcedure
+    .input(
+      z.object({
+        nationalId: z.string(),
+        collection_name: z.string(),
+      })
+    )
+    .query(async ({ input: { collection_name, nationalId } }) => {
+      const [collectionData, collectionTemplate] = await Promise.all([
+        PatientModel.findOne({
+          "profile.nationalId": nationalId,
+          "health_record.collection_name": collection_name,
+        }),
+        CollectionTemplateModel.findOne(
+          {
+            name: collection_name,
+            primary: true,
+          },
+          { schema: true }
+        ),
+      ]);
+      if (!collectionTemplate || !collectionData) {
+        throw new Error("Not Found");
+      }
+      return { collectionData, collectionTemplate };
+    }),
+
   createOne: publicProcedure.mutation(async ({}) => {
     return await PatientModel.create({ nationalId: "" });
   }),

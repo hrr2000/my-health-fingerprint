@@ -4,7 +4,7 @@ export default function useGetPatientProfileData(patientId: string) {
   // console.log({ patientId });
 
   const { data, fetchStatus, error } = api.patient.getProfile.useQuery(
-    { id: patientId },
+    { nationalId: patientId },
     {
       enabled: !!patientId,
       retry: 1,
