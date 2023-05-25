@@ -71,7 +71,7 @@ export const collectionRouter = createTRPCRouter({
         );
 
         const updateCollectionTemplateCall = CollectionTemplateModel.updateOne(
-          { collection_id: slug },
+          { collection_id: slug, primary: true },
           {
             $set: {
               schema: template.schema,
