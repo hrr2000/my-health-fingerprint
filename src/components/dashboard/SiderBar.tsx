@@ -7,7 +7,7 @@ import { type GenericProps } from "@/types/application";
 import useOnClickOutside from "@/hooks/useClickOutside";
 import { NavBar } from "../common/NavBar";
 import { routes } from "@/routes";
-import {CiLogout} from "react-icons/ci";
+import { CiLogout } from "react-icons/ci";
 
 interface LocalProps extends GenericProps {
   username: string;
@@ -29,7 +29,7 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
         <FiActivity className="h-[30px] w-[30px] shrink-0" />
         <h2 className="ml-4 text-xl">MHFP</h2>
       </header>
-      <NavBar className="overflow-hidden">
+      <NavBar className="overflow-hidden" mode="both">
         <NavBar.NavLinks
           links={routes.dashboardPages}
           activeLinkClassName="bg-gray-400/25"
