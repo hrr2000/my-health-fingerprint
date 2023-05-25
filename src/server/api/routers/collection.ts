@@ -105,8 +105,8 @@ export const collectionRouter = createTRPCRouter({
           collection,
           template: {
             ...template,
-            schema: JSON.parse(template?.schema || "[]")
-          }
+            schema: template?.schema,
+          },
         };
       } catch (e) {
         console.error(e);
@@ -146,5 +146,5 @@ export const collectionRouter = createTRPCRouter({
         totalPages,
         isNextPage: currentPage < totalPages,
       };
-    })
+    }),
 });
