@@ -2,11 +2,11 @@ import {
   CollectionDetails,
   collectionDetailsInitialValues,
   TemplateComponent,
-  TemplateDetails, templateDetailsInitialValues
+  TemplateDetails,
+  templateDetailsInitialValues,
 } from "@/components/templates/TemplateBuilder/types";
-import {api} from "@/utils/api";
-import {useEffect, useRef, useState} from "react";
-
+import { api } from "@/utils/api";
+import { useEffect, useRef, useState } from "react";
 
 export type IBuilderController = ReturnType<typeof BuilderController>;
 
@@ -15,8 +15,12 @@ export default function BuilderController({ slug }: { slug: string | null }) {
   // if null then state is create -> call create mutation endpoint
   // if not then state is update -> call update mutation endpoint
 
-  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>( templateDetailsInitialValues);
-  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(collectionDetailsInitialValues);
+  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
+    templateDetailsInitialValues
+  );
+  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
+    collectionDetailsInitialValues
+  );
 
   const mutationState = useRef<"update" | "create">(slug ? "update" : "create");
 
@@ -26,22 +30,24 @@ export default function BuilderController({ slug }: { slug: string | null }) {
   );
 
   useEffect(() => {
-    if(status != 'success') return;
-    if(!data) return;
-    const {template, collection } = data;
-    if(!template || !collection) return;
+    if (status != "success") return;
+    if (!data) return;
+    const { template, collection } = data;
+    if (!template || !collection) return;
     console.log(template);
     setTemplateDetails({
       ...template,
-      schema: JSON.parse(template.schema),
+      schema: JSON.parse(
+        template.schema || "[]"
+      ) as Partial<TemplateComponent>[][],
       isPrintable: template.is_printable,
-      name: template.name || ""
+      name: template.name || "",
     });
     setCollectionDetails({
       ...collection,
       isPatientSpecific: collection.is_patient_specific,
       isPatientProfile: collection.is_patient_profile,
-      isPublic: collection.is_public
+      isPublic: collection.is_public,
     });
   }, [status]);
 
