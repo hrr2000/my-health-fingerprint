@@ -3,10 +3,8 @@ import Image from "next/image";
 import MainLayout from "@/layouts/MainLayout";
 import PageLayout from "@/layouts/PageLayout";
 import { motion } from "framer-motion";
-import { api } from "@/utils/api";
 import GenericButton from "@/components/common/GenericButton";
 const Home: NextPage = () => {
-  const { mutate } = api.test.useMutation();
 
   return (
     <PageLayout title="Home" description="">
