@@ -13,7 +13,22 @@ export const createCollectionSchema = z.object({
     description: z.string(),
   }),
   template: z.object({
-    schema: z.any(),
+    schema: z.string(),
+    name: z.string(),
+    isPrintable: z.boolean().default(false),
+  }),
+});
+
+export const createCollectionSchemaClient = z.object({
+  collection: z.object({
+    name: z.string().trim().min(3).max(45),
+    isPublic: z.boolean().default(false),
+    isPatientProfile: z.boolean().default(false),
+    isPatientSpecific: z.boolean().default(false),
+    description: z.string(),
+  }),
+  template: z.object({
+    schema: z.array(z.any()),
     name: z.string(),
     isPrintable: z.boolean().default(false),
   }),
@@ -28,7 +43,7 @@ export const updateCollectionSchema = z.object({
     description: z.string(),
   }),
   template: z.object({
-    schema: z.any(),
+    schema: z.string(),
     name: z.string(),
     isPrintable: z.boolean().default(false),
   }),
@@ -39,7 +54,7 @@ export const updateCollectionSchema = z.object({
 });
 // this is for client-side validation
 export const createCollectionFormSchema = toFormikValidationSchema(
-  createCollectionSchema
+  createCollectionSchemaClient
 );
 export const updateCollectionFormSchema = toFormikValidationSchema(
   updateCollectionSchema

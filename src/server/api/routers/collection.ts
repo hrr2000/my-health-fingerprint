@@ -34,7 +34,7 @@ export const collectionRouter = createTRPCRouter({
         // Create the primary template for this collection using the collection id returned after save.
         const collectionTemplate = new CollectionTemplateModel({
           collection_id: _id,
-          schema: JSON.stringify(template.schema),
+          schema: template.schema,
           name: template.name,
           is_printable: template.isPrintable,
           primary: true,
@@ -74,7 +74,7 @@ export const collectionRouter = createTRPCRouter({
           { collection_id: slug },
           {
             $set: {
-              schema: JSON.stringify(template.schema),
+              schema: template.schema,
               is_printable: template.isPrintable,
               primary: true,
             },
@@ -111,6 +111,7 @@ export const collectionRouter = createTRPCRouter({
         if (!template || !collection) {
           throw new Error("Not Found");
         }
+        console.log({ server: template });
 
         return {
           collection,
