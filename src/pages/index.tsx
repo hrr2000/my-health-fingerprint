@@ -3,20 +3,18 @@ import Image from "next/image";
 import MainLayout from "@/layouts/MainLayout";
 import PageLayout from "@/layouts/PageLayout";
 import { motion } from "framer-motion";
-import { api } from "@/utils/api";
 import GenericButton from "@/components/common/GenericButton";
 const Home: NextPage = () => {
-  const { mutate } = api.test.useMutation();
 
   return (
     <PageLayout title="Home" description="">
       <MainLayout cols="2">
         <MainLayout.columnOne className="flex flex-col items-start justify-center gap-10 font-tajawal">
-          <div className="flex flex-col gap-3 font-mont font-semibold capitalize">
-            <motion.h2 className="text-5xl lg:text-7xl">Intelligent</motion.h2>
-            <h2 className="text text-5xl lg:text-7xl">automation</h2>
-            <h2 className="text-5xl lg:text-7xl">
-              <span className={`text-7xl`}>For </span>
+          <div className="flex flex-col gap-3 font-mont font-semibold capitalize text text-5xl lg:text-7xl">
+            <motion.h2 className="">Intelligent</motion.h2>
+            <h2 className="">automation</h2>
+            <h2 className="">
+              <span>For </span>
               <span className="text-highlight">healthcare</span>
             </h2>
           </div>
