@@ -1,6 +1,6 @@
 import { IoIosAdd } from "react-icons/io";
-import {useState, useRef, useEffect} from "react";
-import {useTemplateBuilder} from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
+import { useState, useRef, useEffect } from "react";
+import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 
 export default function RowGenerator() {
   const { appendRow } = useTemplateBuilder();

@@ -8,9 +8,9 @@ import DashBoardLayout from "@/layouts/DashboardLayout";
 import { useState } from "react";
 import { GiHealthNormal } from "react-icons/gi";
 import { usePatientContext } from "@/contexts/PatientContext";
-import { TabsProvider } from "@/components/tabs/TabsContext";
+import { TabsProvider } from "@/contexts/TabsContext";
 import { Tab } from "@/components/tabs/Tab";
-import { TabPanel } from "@/contexts/TabPanel";
+import { TabPanel } from "@/components/tabs/TabPanel";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import { PatientProfileView } from "@/components/patient/PatientProfileView";
 import { PatientRecordsView } from "@/components/patient/PatientRecordsView";
@@ -30,30 +30,32 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
           <div className="flex h-full flex-col overflow-hidden border-r-[1px] border-black">
             <TabsProvider
               initialValue="profile"
-              defaultTabClassName="border-b-2 p-2 font-semibold"
-              defaultActiveTabClassName="bg-violet-400/30 border-b-2 p-2 font-semibold transition-all"
+              defaultTabClassName="font-semibold rounded-md p-2"
+              defaultActiveTabClassName="bg-violet-400  text-white shadow-md"
             >
               {profile?.data && (
-                <header className="flex min-w-[100px] gap-2 border-[1px] border-b-black text-lg text-black">
+                <header className="flex min-w-[100px] gap-2 border-[1px] border-b-black/20 p-1 text-lg text-black">
                   <Tab value="profile" textContext="Profile" />
                   <Tab value="record" textContext="Record" />
                 </header>
               )}
+
               <section
-                className={` flex  flex-1 flex-col p-2  ${
+                className={`flex flex-1 flex-col ${
                   !profile?.data && profile?.fetchStatus === "idle"
                     ? "items-center justify-center"
                     : ""
                 }`}
               >
-                <span className="font-mono text-3xl font-semibold">
-                  {!profile?.data && profile?.fetchStatus === "idle" && (
+                {!profile?.data && profile?.fetchStatus === "idle" && (
+                  <div className="font-mono text-3xl font-semibold">
                     <div className="flex flex-col items-center gap-6">
                       <GiHealthNormal size={80} />
                       <p className="text-3xl">Please Search for a patient</p>
                     </div>
-                  )}
-                </span>
+                  </div>
+                )}
+
                 {profile?.data && (
                   <div>
                     <TabPanel value="profile">

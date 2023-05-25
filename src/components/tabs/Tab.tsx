@@ -1,5 +1,5 @@
 import React from "react";
-import { useTabsContext } from "./TabsContext";
+import { useTabsContext } from "../../contexts/TabsContext";
 import { type GenericProps } from "@/types/application";
 
 interface LocalProps extends GenericProps {
@@ -29,7 +29,11 @@ export const Tab = ({
   return (
     <button
       onClick={() => setCurrentTab?.(value)}
-      className={currentTab === value ? activeClasses : classes}
+      className={
+        currentTab === value
+          ? `transition ${activeClasses || ""} ${classes || ""}`
+          : classes
+      }
     >
       {textContext}
     </button>
