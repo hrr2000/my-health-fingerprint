@@ -10,7 +10,7 @@ const schema = new Schema<CollectionTemplateDocument>(
       index: true
     },
     schema: String,
-    collection_id: Schema.Types.ObjectId,
+    collection_name: String,
     is_printable: Boolean,
     primary: Boolean,
   },

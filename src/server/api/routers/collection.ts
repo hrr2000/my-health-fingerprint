@@ -29,11 +29,11 @@ export const collectionRouter = createTRPCRouter({
           is_public: collection.isPublic,
           description: collection.description,
         });
-        const { _id, name: collection_name } = await customCollection.save();
+        const { name: collection_name } = await customCollection.save();
 
         // Create the primary template for this collection using the collection id returned after save.
         const collectionTemplate = new CollectionTemplateModel({
-          collection_id: _id,
+          collection_name,
           schema: template.schema,
           name: template.name,
           is_printable: template.isPrintable,
@@ -104,7 +104,7 @@ export const collectionRouter = createTRPCRouter({
         });
 
         const template = await CollectionTemplateModel.findOne({
-          collection_id: slug,
+          collection_name: collection?.name,
           primary: true,
         });
 
@@ -117,6 +117,7 @@ export const collectionRouter = createTRPCRouter({
           collection,
           template: {
             name: template.name,
+            collection_name: collection.name,
             primary: template.primary,
             is_printable: template.is_printable,
             schema: template.schema,

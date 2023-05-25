@@ -5,9 +5,10 @@ import {
   useTemplateBuilder
 } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 import {LoadingSpinner} from "@/components/common/LoadingSpinner";
+import WriteView from "@/components/templates/TemplateBuilder/views/WriteView";
 
 export default function TemplateBuilder() {
-  const {collectionDetails, mutationState} = useTemplateBuilder();
+  const {collectionDetails, templateDetails, mutationState} = useTemplateBuilder();
 
   return (
     <TemplateBuilderContextProvider>
@@ -16,7 +17,12 @@ export default function TemplateBuilder() {
           <LoadingSpinner />
         </div>
       )}
-      <Builder />
+      <div>
+        <Builder />
+        <div>
+          <WriteView schema={templateDetails.schema} />
+        </div>
+      </div>
       <Toolbar />
     </TemplateBuilderContextProvider>
   );

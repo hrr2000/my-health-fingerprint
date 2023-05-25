@@ -10,16 +10,19 @@ import { type CollectionDetails, type TemplateDetails } from "./types";
 
 const ToolbarForm = ({
   values,
+  toolbarController
 }: {
   values: {
     collection: CollectionDetails;
     template: TemplateDetails;
   };
+  toolbarController: ReturnType<typeof ToolbarController>
 }) => {
-  const { isSaving, isSaved, savingError } = ToolbarController();
 
   const { setCollectionDetails, setTemplateDetails, mutationState } =
     useTemplateBuilder();
+
+  const { isSaving, isSaved, savingError } = toolbarController;
 
   useEffect(() => {
     setCollectionDetails((prevCollection) => ({
@@ -142,7 +145,8 @@ const ToolbarForm = ({
 
 export default function Toolbar() {
   const { collectionDetails, templateDetails } = useTemplateBuilder();
-  const { saveData } = ToolbarController();
+  const toolbarController = ToolbarController();
+  const { saveData } = toolbarController;
   return (
     <section className="flex flex-col border-slate-200 p-5 pb-16 text-black">
       <Formik
@@ -165,7 +169,7 @@ export default function Toolbar() {
         validationSchema={createCollectionFormSchema}
       >
         {({ values }) => {
-          return <ToolbarForm values={values} />;
+          return <ToolbarForm toolbarController={toolbarController} values={values} />;
         }}
       </Formik>
     </section>
