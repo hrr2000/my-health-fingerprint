@@ -73,7 +73,7 @@ export interface CustomCollectionDocument {
 
 export interface CollectionTemplateDocument {
   schema: string;
-  collection_id: string;
+  collection_name: string;
   primary: boolean;
   is_printable: boolean;
   name: string;
