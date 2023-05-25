@@ -3,7 +3,6 @@ import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 
 // this is for zod in trpc
-
 export const createCollectionSchema = z.object({
   collection: z.object({
     name: z.string().trim().min(3).max(45),
