@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+<<<<<<< HEAD
+=======
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+#__next {
+  overflow: hidden;
+  font-family: Tajawal;
+}
+.home {
+  background: #eaf5fd;
+}
