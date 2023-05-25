@@ -39,8 +39,9 @@ export interface PatientDocument {
     alternative_phone_numbers: string[];
   };
   health_record: {
-    [k: string]: object | string[];
-  };
+    collection_name: string;
+    data: object | string[];
+  }[];
 }
 
 export type UserRole = {

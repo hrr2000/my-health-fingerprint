@@ -1,7 +1,7 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import { Montserrat } from "@next/font/google";
+import { Tajawal } from "@next/font/google";
 import { api } from "@/utils/api";
 import "@/styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
@@ -10,10 +10,10 @@ import { AnimatePresence } from "framer-motion";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PatientProvider } from "@/contexts/PatientContext";
 
-const montserrat = Montserrat({
+const tajawal = Tajawal({
   subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"],
-  variable: "--font-mont",
+  weight: ["200", "300", "400", "700", "900"],
+  variable: "--font-tajawal",
 });
 
 const progress = new ProgressBar({
@@ -44,7 +44,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <AnimatePresence initial={true}>
       <SessionProvider session={session}>
         <PatientProvider>
-          <Component className={`${montserrat.variable}`} {...pageProps} />
+          <Component className={`${tajawal.variable}`} {...pageProps} />
           {/* <ReactQueryDevtools /> */}
         </PatientProvider>
       </SessionProvider>
