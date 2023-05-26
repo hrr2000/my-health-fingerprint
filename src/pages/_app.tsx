@@ -44,7 +44,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <AnimatePresence initial={true}>
       <SessionProvider session={session}>
         <PatientProvider>
-          <Component className={`${tajawal.variable}`} {...pageProps} />
+          <main className={`${tajawal.variable} font-tajawal `}>
+            <Component {...pageProps} />
+          </main>
           {/* <ReactQueryDevtools /> */}
         </PatientProvider>
       </SessionProvider>
