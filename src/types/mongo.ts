@@ -40,7 +40,7 @@ export interface PatientDocument {
   };
   health_record: {
     collection_name: string;
-    data: object | string[];
+    data: object[] | string[];
   }[];
 }
 
@@ -76,5 +76,6 @@ export interface CollectionTemplateDocument {
   collection_name: string;
   primary: boolean;
   is_printable: boolean;
+  is_patient_specific: boolean;
   name: string;
 }

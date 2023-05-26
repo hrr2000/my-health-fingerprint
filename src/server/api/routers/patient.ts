@@ -53,13 +53,16 @@ export const patientRouter = createTRPCRouter({
     )
     .query(async ({ input: { collection_name, nationalId } }) => {
       const [collectionData, collectionTemplate] = await Promise.all([
-        PatientModel.findOne({
-          "profile.nationalId": nationalId,
-          "health_record.collection_name": collection_name,
-        }),
+        PatientModel.findOne(
+          {
+            "profile.nationalId": nationalId,
+            "health_record.collection_name": collection_name,
+          },
+          { "health_record.$": true }
+        ),
         CollectionTemplateModel.findOne(
           {
-            name: collection_name,
+            collection_name,
             primary: true,
           },
           { schema: true }
@@ -68,7 +71,10 @@ export const patientRouter = createTRPCRouter({
       if (!collectionTemplate || !collectionData) {
         throw new Error("Not Found");
       }
-      return { collectionData, collectionTemplate };
+      return {
+        collectionData: collectionData.health_record[0]?.data,
+        collectionTemplate: collectionTemplate.schema,
+      };
     }),
 
   createOne: publicProcedure.mutation(async ({}) => {

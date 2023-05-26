@@ -77,12 +77,21 @@ const CollectionDetailsView = ({
   const { data: d, isLoading } =
     api.patient.getRegisteredCollectionDetails.useQuery(
       { collection_name: tabName, nationalId: patientId },
-      { enabled: currentTab === tabName && !!patientId }
+      { enabled: currentTab === tabName && !!patientId, cacheTime: 0 }
     );
   if (isLoading) {
     return <div>Loading....</div>;
   }
-  return <div>{JSON.stringify(d, null, 2)}</div>;
+  return (
+    <div>
+      {d && (
+        <>
+          <div>{JSON.stringify(d.collectionData, null, 2)}</div>
+          <div>{JSON.stringify(d.collectionTemplate, null, 2)}</div>
+        </>
+      )}
+    </div>
+  );
 };
 
 //  {
