@@ -25,7 +25,7 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
         isSidebarOpen ? "w-[200px]" : "w-[60px]"
       }   flex-col gap-7 bg-black p-2 text-slate-200 shadow-md transition-all  duration-300`}
     >
-      <header className="flex items-center overflow-hidden rounded-sm bg-violet-400/30 p-2">
+      <header className="flex items-center overflow-hidden rounded-sm bg-primary p-2">
         <FiActivity className="h-[30px] w-[30px] shrink-0" />
         <h2 className="ml-4 text-xl">MHFP</h2>
       </header>

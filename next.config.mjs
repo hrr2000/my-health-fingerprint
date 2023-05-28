@@ -22,7 +22,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["nflqlknmqitbrxqkxtbl.supabase.co"],
+    domains: ["nflqlknmqitbrxqkxtbl.supabase.co", "i.pravatar.cc"],
   },
 };
 export default config;

@@ -27,13 +27,20 @@ export interface ReportDocument {
   notes: string;
 }
 
+export interface PatientAddress {
+  district: string;
+  street_name: string;
+  city: string;
+  postal_code?: string;
+}
+
 export interface PatientDocument {
   profile: {
     gender: string;
     date_of_birth: Date;
     nationalId: string;
     name: string;
-    address: string;
+    address: PatientAddress[];
     imageUrl: string;
     primary_phone_number: string;
     alternative_phone_numbers: string[];
