@@ -4,9 +4,10 @@ import TextInput from "@/components/form/sub/TextInput";
 import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 import ToolbarController from "@/components/templates/TemplateBuilder/controllers/ToolbarController";
 import { useEffect } from "react";
-import { CiCircleCheck, CiWarning } from "react-icons/ci";
+import {CiCircleCheck, CiEdit, CiWarning} from "react-icons/ci";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { type CollectionDetails, type TemplateDetails } from "./types";
+import {BiEdit} from "react-icons/bi";
 
 const ToolbarForm = ({
   values,
@@ -19,7 +20,7 @@ const ToolbarForm = ({
   toolbarController: ReturnType<typeof ToolbarController>
 }) => {
 
-  const { setCollectionDetails, setTemplateDetails, mutationState } =
+  const { setCollectionDetails, setTemplateDetails, mutationState, setBuilderView, builderView } =
     useTemplateBuilder();
 
   const { isSaving, isSaved, savingError } = toolbarController;
@@ -38,6 +39,16 @@ const ToolbarForm = ({
   return (
     <Form>
       <div className={`w-full py-2 px-4`}>
+        <button type={'button'} onClick={() => {
+          setBuilderView(state => !state);
+        }} className={`flex w-full mb-3 border-2 border-dark gap-1 items-center justify-center text-primary`}>
+          <span>
+            <BiEdit />
+          </span>
+          <span>
+            {!builderView ? "Enable builder mode" : "Disable builder mode"}
+          </span>
+        </button>
         {savingError && (
           <div
             className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-red-500 p-2 text-red-500`}

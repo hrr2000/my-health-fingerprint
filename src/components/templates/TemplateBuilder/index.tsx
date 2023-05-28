@@ -7,23 +7,43 @@ import {
 import {LoadingSpinner} from "@/components/common/LoadingSpinner";
 import WriteView from "@/components/templates/TemplateBuilder/views/WriteView";
 
-export default function TemplateBuilder() {
-  const {collectionDetails, templateDetails, mutationState} = useTemplateBuilder();
-
+function TemplateBuilderComponent() {
+  const {collectionDetails, templateDetails, mutationState, builderView} = useTemplateBuilder();
   return (
-    <TemplateBuilderContextProvider>
+    <>
       {!collectionDetails.name && mutationState.current == 'update' && (
         <div className={'text-primary'}>
-          <LoadingSpinner />
+          <LoadingSpinner/>
         </div>
       )}
-      <div>
-        <Builder />
-        <div>
-          <WriteView schema={templateDetails.schema} />
-        </div>
-      </div>
-      <Toolbar />
-    </TemplateBuilderContextProvider>
+      {builderView ? (
+        <>
+          <div>
+            <Builder/>
+            <div>
+              <h2>
+                Preview
+              </h2>
+            </div>
+          </div>
+          <Toolbar/>
+        </>
+      ) : (
+        <>
+          <div>
+            <WriteView schema={templateDetails.schema}/>
+          </div>
+          <Toolbar/>
+        </>
+      )}
+    </>
   );
+}
+
+export default function TemplateBuilder() {
+  return (
+    <TemplateBuilderContextProvider>
+      <TemplateBuilderComponent />
+    </TemplateBuilderContextProvider>
+  )
 }
