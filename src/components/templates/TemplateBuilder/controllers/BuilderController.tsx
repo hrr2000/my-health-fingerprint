@@ -21,6 +21,7 @@ export default function BuilderController({ slug }: { slug: string | null }) {
   const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
     collectionDetailsInitialValues
   );
+  const [builderView, setBuilderView] = useState(false);
 
   const mutationState = useRef<"update" | "create">(slug ? "update" : "create");
 
@@ -91,6 +92,8 @@ export default function BuilderController({ slug }: { slug: string | null }) {
   };
 
   return {
+    builderView,
+    setBuilderView,
     templateDetails,
     collectionDetails,
     mutationState,
