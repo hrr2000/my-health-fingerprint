@@ -12,7 +12,7 @@ import { TabPanel } from "@/components/tabs/TabPanel";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import { PatientProfileView } from "@/components/patient/PatientProfileView";
 import { PatientRecordsView } from "@/components/patient/PatientRecordsView";
-import {CiMedicalClipboard, CiMedicalCross} from "react-icons/ci";
+import { CiMedicalClipboard } from "react-icons/ci";
 import GenericButton from "@/components/common/GenericButton";
 
 type serverSidePropsType = NextPage<
@@ -26,15 +26,15 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
   return (
     <DashBoardLayout user={user} title="" description="">
       <main className="relative grid h-full grid-cols-[1fr_280px]">
-        <section className="gap-2 text-black ">
-          <div className="flex flex-col overflow-hidden text-primary">
+        <section className="h-full gap-2 text-black">
+          <div className="flex h-full flex-col overflow-hidden text-primary">
             <TabsProvider
               initialValue="profile"
               defaultTabClassName="font-medium top-[1px] relative h-14"
               defaultActiveTabClassName="border-b-[3px] border-primary text-highlight font-semibold"
             >
               {profile?.data && (
-                <header className="flex gap-5 items-center px-5 border-b-[1px] border-slate-300 text-md text-black">
+                <header className="text-md flex items-center gap-5 border-b-[1px] border-slate-300 px-5 text-black">
                   <Tab value="profile" textContext="Profile" />
                   <Tab value="record" textContext="Record" />
                 </header>
@@ -48,9 +48,9 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
                 }`}
               >
                 {!profile?.data && profile?.fetchStatus === "idle" && (
-                  <div className=" text-3xl font-normal  py-40">
+                  <div className=" py-40 text-3xl  font-normal">
                     <div className="flex flex-col items-center justify-center gap-6">
-                      <span className={`p-5 bg-sky-100 rounded-full`}>
+                      <span className={`rounded-full bg-sky-100 p-5`}>
                         <CiMedicalClipboard size={50} />
                       </span>
                       <p className="text-2xl">Please Search for a Patient</p>
@@ -59,14 +59,14 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
                 )}
 
                 {profile?.data && (
-                  <div>
+                  <>
                     <TabPanel value="profile">
                       <PatientProfileView />
                     </TabPanel>
                     <TabPanel value="record">
                       <PatientRecordsView />
                     </TabPanel>
-                  </div>
+                  </>
                 )}
               </section>
             </TabsProvider>
@@ -83,7 +83,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
               Search For Patient
             </label>
             <input
-              className="rounded-sm text-sm bg-slate-100 border-0"
+              className="rounded-sm border-0 bg-slate-100 text-sm"
               type="text"
               onChange={(e) => setPatientId?.(e.target.value)}
               value={patientId}
@@ -93,7 +93,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
             {(profile?.fetchStatus === "idle" ||
               profile?.fetchStatus === "fetching") && (
               <GenericButton
-                theme={mode === "submit" ? 'secondary' : 'primary'}
+                theme={mode === "submit" ? "secondary" : "primary"}
                 type={mode}
                 disabled={profile?.fetchStatus === "fetching"}
                 onClick={() => {

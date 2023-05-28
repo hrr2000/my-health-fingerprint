@@ -20,7 +20,7 @@ export const PatientRecordsView = () => {
   );
 
   return (
-    <main>
+    <main className={`ss relative flex-1`}>
       {!data ? (
         <LoadingSpinner />
       ) : (
@@ -80,7 +80,7 @@ const CollectionDetailsView = ({
       { enabled: currentTab === tabName && !!patientId, cacheTime: 0 }
     );
   if (isLoading) {
-    return <div>Loading....</div>;
+    return <LoadingSpinner />;
   }
   return (
     <div>
