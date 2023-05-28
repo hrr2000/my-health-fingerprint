@@ -16,6 +16,7 @@ export function NavLinks({
   className,
 }: LocalProps) {
   const router = useRouter();
+  console.log({ router });
 
   return (
     <ul className={`${className}`}>
@@ -23,7 +24,7 @@ export function NavLinks({
         <li
           key={href}
           className={` ${linkClassName} ${
-            router.asPath === "/" + href ? activeLinkClassName : ""
+            router.asPath.includes("/" + href) ? activeLinkClassName : ""
           }`}
         >
           <Link className="flex w-full items-center gap-4" href={`/${href}`}>
