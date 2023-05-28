@@ -30,7 +30,7 @@ export const PatientRecordsView = () => {
           defaultActiveTabClassName="bg-violet-500 text-white shadow-md "
         >
           {data && (
-            <header className="min-w-[100px] flex-col gap-2 border-[1px] border-b-black/20 p-1 text-lg  text-black">
+            <header className=" grid grid-cols-auto-fill gap-2 border-[1px] border-b-black/20  p-1 text-lg  text-black">
               {data.health_record.map(({ collection_name }) => (
                 <Tab
                   key={collection_name}
