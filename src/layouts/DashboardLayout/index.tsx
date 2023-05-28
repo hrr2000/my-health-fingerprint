@@ -40,8 +40,8 @@ export default function DashBoardLayout({
           username={name ? name : ""}
           userImageSrc={image ? image : ""}
         />
-        <main className="flex-1 bg-slate-50">
-          <header className="h-[55px] rounded-br-sm rounded-bl-sm border-b-[1px] border-slate-200 px-5 shadow-sm">
+        <main className="flex-1 bg-[#f7fbfe]">
+          <header className="h-[55px] rounded-br-sm rounded-bl-sm px-5 shadow-sm">
             <div className="h-full flex items-center">
               <h2 className={`text-slate-800 text-xl capitalize`}>{orgName}</h2>
             </div>

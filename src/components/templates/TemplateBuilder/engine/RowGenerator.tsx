@@ -12,7 +12,7 @@ export default function RowGenerator() {
       {!formDisplay ? (
         <button
           onClick={() => setFormDisplay(true)}
-          className={`flex min-h-[50px] w-full items-center justify-center border-[1px] border-slate-200 duration-300 hover:shadow-md`}
+          className={`flex min-h-[50px] w-full items-center justify-center duration-300 hover:shadow-md`}
         >
           <IoIosAdd size={20} />
           <span className={`text-xs`}>Add A Row</span>
@@ -33,13 +33,13 @@ export default function RowGenerator() {
                 appendRow(columnsCount);
                 setFormDisplay(false);
               }}
-              className="my-2 flex w-full max-w-fit rounded-md border-[1px] border-black bg-black p-2 px-4 text-white"
+              className="my-2 flex w-full max-w-fit rounded-md bg-black p-2 px-4 text-white"
             >
               <span>+ Apply the Row</span>
             </button>
             <button
               onClick={() => setFormDisplay(false)}
-              className="my-2 flex w-full max-w-fit rounded-md border-[1px] border-black bg-white p-2 px-4"
+              className="my-2 flex w-full max-w-fit rounded-md bg-white p-2 px-4"
             >
               <span>Cancel</span>
             </button>

@@ -1,12 +1,16 @@
 import { type ILink } from "@/types/application";
 
-import {CiFolderOn, CiMedicalCase, CiSettings} from "react-icons/ci";
+import {CiFolderOn, CiMedicalCase, CiSettings, CiViewBoard} from "react-icons/ci";
 
 export const routes: {
   landingPages: ILink[];
   dashboardPages: ILink[];
 } = {
   landingPages: [
+    {
+      href: "/",
+      display_text: "Home",
+    },
     {
       href: "features",
       display_text: "Features",
@@ -22,18 +26,23 @@ export const routes: {
   ],
   dashboardPages: [
     {
+      href: "dashboard/home",
+      image: <CiViewBoard className="h-[25px] w-[25px] shrink-0" />,
+      display_text: "Dashboard",
+    },
+    {
       href: "dashboard/patient",
-      image: <CiMedicalCase className="h-[30px] w-[30px] shrink-0" />,
+      image: <CiMedicalCase className="h-[25px] w-[25px] shrink-0" />,
       display_text: "patient",
     },
     {
       href: "dashboard/collections",
-      image: <CiFolderOn className="h-[30px] w-[30px] shrink-0" />,
+      image: <CiFolderOn className="h-[25px] w-[25px] shrink-0" />,
       display_text: "collections",
     },
     {
       href: "dashboard/settings",
-      image: <CiSettings className="h-[30px] w-[30px] shrink-0" />,
+      image: <CiSettings className="h-[25px] w-[25px] shrink-0" />,
       display_text: "settings",
     },
   ],

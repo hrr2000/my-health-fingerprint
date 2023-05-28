@@ -10,7 +10,7 @@ export default function Row({
 }) {
   return (
     <div
-      className={`grid min-h-[50px] w-full grid-cols-12 justify-center border-[1px] border-slate-200`}
+      className={`grid min-h-[50px] gap-2 w-full grid-cols-12 justify-center border-[1px] border-slate-200`}
     >
       {data.map((item, idx) => {
         return (

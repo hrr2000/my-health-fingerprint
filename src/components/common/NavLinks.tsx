@@ -27,9 +27,9 @@ export function NavLinks({
             router.asPath.includes("/" + href) ? activeLinkClassName : ""
           }`}
         >
-          <Link className="flex w-full items-center gap-4" href={`/${href}`}>
+          <Link className="flex w-full items-center gap-2" href={`/${href}`}>
             {typeof image === "string" ? (
-              <Image src={image} alt="" width={30} height={30} />
+              <Image src={image} alt="" width={20} height={20} />
             ) : (
               image
             )}

@@ -22,36 +22,31 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
   return (
     <aside
       className={` flex ${
-        isSidebarOpen ? "w-[200px]" : "w-[60px]"
-      }   flex-col gap-7 bg-black p-2 text-slate-200 shadow-md transition-all  duration-300`}
+        isSidebarOpen ? "w-[220px]" : "w-[220px]"
+      }   flex-col gap-7 bg-white py-2 px-3 text-primary shadow-md transition-all duration-300`}
     >
-      <header className="flex items-center overflow-hidden rounded-sm bg-primary p-2">
+      <header className="flex gap-3 items-center justify-start overflow-hidden rounded-sm p-2">
         <FiActivity className="h-[30px] w-[30px] shrink-0" />
-        <h2 className="ml-4 text-xl">MHFP</h2>
+        <h2 className={`text-2xl font-black`}>
+          MHFP
+        </h2>
       </header>
       <NavBar className="overflow-hidden" mode="both">
         <NavBar.NavLinks
           links={routes.dashboardPages}
-          activeLinkClassName="bg-gray-400/25"
-          linkClassName="flex capitalize flex-1  gap-5 items-center rounded-md p-2 text-lg hover:bg-gray-400/25"
+          activeLinkClassName="bg-primary rounded-md shadow-lg shadow-sky-200 text-white hover:text-white"
+          linkClassName="flex capitalize font-semibold text-sm items-center p-2 text-lg hover:text-highlight"
           className="flex flex-col gap-4"
         />
       </NavBar>
-      <footer className="relative mt-auto flex flex-col gap-3">
-        <button
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="flex w-full items-center justify-center rounded-sm bg-slate-600/50 p-2 "
-        >
-          <AiOutlineArrowRight
-            className={`transition-all ${isSidebarOpen ? "rotate-180" : ""}`}
-          />
-        </button>
+      <hr />
+      <footer className="relative flex flex-col gap-3">
         <button
           onClick={(e) => {
             e.stopPropagation();
             setIsUserTooltipOpen(!isUserTooltipOpen);
           }}
-          className="relative flex w-full items-center overflow-hidden rounded-md p-2 text-lg hover:bg-gray-400/25"
+          className="relative flex w-full items-center overflow-hidden rounded-md p-2 text-lg hover:bg-gray-300/25"
         >
           <Image
             src={userImageSrc}
@@ -63,17 +58,12 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
           <span className="mx-4 whitespace-nowrap text-sm capitalize">
             {username}
           </span>
-          <AiOutlineArrowRight
-            className={`transition-all duration-200 ${
-              isUserTooltipOpen ? "rotate-180" : ""
-            }`}
-          />
         </button>
         <button
           onClick={() => void signOut()}
-          className="flex w-full flex-1 items-center overflow-hidden rounded-md p-2 text-lg hover:bg-gray-400/25"
+          className="flex w-full flex-1 items-center overflow-hidden rounded-md p-2 text-sm hover:text-red-500"
         >
-          <CiLogout className="h-[30px] w-[30px] shrink-0" />
+          <CiLogout className="h-[25px] w-[25px] shrink-0" />
           <span className="ml-4 whitespace-nowrap">Signout</span>
         </button>
         {isUserTooltipOpen && (

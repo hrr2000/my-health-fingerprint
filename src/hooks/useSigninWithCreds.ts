@@ -17,7 +17,7 @@ export function useSigninWithCreds() {
       redirect: false,
     });
     if (response?.ok) {
-      void router.push("/dashboard");
+      void router.push("/dashboard/home");
       return;
     }
 

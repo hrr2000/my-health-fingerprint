@@ -26,11 +26,11 @@ export const PatientRecordsView = () => {
       ) : (
         <TabsProvider
           initialValue={data?.health_record[0]?.collection_name || ""}
-          defaultTabClassName="font-medium p-2 capitalize"
-          defaultActiveTabClassName=""
+          defaultTabClassName="px-4 py-2 rounded-lg capitalize"
+          defaultActiveTabClassName="bg-primary text-white font-semibold"
         >
           {data && (
-            <header className=" grid grid-cols-auto-fill gap-2 bg-slate-100/80 p-1 text-lg text-black">
+            <header className="flex items-center bg-slate-100/80 py-2 px-5 text-sm text-black">
               {data.health_record.map(({ collection_name }) => (
                 <Tab
                   key={collection_name}
