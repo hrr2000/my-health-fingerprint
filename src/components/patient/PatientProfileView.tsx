@@ -11,7 +11,7 @@ export const PatientProfileView = () => {
   );
 
   return (
-    <div>
+    <main className={''}>
       {data ? (
         <div className="p-5">
           <div className="flex flex-col items-center gap-2 p-5">
@@ -47,6 +47,6 @@ export const PatientProfileView = () => {
       ) : (
         <LoadingSpinner />
       )}
-    </div>
+    </main>
   );
 };

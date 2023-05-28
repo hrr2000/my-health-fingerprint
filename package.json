@@ -15,6 +15,7 @@
   "dependencies": {
     "@badrap/bar-of-progress": "^0.2.2",
     "@casl/ability": "^6.3.3",
+    "@mindinventory/result-doughnut-chart": "^1.0.0",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@next/font": "^13.2.3",
     "@supabase/supabase-js": "^2.10.0",

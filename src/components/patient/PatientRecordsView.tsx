@@ -20,7 +20,7 @@ export const PatientRecordsView = () => {
   );
 
   return (
-    <main>
+    <main className={``}>
       {!data ? (
         <LoadingSpinner />
       ) : (
