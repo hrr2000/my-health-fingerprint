@@ -4,7 +4,9 @@ import MainLayout from "@/layouts/MainLayout";
 import PageLayout from "@/layouts/PageLayout";
 import { motion } from "framer-motion";
 import GenericButton from "@/components/common/GenericButton";
+import {useRouter} from "next/router";
 const Home: NextPage = () => {
+  const router = useRouter();
 
   return (
     <PageLayout title="Home" description="">
@@ -22,7 +24,9 @@ const Home: NextPage = () => {
             Automate every patient encounter and workflow, from front desk to
             back office.
           </p>
-          <GenericButton text={"Request a Demo"} theme={"primary"} />
+          <GenericButton text={"Get Started"} theme={"primary"} onClick={() => {
+            void router.push('/dashboard/home');
+          }} />
         </MainLayout.columnOne>
         <MainLayout.columnTwo className="hidden md:flex">
           <Image

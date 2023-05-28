@@ -5,9 +5,9 @@ import {useTemplateBuilder} from "@/components/templates/TemplateBuilder/Templat
 export default function Builder() {
   const { templateDetails } = useTemplateBuilder();
   return (
-    <section className="flex border-r-[1px] border-slate-200 p-5 pb-16 text-black">
+    <section className="flex p-5 pb-16 text-black">
       <div
-        className={`flex w-full flex-col gap-3 border-[1px] border-slate-200 p-5`}
+        className={`flex w-full flex-col gap-3 p-5`}
       >
         {templateDetails.schema.map((item, idx) => {
           return <Row key={`row_${idx}`} rowIndex={idx} data={item} />;

@@ -34,7 +34,7 @@ export default function Column({
         }}
         className={`flex min-h-[50px] w-full items-center justify-center gap-2 capitalize duration-300 hover:shadow-md ${
           isFilled
-            ? "border-2 border-slate-700 font-bold"
+            ? "border-2 border-dark font-bold text-primary"
             : "border-[1px] border-slate-200"
         }`}
       >

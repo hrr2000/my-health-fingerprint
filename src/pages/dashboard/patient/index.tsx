@@ -5,8 +5,6 @@ import {
 } from "next";
 import { getServerAuthSession } from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
-import { useState } from "react";
-import { GiHealthNormal } from "react-icons/gi";
 import { usePatientContext } from "@/contexts/PatientContext";
 import { TabsProvider } from "@/contexts/TabsContext";
 import { Tab } from "@/components/tabs/Tab";
@@ -14,6 +12,8 @@ import { TabPanel } from "@/components/tabs/TabPanel";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import { PatientProfileView } from "@/components/patient/PatientProfileView";
 import { PatientRecordsView } from "@/components/patient/PatientRecordsView";
+import {CiMedicalClipboard, CiMedicalCross} from "react-icons/ci";
+import GenericButton from "@/components/common/GenericButton";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -25,16 +25,16 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
 
   return (
     <DashBoardLayout user={user} title="" description="">
-      <main className="relative grid h-full grid-cols-[1fr_250px]">
+      <main className="relative grid h-full grid-cols-[1fr_280px]">
         <section className="gap-2 text-black ">
-          <div className="flex h-full flex-col overflow-hidden ">
+          <div className="flex flex-col overflow-hidden text-primary">
             <TabsProvider
               initialValue="profile"
-              defaultTabClassName="font-medium p-1"
-              defaultActiveTabClassName="border-b-2 border-black p-2"
+              defaultTabClassName="font-medium top-[1px] relative h-14"
+              defaultActiveTabClassName="border-b-[3px] border-primary text-highlight font-semibold"
             >
               {profile?.data && (
-                <header className="grid grid-cols-auto-fill border-b-2 border-slate-300 bg-slate-100/80 text-xl text-black">
+                <header className="flex gap-5 items-center px-5 border-b-[1px] border-slate-300 text-md text-black">
                   <Tab value="profile" textContext="Profile" />
                   <Tab value="record" textContext="Record" />
                 </header>
@@ -48,10 +48,12 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
                 }`}
               >
                 {!profile?.data && profile?.fetchStatus === "idle" && (
-                  <div className="font-mono text-3xl font-semibold">
-                    <div className="image.png flex flex-col items-center gap-6">
-                      <GiHealthNormal size={80} />
-                      <p className="text-3xl">Please Search for a patient</p>
+                  <div className=" text-3xl font-normal  py-40">
+                    <div className="flex flex-col items-center justify-center gap-6">
+                      <span className={`p-5 bg-sky-100 rounded-full`}>
+                        <CiMedicalClipboard size={50} />
+                      </span>
+                      <p className="text-2xl">Please Search for a Patient</p>
                     </div>
                   </div>
                 )}
@@ -75,13 +77,13 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
           </div>
         </section>
 
-        <aside className="relative border-l-[1px] border-slate-200 py-4 px-2 text-black ">
+        <aside className="relative bg-white py-4 px-5 text-black ">
           <div className="flex flex-col gap-2">
-            <label htmlFor="patient" className="text-lg font-semibold">
+            <label htmlFor="patient" className="font-semibold">
               Search For Patient
             </label>
             <input
-              className="rounded-md text-black  "
+              className="rounded-sm text-sm bg-slate-100 border-0"
               type="text"
               onChange={(e) => setPatientId?.(e.target.value)}
               value={patientId}
@@ -90,7 +92,8 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
             />
             {(profile?.fetchStatus === "idle" ||
               profile?.fetchStatus === "fetching") && (
-              <button
+              <GenericButton
+                theme={mode === "submit" ? 'secondary' : 'primary'}
                 type={mode}
                 disabled={profile?.fetchStatus === "fetching"}
                 onClick={() => {
@@ -104,12 +107,12 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
                 className={`rounded-md ${
                   mode === "submit" ? "bg-red-600" : "bg-primary"
                 }  p-2 text-white transition-all  disabled:bg-slate-700 hover:bg-primary-hover`}
-              >
-                {mode === "submit" ? "Reset" : "Search"}
-              </button>
+                text={mode === "submit" ? "Reset" : "Search"}
+                full
+              />
             )}
             {profile?.error && (
-              <p>
+              <p className={`text-red-500`}>
                 Patient Not Found Please Make Sure to use the Patient NationalId
               </p>
             )}
