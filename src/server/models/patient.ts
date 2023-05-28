@@ -1,11 +1,18 @@
 import mongoose from "mongoose";
-import { type PatientDocument } from "@/types/mongo";
+import { type PatientDocument, type PatientAddress } from "@/types/mongo";
 
 const { Schema } = mongoose;
 
-const subSchema = new Schema({
+const dataSchema = new Schema({
   collection_name: { type: String, required: true, unique: true },
   data: [],
+});
+
+const addressSchema = new Schema<PatientAddress>({
+  city: String,
+  district: String,
+  postal_code: String,
+  street_name: String,
 });
 
 const schema = new Schema<PatientDocument>(
@@ -15,12 +22,12 @@ const schema = new Schema<PatientDocument>(
       gender: String,
       nationalId: String,
       name: String,
-      address: String,
+      address: [addressSchema],
       imageUrl: String,
       phone_number: String,
       alternative_phone_number: [String],
     },
-    health_record: [subSchema],
+    health_record: [dataSchema],
   },
   { timestamps: true }
 );
