@@ -11,7 +11,7 @@ export const PatientProfileView = () => {
   );
 
   return (
-    <main className={''}>
+    <main className={'relative flex-1'}>
       {data ? (
         <div className="p-5">
           <div className="flex flex-col items-center gap-2 p-5">
