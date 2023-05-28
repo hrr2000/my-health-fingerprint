@@ -4,6 +4,7 @@ import {
   type NextPage,
 } from "next";
 import { getServerAuthSession } from "@/server/auth";
+import { useIsDesktop } from "@/hooks/useIsDesktop";
 import DashBoardLayout from "@/layouts/DashboardLayout";
 
 type serverSidePropsType = NextPage<
@@ -11,10 +12,19 @@ type serverSidePropsType = NextPage<
 >;
 
 const DashboardPage: serverSidePropsType = ({ user }) => {
+  const isDesktop = useIsDesktop();
   return (
-    <DashBoardLayout user={user} title="" description="">
-      <div>hi</div>
-    </DashBoardLayout>
+    <>
+      {isDesktop ? (
+        <DashBoardLayout user={user} title="" description="">
+          <span>hi</span>
+        </DashBoardLayout>
+      ) : (
+        <div className="grid min-h-screen place-items-center text-4xl font-bold">
+          <span>Use a Desktop Pls</span>
+        </div>
+      )}
+    </>
   );
 };
 
