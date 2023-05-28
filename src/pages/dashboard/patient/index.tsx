@@ -34,7 +34,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
               defaultActiveTabClassName="bg-violet-400  text-white shadow-md"
             >
               {profile?.data && (
-                <header className="flex min-w-[100px] gap-2 border-[1px] border-b-black/20 p-1 text-lg text-black">
+                <header className="grid grid-cols-auto-fill gap-2 border-[1px] border-b-black/20  p-1 text-lg text-black">
                   <Tab value="profile" textContext="Profile" />
                   <Tab value="record" textContext="Record" />
                 </header>
