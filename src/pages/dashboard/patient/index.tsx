@@ -20,8 +20,8 @@ type serverSidePropsType = NextPage<
 >;
 
 const DashboardPage: serverSidePropsType = ({ user }) => {
-  const { profile, setPatientId } = usePatientContext();
-  const [inputVal, setInputVal] = useState("");
+  const { patientId, mode, setMode, profile, setPatientId } =
+    usePatientContext();
 
   return (
     <DashBoardLayout user={user} title="" description="">
@@ -83,35 +83,41 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
             <input
               className="rounded-md text-black  "
               type="text"
-              onChange={(e) => setInputVal(e.target.value)}
-              value={inputVal}
+              onChange={(e) => setPatientId?.(e.target.value)}
+              value={patientId}
               placeholder="NationalId..."
               id="patient"
             />
-            {!profile?.data &&
-              (profile?.fetchStatus === "idle" ||
-                profile?.fetchStatus === "fetching") && (
-                <button
-                  disabled={profile?.fetchStatus === "fetching"}
-                  onClick={() => setPatientId?.(inputVal)}
-                  className="rounded-md bg-black p-2 text-white transition-all disabled:bg-slate-700 hover:bg-purple-800 "
-                >
-                  Search
-                </button>
-              )}
-            {profile?.data &&
+            {(profile?.fetchStatus === "idle" ||
+              profile?.fetchStatus === "fetching") && (
+              <button
+                type={mode}
+                disabled={profile?.fetchStatus === "fetching"}
+                onClick={() => {
+                  setMode?.(mode === "submit" ? "reset" : "submit");
+                  if (mode === "submit") {
+                    setPatientId?.("");
+                  }
+                }}
+                className={`rounded-md ${
+                  mode === "submit" ? "bg-red-600" : "bg-black"
+                }  p-2 text-white transition-all  disabled:bg-slate-700 hover:bg-purple-800`}
+              >
+                {mode === "submit" ? "Reset" : "Search"}
+              </button>
+            )}
+            {/* {profile?.data &&
               (profile?.fetchStatus === "idle" ||
                 profile?.fetchStatus === "fetching") && (
                 <button
                   onClick={() => {
                     setPatientId?.("");
-                    setInputVal("");
                   }}
                   className="rounded-md bg-red-600 p-2 text-white"
                 >
                   Reset
                 </button>
-              )}
+              )} */}
             {profile?.error && (
               <p>
                 Patient Not Found Please Make Sure to use the Patient NationalId
