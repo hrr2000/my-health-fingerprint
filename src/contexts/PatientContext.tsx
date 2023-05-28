@@ -9,7 +9,9 @@ const patientContext = createContext<
     profile: ReturnType<typeof useGetPatientProfileData>;
     records: ReturnType<typeof useGetHealthRecordData>;
     patientId: string;
+    mode?: "submit" | "reset" | "button";
     setPatientId: React.Dispatch<React.SetStateAction<string>>;
+    setMode: React.Dispatch<React.SetStateAction<"submit" | "reset">>;
   }>
 >({});
 
@@ -19,13 +21,16 @@ interface LocalProps extends GenericProps {
 
 const PatientProvider = ({ children }: LocalProps) => {
   const [patientId, setPatientId] = useState("");
-  const profile = useGetPatientProfileData(patientId);
+  const [mode, setMode] = useState<"submit" | "reset" | "button">("button");
+  const profile = useGetPatientProfileData(mode === "submit" ? patientId : "");
 
   return (
     <patientContext.Provider
       value={{
         profile,
         patientId,
+        mode,
+        setMode,
         setPatientId,
       }}
     >
