@@ -13,7 +13,7 @@ export default function useGetHealthRecordData(
     }
   );
   // dataObj = api.patient.getUnRegisteredCollections.useQuery(
-  //   { nationalId: patientId },
+  //   { registeredCollections: [] },
   //   {
   //     enabled: !!patientId && requestedData === "unregistered_collections",
   //     retry: 1,

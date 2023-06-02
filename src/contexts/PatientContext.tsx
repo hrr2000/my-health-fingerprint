@@ -4,14 +4,16 @@ import { type GenericProps } from "@/types/application";
 import { createContext } from "react";
 import useGetHealthRecordData from "@/hooks/useGetHealthRecordData";
 
+type buttonModes = "submit" | "reset" | "button";
+
 const patientContext = createContext<
   Partial<{
     profile: ReturnType<typeof useGetPatientProfileData>;
     records: ReturnType<typeof useGetHealthRecordData>;
     patientId: string;
-    mode?: "submit" | "reset" | "button";
+    mode?: buttonModes;
     setPatientId: React.Dispatch<React.SetStateAction<string>>;
-    setMode: React.Dispatch<React.SetStateAction<"submit" | "reset">>;
+    setMode: React.Dispatch<React.SetStateAction<buttonModes>>;
   }>
 >({});
 
