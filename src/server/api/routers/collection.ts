@@ -111,7 +111,6 @@ export const collectionRouter = createTRPCRouter({
         if (!template || !collection) {
           throw new Error("Not Found");
         }
-        console.log({ server: template });
 
         return {
           collection,
