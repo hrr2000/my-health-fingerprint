@@ -128,7 +128,7 @@ const PatientCollectionDetailsView = ({
               />
             </div>
           </div>
-          <ReadView data={d.collectionData} />
+          <ReadView data={d.collectionData as { _id: string }[]} />
         </>
       ) : (
         <LoadingSpinner />
