@@ -43,7 +43,29 @@ export const patientRouter = createTRPCRouter({
       }
       return healthRecord;
     }),
-
+  registerCollection: publicProcedure
+    .input(z.object({ collectionName: z.string(), patientId: z.string() }))
+    .mutation(async ({ input: { collectionName, patientId } }) => {
+      await PatientModel.updateOne(
+        { "profile.nationalId": patientId },
+        {
+          $push: {
+            health_record: { collection_name: collectionName, data: [] },
+          },
+        }
+      );
+    }),
+  getUnRegisteredCollections: publicProcedure
+    .input(z.object({ registeredCollections: z.array(z.string()) }))
+    .query(async ({ input: { registeredCollections } }) => {
+      const results = await CustomCollectionModel.find(
+        {
+          name: { $nin: registeredCollections },
+        },
+        { _id: true, name: true }
+      );
+      return results;
+    }),
   getRegisteredCollectionDetails: publicProcedure
     .input(
       z.object({

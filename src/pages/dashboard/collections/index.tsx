@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { api } from "@/utils/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useState } from "react";
-import {CiMedicalCase} from "react-icons/ci";
+import { CiMedicalCase } from "react-icons/ci";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
@@ -40,10 +40,10 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
             <span> Templates Store </span>
           </button>
         </section>
-        <section className="grid text-primary h-[87vh] grid-cols-collections content-start gap-2 overflow-auto p-5 text-black">
+        <section className="grid h-[87vh] grid-cols-collections content-start gap-2 overflow-auto p-5 text-primary ">
           <button
             onClick={() => void router.push("collections/create")}
-            className={`flex h-40 w-full flex-col items-center justify-center gap-4 border-[3px] border-transparent hover:border-primary rounded-xl p-5 duration-300 hover:shadow-lg`}
+            className={`flex h-40 w-full flex-col items-center justify-center gap-4 rounded-xl border-[3px] border-transparent p-5 duration-300 hover:border-primary hover:shadow-lg`}
           >
             <IoIosAdd size={25} />
             <span className={`text-sm font-bold`}>Create a Collection</span>
@@ -57,7 +57,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
                 onClick={() =>
                   void router.push(`collections/${collection._id.toString()}`)
                 }
-                className={`flex h-40 w-full flex-col items-center justify-center gap-4 border-[3px] border-transparent hover:border-primary rounded-xl p-5 duration-300 hover:shadow-lg`}
+                className={`flex h-40 w-full flex-col items-center justify-center gap-4 rounded-xl border-[3px] border-transparent p-5 duration-300 hover:border-primary hover:shadow-lg`}
               >
                 <CiMedicalCase size={40} />
                 <span className={`text-sm font-bold`}>{collection.name}</span>

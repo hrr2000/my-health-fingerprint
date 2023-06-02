@@ -2,11 +2,12 @@ import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/Templ
 import TextInput from "@/components/form/sub/TextInput";
 import { Formik } from "formik";
 import GenericButton from "@/components/common/GenericButton";
+import { TemplateDetails } from "../types";
 
 function GenericField(props: { label?: string; name?: string; type?: string }) {
   return (
     <TextInput
-      className={`w-full text-black bg-slate-100 rounded-md border-[1px] border-slate-300`}
+      className={`w-full rounded-md border-[1px] border-slate-300 bg-slate-100 text-black`}
       placeholder={props.label}
       label={props.label}
       name={props.name || ""}
@@ -15,9 +16,14 @@ function GenericField(props: { label?: string; name?: string; type?: string }) {
   );
 }
 
-export default function WriteView({ schema }: { schema: any[][] }) {
+export default function WriteView({
+  schema,
+}: {
+  schema: TemplateDetails["schema"];
+}) {
   const { collectionDetails, templateDetails, mutationState } =
     useTemplateBuilder();
+  const sourceSchema = schema || templateDetails.schema;
   return (
     <Formik
       initialValues={{}}
@@ -26,9 +32,9 @@ export default function WriteView({ schema }: { schema: any[][] }) {
       }}
     >
       <div
-        className={`grid min-h-[50px] gap-3 w-full grid-cols-12 justify-center p-10`}
+        className={`grid min-h-[50px] w-full grid-cols-12 justify-center gap-3 p-10`}
       >
-        {templateDetails.schema.map((row) => {
+        {sourceSchema.map((row) => {
           return (
             <>
               {row.map((col) => {
@@ -54,7 +60,7 @@ export default function WriteView({ schema }: { schema: any[][] }) {
         {/*>*/}
         {/*  <span>Save</span>*/}
         {/*</button>*/}
-        <GenericButton theme={'primary'} text={'Save Details'} />
+        <GenericButton theme={"primary"} text={"Save Details"} />
       </div>
     </Formik>
   );
