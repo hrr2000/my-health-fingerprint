@@ -14,7 +14,13 @@ import { dbConnect } from "@/server/db";
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  jwt: { maxAge: 60 * 60 * 2 },
+  session: {
+    strategy: "jwt",
+  },
+  jwt: {
+    maxAge: 60,
+  },
+
   callbacks: {
     jwt({ token, user }) {
       if (user) {

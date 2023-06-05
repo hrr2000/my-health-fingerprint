@@ -1,13 +1,16 @@
 import { usePatientContext } from "@/contexts/PatientContext";
-import React from "react";
+import React, { useState } from "react";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { Tab } from "@/components/tabs/Tab";
 import { TabPanel } from "@/components/tabs/TabPanel";
 import { TabsProvider, useTabsContext } from "@/contexts/TabsContext";
 import { api } from "@/utils/api";
 import ReadView from "../templates/TemplateBuilder/views/ReadView";
-import { IoIosAdd } from "react-icons/io";
+import { IoIosAdd, IoIosClose } from "react-icons/io";
 import RegisterCollectionView from "./RegisterCollectionView";
+import Modal from "react-modal";
+import { AiOutlineClose } from "react-icons/ai";
+import WriteView from "../templates/TemplateBuilder/views/WriteView";
 
 const formatFieldNamesToReadable = (fieldName: string) => {
   const separatedFieldName = fieldName.split("_");
@@ -98,6 +101,7 @@ const PatientCollectionDetailsView = ({
   tabName: string;
   patientId: string;
 }) => {
+  const [isWriteViewModalOpen, setIsWriteViewModalOpen] = useState(false);
   const { currentTab } = useTabsContext();
   const { data: d, isLoading } =
     api.patient.getRegisteredCollectionDetails.useQuery(
@@ -107,31 +111,71 @@ const PatientCollectionDetailsView = ({
 
   return (
     <div className="relative flex-1">
-      {d ? (
+      {d && d.collectionData?.length ? (
         <>
           <div className="mb-5 flex flex-col rounded-md bg-slate-200 py-3 px-6">
-            <h3 className="py-2 text-xl font-bold">Search :</h3>
-            <div className="flex gap-2">
-              <select
-                className="rounded-md border-0 bg-slate-300 capitalize outline-0"
-                name=""
-                id=""
+            {/* <h3 className="py-2 text-xl font-bold">Search :</h3> */}
+            <div className="flex items-center justify-between gap-2">
+              <div className="space-x-2">
+                <select
+                  className="rounded-md border-0 bg-slate-300 capitalize outline-0"
+                  name=""
+                  id=""
+                >
+                  <option selected>field names</option>
+                  {renderOptions(d.collectionData)}
+                </select>
+                <input
+                  className="rounded-md border-0 bg-slate-300 outline-0"
+                  type="text"
+                  name=""
+                  id=""
+                />
+              </div>
+              <button
+                onClick={() => setIsWriteViewModalOpen(true)}
+                className="rounded-lg bg-primary px-4 py-2 capitalize text-white hover:bg-primary-hover"
               >
-                <option selected>field names</option>
-                {renderOptions(d.collectionData)}
-              </select>
-              <input
-                className="rounded-md border-0 bg-slate-300 outline-0"
-                type="text"
-                name=""
-                id=""
-              />
+                <IoIosAdd color="white" size={28} />
+              </button>
+              <Modal
+                style={{
+                  content: {
+                    top: "50%",
+                    left: "50%",
+                    right: "auto",
+                    bottom: "auto",
+                    marginRight: "-50%",
+                    transform: "translate(-50%, -50%)",
+                    textTransform: "capitalize",
+                    padding: "2rem",
+                  },
+                }}
+                // className={`w-md w- bg-black`}
+                isOpen={isWriteViewModalOpen}
+              >
+                <header className={`flex justify-between`}>
+                  <h2 className={`font-bold text-slate-800`}>{currentTab}</h2>
+                  <button
+                    onClick={() => setIsWriteViewModalOpen(false)}
+                    className={`cursor-pointer text-slate-500`}
+                  >
+                    <AiOutlineClose size={15} />
+                  </button>
+                </header>
+                <main>
+                  <WriteView
+                    collectionName={currentTab}
+                    patientId={patientId}
+                  />
+                </main>
+              </Modal>
             </div>
           </div>
           <ReadView data={d.collectionData as { _id: string }[]} />
         </>
       ) : (
-        <LoadingSpinner />
+        !d && isLoading && <LoadingSpinner />
       )}
     </div>
   );
@@ -143,7 +187,6 @@ function renderOptions<T>(data: T): React.ReactNode {
   if (Array.isArray(data) && typeof data[0] === "object") {
     const temp = data as Array<object>;
     const fieldNames = Object.entries(temp[0] || []);
-    console.log(fieldNames);
 
     return (
       <>

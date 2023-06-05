@@ -3,7 +3,11 @@ import {
   CustomCollectionModel,
   PatientModel,
 } from "@/server/models";
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 export const patientRouter = createTRPCRouter({
@@ -98,7 +102,34 @@ export const patientRouter = createTRPCRouter({
         collectionTemplate: collectionTemplate.schema,
       };
     }),
-
+  addEntryToCollection: protectedProcedure
+    .input(
+      z.object({
+        collectionName: z.string(),
+        patientId: z.string(),
+        data: z.any(),
+      })
+    )
+    .mutation(async ({ input: { collectionName, patientId, data } }) => {
+      const isUpdated = await PatientModel.updateOne(
+        {
+          "profile.nationalId": patientId,
+          "health_record.collection_name": collectionName,
+        },
+        {
+          $push: {
+            "health_record.$.data": data as object,
+          },
+        }
+      );
+      if (!isUpdated.acknowledged) {
+        throw new TRPCError({
+          message: `Failed to add entry to collection: ${collectionName} for patient: ${patientId}`,
+          code: "BAD_REQUEST",
+        });
+      }
+      // MTNSA4 TSL7 DI
+    }),
   createOne: publicProcedure.mutation(async ({}) => {
     return await PatientModel.create({ nationalId: "" });
   }),

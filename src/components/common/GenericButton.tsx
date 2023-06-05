@@ -5,11 +5,16 @@ const PrimaryButton = ({
   children,
   full,
   ...props
-}: { text?: string; full?: boolean } & ButtonHTMLAttributes<HTMLButtonElement>) => {
+}: {
+  text?: string;
+  full?: boolean;
+} & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       {...props}
-      className={`my-2 flex justify-center ${full ? 'w-full' : 'w-max'} shadow-lg shadow-sky-200 rounded-md border-[1px] transition hover:bg-primary-hover hover:border-primary-hover border-primary bg-primary p-2 px-4 text-white font-semibold text-md`}
+      className={`my-2 flex justify-center ${
+        full ? "w-full" : "w-max"
+      } text-md rounded-md border-[1px] border-primary bg-primary p-2 px-4 font-semibold text-white shadow-lg shadow-sky-200 transition hover:border-primary-hover hover:bg-primary-hover`}
     >
       <span>{text}</span>
       {children}
@@ -22,11 +27,16 @@ const SecondaryButton = ({
   children,
   full,
   ...props
-}: { text?: string; full: boolean } & ButtonHTMLAttributes<HTMLButtonElement>) => {
+}: {
+  text?: string;
+  full: boolean;
+} & ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       {...props}
-      className={`my-2 flex justify-center ${full ? 'w-full' : 'w-max'} shadow-sky-200 rounded-md border-[1px] transition border-dark p-2 px-4 text- font-semibold text-md`}
+      className={`my-2 flex justify-center ${
+        full ? "w-full" : "w-max"
+      } text- text-md rounded-md border-[1px] border-dark p-2 px-4 font-semibold shadow-sky-200 transition`}
     >
       <span>{text}</span>
       {children}

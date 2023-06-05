@@ -10,7 +10,7 @@ import {
 import GenericButton from "@/components/common/GenericButton";
 import { GoTextSize } from "react-icons/go";
 import { TiSortNumerically } from "react-icons/ti";
-import {useTemplateBuilder} from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
+import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 
 type FieldType = "text" | "number" | "select";
 
@@ -49,7 +49,6 @@ const customStyles = {
   },
 };
 
-
 export default function AddFieldModal() {
   const {
     fieldObject,
@@ -71,7 +70,7 @@ export default function AddFieldModal() {
       onRequestClose={closeModal}
       style={customStyles}
     >
-      <h2 className={`flex justify-between`}>
+      <header className={`flex justify-between`}>
         <span className={`font-bold text-slate-800`}>
           {steps[modalStep]?.title}
         </span>
@@ -81,7 +80,7 @@ export default function AddFieldModal() {
         >
           <AiOutlineClose size={15} />
         </button>
-      </h2>
+      </header>
 
       {modalStep === 0 && <ChooseFieldStep setFieldObject={setFieldObject} />}
       {modalStep === 1 && <PreferencesStep setFieldObject={setFieldObject} />}
@@ -201,4 +200,3 @@ const steps = [
     title: "Preferences",
   },
 ];
-

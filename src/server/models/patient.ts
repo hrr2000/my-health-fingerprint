@@ -3,9 +3,11 @@ import { type PatientDocument, type PatientAddress } from "@/types/mongo";
 
 const { Schema } = mongoose;
 
-const dataSchema = new Schema({
+const dataSchema = new Schema({}, { strict: false });
+
+const collectionSchema = new Schema({
   collection_name: { type: String, required: true, unique: true },
-  data: [],
+  data: [dataSchema],
 });
 
 const addressSchema = new Schema<PatientAddress>({
@@ -27,7 +29,7 @@ const schema = new Schema<PatientDocument>(
       phone_number: String,
       alternative_phone_number: [String],
     },
-    health_record: [dataSchema],
+    health_record: [collectionSchema],
   },
   { timestamps: true }
 );
