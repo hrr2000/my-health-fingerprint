@@ -43,12 +43,12 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
               <section
                 className={`flex flex-1 flex-col ${
                   !profile?.data && profile?.fetchStatus === "idle"
-                    ? "items-center justify-center"
+                    ? "items-center"
                     : ""
                 }`}
               >
                 {!profile?.data && profile?.fetchStatus === "idle" && (
-                  <div className=" py-40 text-3xl  font-normal">
+                  <div className="py-60 text-3xl  font-normal">
                     <div className="flex flex-col items-center justify-center gap-6">
                       <span className={`rounded-full bg-sky-100 p-5`}>
                         <CiMedicalClipboard size={50} />

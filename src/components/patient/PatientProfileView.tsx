@@ -14,7 +14,7 @@ export const PatientProfileView = () => {
     <main className={'relative flex-1'}>
       {data ? (
         <div className="p-5">
-          <div className="flex flex-col items-center gap-2 p-5">
+          <div className="flex flex-col items-center gap-5 p-5">
             <Image
               className="rounded-full shadow-md"
               width={220}
@@ -27,21 +27,21 @@ export const PatientProfileView = () => {
               alt=""
             />
             <h2 className="text-3xl font-bold capitalize">
-              Hi , {data.profile.name}
+              Mr, {data.profile.name}
             </h2>
           </div>
-          <ul className="grid grid-cols-2 rounded-md bg-slate-300 p-5 capitalize shadow-md">
-            <li>full name : {data.profile.name || "N/A"}</li>
-            <li>gender : {data.profile.gender || "N/A"}</li>
+          <ul className="grid grid-cols-2 rounded-md border-2 p-5 capitalize text-lg gap-3">
+            <li><strong>full name: </strong> {data.profile.name || "N/A"}</li>
+            <li><strong>gender: </strong> {data.profile.gender || "N/A"}</li>
             <li>
-              main phone number : {data.profile.primary_phone_number || "N/A"}
+              <strong>main phone number: </strong> {data.profile.primary_phone_number || "N/A"}
             </li>
 
             <li>
-              other phone numbers :
+              <strong>other phone numbers: </strong>
               {data.profile.alternative_phone_numbers || "N/A"}
             </li>
-            <li>national id : {data.profile.nationalId}</li>
+            <li><strong>national id: </strong> {data.profile.nationalId}</li>
           </ul>
         </div>
       ) : (
