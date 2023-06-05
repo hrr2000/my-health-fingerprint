@@ -1,4 +1,3 @@
-
 export interface TemplateDetails {
   name: string;
   schema: Partial<TemplateComponent>[][];
@@ -16,6 +15,7 @@ export interface CollectionDetails {
 export interface TemplateComponent {
   _id: string;
   type: string;
+  name: string;
   collection?: string;
   label: string;
 }
