@@ -4,7 +4,6 @@ import { Form, Formik } from "formik";
 import GenericButton from "@/components/common/GenericButton";
 import { type TemplateDetails } from "../types";
 import { api } from "@/utils/api";
-import { DiscriminatorOptions } from "mongoose";
 
 function GenericField(props: { label?: string; name?: string; type?: string }) {
   return (
@@ -76,7 +75,7 @@ export default function WriteView({
           <div
             className={`min-h-[50px] w-full  ${
               isInCollectionsPage ? "grid" : ""
-            } "grid-cols-12" justify-center gap-3`}
+            } grid-cols-12 justify-center gap-3`}
           >
             {(isInCollectionsPage
               ? templateDetails.schema

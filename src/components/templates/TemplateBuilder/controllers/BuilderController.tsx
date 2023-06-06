@@ -15,12 +15,9 @@ export default function BuilderController({ slug }: { slug: string | null }) {
   // if null then state is create -> call create mutation endpoint
   // if not then state is update -> call update mutation endpoint
 
-  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
-    templateDetailsInitialValues
-  );
-  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
-    collectionDetailsInitialValues
-  );
+  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(templateDetailsInitialValues);
+  const [] = useState({});
+  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(collectionDetailsInitialValues);
   const [builderView, setBuilderView] = useState(false);
 
   const mutationState = useRef<"update" | "create">(slug ? "update" : "create");

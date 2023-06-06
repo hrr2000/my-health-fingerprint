@@ -2,10 +2,10 @@ export default function ReadView({ data }: { data: { _id: string }[] }) {
   // implementation for now
 
   return (
-    <div className="text-white">
+    <div className="text-primary flex flex-col gap-3">
       {data.map((row) => (
         <ul
-          className="cursor-pointer rounded-md bg-primary p-3 shadow-md transition hover:-translate-x-1 hover:-translate-y-1 hover:bg-primary-hover"
+          className="cursor-pointer rounded-md bg-white p-3 border-2 transition hover:-translate-x-1 hover:-translate-y-1 hover:bg-gray-100"
           key={row._id.toString()}
         >
           {Object.entries(row).map(([k, v]) => {

@@ -95,11 +95,19 @@ const ToolbarForm = ({
             label="Description"
             placeholder="Description ..."
           />
-          <TextInput
-            name="template.name"
-            label="Template Name"
-            placeholder="Template Name ..."
-          />
+          <div className="column flex flex-col gap-2 w-full">
+            <label className="font-normal capitalize text-gray-500" htmlFor={"template.name"}>
+              Template Name
+            </label>
+            <Field
+              as={"select"}
+              name={"template.name"}
+              className={`text-sm`}
+            >
+              <option value={"main"}>main</option>
+              <option value={"patient"}>patient</option>
+            </Field>
+          </div>
         </div>
       </div>
       <div className={`w-full py-2 px-4`}>
