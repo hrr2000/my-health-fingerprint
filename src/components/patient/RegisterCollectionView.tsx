@@ -35,7 +35,7 @@ export default function RegisterCollectionView({
       ) : !data.length ? (
         <div className={`relative grid w-full place-items-center `}>
           <div className="text-center">
-            <h2 className="mb-4 text-4xl">OOPS ! No More Collections to Add</h2>
+            <h2 className="mb-4 text-4xl">No More Collections to Add</h2>
             <div className="text-lg capitalize">
               <span className="mx-2">
                 if you have something in mind please you want to add
