@@ -9,7 +9,6 @@ export const PatientProfileView = () => {
   const { data, error, fetchStatus } = useGetPatientProfileData(
     patientId || ""
   );
-
   return (
     <main className={'relative flex-1'}>
       {data ? (

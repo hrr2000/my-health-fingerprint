@@ -11,11 +11,11 @@ import RegisterCollectionView from "./RegisterCollectionView";
 import Modal from "react-modal";
 import { AiOutlineClose } from "react-icons/ai";
 import WriteView from "../templates/TemplateBuilder/views/WriteView";
+import {CiCirclePlus} from "react-icons/ci";
 
 const formatFieldNamesToReadable = (fieldName: string) => {
   const separatedFieldName = fieldName.split("_");
   return separatedFieldName.join(" ");
-  return fieldName;
 };
 
 export const PatientRecordsView = () => {
@@ -64,9 +64,9 @@ export const PatientRecordsView = () => {
             </header>
           )}
           <section
-            className={`flex flex-1 flex-col p-2  ${
+            className={`flex flex-1 flex-col p-2 ${
               data && fetchStatus === "idle"
-                ? "items-stretch justify-center "
+                ? "items-stretch justify-center"
                 : "items-stretch justify-start"
             }`}
           >
@@ -113,12 +113,12 @@ const PatientCollectionDetailsView = ({
     <div className="relative flex-1">
       {d && d.collectionData?.length ? (
         <>
-          <div className="mb-5 flex flex-col rounded-md bg-slate-200 py-3 px-6">
+          <div className="mb-5 flex flex-col rounded-md bg-slate-100 py-3 px-6 shadow-md">
             {/* <h3 className="py-2 text-xl font-bold">Search :</h3> */}
             <div className="flex items-center justify-between gap-2">
               <div className="space-x-2">
                 <select
-                  className="rounded-md border-0 bg-slate-300 capitalize outline-0"
+                  className="rounded-md border-0 bg-slate-100 capitalize outline-0"
                   name=""
                   id=""
                 >
@@ -126,7 +126,8 @@ const PatientCollectionDetailsView = ({
                   {renderOptions(d.collectionData)}
                 </select>
                 <input
-                  className="rounded-md border-0 bg-slate-300 outline-0"
+                  className="rounded-md border-0 bg-slate-200 outline-0 w-96"
+                  placeholder={"Search..."}
                   type="text"
                   name=""
                   id=""
@@ -134,9 +135,11 @@ const PatientCollectionDetailsView = ({
               </div>
               <button
                 onClick={() => setIsWriteViewModalOpen(true)}
-                className="rounded-lg bg-primary px-4 py-2 capitalize text-white hover:bg-primary-hover"
+                className="capitalize text-primary hover:scale-110 transition rounded-full"
               >
-                <IoIosAdd color="white" size={28} />
+                <span>
+                  <CiCirclePlus size={30} />
+                </span>
               </button>
               <Modal
                 style={{

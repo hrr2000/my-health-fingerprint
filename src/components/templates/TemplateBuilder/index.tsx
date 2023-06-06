@@ -30,8 +30,8 @@ function TemplateBuilderComponent() {
         </>
       ) : (
         <>
-          <div>
-            <WriteView schema={templateDetails.schema}/>
+          <div className={`p-10`}>
+            <WriteView />
           </div>
           <Toolbar/>
         </>
