@@ -2,38 +2,37 @@ import Builder from "@/components/templates/TemplateBuilder/Builder";
 import Toolbar from "@/components/templates/TemplateBuilder/Toolbar";
 import {
   TemplateBuilderContextProvider,
-  useTemplateBuilder
+  useTemplateBuilder,
 } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
-import {LoadingSpinner} from "@/components/common/LoadingSpinner";
+import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import WriteView from "@/components/templates/TemplateBuilder/views/WriteView";
 
 function TemplateBuilderComponent() {
-  const {collectionDetails, templateDetails, mutationState, builderView} = useTemplateBuilder();
+  const { collectionDetails, templateDetails, mutationState, builderView } =
+    useTemplateBuilder();
   return (
     <>
-      {!collectionDetails.name && mutationState.current == 'update' && (
-        <div className={'text-primary'}>
-          <LoadingSpinner/>
+      {!collectionDetails.name && mutationState.current == "update" && (
+        <div className={"text-primary"}>
+          <LoadingSpinner />
         </div>
       )}
       {builderView ? (
         <>
           <div>
-            <Builder/>
+            <Builder />
             <div>
-              <h2>
-                Preview
-              </h2>
+              <h2>Preview</h2>
             </div>
           </div>
-          <Toolbar/>
+          <Toolbar />
         </>
       ) : (
         <>
           <div className={`p-10`}>
             <WriteView />
           </div>
-          <Toolbar/>
+          <Toolbar />
         </>
       )}
     </>
@@ -45,5 +44,5 @@ export default function TemplateBuilder() {
     <TemplateBuilderContextProvider>
       <TemplateBuilderComponent />
     </TemplateBuilderContextProvider>
-  )
+  );
 }
