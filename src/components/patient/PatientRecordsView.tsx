@@ -1,22 +1,18 @@
+import { useState } from "react";
 import { usePatientContext } from "@/contexts/PatientContext";
-import React, { useState } from "react";
+import { TabsProvider, useTabsContext } from "@/contexts/TabsContext";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { Tab } from "@/components/tabs/Tab";
 import { TabPanel } from "@/components/tabs/TabPanel";
-import { TabsProvider, useTabsContext } from "@/contexts/TabsContext";
-import { api } from "@/utils/api";
 import ReadView from "../templates/TemplateBuilder/views/ReadView";
-import { IoIosAdd } from "react-icons/io";
+import WriteView from "../templates/TemplateBuilder/views/WriteView";
 import RegisterCollectionView from "./RegisterCollectionView";
 import Modal from "react-modal";
+import { api } from "@/utils/api";
+import { IoIosAdd } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
-import WriteView from "../templates/TemplateBuilder/views/WriteView";
-import {CiCirclePlus} from "react-icons/ci";
-
-const formatFieldNamesToReadable = (fieldName: string) => {
-  const separatedFieldName = fieldName.split("_");
-  return separatedFieldName.join(" ");
-};
+import { CiCirclePlus } from "react-icons/ci";
+import { formatFieldNamesToReadable } from "@/utils/helpers";
 
 export const PatientRecordsView = () => {
   const { patientId } = usePatientContext();
@@ -111,7 +107,21 @@ const PatientCollectionDetailsView = ({
 
   return (
     <div className="relative flex-1">
-      {d && d.collectionData?.length ? (
+      {!d && isLoading && <LoadingSpinner />}
+      {d && !d.collectionData?.length && (
+        <div>
+          Mafe4 7aga bitch deef 7aga ba2a danta bdan{" "}
+          <button
+            onClick={() => setIsWriteViewModalOpen(true)}
+            className="rounded-full capitalize text-primary transition hover:scale-110"
+          >
+            <span>
+              <CiCirclePlus size={30} />
+            </span>
+          </button>
+        </div>
+      )}
+      {d && !!d.collectionData?.length && (
         <>
           <div className="mb-5 flex flex-col rounded-md bg-slate-100 py-3 px-6 shadow-md">
             {/* <h3 className="py-2 text-xl font-bold">Search :</h3> */}
@@ -126,7 +136,7 @@ const PatientCollectionDetailsView = ({
                   {renderOptions(d.collectionData)}
                 </select>
                 <input
-                  className="rounded-md border-0 bg-slate-200 outline-0 w-96"
+                  className="w-96 rounded-md border-0 bg-slate-200 outline-0"
                   placeholder={"Search..."}
                   type="text"
                   name=""
@@ -135,51 +145,46 @@ const PatientCollectionDetailsView = ({
               </div>
               <button
                 onClick={() => setIsWriteViewModalOpen(true)}
-                className="capitalize text-primary hover:scale-110 transition rounded-full"
+                className="rounded-full capitalize text-primary transition hover:scale-110"
               >
                 <span>
                   <CiCirclePlus size={30} />
                 </span>
               </button>
-              <Modal
-                style={{
-                  content: {
-                    top: "50%",
-                    left: "50%",
-                    right: "auto",
-                    bottom: "auto",
-                    marginRight: "-50%",
-                    transform: "translate(-50%, -50%)",
-                    textTransform: "capitalize",
-                    padding: "2rem",
-                  },
-                }}
-                // className={`w-md w- bg-black`}
-                isOpen={isWriteViewModalOpen}
-              >
-                <header className={`flex justify-between`}>
-                  <h2 className={`font-bold text-slate-800`}>{currentTab}</h2>
-                  <button
-                    onClick={() => setIsWriteViewModalOpen(false)}
-                    className={`cursor-pointer text-slate-500`}
-                  >
-                    <AiOutlineClose size={15} />
-                  </button>
-                </header>
-                <main>
-                  <WriteView
-                    collectionName={currentTab}
-                    patientId={patientId}
-                  />
-                </main>
-              </Modal>
             </div>
           </div>
           <ReadView data={d.collectionData as { _id: string }[]} />
         </>
-      ) : (
-        !d && isLoading && <LoadingSpinner />
       )}
+      <Modal
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            textTransform: "capitalize",
+            padding: "2rem",
+          },
+        }}
+        // className={`w-md w- bg-black`}
+        isOpen={isWriteViewModalOpen}
+      >
+        <header className={`flex justify-between`}>
+          <h2 className={`font-bold text-slate-800`}>{currentTab}</h2>
+          <button
+            onClick={() => setIsWriteViewModalOpen(false)}
+            className={`cursor-pointer text-slate-500`}
+          >
+            <AiOutlineClose size={15} />
+          </button>
+        </header>
+        <main>
+          <WriteView collectionName={currentTab} patientId={patientId} />
+        </main>
+      </Modal>
     </div>
   );
 };
