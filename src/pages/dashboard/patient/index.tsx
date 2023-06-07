@@ -12,8 +12,11 @@ import { TabPanel } from "@/components/tabs/TabPanel";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import { PatientProfileView } from "@/components/patient/PatientProfileView";
 import { PatientRecordsView } from "@/components/patient/PatientRecordsView";
-import { CiMedicalClipboard } from "react-icons/ci";
+import { CiCircleInfo, CiMedicalClipboard } from "react-icons/ci";
 import GenericButton from "@/components/common/GenericButton";
+import { IoIosAdd } from "react-icons/io";
+import { api } from "@/utils/api";
+import { AiOutlineLoading } from "react-icons/ai";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -22,10 +25,14 @@ type serverSidePropsType = NextPage<
 const DashboardPage: serverSidePropsType = ({ user }) => {
   const { patientId, mode, setMode, profile, setPatientId } =
     usePatientContext();
+  const { mutate: createProfile, isLoading: isCreatingProfile } =
+    api.patient.createProfile.useMutation({
+      onSuccess: () => profile?.refetch(),
+    });
 
   return (
     <DashBoardLayout user={user} title="" description="">
-      <main className="relative grid h-full grid-cols-[1fr_280px]">
+      <main className="relative grid h-full grid-cols-[1fr_320px]">
         <section className="h-full gap-2 text-black">
           <div className="flex h-full flex-col overflow-hidden text-primary">
             <TabsProvider
@@ -83,10 +90,15 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
               Search For Patient
             </label>
             <input
-              className="rounded-sm border-0 bg-slate-100 text-sm"
+              className="rounded-sm border-0 bg-slate-100 text-sm disabled:grayscale"
               type="text"
               onChange={(e) => setPatientId?.(e.target.value)}
               value={patientId}
+              disabled={
+                profile?.fetchStatus === "fetching" ||
+                !!profile?.error ||
+                !!profile?.data
+              }
               placeholder="NationalId..."
               id="patient"
             />
@@ -112,9 +124,45 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
               />
             )}
             {profile?.error && (
-              <p className={`text-red-500`}>
-                Patient Not Found Please Make Sure to use the Patient NationalId
-              </p>
+              <ul>
+                <li className="mb-3 text-red-500">Patient Not Found</li>
+                <li className="flex items-center gap-1 rounded-md  font-medium capitalize text-primary ">
+                  <CiCircleInfo size={25} />
+                  <span>please use the Patient's NationalId</span>
+                </li>
+                <li className="flex items-center gap-1 rounded-md  font-medium capitalize text-primary ">
+                  <CiCircleInfo size={25} />
+                  <span>You can add a patient if not found</span>
+                </li>
+                <li className="flex items-center gap-1 rounded-md  font-medium capitalize text-primary ">
+                  {profile.error.message.toLowerCase() ===
+                    "no patient found" && (
+                    <div className="mt-5 w-full rounded-md bg-primary  p-2 capitalize text-white shadow-md">
+                      <h4 className="mb-1 text-lg font-bold">
+                        valid nationalId
+                      </h4>
+                      <div className="flex items-center text-base ">
+                        if you wish to
+                        <button
+                          disabled={isCreatingProfile}
+                          onClick={() => {
+                            if (patientId) {
+                              createProfile({ nationalId: patientId });
+                            }
+                          }}
+                          className="mx-2 rounded-md bg-white py-1 px-2 text-sm text-primary transition disabled:grayscale hover:bg-slate-100"
+                        >
+                          {isCreatingProfile ? (
+                            <AiOutlineLoading className="animate-spin" />
+                          ) : (
+                            <IoIosAdd size={20} />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </li>
+              </ul>
             )}
           </div>
         </aside>

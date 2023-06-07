@@ -28,10 +28,21 @@ export interface ReportDocument {
 }
 
 export interface PatientAddress {
+  _id: ObjectId;
   district: string;
   street_name: string;
   city: string;
   postal_code?: string;
+}
+export interface PatientFullName {
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+}
+export interface PatientRelativePhoneNumbers {
+  _id: ObjectId;
+  phone_number: string;
+  relative: string;
 }
 
 export interface PatientDocument {
@@ -39,11 +50,11 @@ export interface PatientDocument {
     gender: string;
     date_of_birth: Date;
     nationalId: string;
-    name: string;
+    full_name: PatientFullName;
     address: PatientAddress[];
-    imageUrl: string;
-    primary_phone_number: string;
-    alternative_phone_numbers: string[];
+    imageUrl?: string;
+    phone_number: string;
+    relative_phone_numbers: PatientRelativePhoneNumbers[];
   };
   health_record: {
     collection_name: string;

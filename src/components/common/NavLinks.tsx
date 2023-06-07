@@ -16,7 +16,6 @@ export function NavLinks({
   className,
 }: LocalProps) {
   const router = useRouter();
-  console.log({ router });
 
   return (
     <ul className={`${className}`}>
