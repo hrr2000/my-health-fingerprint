@@ -1,22 +1,18 @@
+import { useState } from "react";
 import { usePatientContext } from "@/contexts/PatientContext";
-import React, { useState } from "react";
+import { TabsProvider, useTabsContext } from "@/contexts/TabsContext";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { Tab } from "@/components/tabs/Tab";
 import { TabPanel } from "@/components/tabs/TabPanel";
-import { TabsProvider, useTabsContext } from "@/contexts/TabsContext";
-import { api } from "@/utils/api";
 import ReadView from "../templates/TemplateBuilder/views/ReadView";
-import { IoIosAdd, IoIosClose } from "react-icons/io";
+import WriteView from "../templates/TemplateBuilder/views/WriteView";
 import RegisterCollectionView from "./RegisterCollectionView";
 import Modal from "react-modal";
+import { api } from "@/utils/api";
+import { IoIosAdd } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
-import WriteView from "../templates/TemplateBuilder/views/WriteView";
 import { CiCirclePlus } from "react-icons/ci";
-
-const formatFieldNamesToReadable = (fieldName: string) => {
-  const separatedFieldName = fieldName.split("_");
-  return separatedFieldName.join(" ");
-};
+import { formatFieldNamesToReadable } from "@/utils/helpers";
 
 export const PatientRecordsView = () => {
   const { patientId } = usePatientContext();
