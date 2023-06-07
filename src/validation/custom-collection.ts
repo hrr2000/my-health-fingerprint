@@ -28,7 +28,7 @@ export const createCollectionSchemaClient = z.object({
   }),
   template: z.object({
     schema: z.array(z.any()),
-    name: z.string(),
+    name: z.string().optional(),
     isPrintable: z.boolean().default(false),
   }),
 });

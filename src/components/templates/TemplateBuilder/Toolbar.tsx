@@ -178,6 +178,7 @@ export default function Toolbar() {
           template: templateDetails,
         }}
         onSubmit={(values) => {
+          console.log(values);
           saveData({
             collection: {
               ...values.collection,
