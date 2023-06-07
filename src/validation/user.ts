@@ -5,7 +5,7 @@ import { numeric } from "./utils";
 export const createUserSchema = z.object({
   firstName: z.string().trim().min(3).max(100),
   lastName: z.string().trim().min(3).max(100),
-  nationalId: numeric().min(14).max(14).trim(),
+  nationalId: numeric().min(14).max(14),
   password: z.string().trim().min(8).max(50),
   email: z.string().trim().email(),
   orgId: z.string().trim(),

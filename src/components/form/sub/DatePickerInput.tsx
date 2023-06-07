@@ -1,21 +1,20 @@
-import { useField } from "formik";
+import React from "react";
+import { useField, useFormikContext } from "formik";
+import FieldErrorMessage from "./FieldErrorMessage";
 import { type GenericProps } from "@/types/application";
-import FieldErrorMessage from "@/components/form/sub/FieldErrorMessage";
-
 interface LocalProps extends GenericProps {
   label?: string;
   name: string;
-  type?: string;
   required?: boolean;
 }
 
-const TextInput = ({
+export const DatePickerField = ({
   label,
   name,
-  type = "text",
   required = false,
   ...props
 }: LocalProps) => {
+  const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
 
   return (
@@ -32,15 +31,18 @@ const TextInput = ({
           className={`rounded-sm bg-slate-100 text-sm capitalize disabled:cursor-not-allowed disabled:bg-gray-200 disabled:font-semibold disabled:text-gray-500 ${
             meta.touched && meta.error ? "border-1 border-red-500" : "border-0"
           }`}
-          id={name}
-          type={type}
           {...field}
           {...props}
+          type="date"
+          onChange={(e) => {
+            setFieldValue(
+              field.name,
+              new Date(e.target.value).toISOString().split("T")[0]
+            );
+          }}
         />
       </div>
       <FieldErrorMessage name={name} />
     </div>
   );
 };
-
-export default TextInput;

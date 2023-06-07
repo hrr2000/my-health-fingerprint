@@ -2,12 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/form/sub/DatePickerInput.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/validation/patient.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/NavLinks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/NavLinks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/SiderBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/SiderBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/form/sub/TextInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/sub/TextInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/patient/PatientProfileView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/patient/PatientProfileView.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/patient/PatientRecordsView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/patient/PatientRecordsView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/controllers/BuilderController.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/controllers/BuilderController.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/api/routers/collection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/collection.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/api/routers/template.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/template.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useGetPatientProfileData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useGetPatientProfileData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/patient/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/patient/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/api/routers/patient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/patient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/models/patient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/patient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/mongo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/mongo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/helpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validation/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validation/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +113,7 @@
       <workItem from="1686042106221" duration="2332000" />
       <workItem from="1686067352222" duration="689000" />
       <workItem from="1686139727723" duration="2096000" />
-      <workItem from="1686151239649" duration="8278000" />
+      <workItem from="1686151239649" duration="8404000" />
     </task>
     <servers />
   </component>

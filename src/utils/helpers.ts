@@ -9,3 +9,7 @@ export const areAnyValuesEmpty = (values: Record<string, string>) => {
   return formValues.some((value) => value === "");
 };
 
+export const formatFieldNamesToReadable = (fieldName: string) => {
+  const separatedFieldName = fieldName.split("_");
+  return separatedFieldName.join(" ");
+};
