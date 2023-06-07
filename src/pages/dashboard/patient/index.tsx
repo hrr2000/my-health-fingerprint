@@ -128,7 +128,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
                 <li className="mb-3 text-red-500">Patient Not Found</li>
                 <li className="flex items-center gap-1 rounded-md  font-medium capitalize text-primary ">
                   <CiCircleInfo size={25} />
-                  <span>please use the Patient's NationalId</span>
+                  <span>please use the Patient&apos;s NationalId</span>
                 </li>
                 <li className="flex items-center gap-1 rounded-md  font-medium capitalize text-primary ">
                   <CiCircleInfo size={25} />
