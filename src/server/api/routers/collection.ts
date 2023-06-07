@@ -31,15 +31,29 @@ export const collectionRouter = createTRPCRouter({
         });
         const { name: collection_name } = await customCollection.save();
 
-        // Create the primary template for this collection using the collection id returned after save.
-        const collectionTemplate = new CollectionTemplateModel({
-          collection_name,
-          schema: template.schema,
-          name: template.name,
-          is_printable: template.isPrintable,
-          primary: true,
-        });
-        await collectionTemplate.save();
+        if(!collection.isPatientSpecific) {
+          // Create the primary template for this collection using the collection id returned after save.
+          const collectionTemplate = new CollectionTemplateModel({
+            collection_name,
+            schema: template.schema,
+            name: template.name,
+            is_printable: template.isPrintable,
+            primary: true,
+          });
+          await collectionTemplate.save();
+        }
+
+        if(collection.isPatientProfile) {
+          // Create the patient template for this collection using the collection id returned after save.
+          const collectionTemplate = new CollectionTemplateModel({
+            collection_name,
+            schema: '[]',
+            name: 'patient',
+            is_printable: false,
+            primary: false,
+          });
+          await collectionTemplate.save();
+        }
 
         // Create the physical Collection in the database.
         mongoose.model(collection_name, new Schema({}, { autoCreate: false }));
@@ -71,12 +85,11 @@ export const collectionRouter = createTRPCRouter({
         );
 
         const updateCollectionTemplateCall = CollectionTemplateModel.updateOne(
-          { collection_name: collection.name, primary: true },
+          { collection_name: collection.name, name:template.name },
           {
             $set: {
               schema: template.schema,
               is_printable: template.isPrintable,
-              primary: true,
             },
           }
         );
@@ -103,25 +116,27 @@ export const collectionRouter = createTRPCRouter({
           _id: slug,
         });
 
-        const template = await CollectionTemplateModel.findOne({
+        const mainTemplate = await CollectionTemplateModel.findOne({
           collection_name: collection?.name,
-          primary: true,
+          name: "main",
         });
 
         const patientTemplate = await CollectionTemplateModel.findOne({
-          collection_name: 'patient',
-          primary: true,
+          collection_name: collection?.name,
+          name: "patient"
         });
 
-        if ((!template && !patientTemplate) || !collection) {
+        if ((!mainTemplate && !patientTemplate) && !collection) {
           throw new Error("Not Found");
         }
+
+        const template = mainTemplate ? mainTemplate : patientTemplate;
 
         return {
           collection,
           template: {
             name: template?.name,
-            collection_name: collection.name,
+            collection_name: collection?.name,
             primary: template?.primary,
             is_printable: template?.is_printable,
             schema: template?.schema,

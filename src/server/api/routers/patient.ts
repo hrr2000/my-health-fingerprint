@@ -237,7 +237,7 @@ export const patientRouter = createTRPCRouter({
         CollectionTemplateModel.findOne(
           {
             collection_name,
-            primary: true,
+            name: "patient"
           },
           { schema: true }
         ),
