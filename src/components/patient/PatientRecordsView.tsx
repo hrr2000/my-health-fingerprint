@@ -6,7 +6,7 @@ import { TabPanel } from "@/components/tabs/TabPanel";
 import { TabsProvider, useTabsContext } from "@/contexts/TabsContext";
 import { api } from "@/utils/api";
 import ReadView from "../templates/TemplateBuilder/views/ReadView";
-import { IoIosAdd, IoIosClose } from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
 import RegisterCollectionView from "./RegisterCollectionView";
 import Modal from "react-modal";
 import { AiOutlineClose } from "react-icons/ai";

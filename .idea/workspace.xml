@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/patient/RegisterCollectionView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/patient/RegisterCollectionView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/patient/PatientRecordsView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/patient/PatientRecordsView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/controllers/BuilderController.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/controllers/BuilderController.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/api/routers/collection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/collection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/api/routers/template.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/template.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +97,10 @@
       <workItem from="1685780717425" duration="1116000" />
       <workItem from="1685955750844" duration="201000" />
       <workItem from="1685982725451" duration="5863000" />
-      <workItem from="1686042106221" duration="170000" />
+      <workItem from="1686042106221" duration="2332000" />
+      <workItem from="1686067352222" duration="689000" />
+      <workItem from="1686139727723" duration="2096000" />
+      <workItem from="1686151239649" duration="8278000" />
     </task>
     <servers />
   </component>
