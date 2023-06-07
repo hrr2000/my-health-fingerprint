@@ -108,19 +108,25 @@ export const collectionRouter = createTRPCRouter({
           primary: true,
         });
 
-        if (!template || !collection) {
+        const patientTemplate = await CollectionTemplateModel.findOne({
+          collection_name: 'patient',
+          primary: true,
+        });
+
+        if ((!template && !patientTemplate) || !collection) {
           throw new Error("Not Found");
         }
 
         return {
           collection,
           template: {
-            name: template.name,
+            name: template?.name,
             collection_name: collection.name,
-            primary: template.primary,
-            is_printable: template.is_printable,
-            schema: template.schema,
+            primary: template?.primary,
+            is_printable: template?.is_printable,
+            schema: template?.schema,
           },
+          patient_template: patientTemplate
         };
       } catch (e) {
         console.error(e);

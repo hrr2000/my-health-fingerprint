@@ -9,6 +9,8 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { type CollectionDetails, type TemplateDetails } from "./types";
 import {BiEdit} from "react-icons/bi";
 import GenericButton from "@/components/common/GenericButton";
+import {api} from "@/utils/api";
+import {parseTemplate} from "@/components/templates/TemplateBuilder/controllers/BuilderController";
 
 const ToolbarForm = ({
   values,
@@ -104,8 +106,12 @@ const ToolbarForm = ({
               name={"template.name"}
               className={`text-sm`}
             >
-              <option value={"main"}>main</option>
-              <option value={"patient"}>patient</option>
+              {!values.collection.isPatientSpecific && (
+                <option value={"main"}>main</option>
+              )}
+              {values.collection.isPatientProfile && mutationState.current != "create" && (
+                <option value={"patient"}>patient</option>
+              )}
             </Field>
           </div>
         </div>
@@ -159,9 +165,11 @@ const ToolbarForm = ({
 };
 
 export default function Toolbar() {
-  const { collectionDetails, templateDetails } = useTemplateBuilder();
+  const { collectionDetails, templateDetails, setTemplateDetails } = useTemplateBuilder();
   const toolbarController = ToolbarController();
   const { saveData } = toolbarController;
+
+
   return (
     <section className="flex flex-col border-slate-200 p-5 pb-16 text-black bg-white">
       <Formik
@@ -184,6 +192,18 @@ export default function Toolbar() {
         validationSchema={createCollectionFormSchema}
       >
         {({ values }) => {
+          const { data } = api.template.findOne.useQuery({
+            collectionName: values.collection.name,
+            templateName: values.template.name
+          }, {
+            enabled: !!values.template.name
+          })
+
+          useEffect(() => {
+            if(!data) return;
+            setTemplateDetails(parseTemplate(data.template));
+          }, [data]);
+
           return <ToolbarForm toolbarController={toolbarController} values={values} />;
         }}
       </Formik>

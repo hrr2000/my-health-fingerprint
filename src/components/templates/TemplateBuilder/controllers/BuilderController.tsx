@@ -10,13 +10,23 @@ import { useEffect, useRef, useState } from "react";
 
 export type IBuilderController = ReturnType<typeof BuilderController>;
 
+export function parseTemplate(template: any): TemplateDetails {
+  return {
+    ...template,
+    schema: JSON.parse(
+      template.schema || "[]"
+    ) as Partial<TemplateComponent>[][],
+    isPrintable: template.is_printable,
+    name: template.name || "",
+  };
+}
+
 export default function BuilderController({ slug }: { slug: string | null }) {
   // check if slug is null
   // if null then state is create -> call create mutation endpoint
   // if not then state is update -> call update mutation endpoint
 
   const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(templateDetailsInitialValues);
-  const [] = useState({});
   const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(collectionDetailsInitialValues);
   const [builderView, setBuilderView] = useState(false);
 
@@ -30,17 +40,11 @@ export default function BuilderController({ slug }: { slug: string | null }) {
   useEffect(() => {
     if (status != "success") return;
     if (!data) return;
-    const { template, collection } = data;
+    const { template, collection, patient_template } = data;
     if (!template || !collection) return;
-    console.log(template);
-    setTemplateDetails({
-      ...template,
-      schema: JSON.parse(
-        template.schema || "[]"
-      ) as Partial<TemplateComponent>[][],
-      isPrintable: template.is_printable,
-      name: template.name || "",
-    });
+
+    setTemplateDetails(parseTemplate(template));
+
     setCollectionDetails({
       ...collection,
       isPatientSpecific: collection.is_patient_specific,
