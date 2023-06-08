@@ -49,10 +49,10 @@ function PatientViewController(collectionName: string, patientId: string) {
     data,
     isLoading,
     save: (obj) => save({collectionName, patientId, data: obj as object}),
-    schema: (data?.schema || []) as Partial<TemplateComponent>[][],
+    schema: (JSON.parse(data?.schema || "[]") || []) as Partial<TemplateComponent>[][],
     isSuccess,
     error,
-    isSubmittable: false
+    isSubmittable: true
   }
 }
 
