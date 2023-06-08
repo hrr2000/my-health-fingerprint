@@ -4,7 +4,6 @@
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/views/WriteView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/views/WriteView.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/dashboard/collections/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/collections/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +99,7 @@
       <workItem from="1686139727723" duration="2096000" />
       <workItem from="1686151239649" duration="14816000" />
       <workItem from="1686212858276" duration="16670000" />
-      <workItem from="1686244598515" duration="2011000" />
+      <workItem from="1686244598515" duration="2641000" />
     </task>
     <servers />
   </component>

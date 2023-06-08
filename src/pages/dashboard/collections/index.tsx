@@ -21,7 +21,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
     page: page,
     perPage: 20,
   }, {
-    cacheTime: 0
+    cacheTime: 0,
   });
   const router = useRouter();
 

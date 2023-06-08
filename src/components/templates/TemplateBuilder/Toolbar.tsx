@@ -59,7 +59,7 @@ const ToolbarForm = ({
     }));
   }, [values, setCollectionDetails, setTemplateDetails]);
 
-  if(isLoading) {
+  if(isLoading && mutationState.current == 'update') {
     return <LoadingSpinner />
   }
 
