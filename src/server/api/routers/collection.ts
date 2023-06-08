@@ -20,6 +20,8 @@ export const collectionRouter = createTRPCRouter({
   create: protectedProcedure
     .input(createCollectionSchema)
     .mutation(async ({ input: { collection, template } }) => {
+      const session = await mongoose.startSession();
+      session.startTransaction();
       try {
         // Create the custom collection and save it in the database.
         const customCollection = new CustomCollectionModel({
@@ -31,36 +33,34 @@ export const collectionRouter = createTRPCRouter({
         });
         const { name: collection_name } = await customCollection.save();
 
-        {
-          const collectionTemplate = new CollectionTemplateModel({
-            collection_name,
-            schema: "[]",
-            name: "main",
-            is_printable: template.isPrintable,
-            primary: true,
-          });
-          await collectionTemplate.save();
-        }
+        const mainTemplate = new CollectionTemplateModel({
+          collection_name,
+          schema: "[]",
+          name: "main",
+          is_printable: template.isPrintable,
+          primary: true,
+        });
+        const isMainTemplateSaved = await mainTemplate.save();
 
-        {
-          const collectionTemplate = new CollectionTemplateModel({
-            collection_name,
-            schema: "[]",
-            name: "patient",
-            is_printable: template.isPrintable,
-            primary: false,
-          });
-          await collectionTemplate.save();
-        }
+        const patientTemplate = new CollectionTemplateModel({
+          collection_name,
+          schema: "[]",
+          name: "patient",
+          is_printable: template.isPrintable,
+          primary: false,
+        });
+        const isPatientTemplateSaved = await patientTemplate.save();
 
         // Create the physical Collection in the database.
-        mongoose.model(collection_name, new Schema({}, { autoCreate: false }));
+        mongoose.model(collection_name, new Schema({}, { strict: false }));
       } catch (e) {
-        console.error(e);
+        await session.abortTransaction();
         throw new TRPCError({
           message: `Collection Isn't Created!`,
           code: "INTERNAL_SERVER_ERROR",
         });
+      } finally {
+        session.endSession();
       }
     }),
 
