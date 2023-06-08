@@ -30,7 +30,7 @@ function TemplateBuilderComponent() {
       ) : (
         <>
           <div className={`p-10`}>
-            <WriteView />
+            <WriteView collectionName={collectionDetails.name} />
           </div>
           <Toolbar />
         </>

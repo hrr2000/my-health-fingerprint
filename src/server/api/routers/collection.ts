@@ -6,7 +6,7 @@ import {
 } from "@/validation/custom-collection";
 import {
   CustomCollectionModel,
-  CollectionTemplateModel,
+  CollectionTemplateModel, PatientModel,
 } from "@/server/models";
 import mongoose, { Schema } from "mongoose";
 import { z } from "zod";
@@ -52,7 +52,9 @@ export const collectionRouter = createTRPCRouter({
         const isPatientTemplateSaved = await patientTemplate.save();
 
         // Create the physical Collection in the database.
-        mongoose.model(collection_name, new Schema({}, { strict: false }));
+        if(!collection.isPatientSpecific) {
+          mongoose.model(collection_name, new Schema({}, { strict: false }));
+        }
       } catch (e) {
         await session.abortTransaction();
         throw new TRPCError({
@@ -179,5 +181,23 @@ export const collectionRouter = createTRPCRouter({
         totalPages,
         isNextPage: currentPage < totalPages,
       };
+    }),
+
+  addEntry: protectedProcedure
+    .input(
+      z.object({
+        collectionName: z.string(),
+        data: z.any(),
+      })
+    )
+    .mutation(async ({ input: { collectionName, data } }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const {acknowledged} = await mongoose.connection.collection(collectionName).insertOne(data);
+      if (!acknowledged) {
+        throw new TRPCError({
+          message: `Failed to add entry to collection: ${collectionName}`,
+          code: "BAD_REQUEST",
+        });
+      }
     }),
 });
