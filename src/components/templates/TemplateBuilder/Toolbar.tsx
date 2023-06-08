@@ -11,6 +11,7 @@ import { BiEdit } from "react-icons/bi";
 import GenericButton from "@/components/common/GenericButton";
 import { api } from "@/utils/api";
 import { parseTemplate } from "@/components/templates/TemplateBuilder/controllers/BuilderController";
+import {LoadingSpinner} from "@/components/common/LoadingSpinner";
 
 const ToolbarForm = ({
   values,
@@ -31,13 +32,14 @@ const ToolbarForm = ({
   } = useTemplateBuilder();
 
   const { isSaving, isSaved, savingError } = toolbarController;
-  const { data } = api.template.findOne.useQuery(
+  const { data, isLoading } = api.template.findOne.useQuery(
     {
       collectionName: values.collection.name,
       templateName: values.template.name || "",
     },
     {
       enabled: !!values.template.name,
+      cacheTime: 0
     }
   );
 
@@ -56,6 +58,10 @@ const ToolbarForm = ({
       ...values.template,
     }));
   }, [values, setCollectionDetails, setTemplateDetails]);
+
+  if(isLoading) {
+    return <LoadingSpinner />
+  }
 
   return (
     <Form>

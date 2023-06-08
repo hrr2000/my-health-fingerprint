@@ -106,11 +106,13 @@ export default function WriteView({
             {/*>*/}
             {/*  <span>Save</span>*/}
             {/*</button>*/}
-            <GenericButton
-              type="submit"
-              theme={"primary"}
-              text={"Save Details"}
-            />
+            {templateDetails.name == 'main' && (
+              <GenericButton
+                type="submit"
+                theme={"primary"}
+                text={"Save Details"}
+              />
+            )}
           </div>
         </Form>
       )}
