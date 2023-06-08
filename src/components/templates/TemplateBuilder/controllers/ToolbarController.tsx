@@ -32,6 +32,7 @@ export default function ToolbarController() {
     const temp = {
       collection: values.collection,
       template: {
+        name: values.template.name || "",
         ...values.template,
         schema: JSON.stringify(values.template.schema),
       },

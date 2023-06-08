@@ -34,8 +34,8 @@ export const collectionRouter = createTRPCRouter({
         {
           const collectionTemplate = new CollectionTemplateModel({
             collection_name,
-            schema: '[]',
-            name: 'main',
+            schema: "[]",
+            name: "main",
             is_printable: template.isPrintable,
             primary: true,
           });
@@ -45,8 +45,8 @@ export const collectionRouter = createTRPCRouter({
         {
           const collectionTemplate = new CollectionTemplateModel({
             collection_name,
-            schema: '[]',
-            name: 'patient',
+            schema: "[]",
+            name: "patient",
             is_printable: template.isPrintable,
             primary: false,
           });
@@ -83,7 +83,7 @@ export const collectionRouter = createTRPCRouter({
         );
 
         const updateCollectionTemplateCall = CollectionTemplateModel.updateOne(
-          { collection_name: collection.name, name:template.name },
+          { collection_name: collection.name, name: template.name },
           {
             $set: {
               schema: template.schema,
@@ -121,10 +121,10 @@ export const collectionRouter = createTRPCRouter({
 
         const patientTemplate = await CollectionTemplateModel.findOne({
           collection_name: collection?.name,
-          name: "patient"
+          name: "patient",
         });
 
-        if ((!mainTemplate && !patientTemplate) && !collection) {
+        if (!mainTemplate && !patientTemplate && !collection) {
           throw new Error("Not Found");
         }
 
@@ -136,10 +136,10 @@ export const collectionRouter = createTRPCRouter({
             name: template?.name,
             collection_name: collection?.name,
             primary: template?.primary,
-            is_printable: template?.is_printable,
+            isPrintable: template?.is_printable,
             schema: template?.schema,
           },
-          patient_template: patientTemplate
+          patient_template: patientTemplate,
         };
       } catch (e) {
         console.error(e);

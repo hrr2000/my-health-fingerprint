@@ -11,6 +11,7 @@ import GenericButton from "@/components/common/GenericButton";
 import { GoTextSize } from "react-icons/go";
 import { TiSortNumerically } from "react-icons/ti";
 import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
+import { TemplateComponent } from "../types";
 
 type FieldType = "text" | "number" | "select";
 
@@ -107,7 +108,8 @@ export default function AddFieldModal() {
               if (!rowVal) {
                 return;
               }
-              rowVal[cell.columnIndex] = fieldObject;
+              (rowVal as Partial<TemplateComponent>[])[cell.columnIndex] =
+                fieldObject;
               setTemplateDetails?.((obj) => ({
                 ...obj,
                 schema,

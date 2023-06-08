@@ -2,7 +2,7 @@ import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/Templ
 import TextInput from "@/components/form/sub/TextInput";
 import { Form, Formik } from "formik";
 import GenericButton from "@/components/common/GenericButton";
-import { type TemplateDetails } from "../types";
+import { type TemplateComponent, type TemplateDetails } from "../types";
 import { api } from "@/utils/api";
 
 function GenericField(props: { label?: string; name?: string; type?: string }) {
@@ -18,7 +18,9 @@ function GenericField(props: { label?: string; name?: string; type?: string }) {
 }
 
 function schemaToObject(schema?: TemplateDetails["schema"]) {
-  return schema?.reduce<{ [k: string]: string }>((obj, row) => {
+  return (schema as Partial<TemplateComponent>[][])?.reduce<{
+    [k: string]: string;
+  }>((obj, row) => {
     for (const i of row) {
       const fieldName = i.name;
       if (fieldName) {
@@ -44,16 +46,18 @@ export default function WriteView({
     { collectionName, templateName: "patient" },
     { enabled: !!collectionName }
   );
+
   const {
     mutate: addEntry,
     isLoading: isAddingEntry,
     isSuccess,
     error,
   } = api.patient.addEntryToCollection.useMutation();
-  schemaToObject;
-  console.log({ isAddingEntry, isSuccess, error });
 
   const isInCollectionsPage = !collectionName;
+  const sourceSchema = (
+    isInCollectionsPage ? templateDetails.schema : data?.schema
+  ) as Partial<TemplateComponent>[][];
   return (
     <Formik
       initialValues={
@@ -65,7 +69,6 @@ export default function WriteView({
         if (!isInCollectionsPage && !!patientId) {
           addEntry({ collectionName, patientId, data: x });
         } else {
-
         }
       }}
       enableReinitialize
@@ -77,10 +80,7 @@ export default function WriteView({
               isInCollectionsPage ? "grid" : ""
             } grid-cols-12 justify-center gap-3`}
           >
-            {(isInCollectionsPage
-              ? templateDetails.schema
-              : (JSON.parse(data?.schema || "[]") as TemplateDetails["schema"])
-            ).map((row) => {
+            {sourceSchema?.map((row) => {
               return (
                 <>
                   {row.map((col) => {
