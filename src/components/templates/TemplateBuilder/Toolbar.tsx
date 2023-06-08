@@ -4,29 +4,47 @@ import TextInput from "@/components/form/sub/TextInput";
 import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 import ToolbarController from "@/components/templates/TemplateBuilder/controllers/ToolbarController";
 import { useEffect } from "react";
-import {CiCircleCheck, CiEdit, CiWarning} from "react-icons/ci";
+import { CiCircleCheck, CiEdit, CiWarning } from "react-icons/ci";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { type CollectionDetails, type TemplateDetails } from "./types";
-import {BiEdit} from "react-icons/bi";
+import { BiEdit } from "react-icons/bi";
 import GenericButton from "@/components/common/GenericButton";
-import {api} from "@/utils/api";
-import {parseTemplate} from "@/components/templates/TemplateBuilder/controllers/BuilderController";
+import { api } from "@/utils/api";
+import { parseTemplate } from "@/components/templates/TemplateBuilder/controllers/BuilderController";
 
 const ToolbarForm = ({
   values,
-  toolbarController
+  toolbarController,
 }: {
   values: {
     collection: CollectionDetails;
     template: TemplateDetails;
   };
-  toolbarController: ReturnType<typeof ToolbarController>
+  toolbarController: ReturnType<typeof ToolbarController>;
 }) => {
-
-  const { setCollectionDetails, setTemplateDetails, mutationState, setBuilderView, builderView } =
-    useTemplateBuilder();
+  const {
+    setCollectionDetails,
+    setTemplateDetails,
+    mutationState,
+    setBuilderView,
+    builderView,
+  } = useTemplateBuilder();
 
   const { isSaving, isSaved, savingError } = toolbarController;
+  const { data } = api.template.findOne.useQuery(
+    {
+      collectionName: values.collection.name,
+      templateName: values.template.name || "",
+    },
+    {
+      enabled: !!values.template.name,
+    }
+  );
+
+  useEffect(() => {
+    if (!data || mutationState.current != "update") return;
+    setTemplateDetails(parseTemplate(data.template));
+  }, [data]);
 
   useEffect(() => {
     setCollectionDetails((prevCollection) => ({
@@ -42,9 +60,13 @@ const ToolbarForm = ({
   return (
     <Form>
       <div className={`w-full py-2 px-4`}>
-        <button type={'button'} onClick={() => {
-          setBuilderView(state => !state);
-        }} className={`flex w-full mb-3 border-[1px] border-primary gap-1 items-center justify-center text-highlight p-2`}>
+        <button
+          type={"button"}
+          onClick={() => {
+            setBuilderView((state) => !state);
+          }}
+          className={`mb-3 flex w-full items-center justify-center gap-1 border-[1px] border-primary p-2 text-highlight`}
+        >
           <span>
             <BiEdit />
           </span>
@@ -97,23 +119,22 @@ const ToolbarForm = ({
             label="Description"
             placeholder="Description ..."
           />
-          {mutationState.current == 'update' && (
-            <div className="column flex flex-col gap-2 w-full">
-              <label className="font-normal capitalize text-gray-500" htmlFor={"template.name"}>
+          {mutationState.current == "update" && (
+            <div className="column flex w-full flex-col gap-2">
+              <label
+                className="font-normal capitalize text-gray-500"
+                htmlFor={"template.name"}
+              >
                 Template Name
               </label>
-                <Field
-                  as={"select"}
-                  name={"template.name"}
-                  className={`text-sm`}
-                >
-                  {!values.collection.isPatientSpecific && (
-                    <option value={"main"}>main</option>
-                  )}
-                  {values.collection.isPatientProfile && (
-                    <option value={"patient"}>patient</option>
-                  )}
-                </Field>
+              <Field as={"select"} name={"template.name"} className={`text-sm`}>
+                {!values.collection.isPatientSpecific && (
+                  <option value={"main"}>main</option>
+                )}
+                {values.collection.isPatientProfile && (
+                  <option value={"patient"}>patient</option>
+                )}
+              </Field>
             </div>
           )}
         </div>
@@ -160,20 +181,24 @@ const ToolbarForm = ({
         </div>
       </div>
       <div className={`w-full py-2 px-4`}>
-        <GenericButton theme={'primary'} text={'Save'} full />
+        <GenericButton theme={"primary"} text={"Save"} full />
       </div>
     </Form>
   );
 };
 
 export default function Toolbar() {
-  const { collectionDetails, templateDetails, setTemplateDetails, mutationState } = useTemplateBuilder();
+  const {
+    collectionDetails,
+    templateDetails,
+    setTemplateDetails,
+    mutationState,
+  } = useTemplateBuilder();
   const toolbarController = ToolbarController();
   const { saveData } = toolbarController;
 
-
   return (
-    <section className="flex flex-col border-slate-200 p-5 pb-16 text-black bg-white">
+    <section className="flex flex-col border-slate-200 bg-white p-5 pb-16 text-black">
       <Formik
         initialValues={{
           collection: collectionDetails,
@@ -195,19 +220,12 @@ export default function Toolbar() {
         validationSchema={createCollectionFormSchema}
       >
         {({ values }) => {
-          const { data } = api.template.findOne.useQuery({
-            collectionName: values.collection.name,
-            templateName: values.template.name
-          }, {
-            enabled: !!values.template.name
-          })
-
-          useEffect(() => {
-            if(!data || mutationState.current != 'update') return;
-            setTemplateDetails(parseTemplate(data.template));
-          }, [data]);
-
-          return <ToolbarForm toolbarController={toolbarController} values={values} />;
+          return (
+            <ToolbarForm
+              toolbarController={toolbarController}
+              values={values}
+            />
+          );
         }}
       </Formik>
     </section>

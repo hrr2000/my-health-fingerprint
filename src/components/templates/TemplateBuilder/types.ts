@@ -1,7 +1,7 @@
 export interface TemplateDetails {
-  name: string;
-  schema: Partial<TemplateComponent>[][];
-  isPrintable: boolean;
+  name?: string;
+  schema?: Partial<TemplateComponent>[][] | string;
+  isPrintable?: boolean;
 }
 
 export interface CollectionDetails {

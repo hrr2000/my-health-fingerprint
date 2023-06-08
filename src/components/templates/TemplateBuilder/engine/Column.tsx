@@ -1,8 +1,8 @@
 import { IoIosAdd } from "react-icons/io";
 
 import { fields } from "@/components/templates/TemplateBuilder/modals/AddFieldModal";
-import {TemplateComponent} from "@/components/templates/TemplateBuilder/types";
-import {useTemplateBuilder} from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
+import { type TemplateComponent } from "@/components/templates/TemplateBuilder/types";
+import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 
 export default function Column({
   rowIndex,
@@ -16,10 +16,10 @@ export default function Column({
 }) {
   const { openModal, templateDetails } = useTemplateBuilder();
 
-  const data = templateDetails.schema[rowIndex]?.[columnIndex];
+  const data = templateDetails.schema?.[rowIndex]?.[
+    columnIndex
+  ] as Partial<TemplateComponent>;
   const isFilled = !!data && Object.keys(data).length;
-  console.log(fields);
-  console.log(templateDetails.schema);
 
   return (
     <div

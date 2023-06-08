@@ -1,24 +1,27 @@
 import {
-  CollectionDetails,
+  type CollectionDetails,
   collectionDetailsInitialValues,
-  TemplateComponent,
-  TemplateDetails,
+  type TemplateComponent,
+  type TemplateDetails,
   templateDetailsInitialValues,
 } from "@/components/templates/TemplateBuilder/types";
 import { api } from "@/utils/api";
+import { off } from "process";
 import { useEffect, useRef, useState } from "react";
 
 export type IBuilderController = ReturnType<typeof BuilderController>;
 
-export function parseTemplate(template: any): TemplateDetails {
-  return {
-    ...template,
-    schema: JSON.parse(
-      template.schema || "[]"
-    ) as Partial<TemplateComponent>[][],
-    isPrintable: template.is_printable,
-    name: template.name || "",
-  };
+export function parseTemplate(template: TemplateDetails): TemplateDetails {
+  const templateSchema = template.schema;
+  if (typeof templateSchema === "string") {
+    return {
+      ...template,
+      schema: JSON.parse(templateSchema) as Partial<TemplateComponent>[][],
+      isPrintable: template.isPrintable,
+      name: template.name || "",
+    };
+  }
+  return templateDetailsInitialValues;
 }
 
 export default function BuilderController({ slug }: { slug: string | null }) {
@@ -26,8 +29,12 @@ export default function BuilderController({ slug }: { slug: string | null }) {
   // if null then state is create -> call create mutation endpoint
   // if not then state is update -> call update mutation endpoint
 
-  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(templateDetailsInitialValues);
-  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(collectionDetailsInitialValues);
+  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
+    templateDetailsInitialValues
+  );
+  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
+    collectionDetailsInitialValues
+  );
   const [builderView, setBuilderView] = useState(false);
 
   const mutationState = useRef<"update" | "create">(slug ? "update" : "create");
@@ -55,10 +62,13 @@ export default function BuilderController({ slug }: { slug: string | null }) {
 
   // builder actions
   const removeRow = (index: number) => {
-    setTemplateDetails({
-      ...templateDetails,
-      schema: templateDetails.schema.filter((_, idx) => idx != index),
-    });
+    const row = templateDetails.schema;
+    if (row && Array.isArray(row)) {
+      setTemplateDetails({
+        ...templateDetails,
+        schema: row.filter((_, idx) => idx != index),
+      });
+    }
   };
 
   const updateColumn = (
@@ -67,11 +77,14 @@ export default function BuilderController({ slug }: { slug: string | null }) {
     updateQuery: Partial<TemplateComponent>
   ) => {
     const tmpSchema = templateDetails.schema;
-    if (tmpSchema[rowIndex]) {
+    if (tmpSchema?.[rowIndex]) {
       const columns = tmpSchema[rowIndex];
-      if (columns) {
-        columns[columnIndex] = {
-          ...tmpSchema?.[rowIndex]?.[columnIndex],
+      let column = columns?.[columnIndex];
+      if (columns && column) {
+        column = {
+          ...(tmpSchema?.[rowIndex]?.[
+            columnIndex
+          ] as Partial<TemplateComponent>[][]),
           ...updateQuery,
         };
       }
@@ -86,10 +99,13 @@ export default function BuilderController({ slug }: { slug: string | null }) {
     if (!columnsCount || columnsCount > 4 || columnsCount < 1) return;
     const row = [];
     for (let i = 0; i < columnsCount; i++) row.push({});
-    setTemplateDetails({
-      ...templateDetails,
-      schema: [...templateDetails.schema, row],
-    });
+    const schema = templateDetails.schema;
+    if (schema && Array.isArray(schema)) {
+      setTemplateDetails({
+        ...templateDetails,
+        schema: [...schema, row],
+      });
+    }
   };
 
   return {

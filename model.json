@@ -40,6 +40,7 @@
     {
       "id": "842ff2a5-40ca-4a0e-9ac7-c066e8a42c2a",
       "name": "Ain shams University",
+      "owners": [1, 2, 3, 4],
       "roles": [
         {
           "slug": "owner",
