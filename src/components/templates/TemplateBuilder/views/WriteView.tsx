@@ -106,7 +106,7 @@ export default function WriteView({
             {/*>*/}
             {/*  <span>Save</span>*/}
             {/*</button>*/}
-            {templateDetails.name == 'main' && (
+            {templateDetails.name == 'main' && mutationState.current == 'update' && (
               <GenericButton
                 type="submit"
                 theme={"primary"}
