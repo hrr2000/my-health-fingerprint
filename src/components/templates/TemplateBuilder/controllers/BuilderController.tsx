@@ -14,10 +14,10 @@ export function parseTemplate(template: any): TemplateDetails {
   return {
     ...template,
     schema: JSON.parse(
-      template.schema || "[]"
+      template?.schema || "[]"
     ) as Partial<TemplateComponent>[][],
-    isPrintable: template.is_printable,
-    name: template.name || "",
+    isPrintable: template?.is_printable,
+    name: template?.name || "",
   };
 }
 

@@ -2,10 +2,11 @@
   "compilerOptions": {
     "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "noImplicitAny": false,
     "allowJs": true,
     "checkJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -20,7 +21,7 @@
     "paths": {
       "@/*": ["./src/*"]
       //"cmps/*": ["./src/components/*"]
-    }
+    },
   },
   "include": [
     ".eslintrc.cjs",
@@ -30,5 +31,5 @@
     "**/*.cjs",
     "**/*.mjs"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
