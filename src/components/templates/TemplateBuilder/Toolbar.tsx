@@ -97,23 +97,25 @@ const ToolbarForm = ({
             label="Description"
             placeholder="Description ..."
           />
-          <div className="column flex flex-col gap-2 w-full">
-            <label className="font-normal capitalize text-gray-500" htmlFor={"template.name"}>
-              Template Name
-            </label>
-            <Field
-              as={"select"}
-              name={"template.name"}
-              className={`text-sm`}
-            >
-              {!values.collection.isPatientSpecific && (
-                <option value={"main"}>main</option>
-              )}
-              {values.collection.isPatientProfile && mutationState.current != "create" && (
-                <option value={"patient"}>patient</option>
-              )}
-            </Field>
-          </div>
+          {mutationState.current == 'update' && (
+            <div className="column flex flex-col gap-2 w-full">
+              <label className="font-normal capitalize text-gray-500" htmlFor={"template.name"}>
+                Template Name
+              </label>
+                <Field
+                  as={"select"}
+                  name={"template.name"}
+                  className={`text-sm`}
+                >
+                  {!values.collection.isPatientSpecific && (
+                    <option value={"main"}>main</option>
+                  )}
+                  {values.collection.isPatientProfile && (
+                    <option value={"patient"}>patient</option>
+                  )}
+                </Field>
+            </div>
+          )}
         </div>
       </div>
       <div className={`w-full py-2 px-4`}>
@@ -165,7 +167,7 @@ const ToolbarForm = ({
 };
 
 export default function Toolbar() {
-  const { collectionDetails, templateDetails, setTemplateDetails } = useTemplateBuilder();
+  const { collectionDetails, templateDetails, setTemplateDetails, mutationState } = useTemplateBuilder();
   const toolbarController = ToolbarController();
   const { saveData } = toolbarController;
 
@@ -201,7 +203,7 @@ export default function Toolbar() {
           })
 
           useEffect(() => {
-            if(!data) return;
+            if(!data || mutationState.current != 'update') return;
             setTemplateDetails(parseTemplate(data.template));
           }, [data]);
 

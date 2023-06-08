@@ -31,25 +31,23 @@ export const collectionRouter = createTRPCRouter({
         });
         const { name: collection_name } = await customCollection.save();
 
-        if(!collection.isPatientSpecific) {
-          // Create the primary template for this collection using the collection id returned after save.
+        {
           const collectionTemplate = new CollectionTemplateModel({
             collection_name,
-            schema: template.schema,
-            name: template.name,
+            schema: '[]',
+            name: 'main',
             is_printable: template.isPrintable,
             primary: true,
           });
           await collectionTemplate.save();
         }
 
-        if(collection.isPatientProfile) {
-          // Create the patient template for this collection using the collection id returned after save.
+        {
           const collectionTemplate = new CollectionTemplateModel({
             collection_name,
             schema: '[]',
             name: 'patient',
-            is_printable: false,
+            is_printable: template.isPrintable,
             primary: false,
           });
           await collectionTemplate.save();

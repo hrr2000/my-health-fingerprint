@@ -65,7 +65,7 @@ export default function WriteView({
         if (!isInCollectionsPage && !!patientId) {
           addEntry({ collectionName, patientId, data: x });
         } else {
-          console.log("he5a");
+
         }
       }}
       enableReinitialize

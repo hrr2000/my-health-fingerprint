@@ -21,7 +21,7 @@ export interface TemplateComponent {
 }
 
 export const templateDetailsInitialValues = {
-  name: "",
+  name: "main",
   schema: [],
   isPrintable: false,
 };
