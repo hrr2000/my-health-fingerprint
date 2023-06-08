@@ -31,6 +31,58 @@ function schemaToObject(schema?: TemplateDetails["schema"]) {
   }, {});
 }
 
+function PatientViewController(collectionName: string, patientId: string) {
+
+  const { data } = api.template.getSchema.useQuery(
+    { collectionName, templateName: "patient" },
+    { enabled: !!collectionName }
+  );
+
+  const {
+    mutate: save,
+    isLoading,
+    isSuccess,
+    error,
+  } = api.patient.addEntryToCollection.useMutation();
+
+  return {
+    data,
+    isLoading,
+    save: (obj) => save({collectionName, patientId, data: obj as object}),
+    schema: (data?.schema || []) as Partial<TemplateComponent>[][],
+    isSuccess,
+    error,
+    isSubmittable: false
+  }
+}
+
+function CollectionViewController(collectionName: string) {
+
+  const { templateDetails, mutationState } = useTemplateBuilder();
+  const { data } = api.template.getSchema.useQuery(
+    { collectionName, templateName: templateDetails.name },
+    { enabled: !!collectionName }
+  );
+
+  const {
+    mutate: save,
+    isLoading,
+    isSuccess,
+    error,
+  } = api.collection.addEntry.useMutation();
+
+  return {
+    data,
+    isLoading,
+    save: (obj) => save({collectionName, data: obj as object}),
+    schema: templateDetails.schema as Partial<TemplateComponent>[][],
+    isSuccess,
+    error,
+    isSubmittable: templateDetails.name == 'main' && mutationState.current == 'update'
+  }
+}
+
+
 interface IProps {
   collectionName?: string;
   patientId?: string;
@@ -40,24 +92,11 @@ export default function WriteView({
   collectionName = "",
   patientId = "",
 }: IProps) {
-  const { collectionDetails, templateDetails, mutationState } =
-    useTemplateBuilder();
-  const { data, isLoading } = api.template.getSchema.useQuery(
-    { collectionName, templateName: "patient" },
-    { enabled: !!collectionName }
-  );
+  const isInCollectionsPage = !patientId;
 
-  const {
-    mutate: addEntry,
-    isLoading: isAddingEntry,
-    isSuccess,
-    error,
-  } = api.patient.addEntryToCollection.useMutation();
+  const {data, isLoading, schema, save, isSubmittable} = (isInCollectionsPage ? CollectionViewController(collectionName) : PatientViewController(collectionName, patientId))
 
-  const isInCollectionsPage = !collectionName;
-  const sourceSchema = (
-    isInCollectionsPage ? templateDetails.schema : data?.schema
-  ) as Partial<TemplateComponent>[][];
+
   return (
     <Formik
       initialValues={
@@ -66,10 +105,7 @@ export default function WriteView({
         ) || {}
       }
       onSubmit={(x) => {
-        if (!isInCollectionsPage && !!patientId) {
-          addEntry({ collectionName, patientId, data: x });
-        } else {
-        }
+        save(x);
       }}
       enableReinitialize
     >
@@ -80,7 +116,7 @@ export default function WriteView({
               isInCollectionsPage ? "grid" : ""
             } grid-cols-12 justify-center gap-3`}
           >
-            {sourceSchema?.map((row) => {
+            {schema?.map((row) => {
               return (
                 <>
                   {row.map((col) => {
@@ -106,7 +142,7 @@ export default function WriteView({
             {/*>*/}
             {/*  <span>Save</span>*/}
             {/*</button>*/}
-            {templateDetails.name == 'main' && mutationState.current == 'update' && (
+            {isSubmittable && (
               <GenericButton
                 type="submit"
                 theme={"primary"}
