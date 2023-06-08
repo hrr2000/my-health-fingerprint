@@ -128,7 +128,7 @@ export const collectionRouter = createTRPCRouter({
           throw new Error("Not Found");
         }
 
-        const template = mainTemplate ? mainTemplate : patientTemplate;
+        const template = (!collection?.is_patient_specific ? mainTemplate : patientTemplate);
 
         return {
           collection,
