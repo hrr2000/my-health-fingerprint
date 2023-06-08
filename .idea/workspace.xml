@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/Toolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/views/WriteView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/views/WriteView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/api/routers/collection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/collection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/controllers/BuilderController.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/templates/TemplateBuilder/controllers/BuilderController.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +98,7 @@
       <workItem from="1686067352222" duration="689000" />
       <workItem from="1686139727723" duration="2096000" />
       <workItem from="1686151239649" duration="14816000" />
-      <workItem from="1686212858276" duration="5583000" />
+      <workItem from="1686212858276" duration="10138000" />
     </task>
     <servers />
   </component>
