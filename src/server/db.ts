@@ -16,7 +16,7 @@ export async function dbConnect() {
   if (cached.conn) {
     return cached.conn;
   }
-  if (cached.promise === undefined) {
+  if (cached.promise === null) {
     const opts = {
       bufferCommands: false,
       autoIndex: true,
