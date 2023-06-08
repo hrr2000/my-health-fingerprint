@@ -56,11 +56,11 @@ export const collectionRouter = createTRPCRouter({
       } catch (e) {
         await session.abortTransaction();
         throw new TRPCError({
-          message: `Collection Isn't Created!`,
+          message: `Failed to create a collection!`,
           code: "INTERNAL_SERVER_ERROR",
         });
       } finally {
-        session.endSession();
+        await session.endSession();
       }
     }),
 
