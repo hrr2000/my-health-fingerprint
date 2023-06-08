@@ -9,6 +9,16 @@ import {
 import { TRPCError } from "@trpc/server";
 
 export const organizationRouter = createTRPCRouter({
+  addRole: protectedProcedure.input(z.object({})).query(async () => {
+    return await Promise.resolve(1);
+  }),
+
+  updateRole: protectedProcedure.input(z.object({})).query(async () => {
+    return await Promise.resolve(1);
+  }),
+  deleteRole: protectedProcedure.input(z.object({})).query(async () => {
+    return await Promise.resolve(1);
+  }),
   find: publicProcedure
     .input(z.object({ nationalId: z.string() }))
     .query(async ({ input: { nationalId } }) => {
