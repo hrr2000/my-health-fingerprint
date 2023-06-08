@@ -66,20 +66,22 @@ const ToolbarForm = ({
   return (
     <Form>
       <div className={`w-full py-2 px-4`}>
-        <button
-          type={"button"}
-          onClick={() => {
-            setBuilderView((state) => !state);
-          }}
-          className={`mb-3 flex w-full items-center justify-center gap-1 border-[1px] border-primary p-2 text-highlight`}
-        >
+        {mutationState.current == 'update' && (
+          <button
+            type={"button"}
+            onClick={() => {
+              setBuilderView((state) => !state);
+            }}
+            className={`mb-3 flex w-full items-center justify-center gap-1 border-[1px] border-primary p-2 text-highlight`}
+          >
           <span>
             <BiEdit />
           </span>
-          <span>
+            <span>
             {!builderView ? "Enable builder mode" : "Disable builder mode"}
           </span>
-        </button>
+          </button>
+        )}
         {savingError && (
           <div
             className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-red-500 p-2 text-red-500`}
