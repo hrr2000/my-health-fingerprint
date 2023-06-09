@@ -135,7 +135,7 @@ const ToolbarForm = ({
               >
                 Template Name
               </label>
-              <Field as={"select"} name={"template.name"} className={`text-sm`}>
+              <Field as={"select"} name={"template.name"} className={`text-sm border-gray-300 bg-slate-100 rounded-md`}>
                 {!values.collection.isPatientSpecific && (
                   <option value={"main"}>main</option>
                 )}
