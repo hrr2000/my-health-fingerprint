@@ -4,8 +4,37 @@ import { Form, Formik } from "formik";
 import GenericButton from "@/components/common/GenericButton";
 import { type TemplateComponent, type TemplateDetails } from "../types";
 import { api } from "@/utils/api";
+import { Field } from "formik";
 
-function GenericField(props: { label?: string; name?: string; type?: string }) {
+function GenericField(props: { label?: string; name?: string; type?: string, collection?: string }) {
+  
+  const { data } = api.collection.getEntries.useQuery(
+    { collectionName: props.collection },
+    { enabled: (props?.type === 'select') }
+  );
+
+  console.log(data?.entries);
+
+  if(props.type == 'select') {
+    return (
+      <div className="column flex w-full flex-col gap-2">
+        <label
+          className="font-normal capitalize text-gray-500"
+          htmlFor={props.name}
+        >
+          {props.name}
+        </label>
+        <Field as={"select"} name={props.name} className={`text-sm text-black`}>
+          {data?.entries?.map((option: {[k:string]: string}, idx) => {
+            return (
+              <option key={`select-${option?.name}-${idx}`} value={option?.name}>{option.name}</option>
+            )
+          })}
+        </Field>
+      </div>
+    )
+  }
+
   return (
     <TextInput
       className={`w-full rounded-md border-[1px] border-slate-300 bg-slate-100 text-black`}
