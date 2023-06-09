@@ -102,7 +102,7 @@ const PatientCollectionDetailsView = ({
   const [fieldValue, setFieldValue] = useState("");
   const { currentTab } = useTabsContext();
 
-  const { data, isLoading } =
+  const { data, isLoading, refetch } =
     api.patient.getRegisteredCollectionDetails.useQuery(
       {
         collection_name: tabName,

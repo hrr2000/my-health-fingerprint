@@ -26,8 +26,8 @@ export default function ReadView({
   fieldValue,
 }: {
   data: IRow[];
-  fieldName: string;
-  fieldValue: string;
+  fieldName?: string;
+  fieldValue?: string;
 }) {
   // implementation for now
 
