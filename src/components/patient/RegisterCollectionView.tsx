@@ -2,6 +2,8 @@ import React from "react";
 import { api } from "@/utils/api";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import Link from "next/link";
+import {CiMedicalCase} from 'react-icons/ci';
+
 export default function RegisterCollectionView({
   patientId,
   registeredCollections,
@@ -50,17 +52,20 @@ export default function RegisterCollectionView({
           </div>
         </div>
       ) : (
-        <div className={`relative grid w-full grid-cols-collections`}>
+        <div className={`relative grid w-full grid-cols-collections gap-5 content-start`}>
           {data.map(({ name }) => (
             <button
               disabled={isRegistering}
               onClick={() => {
                 mutate({ collectionName: name, patientId });
               }}
-              className={`relative flex h-40 w-full flex-col items-center justify-center gap-4 rounded-xl border-[3px] border-transparent p-5 capitalize duration-300 disabled:grayscale hover:border-primary hover:shadow-lg`}
+              className={`relative flex w-full flex-col items-start justify-center rounded-xl border-[1px] border-slate-300 p-5 capitalize duration-300 disabled:grayscale hover:border-primary hover:shadow-lg`}
               key={name}
-            >
-              {name}
+            > 
+              <div className="flex items-center gap-2">
+                <span><CiMedicalCase size={23} /></span>
+                <span>{name}</span>
+              </div>
               {isRegistering && <LoadingSpinner />}
             </button>
           ))}

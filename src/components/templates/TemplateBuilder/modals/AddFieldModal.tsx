@@ -6,6 +6,7 @@ import {
   useState,
   type Dispatch,
   type SetStateAction,
+  ChangeEventHandler,
 } from "react";
 import GenericButton from "@/components/common/GenericButton";
 import { GoTextSize } from "react-icons/go";
@@ -182,7 +183,7 @@ function PreferencesStep({
 }) {
   const { fieldObject } = useTemplateBuilder();
   const handleChange = (key: string) => {
-    return (e: ChangeEvent<HTMLInputElement>) =>
+    return (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) =>
       void setFieldObject((obj: object) => ({ ...obj, [key]: e.target.value }));
   };
 
@@ -202,12 +203,40 @@ function PreferencesStep({
           onChange={handleChange("name")}
         />
         {fieldObject?.type === "select" && (
-            <input
-              type="text"
-              placeholder="Collection"
-              name="collection"
-              onChange={handleChange("collection")}
-            />
+            <>
+            <div className="flex flex-col w-full gap-3">
+              <div className="space-x-2">
+                <input 
+                  type="checkbox"
+                  name="is_collection"
+                  className="focus:ring-0"
+                  onChange={(e) => { 
+                    void setFieldObject((obj: object) => ({ ...obj, ['is_collection']: e.target.checked }));
+                  }}
+                />
+                <label htmlFor="is_collection">collection</label>
+              </div>
+              {fieldObject?.is_collection ? (
+                <>
+                  <input
+                    type="text"
+                    placeholder="Collection Name"
+                    name="collection"
+                    onChange={handleChange("collection")}
+                  />
+                </>
+              ) : (
+                <>
+                  <textarea
+                    rows={1}
+                    placeholder="option1;option2;option3..."
+                    name="options"
+                    onChange={handleChange("options")}
+                  />
+                </>
+              )}
+            </div>
+            </>
           )
         }
       </form>

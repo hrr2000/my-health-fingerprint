@@ -5,8 +5,11 @@ import {
   CiMedicalCase,
   CiSettings,
   CiViewBoard,
+  CiGrid41,
+  CiHospital1
 } from "react-icons/ci";
 import { RiHospitalLine } from "react-icons/ri";
+import { GoOrganization } from "react-icons/go";
 import { MdOutlineShield } from "react-icons/md";
 
 export const routes: {
@@ -50,12 +53,12 @@ export const routes: {
     },
     {
       href: "dashboard/organizations",
-      image: <RiHospitalLine className="h-[25px] w-[25px] shrink-0" />,
+      image: <CiHospital1 className="h-[25px] w-[25px] shrink-0" />,
       display_text: "Organizations",
     },
     {
       href: "dashboard/roles",
-      image: <MdOutlineShield className="h-[25px] w-[25px] shrink-0" />,
+      image: <CiGrid41 className="h-[25px] w-[25px] shrink-0" />,
       display_text: "Roles",
     },
     {
