@@ -11,7 +11,7 @@ const { Schema } = mongoose;
 const dataSchema = new Schema({}, { strict: false });
 
 const collectionSchema = new Schema({
-  collection_name: { type: String, required: true, unique: true },
+  collection_name: { type: String, unique: true },
   data: [dataSchema],
 });
 const relativePhoneNumbersSchema = new Schema<PatientRelativePhoneNumbers>({

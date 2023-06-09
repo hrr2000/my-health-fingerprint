@@ -167,8 +167,9 @@ export const patientRouter = createTRPCRouter({
           phone_number: "",
           address: [],
           relative_phone_numbers: [],
-        } as PatientDocument["profile"],
-      });
+        },
+        health_record: [],
+      } as PatientDocument);
       if (!doc) {
         throw new TRPCError({
           message: `Failed to create user with nationalId ${nationalId}`,
@@ -237,7 +238,7 @@ export const patientRouter = createTRPCRouter({
         CollectionTemplateModel.findOne(
           {
             collection_name,
-            name: "patient"
+            name: "patient",
           },
           { schema: true }
         ),
