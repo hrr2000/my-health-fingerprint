@@ -5,6 +5,9 @@ import GenericButton from "@/components/common/GenericButton";
 import { type TemplateComponent, type TemplateDetails } from "../types";
 import { api } from "@/utils/api";
 import { Field } from "formik";
+import { CiCircleCheck, CiEdit, CiWarning } from "react-icons/ci";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { TypeOf } from "zod";
 
 function parseOptions(options: string) {
   return options.split(';').map((option: string) => {
@@ -151,15 +154,22 @@ function CollectionViewController(collectionName: string) {
 interface IProps {
   collectionName?: string;
   patientId?: string;
+  callback?: any;
 }
 
 export default function WriteView({
   collectionName = "",
   patientId = "",
+  callback = () => null
 }: IProps) {
   const isInCollectionsPage = !patientId;
 
-  const {data, isLoading, schema, save, isSubmittable} = (isInCollectionsPage ? CollectionViewController(collectionName) : PatientViewController(collectionName, patientId))
+  const {data, isLoading, isSuccess, error, schema, save, isSubmittable} = (isInCollectionsPage ? CollectionViewController(collectionName) : PatientViewController(collectionName, patientId))
+
+  if(isSuccess) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    if(callback) callback?.();
+  }
 
   return (
     <Formik
@@ -176,8 +186,8 @@ export default function WriteView({
       {() => (
         <Form>
           <div
-            className={`min-h-[50px] w-full  ${
-              isInCollectionsPage ? "grid" : ""
+            className={`min-h-[50px] ${
+              isInCollectionsPage ? "grid w-full" : "grid w-[800px]"
             } grid-cols-12 justify-center gap-3`}
           >
             {schema?.map((row) => {
@@ -201,19 +211,47 @@ export default function WriteView({
                 </>
               );
             })}
-            {/*<button*/}
-            {/*  className="w-32 my-2 rounded-md bg-black p-2 text-white transition-all disabled:bg-slate-700 hover:shadow-lg"*/}
-            {/*>*/}
-            {/*  <span>Save</span>*/}
-            {/*</button>*/}
             {isSubmittable && (
-              <GenericButton
+              <button
                 type="submit"
-                theme={"primary"}
-                text={"Save Details"}
-              />
+                className={`my-2 flex justify-center w-max text-md rounded-md border-[1px] border-primary bg-primary p-2 px-4 font-semibold text-white shadow-lg shadow-sky-200 transition hover:border-primary-hover hover:bg-primary-hover`}
+              >
+                <span>Save Details</span>
+              </button>
             )}
           </div>
+            <div>
+              {error && (
+                <div
+                  className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-red-500 p-2 text-red-500`}
+                >
+                  <span>
+                    <CiWarning />
+                  </span>
+                  <span>Unsaved Changes!</span>
+                </div>
+              )}
+              {isLoading && (
+                <div
+                  className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-yellow-500 p-2 text-yellow-500`}
+                >
+                  <span>
+                    <AiOutlineLoading3Quarters size={1} className="animate-spin" />
+                  </span>
+                  <span>Saving ...</span>
+                </div>
+              )}
+              {isSuccess && (
+                <div
+                  className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-green-500 p-2 text-green-500`}
+                >
+                  <span>
+                    <CiCircleCheck />
+                  </span>
+                  <span>Up to date</span>
+                </div>
+              )}
+            </div>
         </Form>
       )}
     </Formik>
