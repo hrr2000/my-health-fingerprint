@@ -11,7 +11,7 @@ import GenericButton from "@/components/common/GenericButton";
 import { GoTextSize } from "react-icons/go";
 import { TiSortNumerically } from "react-icons/ti";
 import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
-import { TemplateComponent } from "../types";
+import { type TemplateComponent } from "../types";
 import { CiCalendarDate } from "react-icons/ci";
 
 type FieldType = "text" | "number" | "select" | "date";
@@ -175,6 +175,7 @@ function PreferencesStep({
 }: {
   setFieldObject: Dispatch<SetStateAction<object>>;
 }) {
+  const { fieldObject } = useTemplateBuilder();
   const handleChange = (key: string) => {
     return (e: ChangeEvent<HTMLInputElement>) =>
       void setFieldObject((obj: object) => ({ ...obj, [key]: e.target.value }));
@@ -195,6 +196,15 @@ function PreferencesStep({
           name="name"
           onChange={handleChange("name")}
         />
+        {fieldObject?.type === "select" && (
+            <input
+              type="text"
+              placeholder="Collection"
+              name="collection"
+              onChange={handleChange("collection")}
+            />
+          )
+        }
       </form>
     </div>
   );

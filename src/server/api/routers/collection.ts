@@ -200,4 +200,15 @@ export const collectionRouter = createTRPCRouter({
         });
       }
     }),
+
+    getEntries: protectedProcedure.input(z.object({
+      collectionName: z.string(),
+    }))
+    .query(async ({input: { collectionName }}) => {
+      const entriesCursor = mongoose.connection.collection(collectionName).find({});
+      const entries = await entriesCursor.toArray();
+      return {
+        entries,
+      };
+    }),
 });
