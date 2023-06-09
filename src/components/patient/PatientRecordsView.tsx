@@ -99,10 +99,10 @@ const PatientCollectionDetailsView = ({
 }) => {
   const [isWriteViewModalOpen, setIsWriteViewModalOpen] = useState(false);
   const { currentTab } = useTabsContext();
-  const { data: d, isLoading } =
+  const { data: d, isLoading, refetch } =
     api.patient.getRegisteredCollectionDetails.useQuery(
       { collection_name: tabName, nationalId: patientId },
-      { enabled: currentTab === tabName && !!patientId, cacheTime: 0 }
+      { enabled: isWriteViewModalOpen || currentTab === tabName && !!patientId, cacheTime: 0 }
     );
 
   return (
@@ -183,7 +183,10 @@ const PatientCollectionDetailsView = ({
           </button>
         </header>
         <main>
-          <WriteView collectionName={currentTab} patientId={patientId} />
+          <WriteView collectionName={currentTab} patientId={patientId} callback={async () => {
+            setIsWriteViewModalOpen(false);
+            await refetch();
+          }} />
         </main>
       </Modal>
     </div>
