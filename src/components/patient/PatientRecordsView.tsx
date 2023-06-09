@@ -98,31 +98,43 @@ const PatientCollectionDetailsView = ({
   patientId: string;
 }) => {
   const [isWriteViewModalOpen, setIsWriteViewModalOpen] = useState(false);
+  const [fieldName, setFieldName] = useState("");
+  const [fieldValue, setFieldValue] = useState("");
   const { currentTab } = useTabsContext();
-  const { data: d, isLoading } =
+
+  const { data, isLoading } =
     api.patient.getRegisteredCollectionDetails.useQuery(
-      { collection_name: tabName, nationalId: patientId },
+      {
+        collection_name: tabName,
+        nationalId: patientId,
+      },
       { enabled: currentTab === tabName && !!patientId, cacheTime: 0 }
     );
 
+  const schema = JSON.parse(data?.collectionTemplate.schema || "[]") as {
+    is_collection?: boolean;
+    is_primary?: boolean;
+    collection: string;
+    label: string;
+    name: string;
+    type: string;
+  }[][];
+
   return (
     <div className="relative flex-1">
-      {!d && isLoading && <LoadingSpinner />}
-      {d && !d.collectionData?.length && (
+      {!data && isLoading && <LoadingSpinner />}
+      {data && data.collectionData && !data.collectionData?.length && (
         <div className="py-5">
-          There is no recprds. {" "}
+          There is no records.
           <button
             onClick={() => setIsWriteViewModalOpen(true)}
             className="rounded-full  text-highlight underline transition hover:scale-110"
           >
-            {/* <span>
-              <CiCirclePlus size={30} />
-            </span> */}
             add now
           </button>
         </div>
       )}
-      {d && !!d.collectionData?.length && (
+      {data && !!data.collectionData?.length && (
         <>
           <div className="mb-5 flex flex-col rounded-md bg-slate-100 py-3 px-6 shadow-md">
             {/* <h3 className="py-2 text-xl font-bold">Search :</h3> */}
@@ -130,20 +142,34 @@ const PatientCollectionDetailsView = ({
               <div className="space-x-2">
                 <select
                   className="rounded-md border-0 bg-slate-100 capitalize outline-0"
-                  name=""
-                  id=""
+                  name="fieldName"
+                  value={fieldName}
+                  onChange={(e) => setFieldName(e.target.value)}
                 >
-                  <option selected>field names</option>
-                  {renderOptions(d.collectionData)}
+                  <option value="">field names</option>
+                  {schema.map((row) =>
+                    row.map((col) => (
+                      <>
+                        {Object.entries(col).length && col.type !== "date" && (
+                          <option key={col.name} value={col.name}>
+                            {col.label}
+                          </option>
+                        )}
+                      </>
+                    ))
+                  )}
                 </select>
                 <input
                   className="w-96 rounded-md border-0 bg-slate-200 outline-0"
                   placeholder={"Search..."}
                   type="text"
-                  name=""
+                  onChange={(e) => setFieldValue(e.target.value)}
+                  value={fieldValue}
+                  name="fieldValue"
                   id=""
                 />
               </div>
+
               <button
                 onClick={() => setIsWriteViewModalOpen(true)}
                 className="rounded-full capitalize text-primary transition hover:scale-110"
@@ -154,7 +180,11 @@ const PatientCollectionDetailsView = ({
               </button>
             </div>
           </div>
-          <ReadView data={d.collectionData as { _id: string }[]} />
+          <ReadView
+            fieldName={fieldName}
+            fieldValue={fieldValue}
+            data={data.collectionData as { _id: string }[]}
+          />
         </>
       )}
       <Modal
@@ -190,25 +220,25 @@ const PatientCollectionDetailsView = ({
   );
 };
 
-function renderOptions<T>(data: T): React.ReactNode {
-  console.log(data);
-
-  if (Array.isArray(data) && typeof data[0] === "object") {
-    const temp = data as Array<object>;
-    const fieldNames = Object.entries(temp[0] || []);
-
-    return (
-      <>
-        {fieldNames.map(
-          ([k, _]) =>
-            k !== "_id" && (
-              <option key={k} value={k}>
-                {k}
-              </option>
-            )
-        )}
-      </>
-    );
-  }
-  return <></>;
-}
+// function renderOptions(
+//   rows: {
+//     is_collection?: boolean;
+//     is_primary?: boolean;
+//     collection: string;
+//     label: string;
+//     name: string;
+//     type: string;
+//   }[][]
+// ): React.ReactNode {
+//   return (
+//     <>
+//       {rows.map((row) =>
+//         row.map((col) => (
+//           <option key={col.name} value={col.name}>
+//             {col.label}
+//           </option>
+//         ))
+//       )}
+//     </>
+//   );
+// }

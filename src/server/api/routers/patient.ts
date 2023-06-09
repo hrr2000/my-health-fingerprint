@@ -248,7 +248,7 @@ export const patientRouter = createTRPCRouter({
       }
       return {
         collectionData: collectionData.health_record[0]?.data,
-        collectionTemplate: collectionTemplate.schema,
+        collectionTemplate,
       };
     }),
   addEntryToCollection: protectedProcedure
