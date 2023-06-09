@@ -213,7 +213,14 @@ const PatientCollectionDetailsView = ({
           </button>
         </header>
         <main>
-          <WriteView collectionName={currentTab} patientId={patientId} />
+          <WriteView
+            collectionName={currentTab}
+            patientId={patientId}
+            callback={async () => {
+              setIsWriteViewModalOpen(false);
+              await refetch();
+            }}
+          />
         </main>
       </Modal>
     </div>
