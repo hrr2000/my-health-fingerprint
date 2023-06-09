@@ -20,6 +20,10 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
     { collectionName: props.collection },
     { enabled: (props?.type === 'select') }
   );
+  const { data: template } = api.template.getSchema.useQuery(
+    { collectionName: props.collection, templateName: "main" },
+    { enabled: !!props.collection }
+  );
 
   if(props.type == "textarea") {
     return (
@@ -28,7 +32,7 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
           className="font-normal capitalize text-gray-500"
           htmlFor={props.name}
         >
-          {props.name}
+          {props.label}
         </label>
         <Field as={"textarea"} placeholder={props.label} rows="4" name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md`} />
       </div>
@@ -37,6 +41,15 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
 
   if(props.type == 'select') {
     const options = !props?.is_collection ? parseOptions(props?.options || "") : data?.entries;
+    const primaryField = ((): string => {
+        for(const row of JSON.parse(template?.schema || "[]")) {
+          for(const field of row) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
+            if(field?.is_primary) return field?.name || "name";
+          }
+        }
+        return "name";
+    })();
 
     return (
       <div className="column flex w-full flex-col gap-2">
@@ -44,13 +57,13 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
           className="font-normal capitalize text-gray-500"
           htmlFor={props.name}
         >
-          {props.name}
+          {props.label}
         </label>
         <Field as={"select"} name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md capitalize`}>
-          <option value={props.name}>Select {props?.name}</option>
+          <option value={props.name}>Select {props?.label}</option>
           {options?.map((option: {[k:string]: string}, idx: number) => {
             return (
-              <option key={`select-${option?.name}-${idx}`} value={option?.name}>{option.name}</option>
+              <option key={`select-${option?.[primaryField]}-${idx}`} value={option?.[primaryField]}>{option?.[primaryField]}</option>
             )
           })}
         </Field>
@@ -147,7 +160,6 @@ export default function WriteView({
   const isInCollectionsPage = !patientId;
 
   const {data, isLoading, schema, save, isSubmittable} = (isInCollectionsPage ? CollectionViewController(collectionName) : PatientViewController(collectionName, patientId))
-
 
   return (
     <Formik
