@@ -27,13 +27,6 @@ export default function BuilderController({ slug }: { slug: string | null }) {
   // check if slug is null
   // if null then state is create -> call create mutation endpoint
   // if not then state is update -> call update mutation endpoint
-
-  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
-    templateDetailsInitialValues
-  );
-  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
-    collectionDetailsInitialValues
-  );
   const [builderView, setBuilderView] = useState(false);
 
   const mutationState = useRef<"update" | "create">(slug ? "update" : "create");
@@ -43,14 +36,23 @@ export default function BuilderController({ slug }: { slug: string | null }) {
     { enabled: mutationState.current == "update", retry: 1 }
   );
 
+  const [templateDetails, setTemplateDetails] = useState<TemplateDetails>(
+    {
+      ...templateDetailsInitialValues,
+      name: data?.template?.name || ""
+    }
+  );
+  const [collectionDetails, setCollectionDetails] = useState<CollectionDetails>(
+    collectionDetailsInitialValues
+  );
+
   useEffect(() => {
     if (status != "success") return;
     if (!data) return;
-    const { template, collection, patient_template } = data;
+    const { template, collection } = data;
     if (!template || !collection) return;
 
     setTemplateDetails(parseTemplate(template));
-
     setCollectionDetails({
       ...collection,
       isPatientSpecific: collection.is_patient_specific,

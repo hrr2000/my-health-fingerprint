@@ -11,6 +11,7 @@ import { BiEdit } from "react-icons/bi";
 import GenericButton from "@/components/common/GenericButton";
 import { api } from "@/utils/api";
 import { parseTemplate } from "@/components/templates/TemplateBuilder/controllers/BuilderController";
+import {LoadingSpinner} from "@/components/common/LoadingSpinner";
 
 const ToolbarForm = ({
   values,
@@ -31,13 +32,14 @@ const ToolbarForm = ({
   } = useTemplateBuilder();
 
   const { isSaving, isSaved, savingError } = toolbarController;
-  const { data } = api.template.findOne.useQuery(
+  const { data, isLoading } = api.template.findOne.useQuery(
     {
       collectionName: values.collection.name,
       templateName: values.template.name || "",
     },
     {
       enabled: !!values.template.name,
+      cacheTime: 0
     }
   );
 
@@ -57,23 +59,29 @@ const ToolbarForm = ({
     }));
   }, [values, setCollectionDetails, setTemplateDetails]);
 
+  if(isLoading && mutationState.current == 'update') {
+    return <LoadingSpinner />
+  }
+
   return (
     <Form>
       <div className={`w-full py-2 px-4`}>
-        <button
-          type={"button"}
-          onClick={() => {
-            setBuilderView((state) => !state);
-          }}
-          className={`mb-3 flex w-full items-center justify-center gap-1 border-[1px] border-primary p-2 text-highlight`}
-        >
+        {mutationState.current == 'update' && (
+          <button
+            type={"button"}
+            onClick={() => {
+              setBuilderView((state) => !state);
+            }}
+            className={`mb-3 flex w-full items-center justify-center gap-1 border-[1px] border-primary p-2 text-highlight`}
+          >
           <span>
             <BiEdit />
           </span>
-          <span>
+            <span>
             {!builderView ? "Enable builder mode" : "Disable builder mode"}
           </span>
-        </button>
+          </button>
+        )}
         {savingError && (
           <div
             className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-red-500 p-2 text-red-500`}
@@ -127,7 +135,7 @@ const ToolbarForm = ({
               >
                 Template Name
               </label>
-              <Field as={"select"} name={"template.name"} className={`text-sm`}>
+              <Field as={"select"} name={"template.name"} className={`text-sm border-gray-300 bg-slate-100 rounded-md`}>
                 {!values.collection.isPatientSpecific && (
                   <option value={"main"}>main</option>
                 )}

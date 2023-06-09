@@ -6,7 +6,7 @@ import {
 } from "@/validation/custom-collection";
 import {
   CustomCollectionModel,
-  CollectionTemplateModel,
+  CollectionTemplateModel, PatientModel,
 } from "@/server/models";
 import mongoose, { Schema } from "mongoose";
 import { z } from "zod";
@@ -20,6 +20,8 @@ export const collectionRouter = createTRPCRouter({
   create: protectedProcedure
     .input(createCollectionSchema)
     .mutation(async ({ input: { collection, template } }) => {
+      const session = await mongoose.startSession();
+      session.startTransaction();
       try {
         // Create the custom collection and save it in the database.
         const customCollection = new CustomCollectionModel({
@@ -31,36 +33,36 @@ export const collectionRouter = createTRPCRouter({
         });
         const { name: collection_name } = await customCollection.save();
 
-        {
-          const collectionTemplate = new CollectionTemplateModel({
-            collection_name,
-            schema: "[]",
-            name: "main",
-            is_printable: template.isPrintable,
-            primary: true,
-          });
-          await collectionTemplate.save();
-        }
+        const mainTemplate = new CollectionTemplateModel({
+          collection_name,
+          schema: "[]",
+          name: "main",
+          is_printable: template.isPrintable,
+          primary: true,
+        });
+        const isMainTemplateSaved = await mainTemplate.save();
 
-        {
-          const collectionTemplate = new CollectionTemplateModel({
-            collection_name,
-            schema: "[]",
-            name: "patient",
-            is_printable: template.isPrintable,
-            primary: false,
-          });
-          await collectionTemplate.save();
-        }
+        const patientTemplate = new CollectionTemplateModel({
+          collection_name,
+          schema: "[]",
+          name: "patient",
+          is_printable: template.isPrintable,
+          primary: false,
+        });
+        const isPatientTemplateSaved = await patientTemplate.save();
 
         // Create the physical Collection in the database.
-        mongoose.model(collection_name, new Schema({}, { autoCreate: false }));
+        if(!collection.isPatientSpecific) {
+          mongoose.model(collection_name, new Schema({}, { strict: false }));
+        }
       } catch (e) {
-        console.error(e);
+        await session.abortTransaction();
         throw new TRPCError({
-          message: `Collection Isn't Created!`,
+          message: `Failed to create a collection!`,
           code: "INTERNAL_SERVER_ERROR",
         });
+      } finally {
+        await session.endSession();
       }
     }),
 
@@ -128,7 +130,7 @@ export const collectionRouter = createTRPCRouter({
           throw new Error("Not Found");
         }
 
-        const template = mainTemplate ? mainTemplate : patientTemplate;
+        const template = (!collection?.is_patient_specific ? mainTemplate : patientTemplate);
 
         return {
           collection,
@@ -178,6 +180,35 @@ export const collectionRouter = createTRPCRouter({
         pageSize: pp,
         totalPages,
         isNextPage: currentPage < totalPages,
+      };
+    }),
+
+  addEntry: protectedProcedure
+    .input(
+      z.object({
+        collectionName: z.string(),
+        data: z.any(),
+      })
+    )
+    .mutation(async ({ input: { collectionName, data } }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const {acknowledged} = await mongoose.connection.collection(collectionName).insertOne(data);
+      if (!acknowledged) {
+        throw new TRPCError({
+          message: `Failed to add entry to collection: ${collectionName}`,
+          code: "BAD_REQUEST",
+        });
+      }
+    }),
+
+    getEntries: protectedProcedure.input(z.object({
+      collectionName: z.string(),
+    }))
+    .query(async ({input: { collectionName }}) => {
+      const entriesCursor = mongoose.connection.collection(collectionName).find({});
+      const entries = await entriesCursor.toArray();
+      return {
+        entries,
       };
     }),
 });

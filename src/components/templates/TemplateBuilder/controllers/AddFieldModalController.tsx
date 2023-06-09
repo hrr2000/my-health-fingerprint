@@ -3,7 +3,7 @@ import {useState} from "react";
 export const AddFieldModalController = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalStep, setModalStep] = useState(0);
-  const [fieldObject, setFieldObject] = useState({});
+  const [fieldObject, setFieldObject] = useState<{[k: string]: string}>({});
   const [cell, setCell] = useState({
     rowIndex: 0,
     columnIndex: 0,

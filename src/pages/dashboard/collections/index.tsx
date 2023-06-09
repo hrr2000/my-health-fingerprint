@@ -19,7 +19,9 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
   const [page, setPage] = useState(1);
   const { data: paginatedData, isLoading } = api.collection.list.useQuery({
     page: page,
-    perPage: 10,
+    perPage: 20,
+  }, {
+    cacheTime: 0,
   });
   const router = useRouter();
 

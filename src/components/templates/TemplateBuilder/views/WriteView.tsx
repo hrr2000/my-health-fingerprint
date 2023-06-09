@@ -4,8 +4,49 @@ import { Form, Formik } from "formik";
 import GenericButton from "@/components/common/GenericButton";
 import { type TemplateComponent, type TemplateDetails } from "../types";
 import { api } from "@/utils/api";
+import { Field } from "formik";
 
-function GenericField(props: { label?: string; name?: string; type?: string }) {
+function GenericField(props: { label?: string; name?: string; type?: string, collection?: string }) {
+  
+  const { data } = api.collection.getEntries.useQuery(
+    { collectionName: props.collection },
+    { enabled: (props?.type === 'select') }
+  );
+
+  if(props.type == "textarea") {
+    return (
+      <div className="column flex w-full flex-col gap-2">
+        <label
+          className="font-normal capitalize text-gray-500"
+          htmlFor={props.name}
+        >
+          {props.name}
+        </label>
+        <Field as={"textarea"} placeholder={props.label} rows="4" name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md`} />
+      </div>
+    )
+  }
+
+  if(props.type == 'select') {
+    return (
+      <div className="column flex w-full flex-col gap-2">
+        <label
+          className="font-normal capitalize text-gray-500"
+          htmlFor={props.name}
+        >
+          {props.name}
+        </label>
+        <Field as={"select"} name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md`}>
+          {data?.entries?.map((option: {[k:string]: string}, idx) => {
+            return (
+              <option key={`select-${option?.name}-${idx}`} value={option?.name}>{option.name}</option>
+            )
+          })}
+        </Field>
+      </div>
+    )
+  }
+
   return (
     <TextInput
       className={`w-full rounded-md border-[1px] border-slate-300 bg-slate-100 text-black`}
@@ -31,6 +72,58 @@ function schemaToObject(schema?: TemplateDetails["schema"]) {
   }, {});
 }
 
+function PatientViewController(collectionName: string, patientId: string) {
+
+  const { data } = api.template.getSchema.useQuery(
+    { collectionName, templateName: "patient" },
+    { enabled: !!collectionName }
+  );
+
+  const {
+    mutate: save,
+    isLoading,
+    isSuccess,
+    error,
+  } = api.patient.addEntryToCollection.useMutation();
+
+  return {
+    data,
+    isLoading,
+    save: (obj) => save({collectionName, patientId, data: obj as object}),
+    schema: (JSON.parse(data?.schema || "[]") || []) as Partial<TemplateComponent>[][],
+    isSuccess,
+    error,
+    isSubmittable: true
+  }
+}
+
+function CollectionViewController(collectionName: string) {
+
+  const { templateDetails, mutationState } = useTemplateBuilder();
+  const { data } = api.template.getSchema.useQuery(
+    { collectionName, templateName: templateDetails.name },
+    { enabled: !!collectionName }
+  );
+
+  const {
+    mutate: save,
+    isLoading,
+    isSuccess,
+    error,
+  } = api.collection.addEntry.useMutation();
+
+  return {
+    data,
+    isLoading,
+    save: (obj) => save({collectionName, data: obj as object}),
+    schema: templateDetails.schema as Partial<TemplateComponent>[][],
+    isSuccess,
+    error,
+    isSubmittable: templateDetails.name == 'main' && mutationState.current == 'update'
+  }
+}
+
+
 interface IProps {
   collectionName?: string;
   patientId?: string;
@@ -40,24 +133,11 @@ export default function WriteView({
   collectionName = "",
   patientId = "",
 }: IProps) {
-  const { collectionDetails, templateDetails, mutationState } =
-    useTemplateBuilder();
-  const { data, isLoading } = api.template.getSchema.useQuery(
-    { collectionName, templateName: "patient" },
-    { enabled: !!collectionName }
-  );
+  const isInCollectionsPage = !patientId;
 
-  const {
-    mutate: addEntry,
-    isLoading: isAddingEntry,
-    isSuccess,
-    error,
-  } = api.patient.addEntryToCollection.useMutation();
+  const {data, isLoading, schema, save, isSubmittable} = (isInCollectionsPage ? CollectionViewController(collectionName) : PatientViewController(collectionName, patientId))
 
-  const isInCollectionsPage = !collectionName;
-  const sourceSchema = (
-    isInCollectionsPage ? templateDetails.schema : data?.schema
-  ) as Partial<TemplateComponent>[][];
+
   return (
     <Formik
       initialValues={
@@ -66,10 +146,7 @@ export default function WriteView({
         ) || {}
       }
       onSubmit={(x) => {
-        if (!isInCollectionsPage && !!patientId) {
-          addEntry({ collectionName, patientId, data: x });
-        } else {
-        }
+        save(x);
       }}
       enableReinitialize
     >
@@ -80,7 +157,7 @@ export default function WriteView({
               isInCollectionsPage ? "grid" : ""
             } grid-cols-12 justify-center gap-3`}
           >
-            {sourceSchema?.map((row) => {
+            {schema?.map((row) => {
               return (
                 <>
                   {row.map((col) => {
@@ -106,11 +183,13 @@ export default function WriteView({
             {/*>*/}
             {/*  <span>Save</span>*/}
             {/*</button>*/}
-            <GenericButton
-              type="submit"
-              theme={"primary"}
-              text={"Save Details"}
-            />
+            {isSubmittable && (
+              <GenericButton
+                type="submit"
+                theme={"primary"}
+                text={"Save Details"}
+              />
+            )}
           </div>
         </Form>
       )}
