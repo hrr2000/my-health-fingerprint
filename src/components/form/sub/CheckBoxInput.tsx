@@ -20,7 +20,7 @@ export default function CheckboxInput({
     <div className="flex w-full flex-col gap-2">
       <div className="flex items-center gap-10 ">
         <label
-          className="flex items-center text-2xl font-normal capitalize text-gray-500 "
+          className="flex items-center text-md font-normal capitalize text-gray-500 "
           htmlFor={name}
         >
           <span>{label}</span>
@@ -29,7 +29,10 @@ export default function CheckboxInput({
 
         <Field
           type="checkbox"
-          className={`before:content[''] form-checkbox relative h-6 w-10 appearance-none rounded-full border-0 bg-slate-200 transition before:absolute before:left-[-1px] before:top-[-3px] before:h-7 before:w-7 before:rounded-full before:bg-white before:shadow-md before:transition checked:bg-primary checked:before:left-1/2`}
+          style={{
+            backgroundImage: "none"
+          }}
+          className={`checked:bg-primary before:content[''] focus:outline-0 cursor-pointer form-checkbox relative h-5 w-10 before:scale-125 focus:ring-0 before:h-full before:w-1/2 before:translate-x-0 checked:before:translate-x-full appearance-none rounded-full border-0 bg-slate-200 transition before:absolute before:rounded-full before:bg-white before:shadow-md before:transition`}
           name={name}
           value={value}
           {...props}

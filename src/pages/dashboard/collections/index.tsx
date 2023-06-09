@@ -27,7 +27,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
 
   return (
     <DashBoardLayout user={user} title="" description="">
-      <main className="relative ">
+      <main className="relative text-primary">
         <section className="flex gap-2 bg-slate-50 px-5 py-3 text-black">
           <button className="p-1">
             <span> All Templates </span>
@@ -42,13 +42,15 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
             <span> Templates Store </span>
           </button>
         </section>
-        <section className="grid h-[87vh] grid-cols-collections content-start gap-2 overflow-auto p-5 text-primary ">
+        <div className={`relative grid w-full grid-cols-collections gap-5 content-start py-5 px-10`}>
           <button
             onClick={() => void router.push("collections/create")}
-            className={`flex h-40 w-full flex-col items-center justify-center gap-4 rounded-xl border-[3px] border-transparent p-5 duration-300 hover:border-primary hover:shadow-lg`}
+            className={`relative flex w-full flex-col items-start justify-center rounded-xl border-[1px] border-slate-300 p-5 capitalize duration-300 disabled:grayscale hover:border-primary hover:shadow-lg`}
           >
-            <IoIosAdd size={25} />
-            <span className={`text-sm font-bold`}>Create a Collection</span>
+            <div className="flex items-center gap-2">
+              <span><IoIosAdd size={23} /></span>
+              <span className={`text-sm font-bold`}>Create a Collection</span>
+            </div>
           </button>
 
           {!isLoading &&
@@ -59,10 +61,12 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
                 onClick={() =>
                   void router.push(`collections/${collection._id.toString()}`)
                 }
-                className={`flex h-40 w-full flex-col items-center justify-center gap-4 rounded-xl border-[3px] border-transparent p-5 duration-300 hover:border-primary hover:shadow-lg`}
+                className={`relative flex w-full flex-col items-start justify-center rounded-xl border-[1px] border-slate-300 p-5 capitalize duration-300 disabled:grayscale hover:border-primary hover:shadow-lg`}
               >
-                <CiMedicalCase size={40} />
-                <span className={`text-sm font-bold`}>{collection.name}</span>
+                <div className="flex items-center gap-2">
+                  <span><CiMedicalCase size={23} /></span>
+                  <span className={`text-sm font-bold`}>{collection.name}</span>
+                </div>
               </button>
             ))}
           {isLoading && (
@@ -70,7 +74,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
               <AiOutlineLoading3Quarters size={60} className="animate-spin" />
             </div>
           )}
-        </section>
+        </div>
       </main>
     </DashBoardLayout>
   );

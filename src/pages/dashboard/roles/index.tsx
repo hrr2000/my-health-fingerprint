@@ -8,15 +8,14 @@ import DashBoardLayout from "@/layouts/DashboardLayout";
 import { CiCirclePlus } from "react-icons/ci";
 import { api } from "@/utils/api";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import { AiOutlineLoading } from "react-icons/ai";
 import { Formik, Form, Field } from "formik";
 import { roleFormSchema } from "@/validation/role";
 import CheckboxInput from "@/components/form/sub/CheckBoxInput";
 import TextInput from "@/components/form/sub/TextInput";
-import { BiSave } from "react-icons/bi";
-import { RiDeleteBin7Line } from "react-icons/ri";
+import { CiFloppyDisk, CiTrash } from "react-icons/ci";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
@@ -32,9 +31,9 @@ const PermissionsGenerator = ({
   inputBinding: string;
 }) => {
   return (
-    <div className="flex flex-col gap-3 ">
+    <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-2 capitalize">
-        <h3 className="text-3xl font-semibold">{label}</h3>
+        <h3 className="text-xl font-semibold">{label}</h3>
         <div className="flex items-center py-5">
           <CheckboxInput
             name={inputBinding}
@@ -76,15 +75,21 @@ const IndexPage: serverSidePropsType = ({ user }) => {
     api.organization.deleteRole.useMutation({ onSuccess: () => refetch() });
 
   const [initValue, setInitValue] = useState(data?.roles[0]);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  useEffect(() => {
+    if(initValue) return;
+    setInitValue(data?.roles[0]);
+  }, [data])
+
   return (
     <DashBoardLayout user={user} title="" description="">
       <main className="relative h-full">
-        <section className="relative grid h-full grid-cols-[300px_1fr] text-primary">
+        <section className="relative grid h-full grid-cols-[250px_1fr] text-primary">
           {data && (
             <>
-              <aside className="flex flex-col gap-3 border-r-[1px] border-gray-500 p-4 ">
+              <aside className="flex flex-col gap-3 border-r-[1px] border-slate-200 p-4">
                 <header className="flex justify-between">
-                  <h2 className="text-lg font-semibold">my roles</h2>
+                  <h2 className="text-lg font-semibold">Roles</h2>
                   <button
                     onClick={() =>
                       addRole({
@@ -100,17 +105,17 @@ const IndexPage: serverSidePropsType = ({ user }) => {
                     )}
                   </button>
                 </header>
-                <ul className="flex flex-col gap-2 text-white">
+                <ul className="flex flex-col gap-2">
                   {data.roles.map((role) => (
                     <li
                       key={nanoid()}
-                      className={`flex rounded-md bg-primary transition hover:bg-primary-hover ${
-                        initValue?.name === role.name && "bg-primary-hover"
-                      } shadow-sm`}
+                      className={`flex rounded-md transition hover:bg-slate-200 border-2 ${
+                        initValue?.name === role.name && "bg-slate-200"
+                      }`}
                     >
                       <button
                         onClick={() => setInitValue(role)}
-                        className="w-full p-2"
+                        className="w-full p-2 text-left"
                       >
                         {role.name}
                       </button>
@@ -118,7 +123,7 @@ const IndexPage: serverSidePropsType = ({ user }) => {
                   ))}
                 </ul>
               </aside>
-              <section className="pb-15 flex flex-col bg-white">
+              <section className="pb-15 flex flex-col">
                 <div className=" text-primary">
                   {initValue && (
                     <Formik
@@ -135,14 +140,17 @@ const IndexPage: serverSidePropsType = ({ user }) => {
                     >
                       {({ errors }) => (
                         <Form>
-                          <div className="p-5 text-2xl">
-                            <h2 className="flex justify-between text-4xl font-semibold">
-                              Role Name
+                          <div className="p-5">
+                            <div className="flex justify-between">
+                              <h2 className="text-2xl font-semibold">
+                                Role Name
+                              </h2>
                               <div className="flex gap-3">
-                                <button type="submit">
-                                  <BiSave />
+                                <button type="submit" className="border-[1px] border-primary bg-primary text-white px-3 hover:bg-primary-hover transition rounded-md p-1 text-sm flex items-center gap-2">
+                                  <CiFloppyDisk />
+                                  <span>Save Role</span>
                                 </button>
-                                <button
+                                <button className="border-[1px] border-red-500 text-red-500 px-3 transition rounded-md p-1 text-sm flex items-center gap-2"
                                   onClick={() => {
                                     deleteRole({
                                       orgName: user.orgName,
@@ -151,15 +159,16 @@ const IndexPage: serverSidePropsType = ({ user }) => {
                                     setInitValue(null);
                                   }}
                                 >
-                                  <RiDeleteBin7Line />
+                                  <CiTrash />
+                                  <span>Delete</span>
                                 </button>
                               </div>
-                            </h2>
+                            </div>
                             <TextInput name="name" />
                           </div>
                           {/* permission that only could be given comes from db */}
-                          <div className="flex h-[80vh] flex-col gap-3 overflow-y-auto border-t-2 border-black p-5">
-                            <h2 className="text-4xl font-semibold">
+                          <div className="flex flex-col gap-3 border-t-[1px] border-slate-200 p-5 w-full">
+                            <h2 className="text-2xl font-semibold">
                               Permissions
                             </h2>
                             <div className="flex flex-col gap-3 ">

@@ -6,7 +6,15 @@ import { type TemplateComponent, type TemplateDetails } from "../types";
 import { api } from "@/utils/api";
 import { Field } from "formik";
 
-function GenericField(props: { label?: string; name?: string; type?: string, collection?: string }) {
+function parseOptions(options: string) {
+  return options.split(';').map((option: string) => {
+    return {
+      name: option
+    }
+  });
+}
+
+function GenericField(props: { label?: string; name?: string; type?: string, collection?: string, options?: string, is_collection?: string }) {
   
   const { data } = api.collection.getEntries.useQuery(
     { collectionName: props.collection },
@@ -28,6 +36,8 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
   }
 
   if(props.type == 'select') {
+    const options = !props?.is_collection ? parseOptions(props?.options || "") : data?.entries;
+
     return (
       <div className="column flex w-full flex-col gap-2">
         <label
@@ -36,8 +46,9 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
         >
           {props.name}
         </label>
-        <Field as={"select"} name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md`}>
-          {data?.entries?.map((option: {[k:string]: string}, idx) => {
+        <Field as={"select"} name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md capitalize`}>
+          <option value={props.name}>Select {props?.name}</option>
+          {options?.map((option: {[k:string]: string}, idx: number) => {
             return (
               <option key={`select-${option?.name}-${idx}`} value={option?.name}>{option.name}</option>
             )

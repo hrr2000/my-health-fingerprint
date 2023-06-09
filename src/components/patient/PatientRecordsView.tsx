@@ -109,15 +109,16 @@ const PatientCollectionDetailsView = ({
     <div className="relative flex-1">
       {!d && isLoading && <LoadingSpinner />}
       {d && !d.collectionData?.length && (
-        <div>
-          There is no data. {" "}
+        <div className="py-5">
+          There is no recprds. {" "}
           <button
             onClick={() => setIsWriteViewModalOpen(true)}
-            className="rounded-full capitalize text-primary transition hover:scale-110"
+            className="rounded-full  text-highlight underline transition hover:scale-110"
           >
-            <span>
+            {/* <span>
               <CiCirclePlus size={30} />
-            </span>
+            </span> */}
+            add now
           </button>
         </div>
       )}

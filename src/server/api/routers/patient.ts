@@ -214,7 +214,7 @@ export const patientRouter = createTRPCRouter({
         {
           name: { $nin: registeredCollections },
         },
-        { _id: true, name: true }
+        { _id: true, name: true, label: true }
       );
       return results;
     }),

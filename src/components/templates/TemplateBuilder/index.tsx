@@ -15,7 +15,7 @@ function TemplateBuilderComponent() {
   
   const { data } = api.collection.getEntries.useQuery(
     { collectionName: collectionDetails.name },
-    { enabled: !!collectionDetails.name }
+    { enabled: !!collectionDetails.name, cacheTime: 0 }
   );
 
   return (
