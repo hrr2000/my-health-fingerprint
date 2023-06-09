@@ -181,7 +181,7 @@ function PreferencesStep({
 }: {
   setFieldObject: Dispatch<SetStateAction<object>>;
 }) {
-  const { fieldObject } = useTemplateBuilder();
+  const { fieldObject, templateDetails } = useTemplateBuilder();
   const handleChange = (key: string) => {
     return (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) =>
       void setFieldObject((obj: object) => ({ ...obj, [key]: e.target.value }));
@@ -202,9 +202,21 @@ function PreferencesStep({
           name="name"
           onChange={handleChange("name")}
         />
+        {templateDetails.name == "main" && (
+        <div className="space-x-2">
+            <input 
+              type="checkbox"
+              name="is_primary"
+              className="focus:ring-0"
+              onChange={(e) => { 
+                void setFieldObject((obj: object) => ({ ...obj, ['is_primary']: e.target.checked }));
+              }}
+            />
+          <label htmlFor="is_collection">Primary</label>
+        </div>
+          )}
         {fieldObject?.type === "select" && (
             <>
-            <div className="flex flex-col w-full gap-3">
               <div className="space-x-2">
                 <input 
                   type="checkbox"
@@ -235,7 +247,6 @@ function PreferencesStep({
                   />
                 </>
               )}
-            </div>
             </>
           )
         }

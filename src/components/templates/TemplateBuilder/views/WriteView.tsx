@@ -5,6 +5,9 @@ import GenericButton from "@/components/common/GenericButton";
 import { type TemplateComponent, type TemplateDetails } from "../types";
 import { api } from "@/utils/api";
 import { Field } from "formik";
+import { CiCircleCheck, CiEdit, CiWarning } from "react-icons/ci";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { TypeOf } from "zod";
 
 function parseOptions(options: string) {
   return options.split(';').map((option: string) => {
@@ -20,6 +23,10 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
     { collectionName: props.collection },
     { enabled: (props?.type === 'select') }
   );
+  const { data: template } = api.template.getSchema.useQuery(
+    { collectionName: props.collection, templateName: "main" },
+    { enabled: !!props.collection }
+  );
 
   if(props.type == "textarea") {
     return (
@@ -28,7 +35,7 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
           className="font-normal capitalize text-gray-500"
           htmlFor={props.name}
         >
-          {props.name}
+          {props.label}
         </label>
         <Field as={"textarea"} placeholder={props.label} rows="4" name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md`} />
       </div>
@@ -37,6 +44,15 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
 
   if(props.type == 'select') {
     const options = !props?.is_collection ? parseOptions(props?.options || "") : data?.entries;
+    const primaryField = ((): string => {
+        for(const row of JSON.parse(template?.schema || "[]")) {
+          for(const field of row) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
+            if(field?.is_primary) return field?.name || "name";
+          }
+        }
+        return "name";
+    })();
 
     return (
       <div className="column flex w-full flex-col gap-2">
@@ -44,13 +60,13 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
           className="font-normal capitalize text-gray-500"
           htmlFor={props.name}
         >
-          {props.name}
+          {props.label}
         </label>
         <Field as={"select"} name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md capitalize`}>
-          <option value={props.name}>Select {props?.name}</option>
+          <option value={props.name}>Select {props?.label}</option>
           {options?.map((option: {[k:string]: string}, idx: number) => {
             return (
-              <option key={`select-${option?.name}-${idx}`} value={option?.name}>{option.name}</option>
+              <option key={`select-${option?.[primaryField]}-${idx}`} value={option?.[primaryField]}>{option?.[primaryField]}</option>
             )
           })}
         </Field>
@@ -138,16 +154,22 @@ function CollectionViewController(collectionName: string) {
 interface IProps {
   collectionName?: string;
   patientId?: string;
+  callback?: any;
 }
 
 export default function WriteView({
   collectionName = "",
   patientId = "",
+  callback = () => null
 }: IProps) {
   const isInCollectionsPage = !patientId;
 
-  const {data, isLoading, schema, save, isSubmittable} = (isInCollectionsPage ? CollectionViewController(collectionName) : PatientViewController(collectionName, patientId))
+  const {data, isLoading, isSuccess, error, schema, save, isSubmittable} = (isInCollectionsPage ? CollectionViewController(collectionName) : PatientViewController(collectionName, patientId))
 
+  if(isSuccess) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    if(callback) callback?.();
+  }
 
   return (
     <Formik
@@ -164,8 +186,8 @@ export default function WriteView({
       {() => (
         <Form>
           <div
-            className={`min-h-[50px] w-full  ${
-              isInCollectionsPage ? "grid" : ""
+            className={`min-h-[50px] ${
+              isInCollectionsPage ? "grid w-full" : "grid w-[800px]"
             } grid-cols-12 justify-center gap-3`}
           >
             {schema?.map((row) => {
@@ -189,19 +211,47 @@ export default function WriteView({
                 </>
               );
             })}
-            {/*<button*/}
-            {/*  className="w-32 my-2 rounded-md bg-black p-2 text-white transition-all disabled:bg-slate-700 hover:shadow-lg"*/}
-            {/*>*/}
-            {/*  <span>Save</span>*/}
-            {/*</button>*/}
             {isSubmittable && (
-              <GenericButton
+              <button
                 type="submit"
-                theme={"primary"}
-                text={"Save Details"}
-              />
+                className={`my-2 flex justify-center w-max text-md rounded-md border-[1px] border-primary bg-primary p-2 px-4 font-semibold text-white shadow-lg shadow-sky-200 transition hover:border-primary-hover hover:bg-primary-hover`}
+              >
+                <span>Save Details</span>
+              </button>
             )}
           </div>
+            <div>
+              {error && (
+                <div
+                  className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-red-500 p-2 text-red-500`}
+                >
+                  <span>
+                    <CiWarning />
+                  </span>
+                  <span>Unsaved Changes!</span>
+                </div>
+              )}
+              {isLoading && (
+                <div
+                  className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-yellow-500 p-2 text-yellow-500`}
+                >
+                  <span>
+                    <AiOutlineLoading3Quarters size={1} className="animate-spin" />
+                  </span>
+                  <span>Saving ...</span>
+                </div>
+              )}
+              {isSuccess && (
+                <div
+                  className={`my-4 flex items-center gap-3 rounded-md border-[1px] border-green-500 p-2 text-green-500`}
+                >
+                  <span>
+                    <CiCircleCheck />
+                  </span>
+                  <span>Up to date</span>
+                </div>
+              )}
+            </div>
         </Form>
       )}
     </Formik>
