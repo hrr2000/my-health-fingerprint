@@ -23,6 +23,7 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     jwt({ token, user }) {
+      // on user sign in user object exists
       if (user) {
         token.name = user.firstName + " " + user.lastName;
         token.picture = user.picture; // because it's not a social login

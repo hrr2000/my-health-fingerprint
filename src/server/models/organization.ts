@@ -1,16 +1,20 @@
 import mongoose from "mongoose";
-import { type OrganizationDocument } from "@/types/mongo";
+import { type UserRole, type OrganizationDocument } from "@/types/mongo";
 
-const { Schema, Types } = mongoose;
+const { Schema } = mongoose;
+
+const roleSchema = new Schema<UserRole>(
+  {
+    name: { type: String, unique: true },
+    permissions: [String],
+  },
+  { timestamps: true }
+);
 
 const schema = new Schema<OrganizationDocument>(
   {
-    name: String,
-    roles: [
-      {
-        permissions: [Types.ObjectId],
-      },
-    ],
+    name: { type: String, unique: true },
+    roles: [roleSchema],
   },
   { timestamps: true }
 );
