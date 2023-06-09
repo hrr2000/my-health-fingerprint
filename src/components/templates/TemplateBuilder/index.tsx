@@ -6,10 +6,18 @@ import {
 } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import WriteView from "@/components/templates/TemplateBuilder/views/WriteView";
+import { api } from "@/utils/api";
+import ReadView from "./views/ReadView";
 
 function TemplateBuilderComponent() {
   const { collectionDetails, templateDetails, mutationState, builderView } =
-    useTemplateBuilder();
+  useTemplateBuilder();
+  
+  const { data } = api.collection.getEntries.useQuery(
+    { collectionName: collectionDetails.name },
+    { enabled: !!collectionDetails.name }
+  );
+
   return (
     <>
       {!collectionDetails.name && mutationState.current == "update" && (
@@ -30,7 +38,13 @@ function TemplateBuilderComponent() {
       ) : (
         <>
           <div className={`p-10`}>
-            <WriteView />
+            <WriteView collectionName={collectionDetails.name} />
+            <div className="my-5">
+              <h2 className="capitalize text-primary text-xl font-bold py-5">
+                {collectionDetails.name}
+              </h2>
+              <ReadView data={data?.entries as unknown as { _id: string }[]} />
+            </div>
           </div>
           <Toolbar />
         </>

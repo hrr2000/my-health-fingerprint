@@ -11,9 +11,10 @@ import GenericButton from "@/components/common/GenericButton";
 import { GoTextSize } from "react-icons/go";
 import { TiSortNumerically } from "react-icons/ti";
 import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
-import { TemplateComponent } from "../types";
+import { type TemplateComponent } from "../types";
+import { CiCalendarDate, CiTextAlignLeft } from "react-icons/ci";
 
-type FieldType = "text" | "number" | "select";
+type FieldType = "text" | "number" | "select" | "date" | "textarea";
 
 interface IField {
   icon?: ReactNode;
@@ -28,14 +29,24 @@ export const fields: IField[] = [
     name: "Text Field",
   },
   {
+    icon: <CiTextAlignLeft size={25} />,
+    type: "textarea",
+    name: "Text Area Field",
+  },
+  {
     icon: <TiSortNumerically size={25} />,
     type: "number",
     name: "Number Field",
   },
   {
+    icon: <CiCalendarDate size={25} />,
+    type: "date",
+    name: "Date Field",
+  },
+  {
     icon: <AiOutlineUnorderedList size={25} />,
     type: "select",
-    name: "Select Field",
+    name: "Select Field", 
   },
 ];
 
@@ -169,6 +180,7 @@ function PreferencesStep({
 }: {
   setFieldObject: Dispatch<SetStateAction<object>>;
 }) {
+  const { fieldObject } = useTemplateBuilder();
   const handleChange = (key: string) => {
     return (e: ChangeEvent<HTMLInputElement>) =>
       void setFieldObject((obj: object) => ({ ...obj, [key]: e.target.value }));
@@ -189,6 +201,15 @@ function PreferencesStep({
           name="name"
           onChange={handleChange("name")}
         />
+        {fieldObject?.type === "select" && (
+            <input
+              type="text"
+              placeholder="Collection"
+              name="collection"
+              onChange={handleChange("collection")}
+            />
+          )
+        }
       </form>
     </div>
   );

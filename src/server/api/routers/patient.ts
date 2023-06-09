@@ -278,7 +278,8 @@ export const patientRouter = createTRPCRouter({
       }
       // MTNSA4 TSL7 DI
     }),
-  createOne: publicProcedure.mutation(async ({}) => {
+
+  createOne: protectedProcedure.mutation(async ({}) => {
     return await PatientModel.create({ nationalId: "" });
   }),
 });

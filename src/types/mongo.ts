@@ -65,7 +65,7 @@ export interface PatientDocument {
 export type UserRole = {
   _id: ObjectId;
   name: string;
-  permissions: string;
+  permissions: string[];
 };
 
 export interface OrganizationDocument {
