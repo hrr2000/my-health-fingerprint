@@ -110,7 +110,7 @@ const PatientCollectionDetailsView = ({
       {!d && isLoading && <LoadingSpinner />}
       {d && !d.collectionData?.length && (
         <div>
-          Mafe4 7aga bitch deef 7aga ba2a danta bdan{" "}
+          There is no data. {" "}
           <button
             onClick={() => setIsWriteViewModalOpen(true)}
             className="rounded-full capitalize text-primary transition hover:scale-110"

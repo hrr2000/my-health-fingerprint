@@ -13,7 +13,19 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
     { enabled: (props?.type === 'select') }
   );
 
-  console.log(data?.entries);
+  if(props.type == "textarea") {
+    return (
+      <div className="column flex w-full flex-col gap-2">
+        <label
+          className="font-normal capitalize text-gray-500"
+          htmlFor={props.name}
+        >
+          {props.name}
+        </label>
+        <Field as={"textarea"} placeholder={props.label} rows="4" name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md`} />
+      </div>
+    )
+  }
 
   if(props.type == 'select') {
     return (
@@ -24,7 +36,7 @@ function GenericField(props: { label?: string; name?: string; type?: string, col
         >
           {props.name}
         </label>
-        <Field as={"select"} name={props.name} className={`text-sm text-black`}>
+        <Field as={"select"} name={props.name} className={`text-sm text-black border-gray-300 bg-slate-100 rounded-md`}>
           {data?.entries?.map((option: {[k:string]: string}, idx) => {
             return (
               <option key={`select-${option?.name}-${idx}`} value={option?.name}>{option.name}</option>

@@ -12,9 +12,9 @@ import { GoTextSize } from "react-icons/go";
 import { TiSortNumerically } from "react-icons/ti";
 import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 import { type TemplateComponent } from "../types";
-import { CiCalendarDate } from "react-icons/ci";
+import { CiCalendarDate, CiTextAlignLeft } from "react-icons/ci";
 
-type FieldType = "text" | "number" | "select" | "date";
+type FieldType = "text" | "number" | "select" | "date" | "textarea";
 
 interface IField {
   icon?: ReactNode;
@@ -27,6 +27,11 @@ export const fields: IField[] = [
     icon: <GoTextSize size={25} />,
     type: "text",
     name: "Text Field",
+  },
+  {
+    icon: <CiTextAlignLeft size={25} />,
+    type: "textarea",
+    name: "Text Area Field",
   },
   {
     icon: <TiSortNumerically size={25} />,
