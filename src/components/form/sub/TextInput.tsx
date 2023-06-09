@@ -29,7 +29,7 @@ const TextInput = ({
           {required && <span className="mx-1 text-xl text-red-700">*</span>}
         </label>
         <input
-          className={`rounded-sm bg-slate-100 text-sm capitalize disabled:cursor-not-allowed disabled:bg-gray-200 disabled:font-semibold disabled:text-gray-500 ${
+          className={`rounded-sm bg-slate-100 text-sm  disabled:cursor-not-allowed disabled:bg-gray-200 disabled:font-semibold disabled:text-gray-500 ${
             meta.touched && meta.error ? "border-1 border-red-500" : "border-0"
           }`}
           id={name}
