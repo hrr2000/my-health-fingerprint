@@ -44,6 +44,11 @@ export const routes: {
       display_text: "Organizations",
     },
     {
+      entity: "users",
+      href: "dashboard/users",
+      display_text: "Users",
+    },
+    {
       entity: "roles",
       href: "dashboard/roles",
       display_text: "Roles",
