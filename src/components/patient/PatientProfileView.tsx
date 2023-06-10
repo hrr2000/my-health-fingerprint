@@ -16,12 +16,13 @@ export const PatientProfileView = () => {
     data: profile,
     error,
     fetchStatus,
+    refetch
   } = useGetPatientProfileData(patientId || "");
   const {
     mutate: updatePatientProfile,
     isLoading: isUpdatingProfile,
     isSuccess: isUpdateProfileSuccess,
-  } = api.patient.updateProfile.useMutation();
+  } = api.patient.updateProfile.useMutation({onSuccess : () => refetch() });
   const [initValues, setInitValues] = useState(profile);
 
   return (

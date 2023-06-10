@@ -37,34 +37,34 @@ export const routes: {
   dashboardPages: [
     {
       href: "dashboard/home",
-      image: <CiViewBoard className="h-[25px] w-[25px] shrink-0" />,
+      //image: <CiViewBoard className="h-[25px] w-[25px] shrink-0" />,
       display_text: "Dashboard",
     },
 
     {
       href: "dashboard/patient",
-      image: <CiMedicalCase className="h-[25px] w-[25px] shrink-0" />,
+      //image: <CiMedicalCase className="h-[25px] w-[25px] shrink-0" />,
       display_text: "patient",
     },
     {
       href: "dashboard/collections",
-      image: <CiFolderOn className="h-[25px] w-[25px] shrink-0" />,
+      //image: <CiFolderOn className="h-[25px] w-[25px] shrink-0" />,
       display_text: "collections",
     },
     {
       href: "dashboard/organizations",
-      image: <CiHospital1 className="h-[25px] w-[25px] shrink-0" />,
+      //image: <CiHospital1 className="h-[25px] w-[25px] shrink-0" />,
       display_text: "Organizations",
     },
     {
       href: "dashboard/roles",
-      image: <CiGrid41 className="h-[25px] w-[25px] shrink-0" />,
+      //image: <CiGrid41 className="h-[25px] w-[25px] shrink-0" />,
       display_text: "Roles",
     },
     {
       href: "dashboard/settings",
-      image: <CiSettings className="h-[25px] w-[25px] shrink-0" />,
-      display_text: "settings",
+      //image: <CiSettings className="h-[25px] w-[25px] shrink-0" />,
+      display_text: "Settings",
     },
   ],
 };

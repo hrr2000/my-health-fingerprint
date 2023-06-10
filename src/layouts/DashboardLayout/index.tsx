@@ -1,8 +1,8 @@
 import React from "react";
 import Head from "next/head";
 import { type ReactNode } from "react";
-import { type Meta, type GenericProps } from "@/types/application";
-import SiderBar from "@/components/dashboard/SiderBar";
+import {type Meta, type GenericProps, ILink} from "@/types/application";
+import SideBar from "@/components/dashboard/SiderBar";
 import { type Session } from "next-auth";
 interface LocalProps extends GenericProps {
   title: string;
@@ -11,6 +11,7 @@ interface LocalProps extends GenericProps {
   meta?: Meta[];
   children: ReactNode;
   user: Session["user"];
+  links : ILink[]
 }
 export default function DashBoardLayout({
   title,
@@ -18,6 +19,7 @@ export default function DashBoardLayout({
   iconHref,
   meta,
   children,
+  links,
   user: { image, name, orgName },
 }: LocalProps) {
   return (
@@ -36,7 +38,8 @@ export default function DashBoardLayout({
           background: "#162848",
         }}
       >
-        <SiderBar
+        <SideBar
+          links={links}
           username={name ? name : ""}
           userImageSrc={image ? image : ""}
         />

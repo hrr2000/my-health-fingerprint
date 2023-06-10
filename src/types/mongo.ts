@@ -13,7 +13,7 @@ export interface UserDocument extends User {
     email: string;
     emailConfirmed: Date;
     jobTitle: string;
-    roles: ObjectId[];
+    roles: string[];
   }[];
 }
 
