@@ -88,7 +88,7 @@ const IndexPage: serverSidePropsType = ({ user, links }) => {
 
   useEffect(() => {
     if (mutationState === "idle") {
-      setNationalId(0);
+      setNationalId("");
     }
   }, [mutationState]);
 
