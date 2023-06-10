@@ -5,17 +5,17 @@ import {
 } from "next";
 import { getServerAuthSession } from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
-import { CiCirclePlus } from "react-icons/ci";
+import { CiCirclePlus, CiFloppyDisk, CiTrash } from "react-icons/ci";
 import { api } from "@/utils/api";
 import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import { AiOutlineLoading } from "react-icons/ai";
-import { Formik, Form, Field } from "formik";
+import { Form, Formik } from "formik";
 import { roleFormSchema } from "@/validation/role";
 import CheckboxInput from "@/components/form/sub/CheckBoxInput";
 import TextInput from "@/components/form/sub/TextInput";
-import { CiFloppyDisk, CiTrash } from "react-icons/ci";
 import { routes } from "@/routes";
+
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
