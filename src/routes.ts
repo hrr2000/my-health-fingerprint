@@ -24,7 +24,6 @@ export const routes: {
     ],
     dashboardPages: [
         {
-
             href: "dashboard/home",
             display_text: "Dashboard",
         },
@@ -45,6 +44,11 @@ export const routes: {
             display_text: "Organizations",
         },
         {
+            entity: 'users',
+            href: "dashboard/users",
+            display_text: "Users",
+        },
+        {
             entity: 'roles',
             href: "dashboard/roles",
             display_text: "Roles",
@@ -53,7 +57,7 @@ export const routes: {
             entity: 'settings',
             href: "dashboard/settings",
             display_text: "Settings",
-        }
+        },
 
     ],
 };

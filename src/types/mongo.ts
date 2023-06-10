@@ -5,7 +5,6 @@ export interface UserDocument extends User {
   nationalId: string;
   first_name: string;
   last_name: string;
-<<<<<<< HEAD
   organizations: UserOrganizationSchema[];
 }
 
@@ -18,18 +17,6 @@ export interface UserOrganizationSchema {
   emailConfirmed: Date;
   jobTitle: string;
   roles: ObjectId[];
-=======
-  organizations: {
-    org_id: ObjectId;
-    org_name: string;
-    picture: string;
-    password: string;
-    email: string;
-    emailConfirmed: Date;
-    jobTitle: string;
-    roles: string[];
-  }[];
->>>>>>> 7e807b427b157435519d82230d56408eb9da59f8
 }
 
 export interface PermissionDocument {
@@ -49,11 +36,13 @@ export interface PatientAddress {
   city: string;
   postal_code?: string;
 }
+
 export interface PatientFullName {
   first_name: string;
   middle_name: string;
   last_name: string;
 }
+
 export interface PatientRelativePhoneNumbers {
   _id: ObjectId;
   phone_number: string;

@@ -15,7 +15,7 @@ import { roleFormSchema } from "@/validation/role";
 import CheckboxInput from "@/components/form/sub/CheckBoxInput";
 import TextInput from "@/components/form/sub/TextInput";
 import { CiFloppyDisk, CiTrash } from "react-icons/ci";
-import {routes} from "@/routes";
+import { routes } from "@/routes";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
@@ -77,9 +77,9 @@ const IndexPage: serverSidePropsType = ({ user, links }) => {
   const [initValue, setInitValue] = useState(data?.roles[0]);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   useEffect(() => {
-    if(initValue) return;
+    if (initValue) return;
     setInitValue(data?.roles[0]);
-  }, [data])
+  }, [data]);
 
   return (
     <DashBoardLayout links={links} user={user} title="" description="">
@@ -109,7 +109,7 @@ const IndexPage: serverSidePropsType = ({ user, links }) => {
                   {data.roles.map((role) => (
                     <li
                       key={nanoid()}
-                      className={`flex rounded-md transition hover:bg-slate-200 border-2 ${
+                      className={`flex rounded-md border-2 transition hover:bg-slate-200 ${
                         initValue?.name === role.name && "bg-slate-200"
                       }`}
                     >
@@ -146,11 +146,15 @@ const IndexPage: serverSidePropsType = ({ user, links }) => {
                                 Role Name
                               </h2>
                               <div className="flex gap-3">
-                                <button type="submit" className="border-[1px] border-primary bg-primary text-white px-3 hover:bg-primary-hover transition rounded-md p-1 text-sm flex items-center gap-2">
+                                <button
+                                  type="submit"
+                                  className="flex items-center gap-2 rounded-md border-[1px] border-primary bg-primary p-1 px-3 text-sm text-white transition hover:bg-primary-hover"
+                                >
                                   <CiFloppyDisk />
                                   <span>Save Role</span>
                                 </button>
-                                <button className="border-[1px] border-red-500 text-red-500 px-3 transition rounded-md p-1 text-sm flex items-center gap-2"
+                                <button
+                                  className="flex items-center gap-2 rounded-md border-[1px] border-red-500 p-1 px-3 text-sm text-red-500 transition"
                                   onClick={() => {
                                     deleteRole({
                                       orgName: user.orgName,
@@ -167,7 +171,7 @@ const IndexPage: serverSidePropsType = ({ user, links }) => {
                             <TextInput name="name" />
                           </div>
                           {/* permission that only could be given comes from db */}
-                          <div className="flex flex-col gap-3 border-t-[1px] border-slate-200 p-5 w-full">
+                          <div className="flex w-full flex-col gap-3 border-t-[1px] border-slate-200 p-5">
                             <h2 className="text-2xl font-semibold">
                               Permissions
                             </h2>
@@ -252,7 +256,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       user: session.user,
-      links : routes.dashboardPages
+      links: routes.dashboardPages,
     },
   };
 }
