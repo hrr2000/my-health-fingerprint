@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/src/components/form/sub/CheckBoxInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/sub/CheckBoxInput.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/patient/PatientRecordsView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/patient/PatientRecordsView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/roles/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/roles/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/api/routers/organization.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/organization.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/api/routers/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/models/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/mongo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/mongo.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validation/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation/user.ts" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validation/patient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation/patient.ts" afterDir="false" />
->>>>>>> 7e807b427b157435519d82230d56408eb9da59f8
-    </list>
+    <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,50 +10,30 @@
   <component name="ComposerSettings">
     <execution />
   </component>
-  <component name="FormatOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="OptimizeOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
-  </component>
   <component name="ProjectId" id="2Myi91UC0BUzKH1emo889nUbAoA" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "H:/webDev/my-health-fingerprint",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "actions.on.save",
-    "ts.external.directory.path": "H:\\webDev\\my-health-fingerprint\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Mostafa\\Study\\GP\\my-health-fingerprint\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="ReactDesignerToolWindowState">
-    <option name="myId2Visible">
-      <map>
-        <entry key="com.haulmont.rcb.reactComponents" value="false" />
-        <entry key="com.haulmont.rcb.reactInspector" value="false" />
-      </map>
-    </option>
-  </component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Mostafa\Study\GP\my-health-fingerprint\src\components\templates\TemplateBuilder" />
@@ -137,17 +98,8 @@
       <workItem from="1686244598515" duration="5422000" />
       <workItem from="1686250593085" duration="2431000" />
       <workItem from="1686297503275" duration="37000" />
-<<<<<<< HEAD
       <workItem from="1686386233517" duration="146000" />
       <workItem from="1686386946518" duration="19675000" />
-=======
-      <workItem from="1686387469567" duration="390000" />
-      <workItem from="1686387886075" duration="433000" />
-      <workItem from="1686388377642" duration="269000" />
-      <workItem from="1686388660983" duration="467000" />
-      <workItem from="1686389142235" duration="7076000" />
-      <workItem from="1686402541275" duration="8027000" />
->>>>>>> 7e807b427b157435519d82230d56408eb9da59f8
     </task>
     <servers />
   </component>
