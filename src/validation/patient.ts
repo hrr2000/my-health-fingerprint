@@ -13,7 +13,6 @@ const addressSchema = z
       district: z.string(),
       streetName: z.string().trim(),
       city: z.string().trim(),
-      postalCode: numeric().max(5).optional(),
     })
   )
   .min(1);
