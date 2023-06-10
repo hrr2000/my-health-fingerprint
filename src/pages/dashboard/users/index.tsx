@@ -1,14 +1,10 @@
-import {
-  type GetServerSidePropsContext,
-  type InferGetServerSidePropsType,
-  type NextPage,
-} from "next";
-import { getServerAuthSession } from "@/server/auth";
+import {type GetServerSidePropsContext, type InferGetServerSidePropsType, type NextPage,} from "next";
+import {getServerAuthSession} from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
-import { CiCirclePlus } from "react-icons/ci";
-import { api } from "@/utils/api";
-import React, { useEffect, useState } from "react";
-import {Field, Form, Formik} from "formik";
+import {CiCirclePlus} from "react-icons/ci";
+import {api} from "@/utils/api";
+import React, {useState} from "react";
+import {Form, Formik} from "formik";
 import TextInput from "@/components/form/sub/TextInput";
 import GenericButton from "@/components/common/GenericButton";
 import {LoadingSpinner} from "@/components/common/LoadingSpinner";
@@ -18,307 +14,313 @@ import {numeric} from "@/validation/utils";
 import {createUserFormSchema} from "@/validation/user";
 import CheckboxInput from "@/components/form/sub/CheckBoxInput";
 import Image from "next/image";
+import {routes} from "@/routes";
+
 type serverSidePropsType = NextPage<
-  InferGetServerSidePropsType<typeof getServerSideProps>
+    InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 
 
-const IndexPage: serverSidePropsType = ({ user }) => {
-  const { data: rolesData, isLoading: isRolesLoading, refetch: refetchRoles } = api.organization.listRoles.useQuery({
-    org_name: user.orgName,
-  });
-  const { data: usersData, isLoading: isUsersLoading, refetch: refetchUsers } = api.organization.listUsers.useQuery();
+const IndexPage: serverSidePropsType = ({user, links}) => {
+    const {data: rolesData, isLoading: isRolesLoading, refetch: refetchRoles} = api.organization.listRoles.useQuery({
+        org_name: user.orgName,
+    });
+    const {data: usersData, isLoading: isUsersLoading, refetch: refetchUsers} = api.organization.listUsers.useQuery();
 
-  const { mutate: createUser, isLoading: isCreatingUser } =
-    api.user.createOne.useMutation();
+    const {mutate: createUser, isLoading: isCreatingUser} =
+        api.user.createOne.useMutation();
 
-  const { mutate: updateUser, isLoading: isUpdatingUser } =
-    api.user.updateOne.useMutation();
+    const {mutate: updateUser, isLoading: isUpdatingUser} =
+        api.user.updateOne.useMutation();
 
-  const [nationalId, setNationalId] = useState("");
-  const [mutationState, setMutationState] = useState<"idle" | "create" | "update">("idle");
-  const [userToUpdate, setUserToUpdate] = useState<any>({});
+    const [nationalId, setNationalId] = useState("");
+    const [mutationState, setMutationState] = useState<"idle" | "create" | "update">("idle");
+    const [userToUpdate, setUserToUpdate] = useState<any>({});
 
-  const { data: currentUser, error: currentUserError, isFetching: isCurrentUserLoading } = api.user.findOne.useQuery({
-    nationalId,
-  }, {
-    enabled: nationalId.length == 14,
-    retry: 0
-  });
+    const {data: currentUser, error: currentUserError, isFetching: isCurrentUserLoading} = api.user.findOne.useQuery({
+        nationalId,
+    }, {
+        enabled: nationalId.length == 14,
+        retry: 0
+    });
 
-  return (
-    <DashBoardLayout user={user} title="" description="">
-      <main className="relative h-full">
-        <section className="relative grid h-full grid-cols-[250px_1fr] text-primary">
-            <>
-              <aside className="flex flex-col gap-3 border-r-[1px] border-slate-200 p-4">
-                <header className="flex justify-between">
-                  <h2 className="text-lg font-semibold">Users</h2>
-                  <button
-                    onClick={() => {
-                      setMutationState("idle");
-                    }}
-                  >
-                    <CiCirclePlus size={25} />
-                  </button>
-                </header>
-                <div>
-                  <input type="text" placeholder="search..." className="w-full text-sm my-3 border-slate-300 bg-slate-100" />
-                  {usersData?.users?.map((item) => {
-                    return {
-                      ...item,
-                      organization: item.organizations.filter((org) => org?.org_id?.toString() === user?.orgId?.toString())?.[0]
-                    }
-                  })?.map((item) => {
-                    return (
-                      <button
-                        key={`user-${item._id.toString()}`}
-                        className="relative flex w-full items-center overflow-hidden rounded-md p-2 text-lg hover:bg-gray-300/25"
-                        onClick={() => {
-                          setMutationState("update");
-                          setUserToUpdate(item);
-                        }}
-                      >
-                        <span className="bg-slate-200 rounded-full w-9 h-9 p-1.5 bg-[#dddddd] shadow-lg flex items-center justify-center">
+    return (
+        <DashBoardLayout links={links} user={user} title="" description="">
+            <main className="relative h-full">
+                <section className="relative grid h-full grid-cols-[250px_1fr] text-primary">
+                    <>
+                        <aside className="flex flex-col gap-3 border-r-[1px] border-slate-200 p-4">
+                            <header className="flex justify-between">
+                                <h2 className="text-lg font-semibold">Users</h2>
+                                <button
+                                    onClick={() => {
+                                        setMutationState("idle");
+                                    }}
+                                >
+                                    <CiCirclePlus size={25}/>
+                                </button>
+                            </header>
+                            <div>
+                                <input type="text" placeholder="search..."
+                                       className="w-full text-sm my-3 border-slate-300 bg-slate-100"/>
+                                {usersData?.users?.map((item) => {
+                                    return {
+                                        ...item,
+                                        organization: item.organizations.filter((org) => org?.org_id?.toString() === user?.orgId?.toString())?.[0]
+                                    }
+                                })?.map((item) => {
+                                    return (
+                                        <button
+                                            key={`user-${item._id.toString()}`}
+                                            className="relative flex w-full items-center overflow-hidden rounded-md p-2 text-lg hover:bg-gray-300/25"
+                                            onClick={() => {
+                                                setMutationState("update");
+                                                setUserToUpdate(item);
+                                            }}
+                                        >
+                        <span
+                            className="bg-slate-200 rounded-full w-9 h-9 p-1.5 bg-[#dddddd] shadow-lg flex items-center justify-center">
                           <Image
-                            src={item?.organization?.picture}
-                            width={40}
-                            height={40}
-                            alt=""
-                            className="shrink-0 rounded-[50%]"
+                              src={item?.organization?.picture}
+                              width={40}
+                              height={40}
+                              alt=""
+                              className="shrink-0 rounded-[50%]"
                           />
                         </span>
-                        <div className="flex flex-col items-start justify-center">
+                                            <div className="flex flex-col items-start justify-center">
                           <span className="mx-4 whitespace-nowrap text-sm font-bold capitalize">
                             {item.first_name + " " + item.last_name}
                           </span>
-                          <span className="mx-4 whitespace-nowrap text-sm capitalize">
+                                                <span className="mx-4 whitespace-nowrap text-sm capitalize">
                             {item?.organization?.jobTitle}
                           </span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </aside>
-              <section className="p-10 pb-15 flex flex-col relative">
-                <div className=" text-primary">
-                  {mutationState === "idle" && (
-                    <div>
-                      <Formik
-                        initialValues={{
-                          national_id: ""
-                        }}
-                        validationSchema={toFormikValidationSchema(z.object({national_id: numeric().min(14).max(14)}))}
-                        onSubmit={(values) => {
-                          setNationalId(values.national_id);
-                        }}>
-                        <Form>
-                          <TextInput
-                            name={"national_id"}
-                            label={"National Id"}
-                            placeholder={"National Id"}
-                            type={"text"}
-                            required
-                          />
-                          <div className={"my-3"}>
-                            <GenericButton theme={'primary'} text={"Next"} />
-                            {isCurrentUserLoading && (
-                              <LoadingSpinner  />
-                            )}
-                          </div>
-                        </Form>
-                      </Formik>
-                      {currentUser && (
-                        <div>
-                          {!currentUser.organizations.filter((org) => org.org_id.toString() === user.orgId.toString()).length ? (
-                            <>
+                                            </div>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </aside>
+                        <section className="p-10 pb-15 flex flex-col relative">
+                            <div className=" text-primary">
+                                {mutationState === "idle" && (
+                                    <div>
+                                        <Formik
+                                            initialValues={{
+                                                national_id: ""
+                                            }}
+                                            validationSchema={toFormikValidationSchema(z.object({national_id: numeric().min(14).max(14)}))}
+                                            onSubmit={(values) => {
+                                                setNationalId(values.national_id);
+                                            }}>
+                                            <Form>
+                                                <TextInput
+                                                    name={"national_id"}
+                                                    label={"National Id"}
+                                                    placeholder={"National Id"}
+                                                    type={"text"}
+                                                    required
+                                                />
+                                                <div className={"my-3"}>
+                                                    <GenericButton theme={'primary'} text={"Next"}/>
+                                                    {isCurrentUserLoading && (
+                                                        <LoadingSpinner/>
+                                                    )}
+                                                </div>
+                                            </Form>
+                                        </Formik>
+                                        {currentUser && (
+                                            <div>
+                                                {!currentUser.organizations.filter((org) => org.org_id.toString() === user.orgId.toString()).length ? (
+                                                    <>
                             <span>
                               The user is found but isn't registered for this organization.
                             </span>
-                              <button className={"mx-1 text-highlight hover:underline"}>
-                                invite the user!
-                              </button>
-                            </>
-                          ): (
-                            <>
+                                                        <button className={"mx-1 text-highlight hover:underline"}>
+                                                            invite the user!
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    <>
                             <span>
                               The user is already exist!
                             </span>
-                            </>
-                          )}
-                        </div>
-                      )}
-                      {currentUserError && (
-                        <div>
+                                                    </>
+                                                )}
+                                            </div>
+                                        )}
+                                        {currentUserError && (
+                                            <div>
                         <span className={"text-red-500"}>
                           This user isn't found.
                         </span>
-                          <button
-                            onClick={() => {
-                              setMutationState("create");
-                            }}
-                            className={"mx-1 text-highlight hover:underline"}>
-                            create this user!
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  {mutationState !== "idle" && (
-                    <Formik
-                      initialValues={mutationState === "update" ? ({
-                        nationalId: userToUpdate?.nationalId,
-                        firstName: userToUpdate?.first_name,
-                        lastName: userToUpdate?.last_name,
-                        password: userToUpdate?.organization?.password,
-                        email: userToUpdate?.organization?.email,
-                        jobTitle: userToUpdate?.organization?.jobTitle,
-                        orgId: user.orgId,
-                        orgName: user.orgName,
-                        roles: userToUpdate?.organization?.roles,
-                      }) : ({
-                        nationalId,
-                        firstName: "",
-                        lastName: "",
-                        password: "",
-                        email: "",
-                        jobTitle: "",
-                        orgId: user.orgId,
-                        orgName: user.orgName,
-                        roles: [],
-                      })}
-                      enableReinitialize
-                      validationSchema={createUserFormSchema}
-                      onSubmit={(values) => {
-                        if(mutationState === "create") {
-                          createUser({
-                            ...values
-                          });
-                        }
-                        if(mutationState === "update") {
-                          updateUser({
-                            ...values
-                          })
-                        }
-                      }}
-                    >
-                      <Form>
-                        {(
-                          <div className={`flex flex-col gap-3`}>
-                            <TextInput
-                              name={"nationalId"}
-                              label={"National Id"}
-                              placeholder={"National Id"}
-                              type={"text"}
-                              required
-                            />
-                            <div className={"flex gap-4"}>
-                              <TextInput
-                                name={"firstName"}
-                                label={"First Name"}
-                                placeholder={"First Name"}
-                                type={"text"}
-                                required
-                              />
-                              <TextInput
-                                name={"lastName"}
-                                label={"Last Name"}
-                                placeholder={"Last Name"}
-                                type={"text"}
-                                required
-                              />
+                                                <button
+                                                    onClick={() => {
+                                                        setMutationState("create");
+                                                    }}
+                                                    className={"mx-1 text-highlight hover:underline"}>
+                                                    create this user!
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                                {mutationState !== "idle" && (
+                                    <Formik
+                                        initialValues={mutationState === "update" ? ({
+                                            nationalId: userToUpdate?.nationalId,
+                                            firstName: userToUpdate?.first_name,
+                                            lastName: userToUpdate?.last_name,
+                                            password: userToUpdate?.organization?.password,
+                                            email: userToUpdate?.organization?.email,
+                                            jobTitle: userToUpdate?.organization?.jobTitle,
+                                            orgId: user.orgId,
+                                            orgName: user.orgName,
+                                            roles: userToUpdate?.organization?.roles,
+                                        }) : ({
+                                            nationalId,
+                                            firstName: "",
+                                            lastName: "",
+                                            password: "",
+                                            email: "",
+                                            jobTitle: "",
+                                            orgId: user.orgId,
+                                            orgName: user.orgName,
+                                            roles: [],
+                                        })}
+                                        enableReinitialize
+                                        validationSchema={createUserFormSchema}
+                                        onSubmit={(values) => {
+                                            if (mutationState === "create") {
+                                                createUser({
+                                                    ...values
+                                                });
+                                            }
+                                            if (mutationState === "update") {
+                                                updateUser({
+                                                    ...values
+                                                })
+                                            }
+                                        }}
+                                    >
+                                        <Form>
+                                            {(
+                                                <div className={`flex flex-col gap-3`}>
+                                                    <TextInput
+                                                        name={"nationalId"}
+                                                        label={"National Id"}
+                                                        placeholder={"National Id"}
+                                                        type={"text"}
+                                                        required
+                                                    />
+                                                    <div className={"flex gap-4"}>
+                                                        <TextInput
+                                                            name={"firstName"}
+                                                            label={"First Name"}
+                                                            placeholder={"First Name"}
+                                                            type={"text"}
+                                                            required
+                                                        />
+                                                        <TextInput
+                                                            name={"lastName"}
+                                                            label={"Last Name"}
+                                                            placeholder={"Last Name"}
+                                                            type={"text"}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <TextInput
+                                                        name={"email"}
+                                                        label={"Email"}
+                                                        placeholder={"Email"}
+                                                        type={"email"}
+                                                        required
+                                                    />
+                                                    <TextInput
+                                                        name={"password"}
+                                                        label={"Password"}
+                                                        placeholder={"Password"}
+                                                        type={"password"}
+                                                        required
+                                                    />
+                                                    <TextInput
+                                                        name={"jobTitle"}
+                                                        label={"Job Title"}
+                                                        placeholder={"Job Title"}
+                                                        type={"text"}
+                                                        required
+                                                    />
+                                                    <div className={"flex flex-col my-3 gap-2"}>
+                                                        <label htmlFor={"roles"}>
+                                                            Roles
+                                                        </label>
+                                                        <div className={"flex flex-col justify-between gap-4"}>
+                                                            {rolesData?.roles?.map((role) => {
+                                                                return (
+                                                                    <CheckboxInput
+                                                                        key={role.name}
+                                                                        name={'roles'}
+                                                                        value={`${role._id.toString()}`}
+                                                                        label={role.name}
+                                                                    />
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className={"my-3"}>
+                                                        <GenericButton theme={'primary'}
+                                                                       text={mutationState == "update" ? "Update" : "Register"}/>
+                                                        {isCurrentUserLoading && (
+                                                            <LoadingSpinner/>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </Form>
+                                    </Formik>
+                                )}
                             </div>
-                            <TextInput
-                              name={"email"}
-                              label={"Email"}
-                              placeholder={"Email"}
-                              type={"email"}
-                              required
-                            />
-                            <TextInput
-                              name={"password"}
-                              label={"Password"}
-                              placeholder={"Password"}
-                              type={"password"}
-                              required
-                            />
-                            <TextInput
-                              name={"jobTitle"}
-                              label={"Job Title"}
-                              placeholder={"Job Title"}
-                              type={"text"}
-                              required
-                            />
-                            <div className={"flex flex-col my-3 gap-2"}>
-                              <label htmlFor={"roles"}>
-                                Roles
-                              </label>
-                              <div className={"flex flex-col justify-between gap-4"}>
-                                {rolesData?.roles?.map((role) => {
-                                  return (
-                                    <CheckboxInput
-                                      key={role.name}
-                                      name={'roles'}
-                                      value={`${role._id.toString()}`}
-                                      label={role.name}
-                                    />
-                                  )
-                                })}
-                              </div>
-                            </div>
-                            <div className={"my-3"}>
-                              <GenericButton theme={'primary'} text={mutationState == "update" ? "Update" : "Register"} />
-                              {isCurrentUserLoading && (
-                                <LoadingSpinner  />
-                              )}
-                            </div>
-                          </div>
-                        )}
-                      </Form>
-                    </Formik>
-                  )}
-                </div>
-              </section>
-            </>
-        </section>
-      </main>
-    </DashBoardLayout>
-  );
+                        </section>
+                    </>
+                </section>
+            </main>
+        </DashBoardLayout>
+    );
 };
 
 export default IndexPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(context);
+    const session = await getServerAuthSession(context);
 
-  if (!session) {
+    if (!session) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/",
+            },
+        };
+    }
+
+    // const {
+    //   user: { nationalId, orgName, orgId },
+    // } = session;
+    // STEP 1 CHECK IF HE STILL WORK THERE
+
+    // STEP 2 CHECK IF HE HAS THE PERMISSIONS TO ACCESS THAT PAGE
+    // const doc = await UserModel.findOne(
+    //   {
+    //     nationalId,
+    //     "organizations.org_name": orgName,
+    //     "organizations.org_id": orgId,
+    //   },
+    //   { "organizations.$": true }
+    // );
+    // does doc.organizations[0].roles contains the ability to make roles ?
     return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
+        props: {
+            user: session.user,
+            links: routes.dashboardPages
+        },
     };
-  }
-
-  // const {
-  //   user: { nationalId, orgName, orgId },
-  // } = session;
-  // STEP 1 CHECK IF HE STILL WORK THERE
-
-  // STEP 2 CHECK IF HE HAS THE PERMISSIONS TO ACCESS THAT PAGE
-  // const doc = await UserModel.findOne(
-  //   {
-  //     nationalId,
-  //     "organizations.org_name": orgName,
-  //     "organizations.org_id": orgId,
-  //   },
-  //   { "organizations.$": true }
-  // );
-  // does doc.organizations[0].roles contains the ability to make roles ?
-  return {
-    props: {
-      user: session.user,
-    },
-  };
 }
