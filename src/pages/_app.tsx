@@ -7,8 +7,9 @@ import "@/styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
 import { AnimatePresence } from "framer-motion";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PatientProvider } from "@/contexts/PatientContext";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const tajawal = Tajawal({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <PatientProvider>
           <main className={`${tajawal.variable} font-tajawal`}>
             <Component {...pageProps} />
+            <ToastContainer />
           </main>
           {/* <ReactQueryDevtools /> */}
         </PatientProvider>

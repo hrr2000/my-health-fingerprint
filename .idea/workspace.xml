@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/SiderBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/SiderBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/roles/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/roles/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/dashboard/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/users/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/api/routers/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/mongo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/mongo.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/helpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validation/patient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation/patient.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +34,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="ProjectId" id="2Myi91UC0BUzKH1emo889nUbAoA" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -32,9 +50,12 @@
     "git-widget-placeholder": "main",
     "last_opened_file_path": "D:/Mostafa/Study/GP/my-health-fingerprint",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "prettierjs.PrettierConfiguration.Package": "D:\\Mostafa\\Study\\GP\\my-health-fingerprint\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors",
     "ts.external.directory.path": "D:\\Mostafa\\Study\\GP\\my-health-fingerprint\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -105,7 +126,10 @@
       <workItem from="1686297503275" duration="37000" />
       <workItem from="1686386233517" duration="146000" />
       <workItem from="1686386946518" duration="19675000" />
-      <workItem from="1686415759125" duration="184000" />
+      <workItem from="1686415759125" duration="638000" />
+      <workItem from="1686416414548" duration="109000" />
+      <workItem from="1686416533594" duration="115000" />
+      <workItem from="1686416658452" duration="4645000" />
     </task>
     <servers />
   </component>
