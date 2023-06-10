@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="" />
+    <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/pages/dashboard/patients/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/SiderBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/SiderBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/patient/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/api/routers/patient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/patient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/application.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/application.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

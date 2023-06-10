@@ -1,9 +1,9 @@
 import {type GetServerSidePropsContext, type InferGetServerSidePropsType, type NextPage,} from "next";
 import {getServerAuthSession} from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
-import {routes} from "@/routes";
 import {OrganizationModel, UserModel} from "@/server/models";
 import {dbConnect} from "@/server/db";
+import {routes} from "@/routes";
 
 type serverSidePropsType = NextPage<
     InferGetServerSidePropsType<typeof getServerSideProps>
@@ -59,8 +59,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             },
         };
     }
-
-    const pages = routes.dashboardPages
     const entityToAccess = 'organizations'
 
     const re = new RegExp(`^${entityToAccess}`);
@@ -120,24 +118,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         },
 
     ])
-    organizationSpecificRolePermissions.forEach(e => {
-        console.log("--------------")
-        console.log(e)
-        console.log("--------------")
-    })
 
-    if (!organizationSpecificRolePermissions.find((e) => e._id === entityToAccess)) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/dashboard/home",
-            },
-        };
-    }
+
+    // if (!organizationSpecificRolePermissions.find((e) => e._id === entityToAccess)) {
+    //     return {
+    //         redirect: {
+    //             permanent: false,
+    //             destination: "/dashboard/home",
+    //         },
+    //     };
+    // }
 
 
     // remove from links any thing that is not in the array
-    
+    const filteredPages = routes.dashboardPages.filter(page => !page.entity || organizationSpecificRolePermissions.find(e => e._id.toLowerCase() === page.entity.toLowerCase()))
 
     // send the updated links + page specific permissions
 
@@ -145,7 +139,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return {
         props: {
             user: session.user,
-            links: pages
+            links: filteredPages
         },
     };
 }
