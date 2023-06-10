@@ -7,7 +7,7 @@ import { getServerAuthSession } from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
 import { CiCirclePlus } from "react-icons/ci";
 import { api } from "@/utils/api";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import TextInput from "@/components/form/sub/TextInput";
 import GenericButton from "@/components/common/GenericButton";
@@ -73,6 +73,7 @@ const IndexPage: serverSidePropsType = ({ user, links }) => {
 
   const {
     data: currentUser,
+    remove,
     error: currentUserError,
     isFetching: isCurrentUserLoading,
   } = api.user.findOne.useQuery(
@@ -84,6 +85,12 @@ const IndexPage: serverSidePropsType = ({ user, links }) => {
       retry: 0,
     }
   );
+
+  useEffect(() => {
+    if(mutationState === "idle") {
+      setNationalId(0);
+    }
+  }, [mutationState])
 
   return (
     <DashBoardLayout links={links} user={user} title="" description="">
