@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {type UserDocument, UserOrganizationSchema} from "@/types/mongo";
+import { type UserDocument, UserOrganizationSchema } from "@/types/mongo";
 
 const { Schema, Types } = mongoose;
 
@@ -27,7 +27,7 @@ const schema = new Schema<UserDocument>(
     },
     first_name: String,
     last_name: String,
-    organizations: [userOrganizationSchema]
+    organizations: [userOrganizationSchema],
   },
   { timestamps: true }
 );

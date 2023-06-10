@@ -3,10 +3,13 @@ import {
   getServerSession,
   type NextAuthOptions,
   type DefaultSession,
+  Session,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { UserModel } from "./models";
+import { OrganizationModel, UserModel } from "./models";
 import { dbConnect } from "@/server/db";
+import { routes } from "@/routes";
+import { PageEntititesType } from "@/types/application";
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
@@ -145,4 +148,161 @@ export const getServerAuthSession = (ctx: {
   res: GetServerSidePropsContext["res"];
 }) => {
   return getServerSession(ctx.req, ctx.res, authOptions);
+};
+
+export const getServerAuthZSession = async (
+  session: Session,
+  entityToAccess: PageEntititesType,
+  options = { redirectTo: "/dashboard/home" }
+) => {
+  await dbConnect();
+
+  const doc = await UserModel.findOne(
+    {
+      nationalId: session.user.nationalId,
+      "organizations.org_name": session.user.orgName,
+      "organizations.org_id": session.user.orgId,
+    },
+    { "organizations.roles.$": true, _id: false }
+  );
+  const userRoles = doc.organizations[0].roles;
+
+  if (!userRoles) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: options.redirectTo,
+      },
+    };
+  }
+
+  // if (userRoles.includes("*")) {
+  //   return {
+  //     props: {
+  //       user: session.user,
+  //       links: routes.dashboardPages,
+  //       pageSpecificPermissions: "*",
+  //     },
+  //   };
+  // }
+  const organizationSpecificRolePermissions =
+    await OrganizationModel.aggregate<{
+      _id: string;
+      permissions: string[];
+    }>([
+      { $match: { name: session.user.orgName } },
+      { $project: { _id: false, name: false, updatedAt: false } },
+      { $unwind: "$roles" },
+      { $match: { "roles._id": { $in: userRoles } } },
+      { $unwind: "$roles.permissions" },
+      {
+        $match: {
+          "roles.permissions": {
+            $regex:
+              /^(patients|collections|organizations|users|roles|settings)/,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            $switch: {
+              branches: [
+                {
+                  case: {
+                    $regexMatch: {
+                      input: "$roles.permissions",
+                      regex: /^patients/,
+                    },
+                  },
+                  then: "patients",
+                },
+                {
+                  case: {
+                    $regexMatch: {
+                      input: "$roles.permissions",
+                      regex: /^collections/,
+                    },
+                  },
+                  then: "collections",
+                },
+                {
+                  case: {
+                    $regexMatch: {
+                      input: "$roles.permissions",
+                      regex: /^organizations/,
+                    },
+                  },
+                  then: "organizations",
+                },
+                {
+                  case: {
+                    $regexMatch: {
+                      input: "$roles.permissions",
+                      regex: /^users/,
+                    },
+                  },
+                  then: "users",
+                },
+                {
+                  case: {
+                    $regexMatch: {
+                      input: "$roles.permissions",
+                      regex: /^roles/,
+                    },
+                  },
+                  then: "roles",
+                },
+                {
+                  case: {
+                    $regexMatch: {
+                      input: "$roles.permissions",
+                      regex: /^settings/,
+                    },
+                  },
+                  then: "settings",
+                },
+              ],
+            },
+          },
+          permissions: {
+            $push: "$roles.permissions",
+          },
+        },
+      },
+    ]);
+
+  const pageSpecificPermissions = organizationSpecificRolePermissions.find(
+    (e) => e._id === entityToAccess
+  );
+
+  if (!pageSpecificPermissions && entityToAccess) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: options.redirectTo,
+      },
+    };
+  }
+
+  // remove from links any thing that is not in the array
+  const filteredPages = routes.dashboardPages.filter(
+    (page) =>
+      !page.entity ||
+      organizationSpecificRolePermissions.find(
+        (e) => e._id.toLowerCase() === page.entity.toLowerCase()
+      )
+  );
+
+  // send the updated links + page specific permissions
+
+  return {
+    props: {
+      user: session.user,
+      links: filteredPages,
+      pageSpecificPermissions: pageSpecificPermissions
+        ? pageSpecificPermissions
+        : "",
+    },
+  };
 };
