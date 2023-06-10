@@ -16,19 +16,19 @@ export const PatientProfileView = () => {
     data: profile,
     error,
     fetchStatus,
-    refetch
+    refetch,
   } = useGetPatientProfileData(patientId || "");
   const {
     mutate: updatePatientProfile,
     isLoading: isUpdatingProfile,
     isSuccess: isUpdateProfileSuccess,
-  } = api.patient.updateProfile.useMutation({onSuccess : () => refetch() });
+  } = api.patient.updateProfile.useMutation({ onSuccess: () => refetch() });
   const [initValues, setInitValues] = useState({
     ...profile,
     dateOfBirth:
-        typeof profile?.dateOfBirth !== "string"
-            ? profile?.dateOfBirth.toISOString().split("T")[0]
-            : profile?.dateOfBirth,
+      typeof profile?.dateOfBirth !== "string"
+        ? profile?.dateOfBirth.toISOString().split("T")[0]
+        : profile?.dateOfBirth,
   });
 
   return (
@@ -95,7 +95,6 @@ export const PatientProfileView = () => {
                                 city: "",
                                 district: "",
                                 streetName: "",
-                                postalCode: "",
                               },
                             ],
                           })
@@ -127,10 +126,6 @@ export const PatientProfileView = () => {
                           name={`address[${index}].district`}
                           label="district"
                           required
-                        />
-                        <TextInput
-                          name={`address[${index}].postalCode`}
-                          label="postal code"
                         />
                       </div>
                       <TextInput
