@@ -10,7 +10,7 @@ export const createUserSchema = z.object({
   email: z.string().trim().email(),
   orgId: z.string().trim(),
   orgName: z.string().trim(),
-  roles: z.string().trim().array(),
+  roles: z.array(z.string()),
   jobTitle: z.string().trim(),
 });
 // this is for clientside validation
