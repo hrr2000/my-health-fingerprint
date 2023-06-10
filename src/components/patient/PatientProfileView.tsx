@@ -23,20 +23,20 @@ export const PatientProfileView = () => {
     isLoading: isUpdatingProfile,
     isSuccess: isUpdateProfileSuccess,
   } = api.patient.updateProfile.useMutation({onSuccess : () => refetch() });
-  const [initValues, setInitValues] = useState(profile);
+  const [initValues, setInitValues] = useState({
+    ...profile,
+    dateOfBirth:
+        typeof profile?.dateOfBirth !== "string"
+            ? profile?.dateOfBirth.toISOString().split("T")[0]
+            : profile?.dateOfBirth,
+  });
 
   return (
     <main className={"relative flex-1"}>
       {initValues ? (
         <div className="p-2">
           <Formik
-            initialValues={{
-              ...initValues,
-              dateOfBirth:
-                typeof initValues?.dateOfBirth !== "string"
-                  ? initValues?.dateOfBirth.toISOString().split("T")[0]
-                  : initValues?.dateOfBirth,
-            }}
+            initialValues={initValues}
             validateOnChange={false}
             validateOnBlur={false}
             validationSchema={patientProfileFormSchema}
