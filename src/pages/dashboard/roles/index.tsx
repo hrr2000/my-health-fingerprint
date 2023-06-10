@@ -3,7 +3,7 @@ import {
   type InferGetServerSidePropsType,
   type NextPage,
 } from "next";
-import { getServerAuthSession } from "@/server/auth";
+import { getServerAuthSession, getServerAuthZSession } from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
 import { CiCirclePlus, CiFloppyDisk, CiTrash } from "react-icons/ci";
 import { api } from "@/utils/api";
@@ -238,25 +238,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  // const {
-  //   user: { nationalId, orgName, orgId },
-  // } = session;
-  // STEP 1 CHECK IF HE STILL WORK THERE
-
-  // STEP 2 CHECK IF HE HAS THE PERMISSIONS TO ACCESS THAT PAGE
-  // const doc = await UserModel.findOne(
-  //   {
-  //     nationalId,
-  //     "organizations.org_name": orgName,
-  //     "organizations.org_id": orgId,
-  //   },
-  //   { "organizations.$": true }
-  // );
-  // does doc.organizations[0].roles contains the ability to make roles ?
-  return {
-    props: {
-      user: session.user,
-      links: routes.dashboardPages,
-    },
-  };
+  return await getServerAuthZSession(session, "roles");
 }

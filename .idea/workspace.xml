@@ -5,13 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62d37381-71d9-44cb-a635-052e0d7e66df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/collections/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/collections/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/patients/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/patients/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/roles/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/roles/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/users/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/users/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/api/middlewares/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/middlewares/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/api/trpc.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/trpc.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/models/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/application.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/application.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/mongo.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/mongo.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="JsbtTreeLayoutManager">
+    <layout place="tools.popupnpm">
+      <scroll-view-position x="0" y="0" />
+    </layout>
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
@@ -21,6 +37,19 @@
     "ts.external.directory.path": "H:\\webDev\\my-health-fingerprint\\node_modules\\typescript\\lib"
   }
 }]]></component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.rcb.reactComponents" value="false" />
+        <entry key="com.haulmont.rcb.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\webDev\my-health-fingerprint\src" />
+    </key>
+  </component>
   <component name="TaskManager">
     <servers />
   </component>
