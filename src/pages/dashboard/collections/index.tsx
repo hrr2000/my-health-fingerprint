@@ -11,11 +11,12 @@ import { api } from "@/utils/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useState } from "react";
 import { CiMedicalCase } from "react-icons/ci";
+import {routes} from "@/routes";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 
-const DashboardPage: serverSidePropsType = ({ user }) => {
+const DashboardPage: serverSidePropsType = ({ user,links }) => {
   const [page, setPage] = useState(1);
   const { data: paginatedData, isLoading } = api.collection.list.useQuery({
     page: page,
@@ -26,7 +27,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
   const router = useRouter();
 
   return (
-    <DashBoardLayout user={user} title="" description="">
+    <DashBoardLayout links={links} user={user} title="" description="">
       <main className="relative text-primary">
         <section className="flex gap-2 bg-slate-50 px-5 py-3 text-black">
           <button className="p-1">
@@ -97,6 +98,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       user: session.user,
+      links : routes.dashboardPages
     },
   };
 }

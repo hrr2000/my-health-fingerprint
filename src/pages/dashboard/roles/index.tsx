@@ -16,6 +16,7 @@ import { roleFormSchema } from "@/validation/role";
 import CheckboxInput from "@/components/form/sub/CheckBoxInput";
 import TextInput from "@/components/form/sub/TextInput";
 import { CiFloppyDisk, CiTrash } from "react-icons/ci";
+import {routes} from "@/routes";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
@@ -61,7 +62,7 @@ const PermissionsGenerator = ({
   );
 };
 
-const IndexPage: serverSidePropsType = ({ user }) => {
+const IndexPage: serverSidePropsType = ({ user, links }) => {
   const { data, isLoading, refetch } = api.organization.listRoles.useQuery({
     org_name: user.orgName,
   });
@@ -82,7 +83,7 @@ const IndexPage: serverSidePropsType = ({ user }) => {
   }, [data])
 
   return (
-    <DashBoardLayout user={user} title="" description="">
+    <DashBoardLayout links={links} user={user} title="" description="">
       <main className="relative h-full">
         <section className="relative grid h-full grid-cols-[250px_1fr] text-primary">
           {data && (
@@ -252,6 +253,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       user: session.user,
+      links : routes.dashboardPages
     },
   };
 }

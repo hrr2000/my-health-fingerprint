@@ -25,7 +25,7 @@ const schema = new Schema<UserDocument>(
         emailConfirmed: { type: Date, default: null },
         picture: String,
         jobTitle: String,
-        roles: [Types.ObjectId],
+        roles: [String],
         _id: false,
       },
     ],
