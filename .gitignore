@@ -44,3 +44,4 @@ yarn-error.log*
 
 #misc
 session-management-nextauth.txt
+.idea
