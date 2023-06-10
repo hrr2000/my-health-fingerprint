@@ -17,12 +17,13 @@ import GenericButton from "@/components/common/GenericButton";
 import { IoIosAdd } from "react-icons/io";
 import { api } from "@/utils/api";
 import { AiOutlineLoading } from "react-icons/ai";
+import {routes} from "@/routes";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 
-const DashboardPage: serverSidePropsType = ({ user }) => {
+const DashboardPage: serverSidePropsType = ({ user, links }) => {
   const { patientId, mode, setMode, profile, setPatientId } =
     usePatientContext();
   const { mutate: createProfile, isLoading: isCreatingProfile } =
@@ -31,7 +32,7 @@ const DashboardPage: serverSidePropsType = ({ user }) => {
     });
 
   return (
-    <DashBoardLayout user={user} title="" description="">
+    <DashBoardLayout links={links} user={user} title="" description="">
       <main className="relative grid h-full grid-cols-[1fr_320px]">
         <section className="h-full gap-2 text-black">
           <div className="flex h-full flex-col overflow-hidden text-primary">
@@ -188,6 +189,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       user: session.user,
+      links : routes.dashboardPages
     },
   };
 }
