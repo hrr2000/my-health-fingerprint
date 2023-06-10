@@ -26,7 +26,7 @@ type serverSidePropsType = NextPage<
 >;
 
 const IndexPage: serverSidePropsType = ({ user, links }) => {
-  const notifySuccess = (msg: string) => toast(msg, {type: "success", });
+  const notifySuccess = (msg: string) => toast(msg, { type: "success" });
   const {
     data: rolesData,
     isLoading: isRolesLoading,
@@ -87,10 +87,10 @@ const IndexPage: serverSidePropsType = ({ user, links }) => {
   );
 
   useEffect(() => {
-    if(mutationState === "idle") {
-      setNationalId(0);
+    if (mutationState === "idle") {
+      setNationalId("");
     }
-  }, [mutationState])
+  }, [mutationState]);
 
   return (
     <DashBoardLayout links={links} user={user} title="" description="">
