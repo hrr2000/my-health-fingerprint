@@ -58,7 +58,7 @@ export const organizationRouter = createTRPCRouter({
     .query(async ({ input: { org_name } }) => {
       const doc = await OrganizationModel.findOne(
         { name: org_name },
-        { "roles.name": true, "roles.permissions": true }
+        { "roles.name": true, "roles.permissions": true, "roles._id": true }
       );
 
       if (!doc) {
@@ -156,4 +156,23 @@ export const organizationRouter = createTRPCRouter({
         orgs: userAccounts,
       };
     }),
+
+    listUsers: protectedProcedure
+      .query(async ({ctx}) => {
+        const orgId = ctx.session.user.orgId;
+        const users = await UserModel.find({
+          "organizations.org_id": orgId
+        }).exec();
+
+        if (!users) {
+          throw new TRPCError({
+            message: `no records found`,
+            code: "BAD_REQUEST",
+          });
+        }
+
+        return {
+          users
+        }
+      }),
 });

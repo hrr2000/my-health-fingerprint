@@ -20,7 +20,7 @@ export default function CheckboxInput({
     <div className="flex w-full flex-col gap-2">
       <div className="flex items-center gap-10 ">
         <label
-          className="flex items-center text-md font-normal capitalize text-gray-500 "
+          className="flex items-center text-md font-normal capitalize text-gray-500 min-w-max"
           htmlFor={name}
         >
           <span>{label}</span>

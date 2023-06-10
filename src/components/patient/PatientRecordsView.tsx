@@ -40,11 +40,11 @@ export const PatientRecordsView = () => {
       ) : (
         <TabsProvider
           initialValue={data?.health_record[0]?.collection_name || ""}
-          defaultTabClassName="px-4 py-2 rounded-lg capitalize bg-primary text-white hover:bg-primary-hover"
-          defaultActiveTabClassName="bg-primary  font-semibold bg-pr bg-primary-hover"
+          defaultTabClassName="px-3 py-2 rounded-lg capitalize bg-primary text-white hover:bg-primary-hover"
+          defaultActiveTabClassName="bg-primary-hover"
         >
           {data && (
-            <header className="flex items-center gap-2 bg-slate-100/80 py-2 px-5 text-sm text-black">
+            <header className="flex items-center gap-2 bg-slate-100/80 py-2 px-5 text-sm text-black flex-wrap">
               {registeredCollectionsNames?.map((collection_name) => (
                 <Tab
                   key={collection_name}
@@ -54,7 +54,7 @@ export const PatientRecordsView = () => {
                   {formatFieldNamesToReadable(collection_name)}
                 </Tab>
               ))}
-              <Tab value="add" textContext={"Add"}>
+              <Tab value="add" textContext={"+ More..."}>
                 <IoIosAdd color="white" size={28} />
               </Tab>
             </header>

@@ -5,16 +5,18 @@ export interface UserDocument extends User {
   nationalId: string;
   first_name: string;
   last_name: string;
-  organizations: {
-    org_id: ObjectId;
-    org_name: string;
-    picture: string;
-    password: string;
-    email: string;
-    emailConfirmed: Date;
-    jobTitle: string;
-    roles: ObjectId[];
-  }[];
+  organizations: UserOrganizationSchema[];
+}
+
+export interface UserOrganizationSchema {
+  org_id: ObjectId;
+  org_name: string;
+  picture: string;
+  password: string;
+  email: string;
+  emailConfirmed: Date;
+  jobTitle: string;
+  roles: ObjectId[];
 }
 
 export interface PermissionDocument {
