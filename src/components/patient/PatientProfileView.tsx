@@ -1,7 +1,6 @@
 import { usePatientContext } from "@/contexts/PatientContext";
 import useGetPatientProfileData from "@/hooks/useGetPatientProfileData";
 import React, { useState } from "react";
-import Image from "next/image";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { Form, Formik } from "formik";
 import { patientProfileFormSchema } from "@/validation/patient";
@@ -32,7 +31,10 @@ export const PatientProfileView = () => {
           <Formik
             initialValues={{
               ...initValues,
-              dateOfBirth: initValues?.dateOfBirth.toISOString().split("T")[0],
+              dateOfBirth:
+                typeof initValues?.dateOfBirth !== "string"
+                  ? initValues?.dateOfBirth.toISOString().split("T")[0]
+                  : initValues?.dateOfBirth,
             }}
             validateOnChange={false}
             validateOnBlur={false}
@@ -48,7 +50,7 @@ export const PatientProfileView = () => {
             }}
             enableReinitialize
           >
-            {({ errors }) => (
+            {({ errors, values }) => (
               <Form className="flex flex-col gap-5 overflow-y-auto p-5 scrollbar-track-blue-300  scrollbar-thumb-gray-50">
                 <div className="flex justify-end">
                   <button
@@ -84,9 +86,9 @@ export const PatientProfileView = () => {
                         className="mb-1 rounded-full capitalize text-primary transition hover:scale-110"
                         onClick={() =>
                           setInitValues({
-                            ...initValues,
+                            ...values,
                             address: [
-                              ...initValues.address,
+                              ...values.address,
                               {
                                 id: nanoid(),
                                 city: "",
@@ -157,9 +159,9 @@ export const PatientProfileView = () => {
                         type="button"
                         onClick={() =>
                           setInitValues({
-                            ...initValues,
+                            ...values,
                             relativePhoneNumbers: [
-                              ...initValues.relativePhoneNumbers,
+                              ...values.relativePhoneNumbers,
                               {
                                 id: nanoid(),
                                 phoneNumber: "",
