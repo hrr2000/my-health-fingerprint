@@ -17,6 +17,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import {routes} from "@/routes";
 
 
 ChartJS.register(
@@ -119,12 +120,12 @@ type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 
-const DashboardPage: serverSidePropsType = ({ user }) => {
+const DashboardPage: serverSidePropsType = ({ user ,links}) => {
   const isDesktop = useIsDesktop();
   return (
     <>
       {isDesktop ? (
-        <DashBoardLayout user={user} title="" description="">
+        <DashBoardLayout links={links} user={user} title="" description="">
           <div className={`grid grid-cols-2 p-10`}>
             <div >
               <Line options={options} data={data} />
@@ -157,6 +158,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       user: session.user,
+      links : routes.dashboardPages
+
     },
   };
 }

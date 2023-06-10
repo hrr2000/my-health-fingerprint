@@ -1,7 +1,6 @@
 import { usePatientContext } from "@/contexts/PatientContext";
 import useGetPatientProfileData from "@/hooks/useGetPatientProfileData";
 import React, { useState } from "react";
-import Image from "next/image";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { Form, Formik } from "formik";
 import { patientProfileFormSchema } from "@/validation/patient";
@@ -17,23 +16,27 @@ export const PatientProfileView = () => {
     data: profile,
     error,
     fetchStatus,
+    refetch
   } = useGetPatientProfileData(patientId || "");
   const {
     mutate: updatePatientProfile,
     isLoading: isUpdatingProfile,
     isSuccess: isUpdateProfileSuccess,
-  } = api.patient.updateProfile.useMutation();
-  const [initValues, setInitValues] = useState(profile);
+  } = api.patient.updateProfile.useMutation({onSuccess : () => refetch() });
+  const [initValues, setInitValues] = useState({
+    ...profile,
+    dateOfBirth:
+        typeof profile?.dateOfBirth !== "string"
+            ? profile?.dateOfBirth.toISOString().split("T")[0]
+            : profile?.dateOfBirth,
+  });
 
   return (
     <main className={"relative flex-1"}>
       {initValues ? (
         <div className="p-2">
           <Formik
-            initialValues={{
-              ...initValues,
-              dateOfBirth: initValues?.dateOfBirth.toISOString().split("T")[0],
-            }}
+            initialValues={initValues}
             validateOnChange={false}
             validateOnBlur={false}
             validationSchema={patientProfileFormSchema}
@@ -48,7 +51,7 @@ export const PatientProfileView = () => {
             }}
             enableReinitialize
           >
-            {({ errors }) => (
+            {({ errors, values }) => (
               <Form className="flex flex-col gap-5 overflow-y-auto p-5 scrollbar-track-blue-300  scrollbar-thumb-gray-50">
                 <div className="flex justify-end">
                   <button
@@ -84,9 +87,9 @@ export const PatientProfileView = () => {
                         className="mb-1 rounded-full capitalize text-primary transition hover:scale-110"
                         onClick={() =>
                           setInitValues({
-                            ...initValues,
+                            ...values,
                             address: [
-                              ...initValues.address,
+                              ...values.address,
                               {
                                 id: nanoid(),
                                 city: "",
@@ -157,9 +160,9 @@ export const PatientProfileView = () => {
                         type="button"
                         onClick={() =>
                           setInitValues({
-                            ...initValues,
+                            ...values,
                             relativePhoneNumbers: [
-                              ...initValues.relativePhoneNumbers,
+                              ...values.relativePhoneNumbers,
                               {
                                 id: nanoid(),
                                 phoneNumber: "",

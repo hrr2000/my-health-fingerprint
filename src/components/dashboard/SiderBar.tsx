@@ -3,20 +3,41 @@ import { FiActivity } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { type GenericProps } from "@/types/application";
+import {type GenericProps, ILink} from "@/types/application";
 import useOnClickOutside from "@/hooks/useClickOutside";
 import { NavBar } from "../common/NavBar";
 import { routes } from "@/routes";
-import { CiLogout } from "react-icons/ci";
+import {CiFolderOn, CiGrid41, CiHospital1, CiLogout, CiMedicalCase, CiSettings, CiViewBoard} from "react-icons/ci";
+import {mockSession} from "next-auth/client/__tests__/helpers/mocks";
+import image = mockSession.user.image;
 
 interface LocalProps extends GenericProps {
   username: string;
   userImageSrc: string;
+  links : ILink[]
 }
 
-function SiderBar({ username, userImageSrc }: LocalProps) {
+
+const pageLinksImages : {[k:string] : React.ReactNode} = {
+  'dashboard/home' :  <CiViewBoard className="h-[25px] w-[25px] shrink-0" />,
+  'dashboard/patient' : <CiMedicalCase className="h-[25px] w-[25px] shrink-0" /> ,
+  'dashboard/collections' : <CiFolderOn className="h-[25px] w-[25px] shrink-0" />,
+  'dashboard/organizations' :  <CiHospital1 className="h-[25px] w-[25px] shrink-0" />,
+  'dashboard/roles' : <CiGrid41 className="h-[25px] w-[25px] shrink-0" />,
+  'dashboard/settings' : <CiSettings className="h-[25px] w-[25px] shrink-0" />
+
+}
+const addImages = (links : ILink[]): ILink[] => {
+  return links.map(link => ({...link , image : pageLinksImages[link.href]}))
+}
+
+
+
+function SideBar({ username, userImageSrc , links }: LocalProps) {
   const [isUserTooltipOpen, setIsUserTooltipOpen] = useState(false);
   const domNode = useOnClickOutside(() => setIsUserTooltipOpen(false));
+
+
 
   return (
     <div className="h-full w-[220px]">
@@ -29,7 +50,7 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
         </header>
         <NavBar className="overflow-hidden" mode="both">
           <NavBar.NavLinks
-            links={routes.dashboardPages}
+            links={addImages(links)}
             activeLinkClassName="bg-primary rounded-md shadow-lg shadow-sky-200 text-white hover:text-white"
             linkClassName="flex capitalize font-semibold text-sm items-center p-2 text-lg hover:text-highlight"
             className="flex flex-col gap-4"
@@ -76,4 +97,4 @@ function SiderBar({ username, userImageSrc }: LocalProps) {
   );
 }
 
-export default SiderBar;
+export default SideBar;
