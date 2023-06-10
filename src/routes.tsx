@@ -6,11 +6,9 @@ import {
   CiSettings,
   CiViewBoard,
   CiGrid41,
-  CiHospital1
+  CiHospital1,
+  CiUser
 } from "react-icons/ci";
-import { RiHospitalLine } from "react-icons/ri";
-import { GoOrganization } from "react-icons/go";
-import { MdOutlineShield } from "react-icons/md";
 
 export const routes: {
   landingPages: ILink[];
@@ -55,6 +53,11 @@ export const routes: {
       href: "dashboard/organizations",
       image: <CiHospital1 className="h-[25px] w-[25px] shrink-0" />,
       display_text: "Organizations",
+    },
+    {
+      href: "dashboard/users",
+      image: <CiUser className="h-[25px] w-[25px] shrink-0" />,
+      display_text: "Users",
     },
     {
       href: "dashboard/roles",

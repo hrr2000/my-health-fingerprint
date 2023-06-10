@@ -1,7 +1,22 @@
 import mongoose from "mongoose";
-import { type UserDocument } from "@/types/mongo";
+import {type UserDocument, UserOrganizationSchema} from "@/types/mongo";
 
 const { Schema, Types } = mongoose;
+
+const userOrganizationSchema = new Schema<UserOrganizationSchema>({
+  org_id: {
+    type: Types.ObjectId,
+    unique: true,
+    index: true,
+  },
+  org_name: { type: String, unique: true },
+  password: String,
+  email: String,
+  emailConfirmed: { type: Date, default: null },
+  picture: String,
+  jobTitle: String,
+  roles: [Types.ObjectId],
+});
 
 const schema = new Schema<UserDocument>(
   {
@@ -12,23 +27,7 @@ const schema = new Schema<UserDocument>(
     },
     first_name: String,
     last_name: String,
-    organizations: [
-      {
-        org_id: {
-          type: Types.ObjectId,
-          unique: true,
-          index: true,
-        },
-        org_name: { type: String, unique: true },
-        password: String,
-        email: String,
-        emailConfirmed: { type: Date, default: null },
-        picture: String,
-        jobTitle: String,
-        roles: [Types.ObjectId],
-        _id: false,
-      },
-    ],
+    organizations: [userOrganizationSchema]
   },
   { timestamps: true }
 );
