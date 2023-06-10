@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="57985bdb-8ac2-45b3-b904-cbc7054715d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/SiderBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/SiderBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/organizations/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/patient/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/patients/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/api/routers/patient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/api/routers/patient.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/application.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/application.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validation/patient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation/patient.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +38,6 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ToolWindowCommit.ShowToolbar": "false",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
@@ -135,7 +130,7 @@
       <workItem from="1686388377642" duration="269000" />
       <workItem from="1686388660983" duration="467000" />
       <workItem from="1686389142235" duration="7076000" />
-      <workItem from="1686402541275" duration="9905000" />
+      <workItem from="1686402541275" duration="8027000" />
     </task>
     <servers />
   </component>
