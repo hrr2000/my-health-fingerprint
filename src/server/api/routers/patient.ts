@@ -284,7 +284,7 @@ export const patientRouter = createTRPCRouter({
     )
     .query(async ({ input: { patientId } }) => {
       return fetch(
-        "https://mhfp-recommendation-production.up.railway.app/train",
+        "https://mhfp-recommendation-production.up.railway.app/predict",
         {
           method: "POST",
           headers: {
@@ -296,4 +296,5 @@ export const patientRouter = createTRPCRouter({
           }),
         }
       ).then((res) => res.json());
+    }),
 });
