@@ -25,7 +25,11 @@ type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 
-const IndexPage: serverSidePropsType = ({ user, links }) => {
+const IndexPage: serverSidePropsType = ({
+  user,
+  links,
+  pageSpecificPermissions,
+}) => {
   const notifySuccess = (msg: string) => toast(msg, { type: "success" });
   const {
     data: rolesData,
@@ -374,5 +378,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
+
   return await getServerAuthZSession(session, "users");
 }

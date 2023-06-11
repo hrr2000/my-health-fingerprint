@@ -70,7 +70,6 @@ export const authOptions: NextAuthOptions = {
         const selectedOrg = organizations.find(
           (org) => org.org_id.toString() === creds?.selectedOrgId
         );
-        console.log(selectedOrg);
         if (!selectedOrg) {
           return null;
         }
@@ -286,13 +285,12 @@ export const getServerAuthZSession = async (
   );
 
   // send the updated links + page specific permissions
-
   return {
     props: {
       user: session.user,
       links: filteredPages,
       pageSpecificPermissions: pageSpecificPermissions
-        ? pageSpecificPermissions
+        ? pageSpecificPermissions.permissions
         : "",
     },
   };
