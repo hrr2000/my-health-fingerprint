@@ -64,6 +64,13 @@ const PatientAppointmentsDetailsView = ({
     onSuccess: () => refetch(),
   });
 
+  const {
+    mutate: update,
+    isLoading: isUpdatingAppointment,
+  } = api.patient.updateEntryOfCollection.useMutation({
+    onSuccess: () => refetch(),
+  });
+
   const schema = JSON.parse(data?.collectionTemplate.schema || "[]") as {
     is_collection?: boolean;
     is_primary?: boolean;
@@ -115,7 +122,16 @@ const PatientAppointmentsDetailsView = ({
                   id=""
                 />
               </div>
-
+              <div className={`flex gap-2 items-center ${isSessionActive ? `text-green-500` : `text-red-500`}`}>
+                {isSessionActive ? (
+                  <span className={`bg-green-500 h-2 w-2 block rounded-full`}></span>
+                ) : (
+                  <span className={`bg-red-500 h-2 w-2 block rounded-full`}></span>
+                )}
+                <span>
+                  {isSessionActive ? `On going session` : `No session is Active`}
+                </span>
+              </div>
               <GenericButton
                 onClick={() => {
                   if (!isSessionActive) {
@@ -131,6 +147,10 @@ const PatientAppointmentsDetailsView = ({
                     });
                     return;
                   }
+                  update({
+                    collectionName: "appointments",
+                    patientId: patientId,
+                  });
                 }}
                 theme={`${!isSessionActive ? "primary" : "secondary"}`}
               >
@@ -141,7 +161,7 @@ const PatientAppointmentsDetailsView = ({
         </>
       )}
       <ReadView
-        data={data?.collectionData as IRow[]}
+        data={data?.collectionData?.reverse() as IRow[]}
         fieldName={fieldName}
         fieldValue={fieldValue}
       />

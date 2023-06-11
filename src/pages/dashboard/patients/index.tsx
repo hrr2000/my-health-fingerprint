@@ -42,11 +42,11 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
   const recommendations = Object.keys(recommendationsData?.message || {})?.sort(
     (item1, item2) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      return (
-        recommendationsData?.message?.[item2]?.[0] -
-        recommendationsData?.message?.[item1]?.[0]
-      );
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+      const val1 = recommendationsData?.message?.[item1]?.[1];
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+      const val2 = recommendationsData?.message?.[item2]?.[1];
+      return val2 - val1;
     }
   );
 
@@ -203,16 +203,18 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
               <span>AI Recommendations For this patient!</span>
             </h2>
             {!profile.error &&
-              recommendations.slice(0, 4).map((item, idx) => {
+              recommendations.slice(0, 100).map((item, idx) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-                const percent: number =
-                  recommendationsData?.message?.[item]?.[1];
+                const percent: number = recommendationsData?.message?.[item]?.[1];
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+                const percent2: number = recommendationsData?.message?.[item]?.[1];
                 return (
                   <div
                     key={`recommendations-${item}`}
-                    className={`${
-                      idx === 0 ? "animate-pulse" : ""
-                    } relative w-full cursor-pointer rounded-lg border-[1px] ${
+                    style={{
+                      opacity: `${percent / 100}`
+                    }}
+                    className={`relative w-full cursor-pointer rounded-lg border-[1px] hover:scale-[1.02] transition ${
                       percent > 80
                         ? "border-green-400 text-green-400"
                         : percent > 50
@@ -236,7 +238,8 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
                       <span>
                         <div className="h-2 w-full rounded-lg bg-slate-300">
                           <div
-                            className={`h-full ${
+                            className={`h-full rounded-lg
+                            ${
                               percent > 80
                                 ? "bg-green-400"
                                 : percent > 50
