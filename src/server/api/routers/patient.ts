@@ -243,6 +243,7 @@ export const patientRouter = createTRPCRouter({
         collectionTemplate,
       };
     }),
+
   addEntryToCollection: protectedProcedure
     .input(
       z.object({
@@ -266,6 +267,36 @@ export const patientRouter = createTRPCRouter({
       if (!isUpdated.acknowledged) {
         throw new TRPCError({
           message: `Failed to add entry to collection: ${collectionName} for patient: ${patientId}`,
+          code: "BAD_REQUEST",
+        });
+      }
+      // MTNSA4 TSL7 DI
+    }),
+
+    updateEntryOfCollection: protectedProcedure
+    .input(
+      z.object({
+        collectionName: z.string(),
+        patientId: z.string(),
+        data: z.any(),
+      })
+    )
+    .mutation(async ({ input: { collectionName, patientId } }) => {
+      const currentDate = new Date();
+      const isUpdated = await PatientModel.updateOne(
+        {
+          "profile.nationalId": patientId,
+          "health_record.collection_name": collectionName,
+        },
+        {
+          $set: {
+            "health_record.$[].data.$[].end_date": currentDate
+          }
+        }
+      );
+      if (!isUpdated.acknowledged) {
+        throw new TRPCError({
+          message: `Failed to update entry to collection: ${collectionName} for patient: ${patientId}`,
           code: "BAD_REQUEST",
         });
       }

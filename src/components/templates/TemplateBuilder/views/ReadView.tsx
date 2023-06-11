@@ -5,7 +5,7 @@ export interface IRow {
 
 const Record = ({ row }: { row: IRow }) => {
   return (
-    <ul className="cursor-pointer rounded-md border-2 bg-white p-3 transition hover:-translate-x-1 hover:-translate-y-1 hover:bg-gray-100">
+    <ul className="cursor-pointer rounded-md border-2 bg-white border-slate-200 p-3 transition hover:-translate-x-1 hover:-translate-y-1 hover:bg-gray-100">
       {Object.entries(row).map(([k, v]) => {
         return (
           k !== "_id" && (
