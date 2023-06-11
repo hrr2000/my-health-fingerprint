@@ -14,7 +14,6 @@ import { Form, Formik } from "formik";
 import { roleFormSchema } from "@/validation/role";
 import CheckboxInput from "@/components/form/sub/CheckBoxInput";
 import TextInput from "@/components/form/sub/TextInput";
-import { routes } from "@/routes";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
