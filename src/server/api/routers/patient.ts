@@ -17,7 +17,6 @@ import {
   type PatientDocument,
   type PatientRelativePhoneNumbers,
 } from "@/types/mongo";
-import { env } from "@/env.mjs";
 
 export const patientRouter = createTRPCRouter({
   getProfile: protectedProcedure
@@ -44,13 +43,11 @@ export const patientRouter = createTRPCRouter({
           city,
           district,
           street_name,
-          postal_code,
         }): PatientProfileType["address"][number] & { id: string } => ({
           id: _id.toString(),
           city,
           district,
           streetName: street_name,
-          postalCode: postal_code,
         })
       );
 
@@ -94,13 +91,12 @@ export const patientRouter = createTRPCRouter({
         ({
           city,
           district,
-          postalCode,
+
           streetName,
         }): Omit<PatientAddress, "_id"> => ({
           city,
           district,
           street_name: streetName,
-          postal_code: postalCode,
         })
       );
 
@@ -300,5 +296,4 @@ export const patientRouter = createTRPCRouter({
           }),
         }
       ).then((res) => res.json());
-    }),
 });

@@ -167,7 +167,7 @@ export const getServerAuthZSession = async (
   );
   const userRoles = doc.organizations[0].roles;
 
-  if (!userRoles) {
+  if (!userRoles && entityToAccess) {
     return {
       redirect: {
         permanent: false,
@@ -176,15 +176,6 @@ export const getServerAuthZSession = async (
     };
   }
 
-  // if (userRoles.includes("*")) {
-  //   return {
-  //     props: {
-  //       user: session.user,
-  //       links: routes.dashboardPages,
-  //       pageSpecificPermissions: "*",
-  //     },
-  //   };
-  // }
   const organizationSpecificRolePermissions =
     await OrganizationModel.aggregate<{
       _id: string;
@@ -193,7 +184,7 @@ export const getServerAuthZSession = async (
       { $match: { name: session.user.orgName } },
       { $project: { _id: false, name: false, updatedAt: false } },
       { $unwind: "$roles" },
-      { $match: { "roles._id": { $in: userRoles } } },
+      { $match: { "roles._id": { $in: userRoles || [] } } },
       { $unwind: "$roles.permissions" },
       {
         $match: {
