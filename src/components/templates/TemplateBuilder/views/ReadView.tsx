@@ -1,4 +1,4 @@
-interface IRow {
+export interface IRow {
   [k: string]: string;
   _id: string;
 }

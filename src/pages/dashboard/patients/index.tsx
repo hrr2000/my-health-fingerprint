@@ -12,12 +12,13 @@ import { TabPanel } from "@/components/tabs/TabPanel";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 import { PatientProfileView } from "@/components/patient/PatientProfileView";
 import { PatientRecordsView } from "@/components/patient/PatientRecordsView";
+import { PatientAppointmentsView } from "@/components/patient/PatientAppointmentsView";
 import { CiCircleInfo, CiMedicalClipboard } from "react-icons/ci";
 import GenericButton from "@/components/common/GenericButton";
 import { IoIosAdd } from "react-icons/io";
 import { api } from "@/utils/api";
 import { AiOutlineLoading, AiFillRobot } from "react-icons/ai";
-import { GiMedicines } from 'react-icons/gi';
+import { GiMedicines } from "react-icons/gi";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -31,15 +32,23 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
       onSuccess: () => profile?.refetch(),
     });
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const {data: recommendationsData} = api.patient.getRecommendations.useQuery({patientId}, {
-    enabled: (!!patientId.length && !profile.error)
-  }) 
+  const { data: recommendationsData } = api.patient.getRecommendations.useQuery(
+    { patientId },
+    {
+      enabled: !!patientId.length && !profile.error,
+    }
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-  const recommendations = Object.keys(recommendationsData?.message || {})?.sort((item1, item2) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    return recommendationsData?.message?.[item2]?.[0] - recommendationsData?.message?.[item1]?.[0]
-   })
+  const recommendations = Object.keys(recommendationsData?.message || {})?.sort(
+    (item1, item2) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      return (
+        recommendationsData?.message?.[item2]?.[0] -
+        recommendationsData?.message?.[item1]?.[0]
+      );
+    }
+  );
 
   console.log(recommendationsData);
 
@@ -57,6 +66,7 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
                 <header className="text-md flex items-center gap-5 border-b-[1px] border-slate-300 px-5 text-black">
                   <Tab value="profile" textContext="Profile" />
                   <Tab value="record" textContext="Record" />
+                  <Tab value="appointments" textContext="Appointments" />
                 </header>
               )}
 
@@ -85,6 +95,9 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
                     </TabPanel>
                     <TabPanel value="record">
                       <PatientRecordsView />
+                    </TabPanel>
+                    <TabPanel value="appointments">
+                      <PatientAppointmentsView />
                     </TabPanel>
                   </>
                 )}
@@ -179,49 +192,67 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
             )}
           </div>
           <div className={`my-5 flex flex-col gap-3`}>
-           <h2
-             className={
-               "relative mb-4 flex items-center gap-2 text-sm font-bold text-primary"
-             }
-           >
-             <span>
-               <AiFillRobot size={18} />
-             </span>
-             <span>AI Recommendations For this patient!</span>
-           </h2>
-           {!profile.error && recommendations.slice(0, 4).map((item, idx) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-            const percent: number = recommendationsData?.message?.[item]?.[1];
-            return (
-              <div
-                key={`recommendations-${item}`}
-                className={`${idx === 0 ? 'animate-pulse' : ''} relative w-full cursor-pointer rounded-lg border-[1px] ${percent > 80 ? 'border-green-400 text-green-400' : percent > 50 ? 'border-lime-400 text-lime-400' : 'border-orange-400 text-orange-400'} bg-slate-100 p-3  shadow-lg hover:animate-none`}
-              >
-                <div className={`flex flex-col gap-2 text-sm`}>
-                  <div className="flex justify-between">
-                    <div className={"flex gap-2"}>
-                      <span>
-                        <GiMedicines size={20} />
-                      </span>
-                      <span className={"font-bold"}>{item}</span>
-                    </div>
-                    <span>
-                      <strong className={"text-lg"}>{percent}%</strong> Recommended !!
-                    </span>
-                  </div>
-                  <span>
-                    <div className="w-full h-2 bg-slate-300 rounded-lg">
-                      <div className={`h-full ${percent > 80 ? 'bg-green-400' : percent > 50 ? 'bg-lime-400' : 'bg-orange-400'}`} style={{
-                        width: `${percent}%`
-                      }}>
-
+            <h2
+              className={
+                "relative mb-4 flex items-center gap-2 text-sm font-bold text-primary"
+              }
+            >
+              <span>
+                <AiFillRobot size={18} />
+              </span>
+              <span>AI Recommendations For this patient!</span>
+            </h2>
+            {!profile.error &&
+              recommendations.slice(0, 4).map((item, idx) => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+                const percent: number =
+                  recommendationsData?.message?.[item]?.[1];
+                return (
+                  <div
+                    key={`recommendations-${item}`}
+                    className={`${
+                      idx === 0 ? "animate-pulse" : ""
+                    } relative w-full cursor-pointer rounded-lg border-[1px] ${
+                      percent > 80
+                        ? "border-green-400 text-green-400"
+                        : percent > 50
+                        ? "border-lime-400 text-lime-400"
+                        : "border-orange-400 text-orange-400"
+                    } bg-slate-100 p-3  shadow-lg hover:animate-none`}
+                  >
+                    <div className={`flex flex-col gap-2 text-sm`}>
+                      <div className="flex justify-between">
+                        <div className={"flex gap-2"}>
+                          <span>
+                            <GiMedicines size={20} />
+                          </span>
+                          <span className={"font-bold"}>{item}</span>
+                        </div>
+                        <span>
+                          <strong className={"text-lg"}>{percent}%</strong>{" "}
+                          Recommended !!
+                        </span>
                       </div>
+                      <span>
+                        <div className="h-2 w-full rounded-lg bg-slate-300">
+                          <div
+                            className={`h-full ${
+                              percent > 80
+                                ? "bg-green-400"
+                                : percent > 50
+                                ? "bg-lime-400"
+                                : "bg-orange-400"
+                            }`}
+                            style={{
+                              width: `${percent}%`,
+                            }}
+                          ></div>
+                        </div>
+                      </span>
                     </div>
-                  </span>
-                </div>
-              </div>
-            );
-           })}
+                  </div>
+                );
+              })}
           </div>
         </aside>
       </main>
