@@ -3,10 +3,10 @@ import {
   type InferGetServerSidePropsType,
   type NextPage,
 } from "next";
-import { getServerAuthSession } from "@/server/auth";
+import { getServerAuthSession, getServerAuthZSession } from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
 import TemplateBuilder from "@/components/templates/TemplateBuilder";
-import {routes} from "@/routes";
+import { routes } from "@/routes";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
@@ -35,10 +35,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  return {
-    props: {
-      user: session.user,
-      links : routes.dashboardPages
-    },
-  };
+  return await getServerAuthZSession(session, "collections");
 }
