@@ -20,6 +20,8 @@ const server = z.object({
   DATABASE_URL: z.string(),
   NEXT_PUBLIC_SUPABASE_URL: z.string(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
+  RECOMMENDATION_MODEL_KEY: z.string(),
+  RECOMMENDATION_MODEL_URL: z.string(),
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
 });
 
@@ -44,6 +46,8 @@ const processEnv = {
   DATABASE_URL: process.env.DATABASE_URL,
   NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
   NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  RECOMMENDATION_MODEL_KEY: process.env.RECOMMENDATION_MODEL_KEY,
+  RECOMMENDATION_MODEL_URL: process.env.RECOMMENDATION_MODEL_URL,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 
