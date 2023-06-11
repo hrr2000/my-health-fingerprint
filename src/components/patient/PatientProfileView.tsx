@@ -62,8 +62,8 @@ export const PatientProfileView = () => {
                     <span>Save Profile</span>
                   </button>
                 </div>
-                <section className=" rounded-md border-2 border-gray-300 bg-white p-5 shadow-sm ">
-                  <h2 className="mb-2 text-2xl font-bold">Full Name</h2>
+                <section className=" rounded-md border-2 border-slate-100 bg-white p-5 shadow-sm ">
+                  <h2 className="mb-2 text-2xl font-bold">Patient Name</h2>
                   <div className="flex gap-2 text-lg">
                     <TextInput
                       name="fullName.firstName"
@@ -78,7 +78,7 @@ export const PatientProfileView = () => {
                     />
                   </div>
                 </section>
-                <section className="flex flex-col gap-2 rounded-md border-2 border-gray-300 bg-white p-5">
+                <section className="flex flex-col gap-2 rounded-md border-2 border-slate-100 bg-white p-5">
                   <div className="flex items-center justify-between ">
                     <div className="flex gap-2">
                       <h2 className="mb-2 text-2xl font-bold">Addresses</h2>
@@ -105,16 +105,16 @@ export const PatientProfileView = () => {
                         </span>
                       </button>
                     </div>
-                    <div className="flex items-center gap-2 rounded-md bg-yellow-100 p-2 font-semibold capitalize shadow-sm ">
-                      <CiCircleInfo size={25} />
-                      <span>you must have at least one address</span>
+                    <div className="flex items-center gap-1 rounded-md p-1 text-sm text-highlight shadow-sm">
+                      <CiCircleInfo size={15} />
+                      <span>You must have at least one address</span>
                     </div>
                   </div>
 
                   {initValues.address.map((add, index) => (
                     <div
                       key={add.id.toString()}
-                      className="flex flex-col gap-2 rounded-md  border-2 border-gray-300 p-3 shadow-sm"
+                      className="flex flex-col gap-2 rounded-md  border-2 border-slate-100 p-3 shadow-sm"
                     >
                       <div className="flex items-end gap-2">
                         <TextInput
@@ -136,7 +136,7 @@ export const PatientProfileView = () => {
                     </div>
                   ))}
                 </section>
-                <section className=" flex gap-2 rounded-md border-2 border-gray-300 bg-white p-5">
+                <section className=" flex gap-2 rounded-md border-2 border-slate-100 bg-white p-5">
                   <DatePickerField
                     name="dateOfBirth"
                     label="date of birth"
@@ -145,12 +145,10 @@ export const PatientProfileView = () => {
                   <TextInput name="gender" label="gender" required />
                   <TextInput name="phoneNumber" label="phone number" required />
                 </section>
-                <section className="flex flex-col gap-2 rounded-md border-2 border-gray-300 bg-white p-5">
+                <section className="flex flex-col gap-2 rounded-md border-2 border-slate-100 bg-white p-5">
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2">
-                      <h2 className="mb-2 text-2xl font-bold">
-                        Phone numbers of Relatives
-                      </h2>
+                      <h2 className="mb-2 text-2xl font-bold">Relatives</h2>
                       <button
                         type="button"
                         onClick={() =>
@@ -174,10 +172,10 @@ export const PatientProfileView = () => {
                       </button>
                     </div>
                     <div className="flex gap-2">
-                      <div className="flex items-center gap-2 rounded-md bg-yellow-100 p-2 font-semibold capitalize shadow-sm ">
-                        <CiCircleInfo size={25} />
+                      <div className="flex items-center gap-1 rounded-md p-1 text-sm text-highlight shadow-sm">
+                        <CiCircleInfo size={15} />
                         <span>
-                          you must have at least two registered phone numbers
+                          You must have at least two registered phone numbers
                         </span>
                       </div>
                     </div>
@@ -185,7 +183,7 @@ export const PatientProfileView = () => {
                   {initValues.relativePhoneNumbers.map((phoneNumber, index) => (
                     <div
                       key={phoneNumber.id.toString()}
-                      className="flex flex-col gap-2 rounded-md border-2 border-gray-300 p-3 shadow-sm"
+                      className="flex flex-col gap-2 rounded-md border-2 border-slate-100 p-3 shadow-sm"
                     >
                       <div className="flex gap-2">
                         <TextInput

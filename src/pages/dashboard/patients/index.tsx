@@ -16,8 +16,9 @@ import { CiCircleInfo, CiMedicalClipboard } from "react-icons/ci";
 import GenericButton from "@/components/common/GenericButton";
 import { IoIosAdd } from "react-icons/io";
 import { api } from "@/utils/api";
-import { AiOutlineLoading } from "react-icons/ai";
-import { routes } from "@/routes";
+import { AiOutlineLoading, AiFillRobot } from "react-icons/ai";
+import { GiMedicines } from "react-icons/gi";
+import { useEffect } from "react";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -30,6 +31,10 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
     api.patient.createProfile.useMutation({
       onSuccess: () => profile?.refetch(),
     });
+    
+  const {data: recommendationsData} = api.patient.getRecommendations.useQuery({patientId}, {
+    enabled: !!patientId
+  }) 
 
   return (
     <DashBoardLayout links={links} user={user} title="" description="">
@@ -166,6 +171,40 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
               </ul>
             )}
           </div>
+          {/*<div className={`my-5 flex flex-col gap-3`}>*/}
+          {/*  <h2*/}
+          {/*    className={*/}
+          {/*      "relative mb-4 flex items-center gap-2 text-sm font-bold text-primary"*/}
+          {/*    }*/}
+          {/*  >*/}
+          {/*    <span>*/}
+          {/*      <AiFillRobot size={18} />*/}
+          {/*    </span>*/}
+          {/*    <span>AI Recommendations For this patient!</span>*/}
+          {/*  </h2>*/}
+          {/*  <div*/}
+          {/*    className={`relative w-full animate-pulse cursor-pointer rounded-lg border-2 border-highlight bg-white p-3 text-highlight shadow-lg hover:animate-none`}*/}
+          {/*  >*/}
+          {/*    <div className={`flex flex-col gap-2 text-sm`}>*/}
+          {/*      <div className={"flex gap-2"}>*/}
+          {/*        <span>*/}
+          {/*          <GiMedicines size={20} />*/}
+          {/*        </span>*/}
+          {/*        <span className={"font-bold"}>OMEGA 3</span>*/}
+          {/*      </div>*/}
+          {/*      <span>*/}
+          {/*        <strong className={"text-lg"}>90%</strong> Recommended !!*/}
+          {/*      </span>*/}
+          {/*      <span>*/}
+          {/*        <progress*/}
+          {/*          className={"w-full rounded-lg"}*/}
+          {/*          value={"90"}*/}
+          {/*          max={"100"}*/}
+          {/*        ></progress>*/}
+          {/*      </span>*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </aside>
       </main>
     </DashBoardLayout>
