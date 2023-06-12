@@ -273,7 +273,7 @@ export const patientRouter = createTRPCRouter({
       // MTNSA4 TSL7 DI
     }),
 
-    updateEntryOfCollection: protectedProcedure
+  updateEntryOfCollection: protectedProcedure
     .input(
       z.object({
         collectionName: z.string(),
@@ -290,8 +290,8 @@ export const patientRouter = createTRPCRouter({
         },
         {
           $set: {
-            "health_record.$[].data.$[].end_date": currentDate
-          }
+            "health_record.$[].data.$[].end_date": currentDate,
+          },
         }
       );
       if (!isUpdated.acknowledged) {
@@ -314,6 +314,19 @@ export const patientRouter = createTRPCRouter({
       })
     )
     .query(async ({ input: { patientId } }) => {
+      await fetch(
+        "https://mhfp-recommendation-production.up.railway.app/train",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: patientId,
+            key: "35c750bd9e9b7618684c0dc32470ac6da5371ddd1b2aff0ed209ce78385548eb",
+          }),
+        }
+      ).then(() => console.log("Trained Successfully!"));
       return fetch(
         "https://mhfp-recommendation-production.up.railway.app/predict",
         {
