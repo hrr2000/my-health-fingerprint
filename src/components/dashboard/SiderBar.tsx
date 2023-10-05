@@ -15,7 +15,10 @@ import {
   CiUser,
   CiViewBoard,
 } from "react-icons/ci";
+<<<<<<< HEAD
 import { useTranslation } from "next-i18next";
+=======
+>>>>>>> ae02a78d6703e29421f336b051bb1f8230d1e70e
 
 interface LocalProps extends GenericProps {
   username: string;

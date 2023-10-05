@@ -11,9 +11,12 @@ import { AnimatePresence } from "framer-motion";
 import { PatientProvider } from "@/contexts/PatientContext";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+<<<<<<< HEAD
 import { appWithTranslation, useTranslation } from "next-i18next";
 import nextI18nConfig from "@/../next-i18next.config.mjs";
 import { getDirection, isRTL } from "@/utils/helpers";
+=======
+>>>>>>> ae02a78d6703e29421f336b051bb1f8230d1e70e
 
 const tajawal = Tajawal({
   subsets: ["latin"],

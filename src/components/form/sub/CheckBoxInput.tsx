@@ -1,8 +1,11 @@
 import { Field } from "formik";
 import FieldErrorMessage from "./FieldErrorMessage";
 import { type GenericProps } from "@/types/application";
+<<<<<<< HEAD
 import { useTranslation } from "react-i18next";
 import { isRTL } from "@/utils/helpers";
+=======
+>>>>>>> ae02a78d6703e29421f336b051bb1f8230d1e70e
 
 interface LocalProps extends GenericProps {
   label?: string;
@@ -18,9 +21,12 @@ export default function CheckboxInput({
   value,
   ...props
 }: LocalProps) {
+<<<<<<< HEAD
   const {i18n} = useTranslation()
 
 
+=======
+>>>>>>> ae02a78d6703e29421f336b051bb1f8230d1e70e
   return (
     <div className="flex w-full flex-col gap-2">
       <div className="flex items-center gap-10 ">
