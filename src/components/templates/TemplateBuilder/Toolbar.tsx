@@ -4,7 +4,7 @@ import TextInput from "@/components/form/sub/TextInput";
 import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 import ToolbarController from "@/components/templates/TemplateBuilder/controllers/ToolbarController";
 import { useEffect } from "react";
-import { CiCircleCheck, CiEdit, CiWarning } from "react-icons/ci";
+import { CiCircleCheck, CiWarning } from "react-icons/ci";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { type CollectionDetails, type TemplateDetails } from "./types";
 import { BiEdit } from "react-icons/bi";

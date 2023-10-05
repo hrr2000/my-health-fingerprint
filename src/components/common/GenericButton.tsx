@@ -16,6 +16,8 @@ const PrimaryButton = ({
         full ? "w-full" : "w-max"
       } text-md rounded-md border-[1px] border-primary bg-primary p-2 px-4 font-semibold text-white shadow-lg shadow-sky-200 transition hover:border-primary-hover hover:bg-primary-hover`}
     >
+      <span>{text}</span>
+      {children}
     </button>
   );
 };
