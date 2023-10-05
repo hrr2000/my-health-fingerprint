@@ -15,6 +15,7 @@ import {
   CiUser,
   CiViewBoard,
 } from "react-icons/ci";
+import { useTranslation } from "next-i18next";
 
 interface LocalProps extends GenericProps {
   username: string;
@@ -44,6 +45,7 @@ const addImages = (links: ILink[]): ILink[] => {
 function SideBar({ username, userImageSrc, links }: LocalProps) {
   const [isUserTooltipOpen, setIsUserTooltipOpen] = useState(false);
   const domNode = useOnClickOutside(() => setIsUserTooltipOpen(false));
+  const {t} = useTranslation("common")
 
   return (
     <div className="h-full w-[220px]">
@@ -52,7 +54,7 @@ function SideBar({ username, userImageSrc, links }: LocalProps) {
       >
         <header className="flex items-center justify-start gap-3 overflow-hidden rounded-sm p-2">
           <FiActivity className="h-[30px] w-[30px] shrink-0" />
-          <h2 className={`text-2xl font-black`}>MHFP</h2>
+          <h2 className={`text-2xl font-black`}>{t("MHFP")}</h2>
         </header>
         <NavBar className="overflow-hidden" mode="both">
           <NavBar.NavLinks
@@ -87,7 +89,7 @@ function SideBar({ username, userImageSrc, links }: LocalProps) {
             className="flex w-full flex-1 items-center overflow-hidden rounded-md p-2 text-sm hover:text-red-500"
           >
             <CiLogout className="h-[25px] w-[25px] shrink-0" />
-            <span className="ml-4 whitespace-nowrap">Signout</span>
+            <span className="ml-4 whitespace-nowrap">{t('Signout')}</span>
           </button>
           {isUserTooltipOpen && (
             <ul

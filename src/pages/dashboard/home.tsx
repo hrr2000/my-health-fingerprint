@@ -18,6 +18,8 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { routes } from "@/routes";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nConfig from "@/../next-i18next.config.mjs";
 
 ChartJS.register(
   CategoryScale,
@@ -141,18 +143,6 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
 };
 
 export default DashboardPage;
-
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/auth/signin",
-      },
-    };
-  }
-
-  return await getServerAuthZSession(session, "");
+  return await getServerAuthZSession(context, "");
 }

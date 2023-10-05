@@ -226,16 +226,5 @@ const IndexPage: serverSidePropsType = ({ user, links }) => {
 export default IndexPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-    };
-  }
-
-  return await getServerAuthZSession(session, "roles");
+  return await getServerAuthZSession(context, "roles");
 }

@@ -1,6 +1,8 @@
 import { Field } from "formik";
 import FieldErrorMessage from "./FieldErrorMessage";
 import { type GenericProps } from "@/types/application";
+import { useTranslation } from "react-i18next";
+import { isRTL } from "@/utils/helpers";
 
 interface LocalProps extends GenericProps {
   label?: string;
@@ -16,6 +18,9 @@ export default function CheckboxInput({
   value,
   ...props
 }: LocalProps) {
+  const {i18n} = useTranslation()
+
+
   return (
     <div className="flex w-full flex-col gap-2">
       <div className="flex items-center gap-10 ">
@@ -32,7 +37,30 @@ export default function CheckboxInput({
           style={{
             backgroundImage: "none"
           }}
-          className={`checked:bg-primary before:content[''] focus:outline-0 cursor-pointer form-checkbox relative h-5 w-10 before:scale-125 focus:ring-0 before:h-full before:w-1/2 before:translate-x-0 checked:before:translate-x-full appearance-none rounded-full border-0 bg-slate-200 transition before:absolute before:rounded-full before:bg-white before:shadow-md before:transition`}
+          className={`
+          checked:bg-primary
+           before:content[''] 
+           focus:outline-0 
+           cursor-pointer 
+           form-checkbox 
+           relative 
+           h-5 
+           w-10 
+           before:scale-125 
+           focus:ring-0 
+           before:h-full 
+           before:w-1/2 
+           before:absolute 
+           ${!isRTL(i18n.language) ? 'before:translate-x-0 checked:before:translate-x-full' : 'before:translate-x-0 checked:before:-translate-x-full'} 
+           appearance-none rounded-full 
+           border-0 
+           bg-slate-200 
+           transition 
+           before:rounded-full 
+           before:bg-white 
+           before:shadow-md 
+           before:transition
+           `}
           name={name}
           value={value}
           {...props}

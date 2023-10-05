@@ -18,8 +18,8 @@ import { numeric } from "@/validation/utils";
 import { createUserFormSchema } from "@/validation/user";
 import CheckboxInput from "@/components/form/sub/CheckBoxInput";
 import Image from "next/image";
-import { routes } from "@/routes";
 import { toast } from "react-toastify";
+import { useTranslation } from "next-i18next";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -31,6 +31,9 @@ const IndexPage: serverSidePropsType = ({
   pageSpecificPermissions,
 }) => {
   const notifySuccess = (msg: string) => toast(msg, { type: "success" });
+
+  const {t} = useTranslation()
+
   const {
     data: rolesData,
     isLoading: isRolesLoading,
@@ -138,13 +141,13 @@ const IndexPage: serverSidePropsType = ({
                           setUserToUpdate(item);
                         }}
                       >
-                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-200 bg-[#dddddd] p-1.5 shadow-lg">
+                        <span className="shrink-0 flex h-9 w-9 items-center justify-center rounded-full bg-slate-200 bg-[#dddddd] p-1.5 shadow-lg">
                           <Image
                             src={item?.organization?.picture}
                             width={40}
                             height={40}
                             alt=""
-                            className="shrink-0 rounded-[50%]"
+                            className="rounded-[50%]"
                           />
                         </span>
                         <div className="flex flex-col items-start justify-center">
@@ -197,20 +200,17 @@ const IndexPage: serverSidePropsType = ({
                         ).length ? (
                           <>
                             <span>
-                              {
-                                "The user is found but isn't registered for this"
-                              }
-                              organization.
+                              {t("The user is found but isn't registered for this organization")}.
                             </span>
                             <button
                               className={"mx-1 text-highlight hover:underline"}
                             >
-                              invite the user!
+                              {t("invite the user!")}
                             </button>
                           </>
                         ) : (
                           <>
-                            <span>The user is already exist!</span>
+                            <span>{t("The user is already exist!")}</span>
                           </>
                         )}
                       </div>
@@ -279,45 +279,45 @@ const IndexPage: serverSidePropsType = ({
                         <div className={`flex flex-col gap-3`}>
                           <TextInput
                             name={"nationalId"}
-                            label={"National Id"}
-                            placeholder={"National Id"}
+                            label={t("National Id")}
+                            placeholder={t("National Id")}
                             type={"text"}
                             required
                           />
                           <div className={"flex gap-4"}>
                             <TextInput
                               name={"firstName"}
-                              label={"First Name"}
-                              placeholder={"First Name"}
+                              label={t("First Name")}
+                              placeholder={t("First Name")}
                               type={"text"}
                               required
                             />
                             <TextInput
                               name={"lastName"}
-                              label={"Last Name"}
-                              placeholder={"Last Name"}
+                              label={t("Last Name")}
+                              placeholder={t("Last Name")}
                               type={"text"}
                               required
                             />
                           </div>
                           <TextInput
                             name={"email"}
-                            label={"Email"}
-                            placeholder={"Email"}
+                            label={t("Email")}
+                            placeholder={t("Email")}
                             type={"email"}
                             required
                           />
                           <TextInput
                             name={"password"}
-                            label={"Password"}
-                            placeholder={"Password"}
+                            label={t("Password")}
+                            placeholder={t("Password")}
                             type={"password"}
                             required
                           />
                           <TextInput
                             name={"jobTitle"}
-                            label={"Job Title"}
-                            placeholder={"Job Title"}
+                            label={t("Job Title")}
+                            placeholder={t("Job Title")}
                             type={"text"}
                             required
                           />
@@ -368,16 +368,5 @@ const IndexPage: serverSidePropsType = ({
 export default IndexPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-    };
-  }
-
-  return await getServerAuthZSession(session, "users");
+  return await getServerAuthZSession(context, "users");
 }

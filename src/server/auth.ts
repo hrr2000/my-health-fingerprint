@@ -10,6 +10,9 @@ import { OrganizationModel, UserModel } from "./models";
 import { dbConnect } from "@/server/db";
 import { routes } from "@/routes";
 import { PageEntititesType } from "@/types/application";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nConfig from "@/../next-i18next.config.mjs";
+import {getCookie} from 'cookies-next'
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
@@ -146,14 +149,50 @@ export const getServerAuthSession = (ctx: {
   req: GetServerSidePropsContext["req"];
   res: GetServerSidePropsContext["res"];
 }) => {
+  if(!ctx.req) return;
   return getServerSession(ctx.req, ctx.res, authOptions);
 };
 
 export const getServerAuthZSession = async (
-  session: Session,
+  context: GetServerSidePropsContext,
   entityToAccess: PageEntititesType,
   options = { redirectTo: "/dashboard/home" }
 ) => {
+
+
+  const locale = context.locale || 'en'
+  const session = await getServerAuthSession(context);
+
+  const emptyProps = {
+    ...(await serverSideTranslations(locale, ["common"], nextI18nConfig, [
+      "en",
+      "ar",
+    ])),
+    user: {
+      id: '',
+      nationalId: '',
+      orgId: '',
+      orgName: '',
+      jobTitle: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      picture: '',
+    },
+    links: [],
+    pageSpecificPermissions: []
+  };
+
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/auth/signin",
+      },
+      props: emptyProps
+    };
+  }
+
   await dbConnect();
 
   const doc = await UserModel.findOne(
@@ -272,6 +311,7 @@ export const getServerAuthZSession = async (
         permanent: false,
         destination: options.redirectTo,
       },
+      props: emptyProps
     };
   }
 
@@ -287,6 +327,11 @@ export const getServerAuthZSession = async (
   // send the updated links + page specific permissions
   return {
     props: {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      ...(await serverSideTranslations(locale, ["common"], nextI18nConfig, [
+        "en",
+        "ar",
+      ])),
       user: session.user,
       links: filteredPages,
       pageSpecificPermissions: pageSpecificPermissions

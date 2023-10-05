@@ -50,8 +50,6 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
     }
   );
 
-  console.log(recommendationsData);
-
   return (
     <DashBoardLayout links={links} user={user} title="" description="">
       <main className="relative grid h-full grid-cols-[1fr_320px]">
@@ -191,72 +189,74 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
               </ul>
             )}
           </div>
-          <div className={`my-5 flex flex-col gap-3`}>
-            <h2
-              className={
-                "relative mb-4 flex items-center gap-2 text-sm font-bold text-primary"
-              }
-            >
-              <span>
-                <AiFillRobot size={18} />
-              </span>
-              <span>AI Recommendations For this patient!</span>
-            </h2>
-            {!profile.error &&
-              recommendations.slice(0, 100).map((item, idx) => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-                const percent: number = recommendationsData?.message?.[item]?.[1];
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-                const percent2: number = recommendationsData?.message?.[item]?.[1];
-                return (
-                  <div
-                    key={`recommendations-${item}`}
-                    style={{
-                      opacity: `${percent / 100}`
-                    }}
-                    className={`relative w-full cursor-pointer rounded-lg border-[1px] hover:scale-[1.02] transition ${
-                      percent > 80
-                        ? "border-green-400 text-green-400"
-                        : percent > 50
-                        ? "border-lime-400 text-lime-400"
-                        : "border-orange-400 text-orange-400"
-                    } bg-slate-100 p-3  shadow-lg hover:animate-none`}
-                  >
-                    <div className={`flex flex-col gap-2 text-sm`}>
-                      <div className="flex justify-between">
-                        <div className={"flex gap-2"}>
-                          <span>
-                            <GiMedicines size={20} />
-                          </span>
-                          <span className={"font-bold"}>{item}</span>
-                        </div>
-                        <span>
-                          <strong className={"text-lg"}>{percent}%</strong>{" "}
-                          Recommended !!
-                        </span>
-                      </div>
-                      <span>
-                        <div className="h-2 w-full rounded-lg bg-slate-300">
-                          <div
-                            className={`h-full rounded-lg
-                            ${
-                              percent > 80
-                                ? "bg-green-400"
-                                : percent > 50
-                                ? "bg-lime-400"
-                                : "bg-orange-400"
-                            }`}
-                            style={{
-                              width: `${percent}%`,
-                            }}
-                          ></div>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
+          {/*<div className={`my-5 flex flex-col gap-3`}>*/}
+          {/*  <h2*/}
+          {/*    className={*/}
+          {/*      "relative mb-4 flex items-center gap-2 text-sm font-bold text-primary"*/}
+          {/*    }*/}
+          {/*  >*/}
+          {/*    <span>*/}
+          {/*      <AiFillRobot size={18} />*/}
+          {/*    </span>*/}
+          {/*    <span>AI Recommendations For this patient!</span>*/}
+          {/*  </h2>*/}
+          {/*  {!profile.error &&*/}
+          {/*    recommendations.slice(0, 100).map((item, idx) => {*/}
+          {/*      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access*/}
+          {/*      const percent: number =*/}
+          {/*        recommendationsData?.message?.[item]?.[1];*/}
+          {/*      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access*/}
+          {/*      const percent2: number =*/}
+          {/*        recommendationsData?.message?.[item]?.[1];*/}
+          {/*      return (*/}
+          {/*        <div*/}
+          {/*          key={`recommendations-${item}`}*/}
+          {/*          style={{*/}
+          {/*            opacity: `${percent / 100}`,*/}
+          {/*          }}*/}
+          {/*          className={`relative w-full cursor-pointer rounded-lg border-[1px] transition hover:scale-[1.02] ${*/}
+          {/*            percent > 50*/}
+          {/*              ? "border-green-400 text-green-400"*/}
+          {/*              : percent > 50*/}
+          {/*              ? "border-lime-400 text-lime-400"*/}
+          {/*              : "border-orange-400 text-orange-400"*/}
+          {/*          } bg-slate-100 p-3  shadow-lg hover:animate-none`}*/}
+          {/*        >*/}
+          {/*          <div className={`flex flex-col gap-2 text-sm`}>*/}
+          {/*            <div className="flex justify-between">*/}
+          {/*              <div className={"flex gap-2"}>*/}
+          {/*                <span>*/}
+          {/*                  <GiMedicines size={20} />*/}
+          {/*                </span>*/}
+          {/*                <span className={"font-bold"}>{item}</span>*/}
+          {/*              </div>*/}
+          {/*              <span>*/}
+          {/*                <strong className={"text-lg"}>{percent}%</strong>{" "}*/}
+          {/*                Recommended !!*/}
+          {/*              </span>*/}
+          {/*            </div>*/}
+          {/*            <span>*/}
+          {/*              <div className="h-2 w-full rounded-lg bg-slate-300">*/}
+          {/*                <div*/}
+          {/*                  className={`h-full rounded-lg*/}
+          {/*                  ${*/}
+          {/*                    percent > 50*/}
+          {/*                      ? "bg-green-400"*/}
+          {/*                      : percent > 50*/}
+          {/*                      ? "bg-lime-400"*/}
+          {/*                      : "bg-orange-400"*/}
+          {/*                  }`}*/}
+          {/*                  style={{*/}
+          {/*                    width: `${percent}%`,*/}
+          {/*                  }}*/}
+          {/*                ></div>*/}
+          {/*              </div>*/}
+          {/*            </span>*/}
+          {/*          </div>*/}
+          {/*        </div>*/}
+          {/*      );*/}
+          {/*    })}*/}
+          {/*</div>*/}
         </aside>
       </main>
     </DashBoardLayout>
@@ -266,16 +266,5 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
 export default DashboardPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-    };
-  }
-
-  return await getServerAuthZSession(session, "patients");
+  return await getServerAuthZSession(context, "patients");
 }

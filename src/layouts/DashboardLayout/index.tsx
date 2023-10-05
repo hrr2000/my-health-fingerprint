@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { type ReactNode } from "react";
-import {type Meta, type GenericProps, ILink} from "@/types/application";
+import {type Meta, type GenericProps, type ILink} from "@/types/application";
 import SideBar from "@/components/dashboard/SiderBar";
 import { type Session } from "next-auth";
 interface LocalProps extends GenericProps {

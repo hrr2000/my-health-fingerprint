@@ -24,16 +24,5 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
 export default DashboardPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerAuthSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-    };
-  }
-
-  return await getServerAuthZSession(session, "collections");
+  return await getServerAuthZSession(context, "collections");
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { type GenericProps, type ILink } from "@/types/application";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 interface LocalProps extends GenericProps {
   links: ILink[];
   activeLinkClassName: string;
@@ -16,6 +17,7 @@ export function NavLinks({
   className,
 }: LocalProps) {
   const router = useRouter();
+  const {t} = useTranslation("common")
 
   return (
     <ul className={`${className}`}>
@@ -32,7 +34,7 @@ export function NavLinks({
             ) : (
               image
             )}
-            {display_text}
+            {t(display_text)}
           </Link>
         </li>
       ))}

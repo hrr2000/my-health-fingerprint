@@ -1,0 +1,16 @@
+{
+  "Dashboard": "لوحة التحكم",
+  "Patients": "المرضى",
+  "Signout": "تسجيل الخروج",
+  "Collections": "المجموعات",
+  "Users": "المستخدمين",
+  "Roles": "الأدوار",
+  "Organizations": "المؤسسات",
+  "The user is found but isn't registered for this organization": "المستخدم موجود ولكنه ليس مسجلًا لهذه المؤسسة",
+  "National Id": "الرقم القومى",
+  "First Name": "الاسم الأول",
+  "Last Name": "الاسم الأخير",
+  "Email": "البريد الإلكتروني",
+  "Password": "كلمة المرور",
+  "Job Title": "المسمى الوظيفي"
+}

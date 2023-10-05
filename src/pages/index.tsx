@@ -5,6 +5,18 @@ import PageLayout from "@/layouts/PageLayout";
 import { motion } from "framer-motion";
 import GenericButton from "@/components/common/GenericButton";
 import {useRouter} from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import nextI18nConfig from "@/../next-i18next.config.mjs";
+
+export const getServerSideProps = async ({ locale }: { locale: string }) => ({
+  props: {
+    ...(await serverSideTranslations('ar', ["common"], nextI18nConfig, [
+      "en",
+      "ar",
+    ])),
+  },
+});
+
 const Home: NextPage = () => {
   const router = useRouter();
 

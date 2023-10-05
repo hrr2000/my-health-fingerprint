@@ -1,4 +1,4 @@
-// @ts-check
+import i18nConfig from "./next-i18next.config.mjs";
 
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
@@ -17,10 +17,7 @@ const config = {
    * @see https://github.com/vercel/next.js/issues/41980
    */
 
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
-  },
+  ...i18nConfig,
   images: {
     domains: ["nflqlknmqitbrxqkxtbl.supabase.co", "i.pravatar.cc"],
   },

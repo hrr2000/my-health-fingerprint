@@ -13,3 +13,13 @@ export const formatFieldNamesToReadable = (fieldName: string) => {
   const separatedFieldName = fieldName.split("_");
   return separatedFieldName.join(" ");
 };
+
+export const getDirection = (isRTL) => {
+  if(isRTL) return 'rtl';
+  return 'ltr'
+}
+
+export const isRTL = (locale: string) => {
+  if(['ar'].includes(locale)) return true;
+  return false
+}

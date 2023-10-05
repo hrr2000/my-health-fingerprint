@@ -1,0 +1,16 @@
+{
+  "Dashboard": "Dashboard",
+  "Patients": "Patients",
+  "Signout": "Signout",
+  "Collections": "Collections",
+  "Users": "Users",
+  "Roles": "Roles",
+  "Organizations": "Organizations",
+  "The user is found but isn't registered for this organization": "The user is found but isn't registered for this organization",
+  "National Id": "National Id",
+  "First Name": "First Name",
+  "Last Name": "Last Name",
+  "Email": "Email",
+  "Password": "Password",
+  "Job Title": "Job Title"
+}

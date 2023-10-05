@@ -31,12 +31,12 @@ export const routes: {
     {
       entity: "patients",
       href: "dashboard/patients",
-      display_text: "patients",
+      display_text: "Patients",
     },
     {
       entity: "collections",
       href: "dashboard/collections",
-      display_text: "collections",
+      display_text: "Collections",
     },
     {
       entity: "organizations",

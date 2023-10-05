@@ -24,7 +24,7 @@ export function TemplateBuilderContextProvider({
   } = useRouter();
   const builderController = BuilderController({ slug: slug as string });
   const fieldModalController = AddFieldModalController();
-
+  
   return (
     <TemplateBuilderContext.Provider
       value={{
