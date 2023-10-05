@@ -5,7 +5,6 @@ import CompanyLogo from "@/components/brand/CompanyLogo";
 import SigninButton from "@/components/brand/SigninButton";
 import { NavBar } from "@/components/common/NavBar";
 import { routes } from "@/routes";
-import GenericButton from "@/components/common/GenericButton";
 
 interface LocalProps extends GenericProps {
   title: string;

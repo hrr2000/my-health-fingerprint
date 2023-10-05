@@ -1,7 +1,6 @@
 import { useTemplateBuilder } from "@/components/templates/TemplateBuilder/TemplateBuilderContext";
 import TextInput from "@/components/form/sub/TextInput";
 import { Form, Formik } from "formik";
-import GenericButton from "@/components/common/GenericButton";
 import { type TemplateComponent, type TemplateDetails } from "../types";
 import { api } from "@/utils/api";
 import { Field } from "formik";
