@@ -34,5 +34,12 @@
   "phone number": "phone number",
   "Relatives": "Relatives",
   "You must have at least two registered phone numbers": "You must have at least two registered phone numbers",
-  "relationship": "relationship"
+  "relationship": "relationship",
+  "Search For Patient": "Search For Patient",
+  "Please Search for a Patient": "Please Search for a Patient",
+  "Patient Profile": "Patient Profile",
+  "Patient Record": "Patient Record",
+  "Patient Appointments": "Patient Appointments",
+  "Reset": "Reset",
+  "Search": "Search"
 }

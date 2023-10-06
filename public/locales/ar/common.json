@@ -34,5 +34,12 @@
   "phone number": "رقم الهاتف",
   "Relatives": "الأقارب",
   "You must have at least two registered phone numbers": "يجب أن تمتلك على الأقل رقمي هاتف مسجلين",
-  "relationship": "صلة القرابة"
+  "relationship": "صلة القرابة",
+  "Search For Patient": "البحث عن مريض",
+  "Please Search for a Patient": "الرجاء البحث عن مريض",
+  "Patient Profile": "ملف المريض",
+  "Patient Record": "سجل المريض",
+  "Patient Appointments": "مواعيد المريض",
+  "Reset": "إعادة تعيين",
+  "Search": "بحث"
 }

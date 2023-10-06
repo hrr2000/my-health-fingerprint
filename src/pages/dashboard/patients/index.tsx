@@ -3,7 +3,7 @@ import {
   type InferGetServerSidePropsType,
   type NextPage,
 } from "next";
-import { getServerAuthSession, getServerAuthZSession } from "@/server/auth";
+import { getServerAuthZSession } from "@/server/auth";
 import DashBoardLayout from "@/layouts/DashboardLayout";
 import { usePatientContext } from "@/contexts/PatientContext";
 import { TabsProvider } from "@/contexts/TabsContext";
@@ -17,8 +17,8 @@ import { CiCircleInfo, CiMedicalClipboard } from "react-icons/ci";
 import GenericButton from "@/components/common/GenericButton";
 import { IoIosAdd } from "react-icons/io";
 import { api } from "@/utils/api";
-import { AiOutlineLoading, AiFillRobot } from "react-icons/ai";
-import { GiMedicines } from "react-icons/gi";
+import { AiOutlineLoading } from "react-icons/ai";
+import { useTranslation } from "next-i18next";
 
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -38,6 +38,8 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
       enabled: !!patientId.length && !profile.error,
     }
   );
+
+  const {t} = useTranslation()
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
   const recommendations = Object.keys(recommendationsData?.message || {})?.sort(
@@ -62,9 +64,9 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
             >
               {profile?.data && (
                 <header className="text-md flex items-center gap-5 border-b-[1px] border-slate-300 px-5 text-black">
-                  <Tab value="profile" textContext="Profile" />
-                  <Tab value="record" textContext="Record" />
-                  <Tab value="appointments" textContext="Appointments" />
+                  <Tab value="profile" textContext={t("Patient Profile")} />
+                  <Tab value="record" textContext={t("Patient Record")} />
+                  <Tab value="appointments" textContext={t("Patient Appointments")} />
                 </header>
               )}
 
@@ -81,7 +83,7 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
                       <span className={`rounded-full bg-sky-100 p-5`}>
                         <CiMedicalClipboard size={50} />
                       </span>
-                      <p className="text-2xl">Please Search for a Patient</p>
+                      <p className="text-2xl">{t("Please Search for a Patient")}</p>
                     </div>
                   </div>
                 )}
@@ -111,7 +113,7 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
         <aside className="relative bg-white py-4 px-5 text-black ">
           <div className="flex flex-col gap-2">
             <label htmlFor="patient" className="font-semibold">
-              Search For Patient
+              {t("Search For Patient")}
             </label>
             <input
               className="rounded-sm border-0 bg-slate-100 text-sm disabled:grayscale"
@@ -123,7 +125,7 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
                 !!profile?.error ||
                 !!profile?.data
               }
-              placeholder="NationalId..."
+              placeholder={`${t("National Id")}...`}
               id="patient"
             />
             {(profile?.fetchStatus === "idle" ||
@@ -143,7 +145,7 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
                 className={`rounded-md ${
                   mode === "submit" ? "bg-red-600" : "bg-primary"
                 }  p-2 text-white transition-all  disabled:bg-slate-700 hover:bg-primary-hover`}
-                text={mode === "submit" ? "Reset" : "Search"}
+                text={mode === "submit" ? t("Reset") : t("Search")}
                 full
               />
             )}
