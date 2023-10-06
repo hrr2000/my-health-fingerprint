@@ -123,6 +123,16 @@ const ToolbarForm = ({
             placeholder="Collection Name ..."
           />
           <TextInput
+            name="collection.displayNameAr"
+            label="Display Name Arabic"
+            placeholder="Display Name Arabic ..."
+          />
+          <TextInput
+            name="collection.displayNameEn"
+            label="Collection Name English"
+            placeholder="Display Name English ..."
+          />
+          <TextInput
             name="collection.description"
             label="Description"
             placeholder="Description ..."

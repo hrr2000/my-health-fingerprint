@@ -26,6 +26,8 @@ export const collectionRouter = createTRPCRouter({
         // Create the custom collection and save it in the database.
         const customCollection = new CustomCollectionModel({
           name: collection.name,
+          display_name_ar: collection.displayNameAr,
+          display_name_en: collection.displayNameEn,
           is_patient_profile: collection.isPatientProfile,
           is_patient_specific: collection.isPatientSpecific,
           is_public: collection.isPublic,
@@ -56,6 +58,7 @@ export const collectionRouter = createTRPCRouter({
           mongoose.model(collection_name, new Schema({}, { strict: false }));
         }
       } catch (e) {
+        console.log(e)
         await session.abortTransaction();
         throw new TRPCError({
           message: `Failed to create a collection!`,
@@ -76,6 +79,8 @@ export const collectionRouter = createTRPCRouter({
           { _id: slug },
           {
             $set: {
+              display_name_ar: collection.displayNameAr,
+              display_name_en: collection.displayNameEn,
               is_patient_profile: collection.isPatientProfile,
               is_patient_specific: collection.isPatientSpecific,
               is_public: collection.isPublic,
@@ -167,7 +172,7 @@ export const collectionRouter = createTRPCRouter({
       const p = page || 1;
       const pp = perPage || 10;
       const [collections, collectionsCount] = await Promise.all([
-        CustomCollectionModel.find({}, { name: 1 })
+        CustomCollectionModel.find({name: {$ne: "appointments"}}, { display_name_ar: 1, display_name_en: 1 })
           .skip((p - 1) * pp)
           .limit(pp),
         CustomCollectionModel.count(),

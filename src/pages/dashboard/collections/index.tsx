@@ -11,7 +11,7 @@ import { api } from "@/utils/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useState } from "react";
 import { CiMedicalCase } from "react-icons/ci";
-import { routes } from "@/routes";
+import { useTranslation } from "next-i18next";
 type serverSidePropsType = NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
@@ -28,23 +28,26 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
     }
   );
   const router = useRouter();
+  const {t, i18n} = useTranslation()
 
   return (
     <DashBoardLayout links={links} user={user} title="" description="">
       <main className="relative text-primary">
         <section className="flex gap-2 bg-slate-50 px-5 py-3 text-black">
-          <button className="p-1">
+          {/* <button className="p-1">
             <span> All Templates </span>
-          </button>
+          </button> */}
+
           {/*<button className="p-1" onClick={() => setPage(page + 1)}>*/}
           {/*  <span> Page+</span>*/}
           {/*</button>*/}
           {/*<button className="p-1" onClick={() => setPage(page - 1)}>*/}
           {/*  <span> Page-</span>*/}
           {/*</button>*/}
-          <button className="p-1">
+          
+          {/* <button className="p-1">
             <span> Templates Store </span>
-          </button>
+          </button> */}
         </section>
         <div
           className={`relative grid w-full grid-cols-collections content-start gap-5 py-5 px-10`}
@@ -57,7 +60,7 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
               <span>
                 <IoIosAdd size={23} />
               </span>
-              <span className={`text-sm font-bold`}>Create a Collection</span>
+              <span className={`text-sm font-bold`}>{t("Create a Collection")}</span>
             </div>
           </button>
 
@@ -75,7 +78,7 @@ const DashboardPage: serverSidePropsType = ({ user, links }) => {
                   <span>
                     <CiMedicalCase size={23} />
                   </span>
-                  <span className={`text-sm font-bold`}>{collection.name}</span>
+                  <span className={`text-sm font-bold`}>{collection[`display_name_${i18n.language}`]}</span>
                 </div>
               </button>
             ))}

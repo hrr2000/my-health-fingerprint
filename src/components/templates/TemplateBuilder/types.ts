@@ -6,6 +6,8 @@ export interface TemplateDetails {
 
 export interface CollectionDetails {
   name: string;
+  displayNameEn: string;
+  displayNameAr: string;
   description: string;
   isPublic: boolean;
   isPatientProfile: boolean;
@@ -29,6 +31,8 @@ export const templateDetailsInitialValues = {
 export const collectionDetailsInitialValues = {
   name: "",
   description: "",
+  displayNameEn: "",
+  displayNameAr: "",
   isPublic: false,
   isPatientProfile: false,
   isPatientSpecific: false,

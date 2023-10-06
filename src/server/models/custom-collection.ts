@@ -10,6 +10,8 @@ const schema = new Schema<CustomCollectionDocument>(
       unique: true,
       index: true
     },
+    display_name_ar: String,
+    display_name_en: String,
     is_public: Boolean,
     is_patient_profile: Boolean,
     is_patient_specific: Boolean,

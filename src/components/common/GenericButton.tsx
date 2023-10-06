@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import { type ButtonHTMLAttributes } from "react";
 
 const PrimaryButton = ({
@@ -61,8 +62,10 @@ export default function GenericButton({
   full?: boolean;
   theme: ButtonTheme;
 } & ButtonHTMLAttributes<HTMLButtonElement>) {
+  const {t} = useTranslation() 
+
   return buttons[theme]({
-    text,
+    text: t(text),
     full: !!full,
     ...props,
   });

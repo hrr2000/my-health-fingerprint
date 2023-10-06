@@ -7,6 +7,8 @@ import { Field } from "formik";
 import { CiCircleCheck, CiEdit, CiWarning } from "react-icons/ci";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TypeOf } from "zod";
+import { useTranslation } from "next-i18next";
+import { getDirection, isRTL } from "@/utils/helpers";
 
 function parseOptions(options: string) {
   return options.split(";").map((option: string) => {
@@ -20,6 +22,7 @@ function GenericField(props: {
   label?: string;
   name?: string;
   type?: string;
+  required?: boolean
   collection?: string;
   options?: string;
   is_collection?: string;
@@ -43,6 +46,7 @@ function GenericField(props: {
           {props.label}
         </label>
         <Field
+          required={props.required}
           as={"textarea"}
           placeholder={props.label}
           rows="4"
@@ -78,6 +82,7 @@ function GenericField(props: {
         <Field
           as={"select"}
           name={props.name}
+          required={props.required}
           className={`rounded-md border-gray-300 bg-slate-100 text-sm capitalize text-black`}
         >
           <option value={props.name}>Select {props?.label}</option>
@@ -98,6 +103,7 @@ function GenericField(props: {
 
   return (
     <TextInput
+      required={props.required}
       className={`w-full rounded-md border-[1px] border-slate-300 bg-slate-100 text-black`}
       placeholder={props.label}
       label={props.label}
@@ -184,6 +190,7 @@ export default function WriteView({
   callback = () => null,
 }: IProps) {
   const isInCollectionsPage = !patientId;
+  const {t, i18n} = useTranslation()
 
   const { data, isLoading, isSuccess, error, schema, save, isSubmittable } =
     isInCollectionsPage
@@ -210,6 +217,7 @@ export default function WriteView({
       {() => (
         <Form>
           <div
+            dir={getDirection(isRTL(i18n.language))}
             className={`min-h-[50px] ${
               isInCollectionsPage ? "grid w-full" : "grid w-[800px]"
             } grid-cols-12 justify-center gap-3`}
@@ -240,7 +248,7 @@ export default function WriteView({
                 type="submit"
                 className={`text-md my-2 flex w-max justify-center rounded-md border-[1px] border-primary bg-primary p-2 px-4 font-semibold text-white shadow-lg shadow-sky-200 transition hover:border-primary-hover hover:bg-primary-hover`}
               >
-                <span>Save Details</span>
+                <span>{t("Save Details")}</span>
               </button>
             )}
           </div>
@@ -252,7 +260,7 @@ export default function WriteView({
                 <span>
                   <CiWarning />
                 </span>
-                <span>Unsaved Changes!</span>
+                <span>{t("Unsaved Changes!")}</span>
               </div>
             )}
             {isLoading && (
@@ -265,7 +273,7 @@ export default function WriteView({
                     className="animate-spin"
                   />
                 </span>
-                <span>Saving ...</span>
+                <span>{t("Saving")} ...</span>
               </div>
             )}
             {isSuccess && (
@@ -275,7 +283,7 @@ export default function WriteView({
                 <span>
                   <CiCircleCheck />
                 </span>
-                <span>Up to date</span>
+                <span>{t("Up to date")}</span>
               </div>
             )}
           </div>

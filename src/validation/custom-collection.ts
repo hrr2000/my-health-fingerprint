@@ -6,6 +6,8 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 export const createCollectionSchema = z.object({
   collection: z.object({
     name: z.string().trim().min(3).max(45),
+    displayNameEn: z.string().trim().min(3).max(45),
+    displayNameAr: z.string().trim().min(3).max(45),
     isPublic: z.boolean().default(false),
     isPatientProfile: z.boolean().default(false),
     isPatientSpecific: z.boolean().default(false),
@@ -21,6 +23,8 @@ export const createCollectionSchema = z.object({
 export const createCollectionSchemaClient = z.object({
   collection: z.object({
     name: z.string().trim().min(3).max(45),
+    displayNameEn: z.string().trim().min(3).max(45),
+    displayNameAr: z.string().trim().min(3).max(45),
     isPublic: z.boolean().default(false),
     isPatientProfile: z.boolean().default(false),
     isPatientSpecific: z.boolean().default(false),
@@ -36,6 +40,8 @@ export const createCollectionSchemaClient = z.object({
 export const updateCollectionSchema = z.object({
   collection: z.object({
     name: z.string().trim().min(3).max(45),
+    displayNameEn: z.string().trim().min(3).max(45),
+    displayNameAr: z.string().trim().min(3).max(45),
     isPublic: z.boolean().default(false),
     isPatientProfile: z.boolean().default(false),
     isPatientSpecific: z.boolean().default(false),

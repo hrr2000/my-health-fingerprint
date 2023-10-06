@@ -87,6 +87,8 @@ export interface AllowedPermissionDocument extends Document {
 export interface CustomCollectionDocument {
   _id: ObjectId;
   name: string;
+  display_name_ar: string;
+  display_name_en: string;
   is_public: boolean;
   is_patient_profile: boolean;
   is_patient_specific: boolean;

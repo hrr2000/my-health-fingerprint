@@ -12,5 +12,11 @@
   "Last Name": "Last Name",
   "Email": "Email",
   "Password": "Password",
-  "Job Title": "Job Title"
+  "Job Title": "Job Title",
+  "Next": "Next",
+  "Save Details": "Save Details",
+  "Unsaved Changes!": "Unsaved Changes!",
+  "Saving": "Saving",
+  "Up to date": "Up to date",
+  "Create a Collection": "Create a Collection"
 }

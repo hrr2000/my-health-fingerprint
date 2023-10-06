@@ -55,6 +55,8 @@ export default function BuilderController({ slug }: { slug: string | null }) {
     setTemplateDetails(parseTemplate(template));
     setCollectionDetails({
       ...collection,
+      displayNameAr: collection.display_name_ar,
+      displayNameEn: collection.display_name_en,
       isPatientSpecific: collection.is_patient_specific,
       isPatientProfile: collection.is_patient_profile,
       isPublic: collection.is_public,
