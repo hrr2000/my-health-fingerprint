@@ -9,6 +9,7 @@ import { DatePickerField } from "../form/sub/DatePickerInput";
 import { CiCirclePlus, CiCircleInfo } from "react-icons/ci";
 import { nanoid } from "nanoid";
 import { api } from "@/utils/api";
+import { useTranslation } from "next-i18next";
 
 export const PatientProfileView = () => {
   const { patientId } = usePatientContext();
@@ -30,6 +31,8 @@ export const PatientProfileView = () => {
         ? profile?.dateOfBirth.toISOString().split("T")[0]
         : profile?.dateOfBirth,
   });
+
+  const {t} = useTranslation()
 
   return (
     <main className={"relative flex-1"}>
@@ -59,21 +62,21 @@ export const PatientProfileView = () => {
                     className="w-max  rounded-md bg-primary px-5 py-2 text-lg text-white shadow-md transition disabled:grayscale hover:bg-primary-hover"
                     type="submit"
                   >
-                    <span>Save Profile</span>
+                    <span>{t("Save Profile")}</span>
                   </button>
                 </div>
                 <section className=" rounded-md border-2 border-slate-100 bg-white p-5 shadow-sm ">
-                  <h2 className="mb-2 text-2xl font-bold">Patient Name</h2>
+                  <h2 className="mb-2 text-2xl font-bold">{t("Patient Name")}</h2>
                   <div className="flex gap-2 text-lg">
                     <TextInput
                       name="fullName.firstName"
-                      label="first name"
+                      label={t("first name")}
                       required
                     />
-                    <TextInput name="fullName.middleName" label="middle name" />
+                    <TextInput name="fullName.middleName" label={t("middle name")} />
                     <TextInput
                       name="fullName.lastName"
-                      label="last name"
+                      label={t("last name")}
                       required
                     />
                   </div>
@@ -81,7 +84,7 @@ export const PatientProfileView = () => {
                 <section className="flex flex-col gap-2 rounded-md border-2 border-slate-100 bg-white p-5">
                   <div className="flex items-center justify-between ">
                     <div className="flex gap-2">
-                      <h2 className="mb-2 text-2xl font-bold">Addresses</h2>
+                      <h2 className="mb-2 text-2xl font-bold">{t("Addresses")}</h2>
                       <button
                         type="button"
                         className="mb-1 rounded-full capitalize text-primary transition hover:scale-110"
@@ -107,7 +110,7 @@ export const PatientProfileView = () => {
                     </div>
                     <div className="flex items-center gap-1 rounded-md p-1 text-sm text-highlight shadow-sm">
                       <CiCircleInfo size={15} />
-                      <span>You must have at least one address</span>
+                      <span>{t("You must have at least one address")}</span>
                     </div>
                   </div>
 
@@ -119,18 +122,18 @@ export const PatientProfileView = () => {
                       <div className="flex items-end gap-2">
                         <TextInput
                           name={`address[${index}].city`}
-                          label="city"
+                          label={t("city")}
                           required
                         />
                         <TextInput
                           name={`address[${index}].district`}
-                          label="district"
+                          label={t("district")}
                           required
                         />
                       </div>
                       <TextInput
                         name={`address[${index}].streetName`}
-                        label="street name"
+                        label={t("street name")}
                         required
                       />
                     </div>
@@ -139,16 +142,16 @@ export const PatientProfileView = () => {
                 <section className=" flex gap-2 rounded-md border-2 border-slate-100 bg-white p-5">
                   <DatePickerField
                     name="dateOfBirth"
-                    label="date of birth"
+                    label={t("date of birth")}
                     required
                   />
-                  <TextInput name="gender" label="gender" required />
-                  <TextInput name="phoneNumber" label="phone number" required />
+                  <TextInput name="gender" label={t("gender")} required />
+                  <TextInput name="phoneNumber" label={t("phone number")} required />
                 </section>
                 <section className="flex flex-col gap-2 rounded-md border-2 border-slate-100 bg-white p-5">
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2">
-                      <h2 className="mb-2 text-2xl font-bold">Relatives</h2>
+                      <h2 className="mb-2 text-2xl font-bold">{t("Relatives")}</h2>
                       <button
                         type="button"
                         onClick={() =>
@@ -175,7 +178,7 @@ export const PatientProfileView = () => {
                       <div className="flex items-center gap-1 rounded-md p-1 text-sm text-highlight shadow-sm">
                         <CiCircleInfo size={15} />
                         <span>
-                          You must have at least two registered phone numbers
+                          {t("You must have at least two registered phone numbers")}
                         </span>
                       </div>
                     </div>
@@ -188,12 +191,12 @@ export const PatientProfileView = () => {
                       <div className="flex gap-2">
                         <TextInput
                           name={`relativePhoneNumbers[${index}].phoneNumber`}
-                          label="phone number"
+                          label={t("phone number")}
                           required
                         />
                         <TextInput
                           name={`relativePhoneNumbers[${index}].relative`}
-                          label="relative"
+                          label={t("relationship")}
                           required
                         />
                       </div>

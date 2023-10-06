@@ -18,5 +18,21 @@
   "Unsaved Changes!": "Unsaved Changes!",
   "Saving": "Saving",
   "Up to date": "Up to date",
-  "Create a Collection": "Create a Collection"
+  "Create a Collection": "Create a Collection",
+  "Save Profile": "Save Profile",
+  "Patient Name": "Patient Name",
+  "first name": "first name",
+  "last name": "last name",
+  "middle name": "middle name",
+  "Addresses": "Addresses",
+  "You must have at least one address": "You must have at least one address",
+  "city": "city",
+  "district": "district",
+  "street name": "street name",
+  "date of birth": "date of birth",
+  "gender": "gender",
+  "phone number": "phone number",
+  "Relatives": "Relatives",
+  "You must have at least two registered phone numbers": "You must have at least two registered phone numbers",
+  "relationship": "relationship"
 }
